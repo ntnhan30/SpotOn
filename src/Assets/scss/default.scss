@@ -1,5 +1,7 @@
 @import '_config.scss';
 
+@import 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css';
+
 header {
     position: relative;
     display: block;
@@ -41,4 +43,12 @@ header {
 
     }
 
+}
+
+li {
+
+    i{
+        color: $grey;
+        font-weight: 100;
+    }
 }

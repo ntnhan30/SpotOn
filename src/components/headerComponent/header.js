@@ -10,19 +10,22 @@ class Header extends Component {
         <header>
 
             <div className="logo">
-                LOGO
+                New T-Rex Tool
             </div>
 
             <nav>
                 <ul>
                     <li>
-                        <Link to='/'>Home</Link>
+                        <Link to='/'>Reports</Link>
                     </li>
                     <li>
-                        <Link to='/products'>Products</Link>
+                        <Link to='/import'>Import</Link>
                     </li>
                     <li>
-                        <Link to='/contact'>Contact</Link>
+                        <Link to='/notifications'>Notifications</Link>
+                    </li>
+                    <li>
+                        <Link to='/users'>Users</Link>
                     </li>
                 </ul>
             </nav>
