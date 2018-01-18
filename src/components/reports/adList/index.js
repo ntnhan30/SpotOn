@@ -12,16 +12,38 @@ class AdList extends Component {
     }
 
     handleClick(event) {
+        //console.log(Number(event.target.id));
         this.setState({
             currentPage: Number(event.target.id)
         });
     }
+
 
     render() {
         // Logic for displaying ads
         const indexOfLastAd = this.state.currentPage * this.state.adsPerPage;
         const indexOfFirstAd = indexOfLastAd - this.state.adsPerPage;
         const currentAds = this.props.ads.slice(indexOfFirstAd, indexOfLastAd);
+
+        const tableHeader =
+            <tr>
+                <th scope="col">
+                    Title
+                </th>
+                <th scope="col">
+                    Brand
+                </th>
+                <th scope="col">
+                    Type
+                </th>
+                <th scope="col">
+                    Format
+                </th>
+                <th scope="col">
+                    Industry
+                </th>
+            </tr>
+        ;
 
         const renderedAds = currentAds.map((ad, i) => {
             return (
@@ -31,6 +53,15 @@ class AdList extends Component {
                     </td>
                     <td>
                         {ad.brand}
+                    </td>
+                    <td>
+                        {ad.type}
+                    </td>
+                    <td>
+                        {ad.format}
+                    </td>
+                    <td>
+                        {ad.industry}
                     </td>
                 </tr>
             );
@@ -46,11 +77,15 @@ class AdList extends Component {
             return (
                 <li
                 key={number}
-                id={number}
-                onClick={this.handleClick}
                 className="page-item"
                 >
-                    {number}
+                    <span
+                    className="page-link"
+                    id={number}
+                    onClick={this.handleClick}
+                    >
+                        {number}
+                    </span>
                 </li>
             );
         });
@@ -61,7 +96,10 @@ class AdList extends Component {
                 <h3>
                     Here is the list of Ads
                 </h3>
-                <table className="table">
+                <table className="table table-striped table-hover">
+                    <thead className="thead-dark">
+                        {tableHeader}
+                    </thead>
                     <tbody>
                         {renderedAds}
                     </tbody>

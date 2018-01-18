@@ -1,115 +1,67 @@
 import React, { Component } from 'react';
+import CreateDropdownList from './dropdown';
+import CreateMultiselect from './multiselect';
+
+import 'react-widgets/dist/css/react-widgets.css';
 
 class Filter extends Component {
 
+    constructor(...args) {
+        super(...args)
+
+        this.state = {
+        //adState: this.props.ads,
+            itemDropdown: this.props.dataDropdown
+        }
+    }
+
+
+    filterAds = ( valueToFilter, key ) => {
+        // Calls function in parent Component (selectReports.js)
+        this.props.filterAdlist( valueToFilter, key );
+    }
+
     render() {
-
         // Get the different attributes of every Ad
-        const adStates = [...new Set(this.props.ads.map(item => item.adState))].map((adState, i) => {
-            return (
-                <li key={i}>
-                    {adState}
-                </li>
-            );
-        });
-
-        const brands = [...new Set(this.props.ads.map(item => item.brand))].map((brand, i) => {
-            return (
-                <li key={i}>
-                    {brand}
-                </li>
-            );
-        });
-
-        const formats = [...new Set(this.props.ads.map(item => item.format))].map((format, i) => {
-            return (
-                <li key={i}>
-                    {format}
-                </li>
-            );
-        });
-
-        const industries = [...new Set(this.props.ads.map(item => item.industry))].map((industry, i) => {
-            return (
-                <li key={i}>
-                    {industry}
-                </li>
-            );
-        });
-
-        const productionStates = [...new Set(this.props.ads.map(item => item.productionState))].map((productionState, i) => {
-            return (
-                <li key={i}>
-                    {productionState}
-                </li>
-            );
-        });
-
-        const series = [...new Set(this.props.ads.map(item => item.series))].map((series, i) => {
-            return (
-                <li key={i}>
-                    {series}
-                </li>
-            );
-        });
-
-        const types = [...new Set(this.props.ads.map(item => item.type))].map((type, i) => {
-            return (
-                <li key={i}>
-                    {type}
-                </li>
-            );
-        });
+        const brands = [...new Set(this.props.ads.map( item => item.brand ))];
+        const types = [...new Set(this.props.ads.map( item => item.type ))];
+        const series = [...new Set(this.props.ads.map( item => item.series ))];
+        const industries = [...new Set(this.props.ads.map( item => item.industry ))];
+        const productionStates = [...new Set(this.props.ads.map( item => item.productionState ))];
+        const formats = [...new Set(this.props.ads.map( item => item.format ))];
+        const adStates = [...new Set(this.props.ads.map( item => item.adState ))];
 
 
-        // Display the attributes
+        // Display the sidebar
         return (
             <div>
                 <h3>
-                    This is the filter
+                    Sidebar Filter
                 </h3>
-                <ul>
-                    <li><b>Data Range</b>
-                        <ul>
 
-                        </ul>
-                    </li>
-                    <li><b>Brand</b>
-                        <ul>
-                            {brands}
-                        </ul>
-                    </li>
-                    <li><b>Type Campagin - or name??</b>
-                        <ul>
-                            {types}
-                        </ul>
-                    </li>
-                    <li><b>Series</b>
-                        <ul>
-                            {series}
-                        </ul>
-                    </li>
-                    <li><b>Format (length)</b>
-                        <ul>
-                            {formats}
-                        </ul>
-                    </li>
-                    <li><b>Industry</b>
-                        <ul>
-                            {industries}
-                        </ul>
-                    </li>
-                    <li><b>Production State</b>
-                        <ul>
-                            {productionStates}
-                        </ul>
-                    </li>
-                    <li><b>Ad State</b>
-                        <ul>
-                            {adStates}
-                        </ul>
-                    </li>
-                </ul>
+                <h4>Data Range</h4>
+                <br/>
+
+                <h4>Brand</h4>
+                    <CreateMultiselect dataDropdown={brands} filter={this.filterAds} keyName={'brand'} />
+
+                <h4>Type Campagin - or name??</h4>
+                    <CreateMultiselect dataDropdown={types} filter={this.filterAds} keyName={'type'} />
+
+                <h4>Series</h4>
+                    <CreateMultiselect dataDropdown={series} filter={this.filterAds} keyName={'series'} />
+
+                <h4>Format (length)</h4>
+                    <CreateMultiselect dataDropdown={formats} filter={this.filterAds} keyName={'format'} />
+
+                <h4>Industry</h4>
+                    <CreateMultiselect dataDropdown={industries} filter={this.filterAds} keyName={'industry'} />
+
+                <h4>Production State</h4>
+                    <CreateMultiselect dataDropdown={productionStates} filter={this.filterAds} keyName={'productionState'} />
+
+                <h4>Ad State</h4>
+                    <CreateMultiselect dataDropdown={adStates} filter={this.filterAds} keyName={'adState'} />
             </div>
         );
     }
