@@ -12,7 +12,6 @@ class AdList extends Component {
     }
 
     handleClick(event) {
-        //console.log(Number(event.target.id));
         this.setState({
             currentPage: Number(event.target.id)
         });
@@ -34,13 +33,13 @@ class AdList extends Component {
                     Brand
                 </th>
                 <th scope="col">
-                    Type
-                </th>
-                <th scope="col">
-                    Format
-                </th>
-                <th scope="col">
                     Industry
+                </th>
+                <th scope="col">
+                    Length
+                </th>
+                <th scope="col">
+                    Channel
                 </th>
             </tr>
         ;
@@ -49,19 +48,19 @@ class AdList extends Component {
             return (
                 <tr key={i}>
                     <td>
-                        {ad.title}
+                        {ad.shortname}
                     </td>
                     <td>
                         {ad.brand}
                     </td>
                     <td>
-                        {ad.type}
-                    </td>
-                    <td>
-                        {ad.format}
-                    </td>
-                    <td>
                         {ad.industry}
+                    </td>
+                    <td>
+                        {ad.lengthAd}
+                    </td>
+                    <td>
+                        {ad.channel}
                     </td>
                 </tr>
             );

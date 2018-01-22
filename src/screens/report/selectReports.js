@@ -40,6 +40,9 @@ class SelectReports extends Component {
         // add the new value
         tempFilt[key] = valueToFilter;
 
+        console.log(tempFilt);
+
+
         const arrayUnique = (array) => {
             var a = array.concat();
             for(var i=0; i<a.length; ++i) {
@@ -51,24 +54,68 @@ class SelectReports extends Component {
             return a;
         }
 
+        const isInsideDateRange = (date, range) => {
+
+            date = date.split("/");
+
+
+            console.log('the year ->' + date[0] + ' -- between ' + range['from']['year'].toString().slice(-2) + ' and ' + range['to']['year'].toString().slice(-2));
+            console.log('the month ->' + date[1] + ' -- between ' + range['from']['month'] + ' and ' + range['to']['month']);
+
+            let isInside;
+
+            if ( date[0] > range['from']['year'].toString().slice(-2) ){
+                // is more than minimum year
+                if ( date[0] < range['to']['year'].toString().slice(-2) ){
+                    // is less than maximum year
+                    isInside = true;
+                } else if ( date[0] === range['to']['year'].toString().slice(-2) ){
+                    // is the same as maxium year
+                    if ( date[1] <= range['to']['month'] ){
+                        // maximum month is equal or more
+                        isInside = true;
+                    } else {
+                        isInside = false;
+                    }
+                } else {
+                    isInside = false;
+                }
+            } else if ( date[0] === range['from']['year'].toString().slice(-2) ){
+                // is the same as minimum year
+                if ( date[1] >= range['from']['month'] ){
+                    // minimum month is equal or more
+                    isInside = true;
+                } else {
+                    isInside = false;
+                }
+            }  else {
+                isInside = false;
+            }
+
+            console.log('isInside ' + isInside);
+            return isInside;
+        }
+
         const intersect = (a, b) => {
             var setA = new Set(a);
             var setB = new Set(b);
 
+            var intersection;
+
             if (b.length >= a.length){
                 if (a.length > 0){
                     console.log('el A si tiene elementos ' + a);
-                    var intersection = new Set([...setA].filter(x => setB.has(x)));
+                    intersection = new Set([...setA].filter(x => setB.has(x)));
                 } else {
                     console.log('el A NO tiene elementos ' + a);
-                    var intersection = setB;
+                    intersection = setB;
                 }
             } else {
                 if (b.length > 0){
                     console.log('el B si tiene elementos ' + b);
-                    var intersection = setB;
+                    intersection = setB;
                 } else {
-                    var intersection = this.state.originalAds;
+                    intersection = this.state.originalAds;
                 }
             }
             return Array.from(intersection);
@@ -78,22 +125,28 @@ class SelectReports extends Component {
             switch (filterKey) {
                 case 'brand':
                     return ad.brand === single;
-                case 'type':
-                    return ad.type === single;
-                case 'series':
-                    return ad.series === single;
-                case 'format':
-                    return ad.format === single;
                 case 'industry':
                     return ad.industry === single;
+                case 'country':
+                    return ad.country === single;
+                case 'format':
+                    return ad.format === single;
+                case 'lengthAd':
+                    return ad.lengthAd === single;
+                case 'channel':
+                    return ad.channel === single;
                 case 'productionState':
                     return ad.productionState === single;
-                case 'adState':
-                    return ad.adState === single;
+                case 'state':
+                    return ad.state === single;
+                case 'campaigndate':
+                    //console.log(single);
+                    return isInsideDateRange(ad.campaigndate, single);
                 default:
                     break;
             }
         }
+
 
         //const self = this;
         let filteredAds = [];
