@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Pagination from './pagination';
 
 class AdList extends Component {
 
@@ -6,14 +7,14 @@ class AdList extends Component {
         super();
         this.state = {
             currentPage: 1,
-            adsPerPage: 2
+            adsPerPage: 20
         };
-        this.handleClick = this.handleClick.bind(this);
+        this.changePage = this.changePage.bind(this);
     }
 
-    handleClick(event) {
+    changePage(pageNumber) {
         this.setState({
-            currentPage: Number(event.target.id)
+            currentPage: pageNumber
         });
     }
 
@@ -41,6 +42,9 @@ class AdList extends Component {
                 <th scope="col">
                     Channel
                 </th>
+                <th scope="col">
+                    State
+                </th>
             </tr>
         ;
 
@@ -57,35 +61,15 @@ class AdList extends Component {
                         {ad.industry}
                     </td>
                     <td>
-                        {ad.lengthAd}
+                        {ad.lengthAd}"
                     </td>
                     <td>
                         {ad.channel}
                     </td>
+                    <td>
+                        {ad.state}
+                    </td>
                 </tr>
-            );
-        });
-
-        // Logic for displaying page numbers
-        const pageNumbers = [];
-        for (let i = 1; i <= Math.ceil(this.props.ads.length / this.state.adsPerPage); i++) {
-            pageNumbers.push(i);
-        }
-
-        const renderPageNumbers = pageNumbers.map(number => {
-            return (
-                <li
-                key={number}
-                className="page-item"
-                >
-                    <span
-                    className="page-link"
-                    id={number}
-                    onClick={this.handleClick}
-                    >
-                        {number}
-                    </span>
-                </li>
             );
         });
 
@@ -103,11 +87,7 @@ class AdList extends Component {
                         {renderedAds}
                     </tbody>
                 </table>
-                <nav className="navigation" aria-label="Page navigation example">
-                    <ul id="page-numbers" className="pagination">
-                        {renderPageNumbers}
-                    </ul>
-                </nav>
+                <Pagination ads={this.props.ads} onClick={this.changePage} />
             </div>
         );
     }

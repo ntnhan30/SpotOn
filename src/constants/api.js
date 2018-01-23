@@ -3,13 +3,11 @@ import axios from 'axios';
 //axios.defaults.baseURL = 'http://10.120.80.251:4000/api';
 axios.defaults.baseURL = 'http://localhost:4000/api';
 
-//const fakeGroupID = '59c52613b824f142c0e7ee96';
-
 class Api {
     constructor() {
-        //this.path = `/groups/${this.groupId}/meetups`;
         this.getAllAds = '/ads';
         this.getResultsOfAd = `/ads/${this.adId}/results`;
+        this.createAd = '/ads/new';
     }
 
     async fetchAds() {
@@ -21,23 +19,29 @@ class Api {
         const { data } = await axios.get(this.getAllAds);
         return data.ads;
     }
+
+    async createBulkAds(bulk) {
+        let bulkIndex = 0;
+        let maxBulk = bulk.length - 1;
+        while (bulkIndex <= maxBulk) {
+            axios.post(this.createAd, {
+                adname: bulk[bulkIndex]['Ad name'],
+                shortname: bulk[bulkIndex]['Short name'],
+                videourl: bulk[bulkIndex]['Video URL'],
+                industry: bulk[bulkIndex]['Industry'],
+                brand: bulk[bulkIndex]['Brand'],
+                country: bulk[bulkIndex]['Country'],
+                campaigndate: bulk[bulkIndex]['Campaign date'],
+                lengthAd: bulk[bulkIndex]['Length'],
+                channel: bulk[bulkIndex]['Channel'],
+                productionState: bulk[bulkIndex]['Production status'],
+                state: bulk[bulkIndex]['State'],
+            });
+            bulkIndex++;
+        }
+    }
 }
 
 export {
     Api
 };
-/*
-export const fetchMeetups = () => {
-    return fetch('http://10.120.80.251:3000/api/meetups')
-        .then((response) => {
-            if (response) {
-                return response.json();
-            } else {
-                throw new Error('Server response wasn\'t OK');
-            }
-        })
-        .then((json) => {
-            return json;
-        });
-}
-*/
