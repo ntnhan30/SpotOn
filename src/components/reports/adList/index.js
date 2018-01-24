@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Pagination from './pagination';
+import { Link } from 'react-router-dom';
 
 class AdList extends Component {
 
@@ -34,6 +35,9 @@ class AdList extends Component {
                     Brand
                 </th>
                 <th scope="col">
+                    Date
+                </th>
+                <th scope="col">
                     Industry
                 </th>
                 <th scope="col">
@@ -46,7 +50,7 @@ class AdList extends Component {
                     State
                 </th>
                 <th scope="col">
-                    Open
+
                 </th>
             </tr>
         ;
@@ -61,6 +65,9 @@ class AdList extends Component {
                         {ad.brand}
                     </td>
                     <td>
+                        {ad.campaigndate}
+                    </td>
+                    <td>
                         {ad.industry}
                     </td>
                     <td>
@@ -73,7 +80,9 @@ class AdList extends Component {
                         {ad.state}
                     </td>
                     <td>
-                        <button className='btn'>View</button>
+                        <Link to={{ pathname:'/ad/' + ad.shortname, query: { ad: ad } }}>
+                            View
+                        </Link>
                     </td>
                 </tr>
             );

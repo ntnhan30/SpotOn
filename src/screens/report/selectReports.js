@@ -30,6 +30,7 @@ class SelectReports extends Component {
         });
     }
 
+
     filterAds = ( valueToFilter, key ) => {
         // valueToFilter - is an array of the selected values
         // key is a string with the name of the attr
@@ -38,9 +39,6 @@ class SelectReports extends Component {
         let tempFilt = this.state.filterAtts;
         // add the new value
         tempFilt[key] = valueToFilter;
-
-        console.log(tempFilt);
-
 
         const arrayUnique = (array) => {
             var a = array.concat();
@@ -55,9 +53,6 @@ class SelectReports extends Component {
 
         const isInsideDateRange = (date, range) => {
             date = date.split("/");
-
-            console.log('the year ->' + date[0] + ' -- between ' + range['from']['year'].toString().slice(-2) + ' and ' + range['to']['year'].toString().slice(-2));
-            console.log('the month ->' + date[1] + ' -- between ' + range['from']['month'] + ' and ' + range['to']['month']);
 
             let isInside;
 
@@ -89,7 +84,6 @@ class SelectReports extends Component {
                 isInside = false;
             }
 
-            console.log('isInside ' + isInside);
             return isInside;
         }
 
@@ -101,15 +95,12 @@ class SelectReports extends Component {
 
             if (b.length >= a.length){
                 if (a.length > 0){
-                    console.log('el A si tiene elementos ' + a);
                     intersection = new Set([...setA].filter(x => setB.has(x)));
                 } else {
-                    console.log('el A NO tiene elementos ' + a);
                     intersection = setB;
                 }
             } else {
                 if (b.length > 0){
-                    console.log('el B si tiene elementos ' + b);
                     intersection = setB;
                 } else {
                     intersection = this.state.originalAds;
@@ -143,13 +134,11 @@ class SelectReports extends Component {
             }
         }
 
-
         //const self = this;
         let filteredAds = [];
 
         for (var filterKey in tempFilt) {
             // Loop through the filters
-
             let keyFilteredAds = [];
 
             for(let att in tempFilt[filterKey]) {
@@ -186,8 +175,6 @@ class SelectReports extends Component {
             ads: filteredAds
         });
     }
-
-
 
     render() {
         // this is all the ads retrieved

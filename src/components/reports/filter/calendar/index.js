@@ -18,7 +18,6 @@ class CreateCalendar extends Component {
 
     _handleClickRangeBox(e) {
         this.refs.pickRange.show();
-        console.log('_handleClickRangeBox');
     }
 
     render() {
@@ -26,11 +25,9 @@ class CreateCalendar extends Component {
 
         const handleRangeChange = (year, month, listIndex) => {
             if (listIndex === 0) {
-                console.log('change from');
                 selectedRange['from']['year'] = year;
                 selectedRange['from']['month'] = month;
             } else if (listIndex === 1) {
-                console.log('change to');
                 selectedRange['to']['year'] = year;
                 selectedRange['to']['month'] = month;
             }

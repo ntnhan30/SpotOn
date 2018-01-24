@@ -6,7 +6,7 @@ axios.defaults.baseURL = 'http://localhost:4000/api';
 class Api {
     constructor() {
         this.getAllAds = '/ads';
-        this.getResultsOfAd = `/ads/${this.adId}/results`;
+        this.getSingleAd = '/ads/';
         this.createAd = '/ads/new';
     }
 
@@ -15,16 +15,16 @@ class Api {
         return data.ads;
     }
 
-    async fetchResultsFromAd() {
-        const { data } = await axios.get(this.getAllAds);
-        return data.ads;
+    async fetchFingleAd(adId) {
+        const { data } = await axios.get(this.getSingleAd + adId);
+        return data.ad;
     }
 
     async createBulkAds(bulk) {
         let bulkIndex = 0;
         let maxBulk = bulk.length - 1;
         while (bulkIndex <= maxBulk) {
-            await axios.post(this.createAd, {
+            axios.post(this.createAd, {
                 adname: bulk[bulkIndex]['Ad name'],
                 shortname: bulk[bulkIndex]['Short name'],
                 videourl: bulk[bulkIndex]['Video URL'],
@@ -39,7 +39,6 @@ class Api {
             });
             bulkIndex++;
         }
-        return true;
     }
 }
 
