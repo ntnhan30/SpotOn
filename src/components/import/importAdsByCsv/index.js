@@ -9,7 +9,7 @@ class ImportAdsByCSV extends Component {
         super(props, context)
 
         this.state = {
-            value: this.props.value || 'N/A',
+            importSuccessful: false
         }
     }
 
@@ -29,20 +29,18 @@ class ImportAdsByCSV extends Component {
         for(let rowIndex = 0; rowIndex < csvRows.length; ++rowIndex){
             let rowArray  = csvRows[rowIndex].split(',');
 
-          // Create a new row object to store our data.
-          let rowObject = csvArray[rowIndex] = {};
+            // Create a new row object to store our data.
+            let rowObject = csvArray[rowIndex] = {};
 
-          // Then iterate through the remaining properties and use the headers as keys
-          for(let propIndex = 0; propIndex < rowArray.length; ++propIndex){
-            // Grab the value from the row array we're looping through...
-            //var propValue =   rowArray[propIndex].replace(/^"|"$/g,'');
-            let propValue =   rowArray[propIndex].replace('\r','');
-            // ...also grab the relevant header (the RegExp in both of these removes quotes)
-            //var propLabel = csvHeaders[propIndex].replace(/^"|"$/g,'');
-            let propLabel = csvHeaders[propIndex];
+            // Then iterate through the remaining properties and use the headers as keys
+            for(let propIndex = 0; propIndex < rowArray.length; ++propIndex){
+                // Grab the value from the row array we're looping through...
+                let propValue =   rowArray[propIndex].replace('\r','');
+                // ...also grab the relevant header (the RegExp in both of these removes quotes)
+                let propLabel = csvHeaders[propIndex];
 
-            rowObject[propLabel] = propValue;
-          }
+                rowObject[propLabel] = propValue;
+            }
         }
         return csvArray;
     }
@@ -53,20 +51,28 @@ class ImportAdsByCSV extends Component {
         var reader = new FileReader();
         reader.onload = function(e) {
             // Convert the CSV to object and send to API
-            self.props.api.createBulkAds(self.csvToArray(reader.result));
+            self.setState({
+                importSuccessful: self.props.api.createBulkAds(self.csvToArray(reader.result))
+            })
         }
         reader.readAsText(files[0]);
     }
 
+
+
     render() {
-
-        return (
-            <ReactFileReader handleFiles={this.handleFiles} fileTypes={'.csv'}>
-                <button className='btn'>Upload</button>
-            </ReactFileReader>
-        )
+        if (!this.state.importSuccessful){
+            return (
+                <ReactFileReader handleFiles={this.handleFiles} fileTypes={'.csv'}>
+                    <button className='btn'>Upload Ads via CSV</button>
+                </ReactFileReader>
+            );
+        } else {
+            return (
+                <button className='btn' disabled>Upload Successfull</button>
+            );
+        }
     }
-
 }
 
 export default ImportAdsByCSV;

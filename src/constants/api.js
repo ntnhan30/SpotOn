@@ -24,7 +24,7 @@ class Api {
         let bulkIndex = 0;
         let maxBulk = bulk.length - 1;
         while (bulkIndex <= maxBulk) {
-            axios.post(this.createAd, {
+            await axios.post(this.createAd, {
                 adname: bulk[bulkIndex]['Ad name'],
                 shortname: bulk[bulkIndex]['Short name'],
                 videourl: bulk[bulkIndex]['Video URL'],
@@ -39,6 +39,7 @@ class Api {
             });
             bulkIndex++;
         }
+        return true;
     }
 }
 

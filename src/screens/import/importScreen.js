@@ -10,7 +10,7 @@ class Import extends Component {
                 <h4>Here are the functionalities:</h4>
 
                 <ul>
-                    <li><b>Import Ads by CSV</b></li>
+                    <li><b>Import Ads</b></li>
                     <ImportAdsByCSV />
                     <li><b>Import Questionnaire Results by CSV</b></li>
                     <li><b>Reimport, download, delete (Only admin)</b></li>

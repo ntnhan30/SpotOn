@@ -45,6 +45,9 @@ class AdList extends Component {
                 <th scope="col">
                     State
                 </th>
+                <th scope="col">
+                    Open
+                </th>
             </tr>
         ;
 
@@ -68,6 +71,9 @@ class AdList extends Component {
                     </td>
                     <td>
                         {ad.state}
+                    </td>
+                    <td>
+                        <button className='btn'>View</button>
                     </td>
                 </tr>
             );

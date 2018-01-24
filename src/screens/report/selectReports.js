@@ -30,7 +30,6 @@ class SelectReports extends Component {
         });
     }
 
-
     filterAds = ( valueToFilter, key ) => {
         // valueToFilter - is an array of the selected values
         // key is a string with the name of the attr
@@ -55,9 +54,7 @@ class SelectReports extends Component {
         }
 
         const isInsideDateRange = (date, range) => {
-
             date = date.split("/");
-
 
             console.log('the year ->' + date[0] + ' -- between ' + range['from']['year'].toString().slice(-2) + ' and ' + range['to']['year'].toString().slice(-2));
             console.log('the month ->' + date[1] + ' -- between ' + range['from']['month'] + ' and ' + range['to']['month']);
@@ -140,7 +137,6 @@ class SelectReports extends Component {
                 case 'state':
                     return ad.state === single;
                 case 'campaigndate':
-                    //console.log(single);
                     return isInsideDateRange(ad.campaigndate, single);
                 default:
                     break;
