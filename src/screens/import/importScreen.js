@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ImportAdsByCSV } from '../../components';
+import { ImportAdsByCSV, ImportResultsByCSV } from '../../components';
 
 class Import extends Component {
     render() {
@@ -13,11 +13,11 @@ class Import extends Component {
                     <li><b>Import Ads by CSV</b></li>
                     <ImportAdsByCSV />
                     <li><b>Import Questionnaire Results by CSV</b></li>
+                    <ImportResultsByCSV />
                     <li><b>Reimport, download, delete (Only admin)</b></li>
                     <li>Import Ad by Form</li>
                     <li>Import Questionnaire Results by Form</li>
                     <li>Name generator tool</li>
-                    <li><i>Import Ads by CSV</i></li>
                 </ul>
             </div>
         );

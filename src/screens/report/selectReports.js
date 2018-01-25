@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Api } from '../../constants/api';
+import { Api } from '../../constants';
 
 import { AdList, Filter } from '../../components';
 //import { AdList, Filter, SearchBar } from '../../components';
@@ -83,7 +83,6 @@ class SelectReports extends Component {
             }  else {
                 isInside = false;
             }
-
             return isInside;
         }
 
@@ -164,9 +163,7 @@ class SelectReports extends Component {
                     console.log('from scratch');
                     filteredAds = this.state.originalAds;
                 }
-
             }
-
         }
 
         // save the state with the filters that applied
@@ -230,7 +227,6 @@ class SelectReports extends Component {
                     <li><b>Industry</b></li>
                     <li><b>Production State</b></li>
                     <li><b>Ad State</b></li>
-
                 </ul>
 
 
@@ -259,7 +255,6 @@ class SelectReports extends Component {
                     <li>Export Charts as Image</li>
                     <li><i>Share by email - populate HTML email (Report, chart, single view)</i></li>
                 </ul>
-
 
             </div>
         );

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Api } from '../../constants/api';
+import { Api } from '../../constants';
 
 const api = new Api();
 
@@ -8,6 +8,7 @@ class SingleAd extends Component {
         super();
         this.state = {
             thisAd: [], // this is the list of filtered ads
+            thisResults: []
         };
     }
 
@@ -16,10 +17,17 @@ class SingleAd extends Component {
     }
 
     async componentDidMount() {
-        // Retrieve the ad from the server
-        const thisAd = await this.props.api.fetchFingleAd(this.props.match.params.id);
+        // Get the adname of this Ad
+        const adname = this.props.match.params.id;
+
+        // Retrieve the ad details from the server
+        const thisAd = await this.props.api.fetchFingleAd(adname);
+        console.log(thisAd);
+
+        // Save them into the state
         this.setState({
-            thisAd: thisAd[0],
+            thisAd: thisAd.ad,
+            thisResults: thisAd.results,
         });
     }
 

@@ -80,7 +80,7 @@ class AdList extends Component {
                         {ad.state}
                     </td>
                     <td>
-                        <Link to={{ pathname:'/ad/' + ad.shortname, query: { ad: ad } }}>
+                        <Link to={{ pathname:'/ad/' + ad.adname, query: { ad: ad } }}>
                             View
                         </Link>
                     </td>
