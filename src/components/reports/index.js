@@ -1,9 +1,9 @@
 import AdList from './adList/';
-import Filter from './filter/';
+import FilterSidebar from './filter/';
 //import SearchBar from './search/';
 
 export {
     AdList,
-    Filter,
+    FilterSidebar,
 //    SearchBar
 };

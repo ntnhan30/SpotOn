@@ -81,7 +81,7 @@ class AdList extends Component {
                     </td>
                     <td>
                         <Link to={{ pathname:'/ad/' + ad.adname, query: { ad: ad } }}>
-                            View
+                            View Summary
                         </Link>
                     </td>
                 </tr>

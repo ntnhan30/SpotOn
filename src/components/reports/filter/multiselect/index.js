@@ -23,9 +23,6 @@ class CreateMultiselect extends Component {
                 allowCreate = "onFilter"
                 onChange = { function(i, k) {
                     self.setState({ values: i })
-                    console.log('*****************');
-                    console.log('onChange -- ' + i + ' <--> ' + key);
-                    //console.log(i);
                     self.props.filter(i, key);
                 } }
                 textField = "name"

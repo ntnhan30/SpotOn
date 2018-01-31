@@ -17,7 +17,7 @@ var SCSS_SRC = './src/Assets/scss/**/*.scss';
 var SCSS_DEST = './src/Assets/css';
 
 // Compile SCSS
-gulp.task('compile_scss', function(){
+gulp.task('css', function(){
 
     gulp.src(SCSS_SRC)
         .pipe(sass().on('error', sass.logError))
@@ -30,7 +30,7 @@ gulp.task('compile_scss', function(){
 
 // detect changes in SCSS
 gulp.task('watch_scss', function(){
-    gulp.watch(SCSS_SRC, ['compile_scss']);
+    gulp.watch(SCSS_SRC, ['css']);
 });
 
 

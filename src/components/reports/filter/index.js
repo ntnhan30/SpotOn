@@ -2,19 +2,22 @@ import React, { Component } from 'react';
 //import CreateDropdownList from './dropdown';
 import CreateMultiselect from './multiselect';
 import CreateCalendar from './calendar';
+import RangeSlider from './rangeSlider';
 
 import 'react-widgets/dist/css/react-widgets.css';
 
-class Filter extends Component {
+class FilterSidebar extends Component {
 
     constructor(...args) {
         super(...args)
 
         this.state = {
             //adState: this.props.ads,
-            itemDropdown: this.props.dataDropdown
+            itemDropdown: this.props.dataDropdown,
+            ads: []
         }
     }
+
 
 
     filterAds = ( valueToFilter, key ) => {
@@ -24,15 +27,15 @@ class Filter extends Component {
 
     render() {
         // Get the different attributes of every Ad
-        const brands = [...new Set(this.props.ads.map( item => item.brand ))];
-        const countries = [...new Set(this.props.ads.map( item => item.country ))];
-        const lengths = [...new Set(this.props.ads.map( item => item.lengthAd ))];
-        const industries = [...new Set(this.props.ads.map( item => item.industry ))];
-        const channels = [...new Set(this.props.ads.map( item => item.channel ))];
-        const productionStates = [...new Set(this.props.ads.map( item => item.productionState ))];
-        const states = [...new Set(this.props.ads.map( item => item.state ))];
+        const brands = [...new Set(this.props.ads.map( item => item.brand ))].sort();
+        const countries = [...new Set(this.props.ads.map( item => item.country ))].sort();
+        //const lengths = [...new Set(this.props.ads.map( item => item.lengthAd ))].sort();
+        const industries = [...new Set(this.props.ads.map( item => item.industry ))].sort();
+        const channels = [...new Set(this.props.ads.map( item => item.channel ))].sort();
+        const productionStates = [...new Set(this.props.ads.map( item => item.productionState ))].sort();
+        const states = [...new Set(this.props.ads.map( item => item.state ))].sort();
 
-
+        //console.log(this.props.ads);
         // Display the sidebar
         return (
             <div>
@@ -56,7 +59,7 @@ class Filter extends Component {
                     <CreateMultiselect dataDropdown={countries} filter={this.filterAds} keyName={'country'} />
 
                 <h4>Length</h4>
-                    <CreateMultiselect dataDropdown={lengths} filter={this.filterAds} keyName={'lengthAd'} />
+                    <RangeSlider ads={this.props.ads} filter={this.filterAds} keyName={'lengthAd'} />
 
                 <h4>Production State</h4>
                     <CreateMultiselect dataDropdown={productionStates} filter={this.filterAds} keyName={'productionState'} />
@@ -68,4 +71,4 @@ class Filter extends Component {
     }
 }
 
-export default Filter;
+export default FilterSidebar;

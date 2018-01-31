@@ -10,7 +10,7 @@ class Header extends Component {
         <header>
 
             <div className="logo">
-                New T-Rex Tool
+                SpotON
             </div>
 
             <nav>
