@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Api } from '../../constants';
 
-import { AdList, FilterSidebar, FilterAds } from '../../components';
+import { AdList, FilterSidebar, FilterAds, SelectedAds } from '../../components';
 
 const api = new Api();
 const filterAds = new FilterAds();
@@ -13,7 +13,8 @@ class SelectReports extends Component {
         this.state = {
             originalAds: [], // this is the unmutable list of original ads
             ads: [], // this is the list of filtered ads
-            filterAtts: [] // this is the list of attributes and values to filter the ads
+            filterAtts: [], // this is the list of attributes and values to filter the ads
+            selectedAds: []
         };
     }
 
@@ -29,6 +30,7 @@ class SelectReports extends Component {
             ads: ads,
             originalAds: ads
         });
+        console.log(ads);
     }
 
 
@@ -42,6 +44,20 @@ class SelectReports extends Component {
         });
     }
 
+    addToSelected = (ad) => {
+        let currentlySelectedAds = this.state.selectedAds;
+        currentlySelectedAds.push(ad);
+        this.setState({
+            selectedAds: currentlySelectedAds
+        });
+    }
+
+    removeFromSelected = (ad) => {
+        this.setState({
+            selectedAds: this.state.selectedAds.filter(i => i.adname !== ad.adname)
+        });
+    }
+
     render() {
         // this is all the ads retrieved
         return (
@@ -49,12 +65,17 @@ class SelectReports extends Component {
                 <h1>Report</h1>
 
                 <div className="row">
-                    <div className="col-3">
+                    <div className="col-2">
                         <FilterSidebar ads={this.state.originalAds} filteredAds={this.state.ads} filterAdlist={this.filterThisAds} />
                     </div>
 
-                    <div className="col-9">
-                        <AdList ads={this.state.ads} />
+                    <div className="col-2">
+
+                        <SelectedAds ads={this.state.selectedAds} removeFromSelected={this.removeFromSelected} />
+                    </div>
+
+                    <div className="col-8">
+                        <AdList ads={this.state.ads} addToSelected={this.addToSelected} removeFromSelected={this.removeFromSelected} />
                     </div>
                 </div>
 

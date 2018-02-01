@@ -8,7 +8,7 @@ class AdList extends Component {
         super();
         this.state = {
             currentPage: 1,
-            adsPerPage: 20
+            adsPerPage: 90
         };
         this.changePage = this.changePage.bind(this);
     }
@@ -17,6 +17,11 @@ class AdList extends Component {
         this.setState({
             currentPage: pageNumber
         });
+    }
+
+    handleInputChange(ad, event) {
+        const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+        value ? this.props.addToSelected(ad) : this.props.removeFromSelected(ad);
     }
 
 
@@ -28,6 +33,9 @@ class AdList extends Component {
 
         const tableHeader =
             <tr>
+                <th scope="col">
+
+                </th>
                 <th scope="col">
                     Title
                 </th>
@@ -59,6 +67,12 @@ class AdList extends Component {
             return (
                 <tr key={i}>
                     <td>
+                        <input
+                        name= {ad.adname}
+                        type="checkbox"
+                        onChange={ e => this.handleInputChange(ad, e) } />
+                    </td>
+                    <td>
                         {ad.shortname}
                     </td>
                     <td>
@@ -81,7 +95,7 @@ class AdList extends Component {
                     </td>
                     <td>
                         <Link to={{ pathname:'/ad/' + ad.adname, query: { ad: ad } }}>
-                            View Summary
+                            View
                         </Link>
                     </td>
                 </tr>

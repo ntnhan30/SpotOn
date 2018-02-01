@@ -6,7 +6,7 @@ class Pagination extends Component {
         super();
         this.state = {
             currentPage: 1,
-            adsPerPage: 20
+            adsPerPage: 90
         };
 
         this.handleClick = this.handleClick.bind(this);
