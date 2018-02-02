@@ -16,16 +16,20 @@ class SelectedAds extends Component {
         ;
 
         const renderedAds = this.props.ads.map((ad, i) => {
-            return (
-                <tr key={i}>
-                    <td>
-                        {ad.shortname}
-                    </td>
-                    <td>
-                        <button onClick={() => this.props.removeFromSelected(ad)}>X</button>
-                    </td>
-                </tr>
-            );
+            if (ad.selected){
+                return (
+                    <tr key={i}>
+                        <td>
+                            {ad.shortname}
+                        </td>
+                        <td>
+                            <button onClick={() => this.props.removeFromSelected(ad, false)}>X</button>
+                        </td>
+                    </tr>
+                );
+            } else {
+                return false;
+            }
         });
 
 

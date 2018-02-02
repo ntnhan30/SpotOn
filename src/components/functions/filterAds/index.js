@@ -2,7 +2,7 @@ var _ = require('lodash');
 
 class FilterAds {
     constructor() {
-        this.originalAds = [];
+        //this.originalAds = [];
         this.ads = [];
         this.filterAtts = [];
     }
@@ -10,9 +10,9 @@ class FilterAds {
     // key is a string with the name of the attr
 
     // copy the state
-    async init(originalAds, ads, filterAtts, valueToFilter, key) {
+    async init(ads, filterAtts, valueToFilter, key) {
 
-        this.originalAds = originalAds;
+        //this.originalAds = _.map(originalAds, o => _.extend({ show: true }, o));
         this.ads = ads;
         this.filterAtts = filterAtts;
 
@@ -26,30 +26,23 @@ class FilterAds {
             date = date.split("/");
             let isInside;
 
-            if ( date[0] > range['from']['year'].toString().slice(-2) ){
+            range.from.year = range['from']['year'].toString().slice(-2);
+            range.to.year = range['to']['year'].toString().slice(-2);
+
+            if ( date[0] > range.from.year ){
                 // is more than minimum year
-                if ( date[0] < range['to']['year'].toString().slice(-2) ){
+                if ( date[0] < range.to.year ){
                     // is less than maximum year
                     isInside = true;
-                } else if ( date[0] === range['to']['year'].toString().slice(-2) ){
+                } else if ( date[0] === range.to.year ){
                     // is the same as maxium year
-                    if ( date[1] <= range['to']['month'] ){
-                        // maximum month is equal or more
-                        isInside = true;
-                    } else {
-                        isInside = false;
-                    }
+                    isInside = ( date[1] <= range.to.month ) ? true : false; // maximum month is equal or more
                 } else {
                     isInside = false;
                 }
-            } else if ( date[0] === range['from']['year'].toString().slice(-2) ){
+            } else if ( date[0] === range.from.year ){
                 // is the same as minimum year
-                if ( date[1] >= range['from']['month'] ){
-                    // minimum month is equal or more
-                    isInside = true;
-                } else {
-                    isInside = false;
-                }
+                isInside = ( date[1] >= range.from.month ) ? true : false; // minimum month is equal or more
             }  else {
                 isInside = false;
             }
@@ -58,12 +51,7 @@ class FilterAds {
 
         const isInsideLengthRange = (length, range) => {
             length = parseInt(length, 10);
-
-            if (length >= range['min'] && length <= range['max']){
-                return true;
-            } else {
-                return false;
-            }
+            return ( (length >= range['min'] && length <= range['max']) ? true : false );
         }
 
 
@@ -106,31 +94,41 @@ class FilterAds {
 
                 for(let att in tempFilt[filterKey]) {
                     // Loop through the filters of each attr
-                    let ff = this.originalAds.filter( (i) => filterList(i, filterKey, tempFilt[filterKey][att]) );
+                    let ff = this.ads.filter( (i) => filterList(i, filterKey, tempFilt[filterKey][att]) );
+                    // let ff = () => {return (this.ads.filter((i) => filterList(i, filterKey, tempFilt[filterKey][att])))};
                     keyFilteredAds = _.union(keyFilteredAds, ff);
                 }
 
                 if ( ( filteredAds && filteredAds.length > 0 ) && ( keyFilteredAds && keyFilteredAds.length > 0 ) )   {
                     filteredAds = _.intersectionBy(keyFilteredAds, filteredAds, 'adname');
-                    if (!(filteredAds.length > 0)){
-                        stopFitering = true;
-                    }
+                    stopFitering = (!(filteredAds.length > 0)) ? true : false;
                 } else {
                     filteredAds = keyFilteredAds;
-                    if (!(filteredAds.length > 0)){
-                        filteredAds = this.originalAds;
-                    }
+                    filteredAds = (!(keyFilteredAds.length > 0)) ? this.ads : keyFilteredAds;
                 }
             }
         }
 
-        if (filterEmpty){
-            filteredAds = this.originalAds;
-        }
+        // If there are no filters applied, restart the ads
+        filteredAds = filterEmpty ? this.ads : filteredAds;
 
         this.filterAtts = tempFilt;
-        this.ads = filteredAds;
 
+        // Restart the array - hide all the ads
+        _.forEach(this.ads, function(v, key) {
+            v.show = false;
+        });
+        // Change the Show Value of the Filtered Ads
+        _.forEach(filteredAds, function(v, key) {
+            v.show = true;
+        });
+
+        // Merge the two arrays
+        _.map(this.ads, function(obj) {
+            return _.assign(obj, _.find(filteredAds, { adname: obj.adname }));
+        });
+
+        // Set up the array to return
         const result = [
             this.filterAtts,
             this.ads

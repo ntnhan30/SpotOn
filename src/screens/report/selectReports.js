@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Api } from '../../constants';
 
 import { AdList, FilterSidebar, FilterAds, SelectedAds } from '../../components';
+var _ = require('lodash');
 
 const api = new Api();
 const filterAds = new FilterAds();
@@ -11,7 +12,6 @@ class SelectReports extends Component {
     constructor() {
         super();
         this.state = {
-            originalAds: [], // this is the unmutable list of original ads
             ads: [], // this is the list of filtered ads
             filterAtts: [], // this is the list of attributes and values to filter the ads
             selectedAds: []
@@ -27,15 +27,13 @@ class SelectReports extends Component {
         // Retrieve the ads from the server
         const ads = await this.props.api.fetchAds();
         this.setState({
-            ads: ads,
-            originalAds: ads
+            ads: _.map(ads, o => _.extend({ show: true }, o)) // Show all the ads
         });
-        console.log(ads);
     }
 
 
     filterThisAds = async ( valueToFilter, key ) => {
-        let result = await this.props.filterAds.init( this.state.originalAds, this.state.ads, this.state.filterAtts, valueToFilter, key );
+        let result = await this.props.filterAds.init( this.state.ads, this.state.filterAtts, valueToFilter, key );
 
         // save the state with the filters that applied
         this.setState({
@@ -44,17 +42,15 @@ class SelectReports extends Component {
         });
     }
 
-    addToSelected = (ad) => {
-        let currentlySelectedAds = this.state.selectedAds;
-        currentlySelectedAds.push(ad);
-        this.setState({
-            selectedAds: currentlySelectedAds
+    handleSelection = (ad, isSelected) => {
+        let currentlySelectedAds = this.state.ads;
+        ad['selected'] = isSelected;
+        _.map(currentlySelectedAds, function(obj) {
+            return _.assign(obj, _.find([ad], {adname: obj.adname}));
         });
-    }
 
-    removeFromSelected = (ad) => {
         this.setState({
-            selectedAds: this.state.selectedAds.filter(i => i.adname !== ad.adname)
+            ads: currentlySelectedAds
         });
     }
 
@@ -66,16 +62,15 @@ class SelectReports extends Component {
 
                 <div className="row">
                     <div className="col-2">
-                        <FilterSidebar ads={this.state.originalAds} filteredAds={this.state.ads} filterAdlist={this.filterThisAds} />
+                        <FilterSidebar ads={this.state.ads} filteredAds={this.state.ads} filterAdlist={this.filterThisAds} />
                     </div>
 
                     <div className="col-2">
-
-                        <SelectedAds ads={this.state.selectedAds} removeFromSelected={this.removeFromSelected} />
+                        <SelectedAds ads={this.state.ads} removeFromSelected={this.handleSelection} />
                     </div>
 
                     <div className="col-8">
-                        <AdList ads={this.state.ads} addToSelected={this.addToSelected} removeFromSelected={this.removeFromSelected} />
+                        <AdList ads={this.state.ads} handleSelection={this.handleSelection} />
                     </div>
                 </div>
 

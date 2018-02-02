@@ -8,6 +8,7 @@ class Api {
         this.getAllAds = '/ads';
         this.getSingleAd = '/ads/';
         this.createAd = '/ads/new';
+        this.removeAd = '/ads/remove';
 
         this.getResultsAd = '/results/';
         this.createResults = '/results/new';
@@ -19,9 +20,9 @@ class Api {
         return data.ads;
     }
 
-    // Fetch a single Ad from the server using the "shortname"
-    async fetchFingleAd(adId) {
-        const { data } = await axios.get(this.getSingleAd + adId);
+    // Fetch a single Ad from the server using the "adname"
+    async fetchSingleAd(adname) {
+        const { data } = await axios.get(this.getSingleAd + adname);
         return data;
     }
 
@@ -56,9 +57,17 @@ class Api {
         return true;
     }
 
+    // Remove a single Ad from the server using the "adname"
+    async deleteAd(adname) {
+        const { data } = await axios.post(this.removeAd, {
+            adname: adname
+        });
+        return !(data.error);
+    }
+
     // Fetch Results from single Ad
-    async fetchResultsFromAd(adId) {
-        const { data } = await axios.get(this.getResultsAd + adId);
+    async fetchResultsFromAd(adname) {
+        const { data } = await axios.get(this.getResultsAd + adname);
         return data.results;
     }
 

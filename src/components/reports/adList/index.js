@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Pagination from './pagination';
 import { Link } from 'react-router-dom';
+import Checkbox from 'rc-checkbox';
+import 'rc-checkbox/assets/index.css';
 
 class AdList extends Component {
 
@@ -20,86 +22,57 @@ class AdList extends Component {
     }
 
     handleInputChange(ad, event) {
-        const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
-        value ? this.props.addToSelected(ad) : this.props.removeFromSelected(ad);
+        this.props.handleSelection(ad, event.target.checked);
     }
-
 
     render() {
         // Logic for displaying ads
         const indexOfLastAd = this.state.currentPage * this.state.adsPerPage;
         const indexOfFirstAd = indexOfLastAd - this.state.adsPerPage;
-        const currentAds = this.props.ads.slice(indexOfFirstAd, indexOfLastAd);
+        const currentAds = this.props.ads.slice( indexOfFirstAd, indexOfLastAd );
 
         const tableHeader =
             <tr>
-                <th scope="col">
-
-                </th>
-                <th scope="col">
-                    Title
-                </th>
-                <th scope="col">
-                    Brand
-                </th>
-                <th scope="col">
-                    Date
-                </th>
-                <th scope="col">
-                    Industry
-                </th>
-                <th scope="col">
-                    Length
-                </th>
-                <th scope="col">
-                    Channel
-                </th>
-                <th scope="col">
-                    State
-                </th>
-                <th scope="col">
-
-                </th>
+                <th scope="col"></th>
+                <th scope="col">Title</th>
+                <th scope="col">Brand</th>
+                <th scope="col">Date</th>
+                <th scope="col">Industry</th>
+                <th scope="col">Length</th>
+                <th scope="col">Channel</th>
+                <th scope="col">State</th>
+                <th scope="col"></th>
             </tr>
         ;
 
         const renderedAds = currentAds.map((ad, i) => {
-            return (
-                <tr key={i}>
-                    <td>
-                        <input
-                        name= {ad.adname}
-                        type="checkbox"
-                        onChange={ e => this.handleInputChange(ad, e) } />
-                    </td>
-                    <td>
-                        {ad.shortname}
-                    </td>
-                    <td>
-                        {ad.brand}
-                    </td>
-                    <td>
-                        {ad.campaigndate}
-                    </td>
-                    <td>
-                        {ad.industry}
-                    </td>
-                    <td>
-                        {ad.lengthAd}"
-                    </td>
-                    <td>
-                        {ad.channel}
-                    </td>
-                    <td>
-                        {ad.state}
-                    </td>
-                    <td>
-                        <Link to={{ pathname:'/ad/' + ad.adname, query: { ad: ad } }}>
-                            View
-                        </Link>
-                    </td>
-                </tr>
-            );
+            if (ad.show){
+                return (
+                    <tr key={i}>
+                        <td>
+                            <Checkbox
+                                name = { ad.adname }
+                                checked = { ad.selected }
+                                onChange = { e => this.handleInputChange(ad, e) }
+                            />
+                        </td>
+                        <td>{ ad.shortname }</td>
+                        <td>{ ad.brand }</td>
+                        <td>{ ad.campaigndate }</td>
+                        <td>{ ad.industry }</td>
+                        <td>{ ad.lengthAd}"</td>
+                        <td>{ ad.channel }</td>
+                        <td>{ ad.state }</td>
+                        <td>
+                            <Link to={{ pathname:'/ad/' + ad.adname, query: { ad: ad } }}>
+                                View
+                            </Link>
+                        </td>
+                    </tr>
+                );
+            } else {
+                return false;
+            }
         });
 
         // The return from the AdList Class

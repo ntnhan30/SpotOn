@@ -16,7 +16,8 @@ class RangeSlider extends Component {
                 max: 2
             },
             minValue: 1,
-            maxValue: 2
+            maxValue: 2,
+            loaded: false
         };
     }
 
@@ -33,8 +34,8 @@ class RangeSlider extends Component {
         }, {min: Number.MAX_VALUE, max: Number.MIN_VALUE})
     }
 
-    componentWillReceiveProps(nextProps){
-        if ( nextProps.ads.length > 0 && ! (_.isEqual(this.props, nextProps))){
+    componentWillReceiveProps ( nextProps ) {
+        if ( nextProps.ads.length > 0 && !(_.isEqual(this.props, nextProps)) && !this.state.loaded ){
             const { min, max } = this.getMinMax(nextProps.ads, 'lengthAd');
             this.setState({
                 value: {
@@ -42,7 +43,8 @@ class RangeSlider extends Component {
                     max: max
                 },
                 minValue: min,
-                maxValue: max
+                maxValue: max,
+                loaded: true
             })
         }
     }
