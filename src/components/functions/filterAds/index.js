@@ -26,8 +26,7 @@ class FilterAds {
             date = date.split("/");
             let isInside;
 
-            range.from.year = range['from']['year'].toString().slice(-2);
-            range.to.year = range['to']['year'].toString().slice(-2);
+            date[0] = parseInt('20' + date[0], 10)
 
             if ( date[0] > range.from.year ){
                 // is more than minimum year

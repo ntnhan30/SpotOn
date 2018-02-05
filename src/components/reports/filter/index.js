@@ -44,7 +44,7 @@ class FilterSidebar extends Component {
                 </h3>
 
                 <h4>Data Range</h4>
-                    <CreateCalendar filter={this.filterAds} keyName={'campaigndate'} />
+                    <CreateCalendar ads={this.props.ads} filter={this.filterAds} keyName={'campaigndate'} />
 
                 <h4>Brand</h4>
                     <CreateMultiselect dataDropdown={brands} filter={this.filterAds} keyName={'brand'} />
