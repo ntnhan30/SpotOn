@@ -17,7 +17,7 @@ class RangeSlider extends Component {
             },
             minValue: 1,
             maxValue: 2,
-            loaded: false
+            isLoaded: false
         };
     }
 
@@ -44,7 +44,7 @@ class RangeSlider extends Component {
                 },
                 minValue: min,
                 maxValue: max,
-                loaded: true
+                isLoaded: true
             })
         }
     }

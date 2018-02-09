@@ -94,7 +94,6 @@ class FilterAds {
                 for(let att in tempFilt[filterKey]) {
                     // Loop through the filters of each attr
                     let ff = this.ads.filter( (i) => filterList(i, filterKey, tempFilt[filterKey][att]) );
-                    // let ff = () => {return (this.ads.filter((i) => filterList(i, filterKey, tempFilt[filterKey][att])))};
                     keyFilteredAds = _.union(keyFilteredAds, ff);
                 }
 

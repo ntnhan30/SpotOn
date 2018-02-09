@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+
 
 class SelectedAds extends Component {
 
     render() {
+        let selectedAdsID = '';
 
         const tableHeader =
             <tr>
@@ -17,6 +20,7 @@ class SelectedAds extends Component {
 
         const renderedAds = this.props.ads.map((ad, i) => {
             if (ad.selected){
+                selectedAdsID += (ad.adname + '&');
                 return (
                     <tr key={i}>
                         <td>
@@ -49,9 +53,11 @@ class SelectedAds extends Component {
                     </tbody>
                 </table>
 
-                <button>
-                    Weight Top Box Report
-                </button>
+                <Link to={{ pathname:'/WtbReport/' + selectedAdsID }}>
+                    <button>
+                        Weight Top Box Report
+                    </button>
+                </Link>
                 <br/>
                 <button>
                     Percentile Report

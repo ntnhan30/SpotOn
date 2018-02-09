@@ -15,7 +15,8 @@ import {
     Import,
     Notifications,
     Users,
-    SingleAd
+    SingleAd,
+    WtbReport
 } from './screens';
 
 // Import the minified css
@@ -23,23 +24,28 @@ import './Assets/css/default.min.css';
 
 class App extends Component {
   render() {
+    //<Route exact path='/wtbReport' component={wtbReport} />
     return (
-        <Router>
-            <div className="App">
-                <Header />
+        <div>
+            <Router>
+                <div className="App">
+                    <Header />
 
-                <Route exact path='/' component={SelectReports} />
+                    <Route exact path='/' component={SelectReports} />
 
-                <Route exact path='/import' component={Import} />
+                        <Route exact path='/wtbReport/:id' component={WtbReport}/>
 
-                <Route exact path='/notifications' component={Notifications} />
+                    <Route exact path='/import' component={Import} />
 
-                <Route exact path='/users' component={Users} />
+                    <Route exact path='/notifications' component={Notifications} />
 
-                <Route exact path='/ad/:id' component={SingleAd} />
+                    <Route exact path='/users' component={Users} />
 
-            </div>
-        </Router>
+                    <Route exact path='/ad/:id' component={SingleAd} />
+
+                </div>
+            </Router>
+        </div>
     );
   }
 }

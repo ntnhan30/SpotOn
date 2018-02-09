@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Api } from '../../constants';
+import { TabulateAnswers } from '../../components';
 
 const api = new Api();
+const tabulateAnswers = new TabulateAnswers();
 
 class SingleAd extends Component {
     constructor() {
@@ -14,7 +16,8 @@ class SingleAd extends Component {
     }
 
     static defaultProps = {
-        api
+        api,
+        tabulateAnswers
     }
 
     componentDidMount = async () => {
@@ -24,6 +27,7 @@ class SingleAd extends Component {
         // Retrieve the ad details from the server
         const thisAd = await this.props.api.fetchSingleAd(adname);
         console.log(thisAd);
+        console.log(this.props.tabulateAnswers.init(thisAd.results));
 
         // Save them into the state
         this.setState({

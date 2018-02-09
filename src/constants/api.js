@@ -5,13 +5,13 @@ axios.defaults.baseURL = 'http://localhost:4000/api';
 
 class Api {
     constructor() {
-        this.getAllAds = '/ads';
-        this.getSingleAd = '/ads/';
-        this.createAd = '/ads/new';
-        this.removeAd = '/ads/remove';
+        this.getAllAds =    '/single';
+        this.getSingleAd =  '/single/';
+        this.createAd =     '/single/new';
+        this.removeAd =     '/single/remove';
 
-        this.getResultsAd = '/results/';
-        this.createResults = '/results/new';
+        this.getResultsAd =     '/results/';
+        this.createResults =    '/results/new';
     }
 
     // Fetch all Ads from the server
@@ -85,27 +85,43 @@ class Api {
                 S1_Dummy: bulk[bulkIndex]['S1_Dummy'],
                 S2: bulk[bulkIndex]['S2'],
                 S3: bulk[bulkIndex]['S3'],
-                vidDum: bulk[bulkIndex]['vidDum'],
-                Q5r1: bulk[bulkIndex]['Q5r1'],
-                Q6r1: bulk[bulkIndex]['Q6r1'],
-                Q6r2: bulk[bulkIndex]['Q6r2'],
-                Q6r3: bulk[bulkIndex]['Q6r3'],
-                Q6r4: bulk[bulkIndex]['Q6r4'],
-                Q6r5: bulk[bulkIndex]['Q6r5'],
-                Q6r6: bulk[bulkIndex]['Q6r6'],
-                Q6r7: bulk[bulkIndex]['Q6r7'],
-                Q6r8: bulk[bulkIndex]['Q6r8'],
-                Q6r9: bulk[bulkIndex]['Q6r9'],
-                Q6r10: bulk[bulkIndex]['Q6r10'],
-                Q6r11: bulk[bulkIndex]['Q6r11'],
-                Q6r12: bulk[bulkIndex]['Q6r12'],
-                Q6r13: bulk[bulkIndex]['Q6r13'],
-                Q6r14: bulk[bulkIndex]['Q6r14'],
-                Q6r15: bulk[bulkIndex]['Q6r15'],
-                Q6r16: bulk[bulkIndex]['Q6r16'],
-                Q6r17: bulk[bulkIndex]['Q6r17'],
-                Q6r18: bulk[bulkIndex]['Q6r18'],
-                Q6r19: bulk[bulkIndex]['Q6r19'],
+                S4a: bulk[bulkIndex]['S4a'],
+                S4b: bulk[bulkIndex]['S4b'],
+                VidDum: bulk[bulkIndex]['VidDum'],
+                Q1: bulk[bulkIndex]['Q1'],
+                Q2: bulk[bulkIndex]['Q2'],
+                Q3r1: bulk[bulkIndex]['Q3r1'],
+                Q3r2: bulk[bulkIndex]['Q3r2'],
+                Q3r3: bulk[bulkIndex]['Q3r3'],
+                Q3r4: bulk[bulkIndex]['Q3r4'],
+                Q3r5: bulk[bulkIndex]['Q3r5'],
+                Q3r6: bulk[bulkIndex]['Q3r6'],
+                Q3r7: bulk[bulkIndex]['Q3r7'],
+                Q3r8: bulk[bulkIndex]['Q3r8'],
+                Q3r9: bulk[bulkIndex]['Q3r9'],
+                Q3r10: bulk[bulkIndex]['Q3r10'],
+                Q3r11: bulk[bulkIndex]['Q3r11'],
+                Q3r12: bulk[bulkIndex]['Q3r12'],
+                Q3r13: bulk[bulkIndex]['Q3r13'],
+                Q3r14: bulk[bulkIndex]['Q3r14'],
+                Q3r15: bulk[bulkIndex]['Q3r15'],
+                Q3r16: bulk[bulkIndex]['Q3r16'],
+                Q4r1: bulk[bulkIndex]['Q4r1'],
+                Q4r2: bulk[bulkIndex]['Q4r2'],
+                Q4r3: bulk[bulkIndex]['Q4r3'],
+                Q4r4: bulk[bulkIndex]['Q4r4'],
+                Q4r5: bulk[bulkIndex]['Q4r5'],
+                Q4r6: bulk[bulkIndex]['Q4r6'],
+                Q4r7: bulk[bulkIndex]['Q4r7'],
+                Q4r8: bulk[bulkIndex]['Q4r8'],
+                Q4r9: bulk[bulkIndex]['Q4r9'],
+                Q4r10: bulk[bulkIndex]['Q4r10'],
+                Q4r11: bulk[bulkIndex]['Q4r11'],
+                Q4r12: bulk[bulkIndex]['Q4r12'],
+                Q5o1: bulk[bulkIndex]['Q5o1'],
+                Q5o2: bulk[bulkIndex]['Q5o2'],
+                Q5o3: bulk[bulkIndex]['Q5o3'],
+                Q6: bulk[bulkIndex]['Q6'],
                 Q7r1: bulk[bulkIndex]['Q7r1'],
                 Q7r2: bulk[bulkIndex]['Q7r2'],
                 Q7r3: bulk[bulkIndex]['Q7r3'],
@@ -116,21 +132,8 @@ class Api {
                 Q7r8: bulk[bulkIndex]['Q7r8'],
                 Q7r9: bulk[bulkIndex]['Q7r9'],
                 Q7r10: bulk[bulkIndex]['Q7r10'],
-                Q7r11: bulk[bulkIndex]['Q7r11'],
-                Q8r1: bulk[bulkIndex]['Q8r1'],
-                Q8r2: bulk[bulkIndex]['Q8r2'],
-                Q8r3: bulk[bulkIndex]['Q8r3'],
-                Q8r4: bulk[bulkIndex]['Q8r4'],
-                Q8r5: bulk[bulkIndex]['Q8r5'],
-                Q9: bulk[bulkIndex]['Q9'],
-                Q10ar1: bulk[bulkIndex]['Q10ar1'],
-                Q10br1: bulk[bulkIndex]['Q10br1'],
-                Q11: bulk[bulkIndex]['Q11'],
-                S5: bulk[bulkIndex]['S5'],
-                S6: bulk[bulkIndex]['S6'],
-                S7: bulk[bulkIndex]['S7'],
-                S8: bulk[bulkIndex]['S8'],
-                S9: bulk[bulkIndex]['S9'],
+                Q8: bulk[bulkIndex]['Q8'],
+                S5: bulk[bulkIndex]['S5']
             }).then(aumNum).catch(aumNum);
             //bulkIndex++;
             if (bulkIndex === maxBulk){
