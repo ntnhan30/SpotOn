@@ -76,6 +76,7 @@ class AdList extends Component {
         });
 
         // The return from the AdList Class
+        //<Pagination ads={this.props.ads} onClick={this.changePage} />
         return (
             <div className="container-fluid">
                 <h3>
@@ -89,7 +90,6 @@ class AdList extends Component {
                         {renderedAds}
                     </tbody>
                 </table>
-                <Pagination ads={this.props.ads} onClick={this.changePage} />
             </div>
         );
     }

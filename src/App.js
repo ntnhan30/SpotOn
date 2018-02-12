@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
     BrowserRouter as Router,
     Route,
+    Switch
     //Link
 } from 'react-router-dom';
 
@@ -23,31 +24,26 @@ import {
 import './Assets/css/default.min.css';
 
 class App extends Component {
-  render() {
-    //<Route exact path='/wtbReport' component={wtbReport} />
-    return (
-        <div>
-            <Router>
-                <div className="App">
+    render() {
+        // <Route exact path='/wtbReport/:id' component={WtbReport}/>
+        // <Route exact path='/wtbReport/:id' component={SelectReports} />
+        return (
+            <div>
+                <Router>
+                    <div>
                     <Header />
-
-                    <Route exact path='/' component={SelectReports} />
-
-                        <Route exact path='/wtbReport/:id' component={WtbReport}/>
-
-                    <Route exact path='/import' component={Import} />
-
-                    <Route exact path='/notifications' component={Notifications} />
-
-                    <Route exact path='/users' component={Users} />
-
-                    <Route exact path='/ad/:id' component={SingleAd} />
-
-                </div>
-            </Router>
-        </div>
-    );
-  }
+                    <Switch>
+                        <Route exact path='/import' component={Import} />
+                        <Route exact path='/notifications' component={Notifications} />
+                        <Route exact path='/users' component={Users} />
+                        <Route exact path='/ad/:id' component={SingleAd} />
+                        <Route path='/' component={SelectReports} />
+                    </Switch>
+                    </div>
+                </Router>
+            </div>
+        );
+    }
 }
 
 export default App;

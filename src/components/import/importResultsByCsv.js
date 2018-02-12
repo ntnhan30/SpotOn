@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Api } from '../../../constants';
+import { Api } from '../../constants';
 import ReactFileReader from 'react-file-reader'; // move to single component later
-import { HandleCSV } from '../../functions';
+import { HandleCSV } from '../functions';
 
 const api = new Api();
 const handleCSV = new HandleCSV();
 
-class ImportAdsByCSV extends Component {
+class ImportResultsByCSV extends Component {
     constructor(props, context) {
         super(props, context)
 
@@ -27,19 +27,18 @@ class ImportAdsByCSV extends Component {
     }
 
     // Returns the csv that the user uploads // move to a single component
-    //async handleFiles(files) {
+
     handleFiles = files => {
         const self = this;
         var reader = new FileReader();
         reader.onload = async function(e) {
             // Convert the CSV to object and send to API
             self.setStateAsync({
-                imported: await self.props.api.createBulkAds(self.props.handleCSV.csvToArray(reader.result))
+                imported: await self.props.api.createBulkResults(self.props.handleCSV.csvToObject(reader.result))
             })
         }
         reader.readAsText(files[0]);
     }
-
 
     render() {
 
@@ -50,11 +49,11 @@ class ImportAdsByCSV extends Component {
         } else {
             return (
                 <ReactFileReader handleFiles={this.handleFiles} fileTypes={'.csv'}>
-                    <button className='btn'>Upload Ads</button>
+                    <button className='btn'>Upload Results</button>
                 </ReactFileReader>
             )
         }
     }
 }
 
-export default ImportAdsByCSV;
+export default ImportResultsByCSV;

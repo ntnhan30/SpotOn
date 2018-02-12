@@ -1,8 +1,18 @@
+/***** ============================
+ * This Class takes the original set of ads and adds a new column called "show"
+ * If its true it will show on the Adlist, otherwise it will be hidden.
+ *
+ * This Filter works concatenating the filters applied by the user, which can be
+ * Multiselect
+ * Date Range
+ * Number Range
+ * Dropdown
+============================ ******/
+
 var _ = require('lodash');
 
 class FilterAds {
     constructor() {
-        //this.originalAds = [];
         this.ads = [];
         this.filterAtts = [];
     }
@@ -11,8 +21,6 @@ class FilterAds {
 
     // copy the state
     async init(ads, filterAtts, valueToFilter, key) {
-
-        //this.originalAds = _.map(originalAds, o => _.extend({ show: true }, o));
         this.ads = ads;
         this.filterAtts = filterAtts;
 
@@ -93,6 +101,7 @@ class FilterAds {
 
                 for(let att in tempFilt[filterKey]) {
                     // Loop through the filters of each attr
+                    // eslint-disable-next-line
                     let ff = this.ads.filter( (i) => filterList(i, filterKey, tempFilt[filterKey][att]) );
                     keyFilteredAds = _.union(keyFilteredAds, ff);
                 }

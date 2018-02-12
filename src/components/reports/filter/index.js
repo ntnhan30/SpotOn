@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 //import CreateDropdownList from './dropdown';
-import CreateMultiselect from './multiselect';
-import CreateCalendar from './calendar';
-import RangeSlider from './rangeSlider';
+import CreateMultiselect from './multiselect.js';
+import CreateCalendar from './calendar.js';
+import RangeSlider from './rangeSlider.js';
 
 import 'react-widgets/dist/css/react-widgets.css';
 
@@ -17,8 +17,6 @@ class FilterSidebar extends Component {
             ads: []
         }
     }
-
-
 
     filterAds = ( valueToFilter, key ) => {
         // Calls function in parent Component (selectReports.js)

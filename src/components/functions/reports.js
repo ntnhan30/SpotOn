@@ -1,3 +1,9 @@
+/***** ============================
+ *
+ * This Class takes an array with all the results from an AD and tabulates the, and
+ * analyses it to give the score for each KPI of Weighted Top Box.
+ *
+============================ ******/
 class TabulateAnswers {
     constructor() {
         this.results = [];
@@ -5,7 +11,6 @@ class TabulateAnswers {
 
     init = (results) => {
         this.results = results;
-
         let result = this.mainKPI( this.kpiCalculation( this.countAnswers() ) );
         return result;
     }
@@ -100,7 +105,6 @@ class TabulateAnswers {
                 default:
             }
         }
-
         result = parseFloat(((count/maxCount)*100));
         return result;
     }
@@ -139,9 +143,7 @@ class TabulateAnswers {
                     break;
                 default:
             }
-            //console.log('i => ' + arr[i] + ' count => ' + count + ' maxCount ' + maxCount);
         }
-
         result = parseFloat(((count/maxCount)*100));
         return result;
     }
@@ -177,8 +179,15 @@ class TabulateAnswers {
                 default:
             }
         }
-
         result = parseFloat(((count/maxCount)*100));
+        return result;
+    }
+
+    getNameOfAd = (arr) => {
+        let result = '';
+        for ( let i in arr ) {
+            result = i;
+        }
         return result;
     }
 
@@ -221,10 +230,12 @@ class TabulateAnswers {
                     */
                     result[[i]] = this.messagingCalculation(arr[i]);
                     break;
+                case ('VidDum'):
+                    result['Ad name'] = this.getNameOfAd(arr[i]);
+                    break;
                 default:
             }
         }
-        //console.log(result);
         return result;
     }
 
@@ -234,7 +245,6 @@ class TabulateAnswers {
         result['Viewer Engagement'] = ( arr['Q2']* 0.3 ) + ( arr['Q5o3']* 0.4 ) + ( arr['Q6']* 0.3 )
         result['Ad Message'] = ( arr['Q3']* 0.3 ) + ( arr['Q4']* 0.3 ) + ( arr['Q5o1']* 0.2 ) + ( arr['Q7']* 0.2 )
         result['Total'] = ( result['Brand Relevance']* 0.3 ) + ( result['Viewer Engagement']* 0.4 ) + ( result['Ad Message']* 0.3 )
-
         return result;
     }
 }

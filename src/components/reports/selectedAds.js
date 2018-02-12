@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
+import {
+    WtbReport
+} from '../../screens/';
 
 class SelectedAds extends Component {
 
     render() {
-        let selectedAdsID = '';
+        let selectedAdsID = [];
 
         const tableHeader =
             <tr>
@@ -13,21 +15,20 @@ class SelectedAds extends Component {
                     Title
                 </th>
                 <th scope="col">
-
                 </th>
             </tr>
         ;
 
         const renderedAds = this.props.ads.map((ad, i) => {
             if (ad.selected){
-                selectedAdsID += (ad.adname + '&');
+                selectedAdsID.push(ad.adname);
                 return (
                     <tr key={i}>
                         <td>
                             {ad.shortname}
                         </td>
                         <td>
-                            <button onClick={() => this.props.removeFromSelected(ad, false)}>X</button>
+                            <button onClick={() => this.props.handleSelection(ad, false)}>X</button>
                         </td>
                     </tr>
                 );
@@ -36,7 +37,31 @@ class SelectedAds extends Component {
             }
         });
 
-
+        const reportButtons = () => {
+            if (selectedAdsID.length > 0) {
+                return (
+                    <div>
+                        <Link to={{ pathname:'/wtbReport/' + selectedAdsID.join('&') }}>
+                            <button>
+                                Weight Top Box Report
+                            </button>
+                        </Link>
+                        <br/>
+                        <button>
+                            Percentile Report
+                        </button>
+                        <br/>
+                        <Link to={{ pathname:'/chart/' + selectedAdsID.join('&') }}>
+                            <button>
+                                Charts
+                            </button>
+                        </Link>
+                    </div>
+                )
+            } else {
+                return ( <div></div> );
+            }
+        };
 
         // Display the sidebar
         return (
@@ -53,19 +78,7 @@ class SelectedAds extends Component {
                     </tbody>
                 </table>
 
-                <Link to={{ pathname:'/WtbReport/' + selectedAdsID }}>
-                    <button>
-                        Weight Top Box Report
-                    </button>
-                </Link>
-                <br/>
-                <button>
-                    Percentile Report
-                </button>
-                <br/>
-                <button>
-                    Charts
-                </button>
+                { reportButtons() }
             </div>
         );
     }

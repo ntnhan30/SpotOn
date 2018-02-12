@@ -1,6 +1,3 @@
-
-
-
 import React, { Component } from 'react';
 import InputRange from 'react-input-range';
 var _ = require('lodash');

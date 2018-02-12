@@ -12,6 +12,8 @@ class Api {
 
         this.getResultsAd =     '/results/';
         this.createResults =    '/results/new';
+
+        this.createKPI =    '/kpi/new';
     }
 
     // Fetch all Ads from the server
@@ -48,7 +50,6 @@ class Api {
                 productionState: bulk[bulkIndex]['Production status'],
                 state: bulk[bulkIndex]['State'],
             }).then(aumNum).catch(aumNum);
-            //bulkIndex++;
             if (bulkIndex === maxBulk){
                 finished = true;
                 return finished;
@@ -135,12 +136,34 @@ class Api {
                 Q8: bulk[bulkIndex]['Q8'],
                 S5: bulk[bulkIndex]['S5']
             }).then(aumNum).catch(aumNum);
-            //bulkIndex++;
             if (bulkIndex === maxBulk){
                 finished = true;
                 return finished;
             }
         }
+    }
+
+    // Create multiple Ads from an array
+    async createKPI(kpis) {
+        await axios.post(this.createAd, {
+            adID: kpis['Ad name'],
+            brandRecall: kpis['Q1'],
+            adAppeal: kpis['Q2'],
+            toneOfVoice: kpis['Q3'],
+            emotion: kpis['Q4'],
+            uniqueness: kpis['Q5o1'],
+            relevance: kpis['Q5o2'],
+            shareability: kpis['Q5o3'],
+            callToAction: kpis['Q6'],
+            messaging: kpis['Q7'],
+            brandFit: kpis['Q8'],
+            brandRelevance: kpis['Brand Relevance'],
+            viewerEngagement: kpis['Viewer Engagement'],
+            adMessage: kpis['Ad Message'],
+            total: kpis['Total'],
+        });
+
+        return true;
     }
 }
 

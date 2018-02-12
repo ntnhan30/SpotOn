@@ -1,7 +1,13 @@
+/***** ============================
+ *
+ *  This Class takes the CSV data uploaded by the user and returns an Object
+ *
+============================ ******/
+
 class HandleCSV {
-    csvToArray = csvString => {
+    csvToObject = csvString => {
         // The array we're going to build
-        let csvArray   = [];
+        let csvObj   = [];
         // Break it into rows to start
         let csvRows    = csvString.split(/\n/);
         // Take off the first line to get the headers, then split that into an array
@@ -12,7 +18,7 @@ class HandleCSV {
             let rowArray  = csvRows[rowIndex].split(';');
 
           // Create a new row object to store our data.
-          let rowObject = csvArray[rowIndex] = {};
+          let rowObject = csvObj[rowIndex] = {};
 
           // Then iterate through the remaining properties and use the headers as keys
           for(let propIndex = 0; propIndex < rowArray.length; ++propIndex){
@@ -24,7 +30,7 @@ class HandleCSV {
             rowObject[propLabel] = propValue;
           }
         }
-        return csvArray;
+        return csvObj;
     }
 }
 

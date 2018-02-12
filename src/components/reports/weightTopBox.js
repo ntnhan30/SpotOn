@@ -3,7 +3,6 @@ var _ = require('lodash');
 
 class WeightTopBox extends Component {
 
-
     render() {
         let trKey = 0;
 
@@ -37,7 +36,6 @@ class WeightTopBox extends Component {
             _.mapValues(self.props.allResults, function (single) {
                 let v = (isNaN(single['report'][kpi]) ? 0 : single['report'][kpi]);
                 valuesCell.push(Math.round(v));
-                //valuesCell.push(v);
             })
             return (
                 <tr key={trKey}>
@@ -56,38 +54,34 @@ class WeightTopBox extends Component {
         }
 
         return (
-            <div className="container-fluid">
-                <div className="col-md-8 offset-md-2">
-                    <h1>Weight Top Box</h1>
-                    <table className="table table-striped table-hover">
-                        <thead className="thead-dark">
-                            {displayHeaderTable()}
-                        </thead>
-                        <tbody>
-                            {displaySingleKPI('Total')}
+            <table className="table table-striped table-hover">
+                <thead className="thead-dark">
+                    {displayHeaderTable()}
+                </thead>
+                <tbody>
+                    {displaySingleKPI('Total')}
 
-                            {displaySingleKPI('Brand Relevance')}
-                            {displaySingleKPI('Q1')}
-                            {displaySingleKPI('Q5o2')}
-                            {displaySingleKPI('Q8')}
+                    {displaySingleKPI('Brand Relevance')}
+                    {displaySingleKPI('Q1')}
+                    {displaySingleKPI('Q5o2')}
+                    {displaySingleKPI('Q8')}
 
-                            {displaySingleKPI('Viewer Engagement')}
-                            {displaySingleKPI('Q2')}
-                            {displaySingleKPI('Q5o3')}
-                            {displaySingleKPI('Q6')}
+                    {displaySingleKPI('Viewer Engagement')}
+                    {displaySingleKPI('Q2')}
+                    {displaySingleKPI('Q5o3')}
+                    {displaySingleKPI('Q6')}
 
-                            {displaySingleKPI('Ad Message')}
-                            {displaySingleKPI('Q3')}
-                            {displaySingleKPI('Q4')}
-                            {displaySingleKPI('Q5o1')}
-                            {displaySingleKPI('Q7')}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                    {displaySingleKPI('Ad Message')}
+                    {displaySingleKPI('Q3')}
+                    {displaySingleKPI('Q4')}
+                    {displaySingleKPI('Q5o1')}
+                    {displaySingleKPI('Q7')}
+                </tbody>
+            </table>
         );
-
     }
 }
 
 export default WeightTopBox;
+
+
