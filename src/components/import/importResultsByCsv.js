@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Api } from '../../constants';
 import ReactFileReader from 'react-file-reader'; // move to single component later
-import { HandleCSV } from '../functions';
+import { HandleCSV, TabulateAnswers } from '../functions';
 
 const api = new Api();
 const handleCSV = new HandleCSV();
+const tabulateAnswers  = new TabulateAnswers ();
 
 class ImportResultsByCSV extends Component {
     constructor(props, context) {
@@ -17,7 +18,8 @@ class ImportResultsByCSV extends Component {
 
     static defaultProps = {
         api,
-        handleCSV
+        handleCSV,
+        tabulateAnswers
     }
 
     setStateAsync(state) {
@@ -32,10 +34,18 @@ class ImportResultsByCSV extends Component {
         const self = this;
         var reader = new FileReader();
         reader.onload = async function(e) {
+            console.log(reader.result);
+            let results = self.props.handleCSV.csvToObject(reader.result);
+
+            console.log(results);
             // Convert the CSV to object and send to API
             self.setStateAsync({
-                imported: await self.props.api.createBulkResults(self.props.handleCSV.csvToObject(reader.result))
+                imported: await self.props.api.createBulkResults(results)
             })
+            console.log(self.props.api);
+            let KPIs = self.props.tabulateAnswers.init(results);
+            console.log(KPIs);
+            await self.props.api.createKPI(KPIs);
         }
         reader.readAsText(files[0]);
     }

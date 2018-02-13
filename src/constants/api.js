@@ -13,7 +13,7 @@ class Api {
         this.getResultsAd =     '/results/';
         this.createResults =    '/results/new';
 
-        this.createKPI =    '/kpi/new';
+        this.createKPIs =    '/kpi/new';
     }
 
     // Fetch all Ads from the server
@@ -145,7 +145,7 @@ class Api {
 
     // Create multiple Ads from an array
     async createKPI(kpis) {
-        await axios.post(this.createAd, {
+        await axios.post(this.createKPIs, {
             adID: kpis['Ad name'],
             brandRecall: kpis['Q1'],
             adAppeal: kpis['Q2'],
@@ -162,7 +162,6 @@ class Api {
             adMessage: kpis['Ad Message'],
             total: kpis['Total'],
         });
-
         return true;
     }
 }

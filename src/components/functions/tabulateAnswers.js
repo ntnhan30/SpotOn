@@ -33,7 +33,6 @@ class TabulateAnswers {
             }
             return true;
         });
-        //console.log(result);
         return result;
     }
 

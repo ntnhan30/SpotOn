@@ -26,7 +26,9 @@ class HandleCSV {
             let propValue =   rowArray[propIndex].replace('\r','');
             // ...also grab the relevant header (the RegExp in both of these removes quotes)
             let propLabel = csvHeaders[propIndex];
-
+            if (!isNaN(propValue)) {
+                propValue = parseInt(propValue,10);
+            }
             rowObject[propLabel] = propValue;
           }
         }

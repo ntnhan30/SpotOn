@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Pagination from './pagination';
 import { Link } from 'react-router-dom';
 import Checkbox from 'rc-checkbox';
 import 'rc-checkbox/assets/index.css';

@@ -34,7 +34,7 @@ class WeightTopBox extends Component {
 
             let valuesCell = [];
             _.mapValues(self.props.allResults, function (single) {
-                let v = (isNaN(single['report'][kpi]) ? 0 : single['report'][kpi]);
+                let v = (single['kpis']==null || (isNaN(single['kpis'][kpi])) ? 0 : single['kpis'][kpi]);
                 valuesCell.push(Math.round(v));
             })
             return (
@@ -59,23 +59,23 @@ class WeightTopBox extends Component {
                     {displayHeaderTable()}
                 </thead>
                 <tbody>
-                    {displaySingleKPI('Total')}
+                    {displaySingleKPI('total')}
 
-                    {displaySingleKPI('Brand Relevance')}
-                    {displaySingleKPI('Q1')}
-                    {displaySingleKPI('Q5o2')}
-                    {displaySingleKPI('Q8')}
+                    {displaySingleKPI('brandRelevance')}
+                    {displaySingleKPI('brandRecall')}
+                    {displaySingleKPI('relevance')}
+                    {displaySingleKPI('brandFit')}
 
-                    {displaySingleKPI('Viewer Engagement')}
-                    {displaySingleKPI('Q2')}
-                    {displaySingleKPI('Q5o3')}
-                    {displaySingleKPI('Q6')}
+                    {displaySingleKPI('viewerEngagement')}
+                    {displaySingleKPI('adAppeal')}
+                    {displaySingleKPI('shareability')}
+                    {displaySingleKPI('callToAction')}
 
-                    {displaySingleKPI('Ad Message')}
-                    {displaySingleKPI('Q3')}
-                    {displaySingleKPI('Q4')}
-                    {displaySingleKPI('Q5o1')}
-                    {displaySingleKPI('Q7')}
+                    {displaySingleKPI('adMessage')}
+                    {displaySingleKPI('toneOfVoice')}
+                    {displaySingleKPI('emotion')}
+                    {displaySingleKPI('uniqueness')}
+                    {displaySingleKPI('messaging')}
                 </tbody>
             </table>
         );

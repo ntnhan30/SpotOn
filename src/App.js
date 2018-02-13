@@ -16,8 +16,7 @@ import {
     Import,
     Notifications,
     Users,
-    SingleAd,
-    WtbReport
+    SingleAd
 } from './screens';
 
 // Import the minified css
