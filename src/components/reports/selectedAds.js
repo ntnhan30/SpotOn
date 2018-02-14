@@ -44,10 +44,6 @@ class SelectedAds extends Component {
                             </button>
                         </Link>
                         <br/>
-                        <button>
-                            Percentile Report
-                        </button>
-                        <br/>
                         <Link to={{ pathname:'/chart/' + selectedAdsID.join('&') }}>
                             <button>
                                 Charts
@@ -68,10 +64,10 @@ class SelectedAds extends Component {
                 </h3>
                 <table className="table table-striped table-hover">
                     <thead className="thead-dark">
-                        {tableHeader}
+                        { tableHeader }
                     </thead>
                     <tbody>
-                        {renderedAds}
+                        { renderedAds }
                     </tbody>
                 </table>
 
