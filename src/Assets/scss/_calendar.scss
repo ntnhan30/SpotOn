@@ -187,7 +187,7 @@
           @media screen and (max-width: 767px) {
             .month-picker > .rmp-container .rmp-popup.light {
               border-top: 1px solid #ccc;
-              box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.08); }
+              box-shadow: 0 1px 23px 14px rgba(0,0,0,0.4); }
               .month-picker > .rmp-container .rmp-popup.light.range .rmp-pad {
                 border-top: 1px solid rgba(204, 204, 204, 0.5); }
                 .month-picker > .rmp-container .rmp-popup.light.range .rmp-pad:first-of-type {
@@ -195,7 +195,7 @@
           @media screen and (min-width: 768px) {
             .month-picker > .rmp-container .rmp-popup.light {
               border: 1px solid #ccc;
-              box-shadow: 0 1px 5px #ddd; }
+              box-shadow: 0 1px 23px 14px rgba(0,0,0,0.4); }
               .month-picker > .rmp-container .rmp-popup.light.range .rmp-pad {
                 background-color: rgba(238, 238, 238, 0.9); } }
           .month-picker > .rmp-container .rmp-popup.light .rmp-pad .rmp-btn {

@@ -3,16 +3,16 @@ class ColorChart {
         let colorToReturn = '';
         switch(num) {
             case 0:
-                colorToReturn = '#535c68'
+                colorToReturn = '#232aa8'
                 break;
             case 1:
-                colorToReturn = '#8884d8'
+                colorToReturn = '#414bff'
                 break;
             case 2:
-                colorToReturn = '#eb4d4b'
+                colorToReturn = '#7c83ff'
                 break;
             case 3:
-                colorToReturn = '#6ab04c'
+                colorToReturn = '#b9bdff'
                 break;
             default:
         }

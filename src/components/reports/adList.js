@@ -40,7 +40,7 @@ class AdList extends Component {
                 <th scope="col">Length</th>
                 <th scope="col">Channel</th>
                 <th scope="col">State</th>
-                <th scope="col"></th>
+                <th scope="col">Ad info</th>
             </tr>
         ;
 
@@ -77,19 +77,14 @@ class AdList extends Component {
         // The return from the AdList Class
         //<Pagination ads={this.props.ads} onClick={this.changePage} />
         return (
-            <div className="container-fluid">
-                <h3>
-                    Here is the list of Ads
-                </h3>
-                <table className="table table-striped table-hover">
-                    <thead className="thead-dark">
-                        {tableHeader}
-                    </thead>
-                    <tbody>
-                        {renderedAds}
-                    </tbody>
-                </table>
-            </div>
+            <table className="table table-striped table-hover table-fixed">
+                <thead className="">
+                    {tableHeader}
+                </thead>
+                <tbody>
+                    {renderedAds}
+                </tbody>
+            </table>
         );
     }
 }

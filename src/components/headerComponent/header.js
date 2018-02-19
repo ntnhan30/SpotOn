@@ -9,26 +9,32 @@ class Header extends Component {
     return (
         <header>
 
-            <div className="logo">
-                SpotON
-            </div>
+            <div className="container-fluid">
+                <div className="col-2">
+                    <div className="logo">
+                        SpotON
+                    </div>
+                </div>
 
-            <nav>
-                <ul>
-                    <li>
-                        <Link to='/'>Reports</Link>
-                    </li>
-                    <li>
-                        <Link to='/import'>Import</Link>
-                    </li>
-                    <li>
-                        <Link to='/notifications'>Notifications</Link>
-                    </li>
-                    <li>
-                        <Link to='/users'>Users</Link>
-                    </li>
-                </ul>
-            </nav>
+                <div className="col-10">
+                    <nav>
+                        <ul>
+                            <li>
+                                <Link to='/'>Reports</Link>
+                            </li>
+                            <li>
+                                <Link to='/import'>Import</Link>
+                            </li>
+                            <li>
+                                <Link to='/notifications'>Notifications</Link>
+                            </li>
+                            <li>
+                                <Link to='/users'>Users</Link>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
 
         </header>
     );

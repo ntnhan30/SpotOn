@@ -2,9 +2,10 @@
     -webkit-appearance: none;
        -moz-appearance: none;
             appearance: none;
-    background: #3f51b5;
-    border: 1px solid #3f51b5;
+    background: white;
+    border: 1px solid white;
     border-radius: 100%;
+    box-shadow: 5px 0px 10px 0px rgba(0, 0, 0, 0.4);
     cursor: pointer;
     display: block;
     height: 1rem;
@@ -83,7 +84,7 @@
     top: 50%; }
 
   .input-range__track--active {
-    background: #3f51b5; }
+    background: #414bff; }
 
   .input-range {
     height: 1rem;

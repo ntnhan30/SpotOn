@@ -37,33 +37,21 @@ class FilterSidebar extends Component {
         // Display the sidebar
         return (
             <div>
-                <h3>
-                    Sidebar Filter
-                </h3>
+                <CreateCalendar ads={this.props.ads} filter={this.filterAds} keyName={'campaigndate'} />
 
-                <h4>Data Range</h4>
-                    <CreateCalendar ads={this.props.ads} filter={this.filterAds} keyName={'campaigndate'} />
+                <CreateMultiselect dataDropdown={brands} filter={this.filterAds} keyName={'brand'} />
 
-                <h4>Brand</h4>
-                    <CreateMultiselect dataDropdown={brands} filter={this.filterAds} keyName={'brand'} />
+                <CreateMultiselect dataDropdown={industries} filter={this.filterAds} keyName={'industry'} />
 
-                <h4>Industry</h4>
-                    <CreateMultiselect dataDropdown={industries} filter={this.filterAds} keyName={'industry'} />
+                <CreateMultiselect dataDropdown={channels} filter={this.filterAds} keyName={'channel'} />
 
-                <h4>Channel</h4>
-                    <CreateMultiselect dataDropdown={channels} filter={this.filterAds} keyName={'channel'} />
+                <CreateMultiselect dataDropdown={countries} filter={this.filterAds} keyName={'country'} />
 
-                <h4>Country</h4>
-                    <CreateMultiselect dataDropdown={countries} filter={this.filterAds} keyName={'country'} />
+                <RangeSlider ads={this.props.ads} filter={this.filterAds} keyName={'lengthAd'} />
 
-                <h4>Length</h4>
-                    <RangeSlider ads={this.props.ads} filter={this.filterAds} keyName={'lengthAd'} />
+                <CreateMultiselect dataDropdown={productionStates} filter={this.filterAds} keyName={'productionState'} />
 
-                <h4>Production State</h4>
-                    <CreateMultiselect dataDropdown={productionStates} filter={this.filterAds} keyName={'productionState'} />
-
-                <h4>Ad State</h4>
-                    <CreateMultiselect dataDropdown={states} filter={this.filterAds} keyName={'state'} />
+                <CreateMultiselect dataDropdown={states} filter={this.filterAds} keyName={'state'} />
             </div>
         );
     }

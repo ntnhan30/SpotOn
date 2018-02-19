@@ -52,7 +52,7 @@ class Chart extends Component {
             let singleKpis = [ 'Brand Recall', 'Relevance', 'Brand Fit', 'Ad Appeal', 'Shareability', 'Call to action', 'Tone of voice', 'Emotion', 'Uniqueness', 'Messaging' ];
             let brandRelevance = [ 'Brand Recall', 'Relevance', 'Brand Fit' ];
             let viewerEngagement = [ 'Ad Appeal', 'Shareability', 'Call to action' ];
-            let adMessage = [ 'Tone of voice', 'Emotion', 'Uniqueness', 'Messaging' ];
+            let adMessage = [ 'Messaging', 'Tone of voice', 'Emotion', 'Uniqueness' ];
 
             return(
                 <Tabs>

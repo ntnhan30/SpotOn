@@ -58,14 +58,13 @@ class SelectReports extends Component {
     render() {
         // this is all the ads retrieved
         return (
-            <div className="container-fluid">
-                <h1>Report</h1>
-                <div className="row">
-                    <div className="col-2">
+            <div className="container-fluid main">
+
+                    <div className="col-2" id="filter">
                         <FilterSidebar ads={this.state.ads} filteredAds={this.state.ads} filterAdlist={this.filterThisAds} />
                     </div>
 
-                    <div className="col-2">
+                    <div className="col-2" id="selected">
                         <Route
                             key={2}
                             exact={false}
@@ -74,7 +73,7 @@ class SelectReports extends Component {
                         />
                     </div>
 
-                    <div className="col-8">
+                    <div className="col-8 main-content">
                         <div>
                             <Route
                                 key={1}
@@ -97,7 +96,7 @@ class SelectReports extends Component {
                                 render={ (props) => <AdList ads={this.state.ads} handleSelection={this.handleSelection} {...this.props} {...props} /> }
                             />
                         </div>
-                    </div>
+
                 </div>
             </div>
         );

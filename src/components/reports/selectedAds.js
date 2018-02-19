@@ -9,7 +9,7 @@ class SelectedAds extends Component {
         const tableHeader =
             <tr>
                 <th scope="col">
-                    Title
+                    Selected Ads
                 </th>
                 <th scope="col">
                 </th>
@@ -18,11 +18,15 @@ class SelectedAds extends Component {
 
         const renderedAds = this.props.ads.map((ad, i) => {
             if (ad.selected){
+                console.log(ad);
                 selectedAdsID.push(ad.adname);
                 return (
                     <tr key={i}>
                         <td>
                             {ad.shortname}
+                            <span>
+                                {ad.brand}, {ad.industry}, {ad.channel} {ad.lengthAd}'
+                            </span>
                         </td>
                         <td>
                             <button onClick={() => this.props.handleSelection(ad, false)}>X</button>
@@ -37,16 +41,15 @@ class SelectedAds extends Component {
         const reportButtons = () => {
             if (selectedAdsID.length > 0) {
                 return (
-                    <div>
+                    <div className="selectedButtons">
                         <Link to={{ pathname:'/wtbReport/' + selectedAdsID.join('&') }}>
                             <button>
-                                Weight Top Box Report
+                                Weighted
                             </button>
                         </Link>
-                        <br/>
                         <Link to={{ pathname:'/chart/' + selectedAdsID.join('&') }}>
                             <button>
-                                Charts
+                                Chart
                             </button>
                         </Link>
                     </div>
@@ -59,9 +62,6 @@ class SelectedAds extends Component {
         // Display the sidebar
         return (
             <div>
-                <h3>
-                    Selected Ads
-                </h3>
                 <table className="table table-striped table-hover">
                     <thead className="thead-dark">
                         { tableHeader }
