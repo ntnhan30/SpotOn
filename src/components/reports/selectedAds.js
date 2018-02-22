@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import MoreIcon from'../../Assets/imgs/more.svg';
+import CloseIcon from'../../Assets/imgs/close.svg';
 
 class SelectedAds extends Component {
 
@@ -9,7 +11,7 @@ class SelectedAds extends Component {
         const tableHeader =
             <tr>
                 <th scope="col">
-                    Selected Ads
+                    SELECTED ADS
                 </th>
                 <th scope="col">
                 </th>
@@ -18,7 +20,6 @@ class SelectedAds extends Component {
 
         const renderedAds = this.props.ads.map((ad, i) => {
             if (ad.selected){
-                console.log(ad);
                 selectedAdsID.push(ad.adname);
                 return (
                     <tr key={i}>
@@ -28,8 +29,11 @@ class SelectedAds extends Component {
                                 {ad.brand}, {ad.industry}, {ad.channel} {ad.lengthAd}'
                             </span>
                         </td>
-                        <td>
-                            <button onClick={() => this.props.handleSelection(ad, false)}>X</button>
+                        <td className="selected-icons">
+                            <span className="icon-close" onClick={() => this.props.handleSelection(ad, false)}></span>
+                            <Link to={{ pathname:'/ad/' + ad.adname, query: { ad: ad } }}>
+                                <span className="icon-more"></span>
+                            </Link>
                         </td>
                     </tr>
                 );
@@ -59,6 +63,27 @@ class SelectedAds extends Component {
             }
         };
 
+        const listSelectedAds = () => {
+            if (selectedAdsID.length > 0) {
+                return (
+                    <Fragment>
+                        {renderedAds}
+                    </Fragment>
+                )
+            } else {
+                return (
+                    <tr>
+                        <td>
+                            CLICK ON THE CHECKBOX TO ADD TO THE SELECTION
+                        </td>
+                        <td></td>
+                    </tr>
+                );
+            }
+        };
+
+
+
         // Display the sidebar
         return (
             <div>
@@ -67,7 +92,7 @@ class SelectedAds extends Component {
                         { tableHeader }
                     </thead>
                     <tbody>
-                        { renderedAds }
+                        { listSelectedAds () }
                     </tbody>
                 </table>
 

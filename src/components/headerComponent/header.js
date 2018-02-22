@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
     Link
 } from 'react-router-dom';
+import Logo from'../../Assets/imgs/logo.svg';
 
 
 class Header extends Component {
@@ -12,7 +13,7 @@ class Header extends Component {
             <div className="container-fluid">
                 <div className="col-2">
                     <div className="logo">
-                        SpotON
+                        <img  src={Logo} alt="SpotOn"/>
                     </div>
                 </div>
 

@@ -46,7 +46,7 @@ class RadarCharts extends Component {
                         <PolarRadiusAxis angle={73} domain={[0, 100]} />
                         { data }
                         <Legend />
-                        <Tooltip cursor={{strokeDasharray: '9 9'}}/>
+                        <Tooltip cursor={{ stroke: 'red', strokeWidth: 2 }} position= {{ x: 20, y: 100 }} />
                     </RadarChart>
                 </ResponsiveContainer>
             </div>

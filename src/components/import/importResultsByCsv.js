@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Api } from '../../constants';
 import ReactFileReader from 'react-file-reader'; // move to single component later
 import { HandleCSV, TabulateAnswers } from '../functions';
+import QuestIcon from'../../Assets/imgs/questionnaire-icon.svg';
 
 const api = new Api();
 const handleCSV = new HandleCSV();
@@ -33,36 +34,53 @@ class ImportResultsByCSV extends Component {
     handleFiles = files => {
         const self = this;
         var reader = new FileReader();
+        this.setState({
+            uploading: true
+        })
         reader.onload = async function(e) {
-            console.log(reader.result);
             let results = self.props.handleCSV.csvToObject(reader.result);
 
-            console.log(results);
+            // Import to DB the results
+            await self.props.api.createBulkResults(results);
+            let KPIs = self.props.tabulateAnswers.init(results);
             // Convert the CSV to object and send to API
             self.setStateAsync({
-                imported: await self.props.api.createBulkResults(results)
+                imported: await self.props.api.createKPI(KPIs),
+                uploading: false
             })
-            console.log(self.props.api);
-            let KPIs = self.props.tabulateAnswers.init(results);
-            console.log(KPIs);
-            await self.props.api.createKPI(KPIs);
         }
         reader.readAsText(files[0]);
     }
 
     render() {
 
-        if (this.state.imported){
-            return (
-                <button className='btn' disabled>Upload successful</button>
-            )
-        } else {
-            return (
-                <ReactFileReader handleFiles={this.handleFiles} fileTypes={'.csv'}>
-                    <button className='btn'>Upload Results</button>
-                </ReactFileReader>
-            )
+        const buttonToUpload = () => {
+            if (this.state.imported){
+                return (
+                    <button className='btn' disabled>Upload successful</button>
+                )
+            } else {
+                if (this.state.uploading){
+                    return (
+                        <button className='btn' disabled>Uploading</button>
+                    )
+                } else {
+                    return (
+                        <button className='btn'>Upload Results</button>
+                    )
+                }
+            }
         }
+
+        return (
+            <div>
+                <img  src={QuestIcon} alt="Upload Results"/>
+                <ReactFileReader handleFiles={this.handleFiles} fileTypes={'.csv'}>
+                    { buttonToUpload() }
+                </ReactFileReader>
+                <span>CSV format only</span>
+            </div>
+        )
     }
 }
 

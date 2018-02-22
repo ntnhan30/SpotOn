@@ -1,5 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Api } from '../../constants';
+import ThumbAd from'../../Assets/imgs/ad-thumb.jpg';
+import HeroImageAd from'../../Assets/imgs/ad-heroimage.png';
+
 
 const api = new Api();
 
@@ -51,56 +54,71 @@ class SingleAd extends Component {
 
     render() {
         if(this.props.match !== undefined && this.props.match.params !== undefined && this.state.adStillExist){
-            return (
-                <div className="container-fluid">
-                    <div className="col-md-8 offset-md-2">
-                        <h1>
-                            {this.state.thisAd.adname}
-                        </h1>
-                        <table className="table table-striped table-hover">
-                            <thead className="thead-dark">
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Brand</th>
-                                    <th>Industry</th>
-                                    <th>Date</th>
-                                    <th>Country</th>
-                                    <th>Length</th>
-                                    <th>Production State</th>
-                                    <th>State</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{this.state.thisAd.shortname}</td>
-                                    <td>{this.state.thisAd.brand}</td>
-                                    <td>{this.state.thisAd.industry}</td>
-                                    <td>{this.state.thisAd.campaigndate}</td>
-                                    <td>{this.state.thisAd.country}</td>
-                                    <td>{this.state.thisAd.lengthAd}"</td>
-                                    <td>{this.state.thisAd.productionState}</td>
-                                    <td>{this.state.thisAd.state}</td>
-                                </tr>
-                            </tbody>
-                        </table>
 
-                        <button
-                            className="btn btn-default"
-                            onClick={this.downloadAd}>
-                            DOWNLOAD
-                        </button>
-                        <button
-                            className="btn btn-default"
-                            onClick={this.reimportAd}>
-                            REIMPORT
-                        </button>
-                        <button
-                            className="btn btn-default"
-                            onClick={this.deleteSingleAd}>
-                            DELETE
-                        </button>
+            var heroStyle = {
+                backgroundImage: `url(${HeroImageAd})`
+            };
+
+            return (
+                <Fragment>
+                    <div className="container-fluid hero-image" style={ heroStyle }>
+                        <div className="col-5 offset-2">
+                            <span onClick={this.downloadAd}>
+                                DOWNLOAD
+                            </span>
+                            <span onClick={this.reimportAd}>
+                                REIMPORT
+                            </span>
+                            <span onClick={this.deleteSingleAd}>
+                                DELETE
+                            </span>
+                            <h1>
+                                {this.state.thisAd.adname}
+                            </h1>
+                            <p>McDonalds - if you're looking for an ad about burgers from McDonalds - this ad is for you.</p>
+                        </div>
                     </div>
-                </div>
+
+                    <div className="container-fluid single">
+                        <div className="col-5 offset-2">
+                            <p>This TVC is a great place to start if you've never eaten burgers before. We'll provide an overview of the ingredients, go over the basic building blocks, and offer suggestions and best practices for eating a burger. And if you're new to the world of fries too, there's plenty of lessons covering the basics of potatoes and salt to help you get up and running.</p>
+                        </div>
+
+                        <div className="col-3 move-up offset-1">
+                            <a href={this.state.thisAd.videourl} target="_blank">
+                                <img  src={ThumbAd} alt="Upload Ads"/>
+                            </a>
+                            <table className="">
+                                <tbody>
+                                    <tr>
+                                        <td>Title</td>
+                                        <td>{this.state.thisAd.shortname}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Brand</td>
+                                        <td>{this.state.thisAd.brand}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Industry</td>
+                                        <td>{this.state.thisAd.industry}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Length</td>
+                                        <td>{this.state.thisAd.lengthAd}"</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Channel</td>
+                                        <td>{this.state.thisAd.channel}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>State</td>
+                                        <td>{this.state.thisAd.productionState}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </Fragment>
             );
         } else if (!this.state.adStillExist) {
             return (

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Api } from '../../constants';
-import { WeightTopBox } from '../../components';
+import { WeightTopBox, LoadingSpinner } from '../../components';
 
 const api = new Api();
 
@@ -58,9 +58,7 @@ class WtbReport extends Component {
             )
         } else {
             return (
-                <div>
-                    <h1>Loading...</h1>
-                </div>
+                <LoadingSpinner/>
             )
         }
     }

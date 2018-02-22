@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="15px" viewBox="0 0 14 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>kpi icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="kpi-icon" stroke-width="2" stroke="#A1A1A1">
+            <g id="GRAPH">
+                <path d="M14,14.0521512 L1,14.0521512 C0.448,14.0521512 0,13.6054426 0,13.0528031 L0,0.0612777053" id="Stroke-441"></path>
+                <path d="M3,11.0541069 L3,6.05736636" id="Stroke-442"></path>
+                <path d="M6,2.05997392 L6,11.0541069" id="Stroke-443"></path>
+                <path d="M9,11.0541069 L9,9.05541069" id="Stroke-444"></path>
+                <path d="M12,11.0541069 L12,5.05801825" id="Stroke-445"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,7 +1,41 @@
 @import '_config.scss';
 @import '_calendar.scss';
 @import '_rangeSlider.scss';
+@import '_loadingSpinner.scss';
 @import url('https://fonts.googleapis.com/css?family=Overpass:300,700');
+
+@font-face {
+    font-family: 'icomoon';
+    src:  url('../icons/fonts/icomoon.eot?9vldap');
+    src:  url('../icons/fonts/icomoon.eot?9vldap#iefix') format('embedded-opentype'),
+      url('../icons/fonts/icomoon.ttf?9vldap') format('truetype'),
+      url('../icons/fonts/icomoon.woff?9vldap') format('woff'),
+      url('../icons/fonts/icomoon.svg?9vldap#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  [class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .icon-more:before {
+    content: "\e900";
+  }
+  .icon-close:before {
+    content: "\e901";
+  }
 
 
 body{
@@ -11,6 +45,7 @@ body{
     background: $midnightBlue200;
     font-size: 15px;
     font-family: 'Overpass', sans-serif;
+    word-wrap: break-word;
 }
 
 header {
@@ -23,6 +58,11 @@ header {
     top: 0;
     z-index: 1;
 
+    .logo {
+        img{
+            padding: 2.2em 0 0;
+        }
+    }
 
     nav,
     nav ul,
@@ -71,12 +111,13 @@ li {
     &.main{
         align-items: stretch;
         min-height: calc(100vh - 90px);
+        padding: 0;
     }
 
     .col-2{
-        flex: 1;
 
         &#filter, &#selected {
+            padding: 0;
             box-shadow: 10px 0 15px -3px rgba(0,0,0,.24);
         }
 
@@ -86,8 +127,11 @@ li {
 
             & > div{
                 position: fixed !important;
-                width: 16em;
-                left: 1.7em;
+                width: 16.66%;
+
+                & > div{
+                    padding: 0em 1em;
+                }
             }
 
             .rw-widget-container, .rw-multiselect{
@@ -97,7 +141,7 @@ li {
             .rw-widget, .input-range, .month-picker {
                 margin: 1em 0;
                 display: block;
-                width: inherit;
+                width: 100%;
 
                 .rw-widget-input {
 
@@ -112,9 +156,13 @@ li {
                         }
                     }
                 }
+
+                label{
+                    margin: 0;
+                }
             }
             .input-range {
-                margin: 2.4em 0 !important;
+                margin: 1.3em 0 2.4em 0 !important;
             }
 
             .rw-input-reset {
@@ -145,7 +193,7 @@ li {
 
             & > div {
                 position: fixed;
-                width: 20.3em;
+                width: 16.666667%;
             }
 
             table{
@@ -168,10 +216,18 @@ li {
                             font-size: 0.8em
                         }
 
-                        button {
-                            border: none;
-                            background: transparent;
-                            color: $white;
+                        &.selected-icons {
+
+                            span{
+                                cursor: pointer;
+                                text-align: center;
+                                font-size: 1.1em;
+                                padding: 0.4em 0;
+                            }
+
+                            a span{
+                                font-size: 1.3em;
+                            }
                         }
                     }
                 }
@@ -188,7 +244,8 @@ li {
                         color: $grey;
                         background: $midnightBlue100;
                         width: 100%;
-                        padding: 1.2em 0;
+                        padding: 1em 0;
+                        font-size: 0.9em;
                         text-transform: uppercase;
                         border: none;
                         cursor: pointer;
@@ -221,19 +278,124 @@ li {
         &.main-content{
             padding: 0;
             background: $midnightBlue500;
+            overflow-x: auto;
 
             table {
 
-                td {
+                tr {
 
-                    &:nth-child(1){
-                        text-align: center
+                    &.level1{
+                        background-color: $lightBlue;
+                        border-bottom: 5px solid $midnightBlue500;
+
+                        * {
+                            color: $white;
+                        }
+
+                        td {
+
+                            &:nth-child(1){
+                                font-weight: 900;
+                            }
+                        }
+                    }
+
+                    &.level2{
+                        background-color: $midnightBlue100;
+
+                        td {
+
+                            &:nth-child(1){
+                                color: $white;
+                                font-weight: 100;
+                            }
+                        }
+                    }
+
+                    &.level3{
+
+                        td {
+
+                            &:nth-child(1){
+                                padding-left: 3em;
+                                font-weight: 100;
+                                font-size: 0.83em;
+                            }
+                        }
+                    }
+
+                    th {
+                        text-align: left
+                    }
+
+                    td {
+                        text-align: left;
+                        border-right: solid 1px $midnightBlue800;
+                        color: $grey;
+
+                        &:nth-child(1){
+                            text-align: left;
+                            text-transform: uppercase;
+                            letter-spacing: 0.08em;
+                            font-size: 0.9em;
+                            font-weight: 900;
+                            padding-left: 2em;
+                            line-height: 1.9em;
+                        }
+                    }
+
+                    &.table-fixed{
+                        thead{
+                            position: relative;
+                        }
+                    }
+
+                    a {
+                        &:hover{
+                            color: $white;
+                            text-decoration: none;
+                        }
+
+                        .icon-more{
+                            color: $lightGrey;
+                            font-size: 1.6em;
+                        }
                     }
                 }
+            }
 
-                &.table-fixed{
-                    thead{
-                        position: relative;
+            .react-tabs {
+
+                ul.react-tabs__tab-list {
+                    display: inline-block;
+                    height: 1%;
+                    display: block;
+
+                    &:after{
+                        visibility: hidden;
+                        display: block;
+                        font-size: 0;
+                        content: " ";
+                        clear: both;
+                        height: 0;
+                    }
+
+                    li {
+                        display: inline;
+                        float: left;
+                        list-style: none;
+                        text-transform: uppercase;
+                        color: $white;
+                        background: $midnightBlue100;
+                        margin: 2em .7em 1.5em 0;
+                        padding: .6em 1.3em .5em;
+                        border-radius: 3px;
+                        cursor: pointer;
+                        font-size: 0.9em;
+
+                        &.react-tabs__tab--selected{
+                            background: $lightBlue;
+                        }
                     }
                 }
             }
@@ -258,6 +420,8 @@ li {
             background: $midnightBlue800 !important;
             border: none;
             text-align: left;
+            letter-spacing: 0.05em;
+            font-size: 0.9em;
         }
 
         td {
@@ -266,3 +430,106 @@ li {
     }
 }
 
+.import-main{
+    display: flex;
+    width: 90%;
+    max-width: 850px;
+    background-color: $midnightBlue500;
+    margin: 6em auto 0;
+    padding: 5em;
+
+    & > div{
+        flex: 1;
+
+        & > div{
+            text-align: center;
+
+            button{
+                background-color: $blue;
+                color: $white;
+                text-transform: uppercase;
+                border: none;
+                padding: 1.4em;
+                width: 220px;
+                margin: 4em 0 1em;
+                border-radius: 3px;
+                letter-spacing: 0.05em;
+                cursor: pointer;
+            }
+
+            span{
+                color: $grey;
+                text-transform: uppercase;
+                font-size: 0.7em;
+            }
+        }
+
+    }
+}
+
+.hero-image{
+    min-height: 35em;
+
+    div{
+        padding: 14em 0 6em;
+
+        h1{
+            font-weight: 900;
+            color: $white;
+            font-size: 45px;
+            padding: 1.7em 0 0.7em;
+        }
+
+        p{
+            color: $lightGrey;
+            font-size: 20px
+        }
+
+        span{
+            color: white;
+            font-size: 11px;
+            margin-right: 1.5em;
+        }
+    }
+}
+
+.single {
+    padding: 5em 0 0;
+
+    p {
+        font-size: 20px;
+        color: $lightGrey;
+    }
+    .move-up{
+        margin-top: -27.7em;
+        background: white;
+        padding: 0;
+
+        img{
+            max-width: 100%;
+            position: relative;
+        }
+
+        table {
+
+            tr{
+                border-bottom: solid 1px #d8d8d8;
+
+                td{
+                    padding: 1.2rem 0 1.2rem 2rem;
+
+                    &:last-child{
+                        color: $blackish;
+                        font-weight: 900;
+                        padding-left: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+g.recharts-layer text {
+    fill: $grey;
+}

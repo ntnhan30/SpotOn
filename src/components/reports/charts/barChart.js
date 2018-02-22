@@ -44,7 +44,7 @@ class BarCharts extends Component {
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="name" />
                         <YAxis domain={[0, 100]}  />
-                        <Tooltip />
+                        <Tooltip cursor={false} />
                         <Legend />
                         { data }
                     </BarChart>

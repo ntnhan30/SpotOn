@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import InputRange from 'react-input-range';
 var _ = require('lodash');
 
@@ -60,12 +60,15 @@ class RangeSlider extends Component {
         }
 
         return (
-            <InputRange
-                maxValue={ this.state.maxValue }
-                minValue={ this.state.minValue }
-                value={ this.state.value }
-                onChange={ value => handleRangeChange(value) }
-            />
+            <Fragment>
+                <h6>Length</h6>
+                <InputRange
+                    maxValue={ this.state.maxValue }
+                    minValue={ this.state.minValue }
+                    value={ this.state.value }
+                    onChange={ value => handleRangeChange(value) }
+                />
+            </Fragment>
         );
     }
 }

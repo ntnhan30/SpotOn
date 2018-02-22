@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Api } from '../../constants';
-import { RadarCharts, BarCharts, StackedBarCharts, GetKPIs } from '../../components';
+import { RadarCharts, BarCharts, StackedBarCharts, GetKPIs, LoadingSpinner } from '../../components';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 const api = new Api();
@@ -57,12 +57,12 @@ class Chart extends Component {
             return(
                 <Tabs>
                     <TabList>
-                        <Tab>Total</Tab>
-                        <Tab>Main KPIs</Tab>
-                        <Tab>Radar Chart</Tab>
+                        <Tab>Spot On score</Tab>
+                        <Tab>L1 KPIs</Tab>
                         <Tab>Brand Relevance</Tab>
                         <Tab>Viewer Engagement</Tab>
                         <Tab>Ad Message</Tab>
+                        <Tab>KPIs details</Tab>
                     </TabList>
 
                     <TabPanel>
@@ -70,9 +70,6 @@ class Chart extends Component {
                     </TabPanel>
                     <TabPanel>
                         <BarCharts thisResults={this.state.thisResults} kpis={this.props.getKPIs.init(mainKPIs)}/>
-                    </TabPanel>
-                    <TabPanel>
-                        <RadarCharts thisResults={this.state.thisResults} kpis={this.props.getKPIs.init(singleKpis)}/>
                     </TabPanel>
                     <TabPanel>
                         <StackedBarCharts thisResults={this.state.thisResults} kpis={this.props.getKPIs.init(brandRelevance)}/>
@@ -83,13 +80,14 @@ class Chart extends Component {
                     <TabPanel>
                         <StackedBarCharts thisResults={this.state.thisResults} kpis={this.props.getKPIs.init(adMessage)}/>
                     </TabPanel>
+                    <TabPanel>
+                        <RadarCharts thisResults={this.state.thisResults} kpis={this.props.getKPIs.init(singleKpis)}/>
+                    </TabPanel>
                 </Tabs>
             )
         } else {
             return (
-                <div>
-                    <h1>Loading...</h1>
-                </div>
+                <LoadingSpinner/>
             )
         }
     }

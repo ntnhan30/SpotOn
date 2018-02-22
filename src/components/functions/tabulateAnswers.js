@@ -4,21 +4,27 @@
  * analyses it to give the score for each KPI of Weighted Top Box.
  *
 ============================ ******/
+var _ = require('lodash');
+
 class TabulateAnswers {
-    constructor() {
-        this.results = [];
-    }
 
     init = (results) => {
-        this.results = results;
-        let result = this.mainKPI( this.kpiCalculation( this.countAnswers() ) );
+        let result = [];
+        var partitionedByAd = _(results).groupBy('VidDum').values().value();
+
+        partitionedByAd.map( single => {
+            let countanswers = this.countAnswers(single);
+            let kpis = this.kpiCalculation(countanswers);
+            let mainKpis = this.mainKPI(kpis);
+            result.push(mainKpis);
+        });
         return result;
     }
 
     // This function counts the different values
-    countAnswers = () => {
+    countAnswers = (arr) => {
         let result = [];
-        this.results.map( single => {
+        arr.map( single => {
             for ( let key in single ) {
                 let qKey = key.split("r");
                 let k = (qKey.length > 1) ? [qKey[0]] : key ;
@@ -46,7 +52,8 @@ class TabulateAnswers {
             }
             maxCount += arr[i];
         }
-        result = parseFloat(((count/maxCount)*100));
+        result = (maxCount > 0 ? parseFloat((count/maxCount)*100) : 0)
+        result = 100 - result;
         return result;
     }
 
@@ -73,7 +80,7 @@ class TabulateAnswers {
                 default:
             }
         }
-        result = parseFloat(((count/maxCount)*100));
+        result = (maxCount > 0 ? parseFloat((count/maxCount)*100) : 0)
         return result;
     }
 
@@ -98,13 +105,13 @@ class TabulateAnswers {
                 case(7):
                 case(8):
                 case(9):
-                case(10):
+                case(98):
                     maxCount += ( arr[i] * 3.5 );
                     break;
                 default:
             }
         }
-        result = parseFloat(((count/maxCount)*100));
+        result = (maxCount > 0 ? parseFloat((count/maxCount)*100) : 0)
         return result;
     }
 
@@ -143,7 +150,7 @@ class TabulateAnswers {
                 default:
             }
         }
-        result = parseFloat(((count/maxCount)*100));
+        result = (maxCount > 0 ? parseFloat((count/maxCount)*100) : 0)
         return result;
     }
 
@@ -178,7 +185,7 @@ class TabulateAnswers {
                 default:
             }
         }
-        result = parseFloat(((count/maxCount)*100));
+        result = (maxCount > 0 ? parseFloat((count/maxCount)*100) : 0)
         return result;
     }
 
@@ -240,10 +247,12 @@ class TabulateAnswers {
 
     mainKPI = (arr) => {
         let result = arr;
-        result['Brand Relevance'] = ( arr['Q1']* 0.3 ) + ( arr['Q5o2']* 0.4 ) + ( arr['Q8']* 0.3 )
-        result['Viewer Engagement'] = ( arr['Q2']* 0.3 ) + ( arr['Q5o3']* 0.4 ) + ( arr['Q6']* 0.3 )
-        result['Ad Message'] = ( arr['Q3']* 0.3 ) + ( arr['Q4']* 0.3 ) + ( arr['Q5o1']* 0.2 ) + ( arr['Q7']* 0.2 )
-        result['Total'] = ( result['Brand Relevance']* 0.3 ) + ( result['Viewer Engagement']* 0.4 ) + ( result['Ad Message']* 0.3 )
+
+        result['Brand Relevance'] = ( parseFloat(arr['Q1'])* 0.3 ) + ( parseFloat(arr['Q5o2'])* 0.4 ) + ( parseFloat(arr['Q8'])* 0.3 )
+        result['Viewer Engagement'] = ( parseFloat(arr['Q2'])* 0.3 ) + ( parseFloat(arr['Q5o3'])* 0.4 ) + ( parseFloat(arr['Q6'])* 0.3 )
+        result['Ad Message'] = ( parseFloat(arr['Q3'])* 0.3 ) + ( parseFloat(arr['Q4'])* 0.3 ) + ( parseFloat(arr['Q5o1'])* 0.2 ) + ( parseFloat(arr['Q7'])* 0.2 )
+        result['Total'] = ( parseFloat(result['Brand Relevance'])* 0.3 ) + ( parseFloat(result['Viewer Engagement'])* 0.4 ) + ( parseFloat(result['Ad Message'])* 0.3 )
+
         return result;
     }
 }

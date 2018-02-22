@@ -28,7 +28,8 @@ class WeightTopBox extends Component {
             );
         }
 
-        const displaySingleKPI = (kpi) => {
+
+        const displaySingleKPI = (kpi, nameOfClass, title) => {
             const self = this;
             trKey++;
 
@@ -38,9 +39,9 @@ class WeightTopBox extends Component {
                 valuesCell.push(Math.round(v));
             })
             return (
-                <tr key={trKey}>
+                <tr key={trKey} className={nameOfClass}>
                     <td>
-                        {kpi}
+                        {title}
                     </td>
                     {valuesCell.map( function (single, i) {
                         return (
@@ -59,23 +60,23 @@ class WeightTopBox extends Component {
                     {displayHeaderTable()}
                 </thead>
                 <tbody>
-                    {displaySingleKPI('total')}
+                    {displaySingleKPI('total', 'level1', 'SpotOn score')}
 
-                    {displaySingleKPI('brandRelevance')}
-                    {displaySingleKPI('brandRecall')}
-                    {displaySingleKPI('relevance')}
-                    {displaySingleKPI('brandFit')}
+                    {displaySingleKPI('brandRelevance', 'level2', 'Brand Relevance')}
+                    {displaySingleKPI('brandRecall', 'level3', 'Brand Recall')}
+                    {displaySingleKPI('relevance', 'level3', 'Relevance')}
+                    {displaySingleKPI('brandFit', 'level3', 'Brand Fit')}
 
-                    {displaySingleKPI('viewerEngagement')}
-                    {displaySingleKPI('adAppeal')}
-                    {displaySingleKPI('shareability')}
-                    {displaySingleKPI('callToAction')}
+                    {displaySingleKPI('viewerEngagement', 'level2', 'Viewer Engagement')}
+                    {displaySingleKPI('adAppeal', 'level3', 'Ad Appeal')}
+                    {displaySingleKPI('shareability', 'level3', 'Shareability')}
+                    {displaySingleKPI('callToAction', 'level3', 'Call to Action')}
 
-                    {displaySingleKPI('adMessage')}
-                    {displaySingleKPI('toneOfVoice')}
-                    {displaySingleKPI('emotion')}
-                    {displaySingleKPI('uniqueness')}
-                    {displaySingleKPI('messaging')}
+                    {displaySingleKPI('adMessage', 'level2', 'Ad Message')}
+                    {displaySingleKPI('toneOfVoice', 'level3', 'Tone of Voice')}
+                    {displaySingleKPI('emotion', 'level3', 'Emotion')}
+                    {displaySingleKPI('uniqueness', 'level3', 'Uniqueness')}
+                    {displaySingleKPI('messaging', 'level3', 'Messaging')}
                 </tbody>
             </table>
         );

@@ -38,16 +38,16 @@ class Api {
         }
         while (bulkIndex <= maxBulk) {
             await axios.post(this.createAd, {
-                adname: bulk[bulkIndex]['Ad name'],
-                shortname: bulk[bulkIndex]['Short name'],
-                videourl: bulk[bulkIndex]['Video URL'],
+                adname: bulk[bulkIndex]['Ad_name'],
+                shortname: bulk[bulkIndex]['Short_name'],
+                videourl: bulk[bulkIndex]['Video_URL'],
                 industry: bulk[bulkIndex]['Industry'],
                 brand: bulk[bulkIndex]['Brand'],
                 country: bulk[bulkIndex]['Country'],
-                campaigndate: bulk[bulkIndex]['Campaign date'],
+                campaigndate: bulk[bulkIndex]['Campaign_date'],
                 lengthAd: bulk[bulkIndex]['Length'],
                 channel: bulk[bulkIndex]['Channel'],
-                productionState: bulk[bulkIndex]['Production status'],
+                productionState: bulk[bulkIndex]['Production_status'],
                 state: bulk[bulkIndex]['State'],
             }).then(aumNum).catch(aumNum);
             if (bulkIndex === maxBulk){
@@ -144,24 +144,27 @@ class Api {
     }
 
     // Create multiple Ads from an array
-    async createKPI(kpis) {
-        await axios.post(this.createKPIs, {
-            adID: kpis['Ad name'],
-            brandRecall: kpis['Q1'],
-            adAppeal: kpis['Q2'],
-            toneOfVoice: kpis['Q3'],
-            emotion: kpis['Q4'],
-            uniqueness: kpis['Q5o1'],
-            relevance: kpis['Q5o2'],
-            shareability: kpis['Q5o3'],
-            callToAction: kpis['Q6'],
-            messaging: kpis['Q7'],
-            brandFit: kpis['Q8'],
-            brandRelevance: kpis['Brand Relevance'],
-            viewerEngagement: kpis['Viewer Engagement'],
-            adMessage: kpis['Ad Message'],
-            total: kpis['Total'],
-        });
+    async createKPI(arryOfKpis) {
+        for ( let i in arryOfKpis ) {
+            let kpis = arryOfKpis[i];
+            await axios.post(this.createKPIs, {
+                adID: kpis['Ad name'],
+                brandRecall: kpis['Q1'],
+                adAppeal: kpis['Q2'],
+                toneOfVoice: kpis['Q3'],
+                emotion: kpis['Q4'],
+                uniqueness: kpis['Q5o1'],
+                relevance: kpis['Q5o2'],
+                shareability: kpis['Q5o3'],
+                callToAction: kpis['Q6'],
+                messaging: kpis['Q7'],
+                brandFit: kpis['Q8'],
+                brandRelevance: kpis['Brand Relevance'],
+                viewerEngagement: kpis['Viewer Engagement'],
+                adMessage: kpis['Ad Message'],
+                total: kpis['Total'],
+            });
+        };
         return true;
     }
 }

@@ -9,10 +9,28 @@ class ColorChart {
                 colorToReturn = '#414bff'
                 break;
             case 2:
-                colorToReturn = '#7c83ff'
+                colorToReturn = '#5697ff'
                 break;
             case 3:
-                colorToReturn = '#b9bdff'
+                colorToReturn = '#6ae3ff'
+                break;
+            case 4:
+                colorToReturn = '#6752ff'
+                break;
+            case 5:
+                colorToReturn = '#8c5aff'
+                break;
+            case 6:
+                colorToReturn = '#b850d6'
+                break;
+            case 7:
+                colorToReturn = '#c32d83'
+                break;
+            case 8:
+                colorToReturn = '#e60a3b'
+                break;
+            case 9:
+                colorToReturn = '#bf0a1b'
                 break;
             default:
         }

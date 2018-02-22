@@ -64,7 +64,7 @@ class AdList extends Component {
                         <td>{ ad.state }</td>
                         <td>
                             <Link to={{ pathname:'/ad/' + ad.adname, query: { ad: ad } }}>
-                                View
+                                <span className="icon-more"></span>
                             </Link>
                         </td>
                     </tr>
