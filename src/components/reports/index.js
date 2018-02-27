@@ -1,15 +1,21 @@
 import AdList from './adList';
 import FilterSidebar from './filter/';
 import SelectedAds from './selectedAds';
-import WeightTopBox from './weightTopBox';
+import WeightedReport from './weightedReport';
+import PercentileReport from './percentilReport';
 import LoadingSpinner from './loadingSpinner';
+import ColorTag from './colorTag';
+import CircleProgress from './circleProgress';
 
 export {
     AdList,
     FilterSidebar,
     SelectedAds,
-    WeightTopBox,
-    LoadingSpinner
+    WeightedReport,
+    PercentileReport,
+    LoadingSpinner,
+    ColorTag,
+    CircleProgress
 };
 
 export * from './charts/';

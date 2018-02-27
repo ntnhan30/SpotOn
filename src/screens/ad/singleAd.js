@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import { Api } from '../../constants';
+import { LoadingSpinner, CircleProgress } from '../../components';
 import ThumbAd from'../../Assets/imgs/ad-thumb.jpg';
 import HeroImageAd from'../../Assets/imgs/ad-heroimage.png';
-
+var _ = require('lodash');
 
 const api = new Api();
 
@@ -11,7 +12,6 @@ class SingleAd extends Component {
         super();
         this.state = {
             thisAd: [], // this is the list of filtered ads
-            thisResults: [],
             adStillExist: true
         };
     }
@@ -26,12 +26,11 @@ class SingleAd extends Component {
 
         // Retrieve the ad details from the server
         const thisAd = await this.props.api.fetchSingleAd(adname);
-        console.log(thisAd);
 
         // Save them into the state
         this.setState({
             thisAd: thisAd.ad,
-            thisResults: thisAd.results,
+            thisKPIs: thisAd.kpis
         });
     }
 
@@ -53,12 +52,21 @@ class SingleAd extends Component {
     }
 
     render() {
-        if(this.props.match !== undefined && this.props.match.params !== undefined && this.state.adStillExist){
+        if (!this.state.adStillExist) {
+            return (
+                <div className="container-fluid">
+                    <div className="col-md-8 offset-md-2">
+                        <h1>
+                            POST SUCCESFULLY DELETED
+                        </h1>
+                    </div>
+                </div>
+            );
+        } else if( !_.isEmpty(this.state.thisAd) ){
 
             var heroStyle = {
                 backgroundImage: `url(${HeroImageAd})`
             };
-
             return (
                 <Fragment>
                     <div className="container-fluid hero-image" style={ heroStyle }>
@@ -118,20 +126,25 @@ class SingleAd extends Component {
                             </table>
                         </div>
                     </div>
+
+                    <div className="container-fluid single">
+                        <div className="col-2 offset-2">
+                            <CircleProgress value={Math.round(this.state.thisKPIs.total)} name={'SpotOn score'} />
+                        </div>
+                        <div className="col-2">
+                            <CircleProgress value={Math.round(this.state.thisKPIs.brandRelevance)} name={'Brand Relevance'}/>
+                        </div>
+                        <div className="col-2">
+                            <CircleProgress value={Math.round(this.state.thisKPIs.viewerEngagement)} name={'Viewer Engagement'}/>
+                        </div>
+                        <div className="col-2">
+                            <CircleProgress value={Math.round(this.state.thisKPIs.adMessage)} name={'Ad Message'}/>
+                        </div>
+                    </div>
                 </Fragment>
             );
-        } else if (!this.state.adStillExist) {
-            return (
-                <div className="container-fluid">
-                    <div className="col-md-8 offset-md-2">
-                        <h1>
-                            POST SUCCESFULLY DELETED
-                        </h1>
-                    </div>
-                </div>
-            );
         } else {
-            return null;
+            return <LoadingSpinner/>;
         }
     }
 }

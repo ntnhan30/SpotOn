@@ -13,6 +13,7 @@ class Api {
         this.getResultsAd =     '/results/';
         this.createResults =    '/results/new';
 
+        this.getAllKPIs =    '/kpi';
         this.createKPIs =    '/kpi/new';
     }
 
@@ -141,6 +142,12 @@ class Api {
                 return finished;
             }
         }
+    }
+
+    // Fetch all KPIs from the server
+    async fetchKPIs() {
+        const { data } = await axios.get(this.getAllKPIs);
+        return data.KPIs;
     }
 
     // Create multiple Ads from an array

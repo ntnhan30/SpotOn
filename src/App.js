@@ -24,8 +24,6 @@ import './Assets/css/default.min.css';
 
 class App extends Component {
     render() {
-        // <Route exact path='/wtbReport/:id' component={WtbReport}/>
-        // <Route exact path='/wtbReport/:id' component={SelectReports} />
         return (
             <div>
                 <Router>

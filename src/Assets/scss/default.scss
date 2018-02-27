@@ -2,6 +2,7 @@
 @import '_calendar.scss';
 @import '_rangeSlider.scss';
 @import '_loadingSpinner.scss';
+@import '_circle.scss';
 @import url('https://fonts.googleapis.com/css?family=Overpass:300,700');
 
 @font-face {
@@ -202,68 +203,75 @@ li {
 
                     tr {
                         box-shadow: 0px 1em 1px -1em $white;
-                    }
 
-                    td{
-                        color: $white;
-                        padding: 1.3em 0.9em;
-
-                        span{
-                            display: block;
-                            color: $grey;
-                            text-transform: uppercase;
-                            padding: 1em 0 0;
-                            font-size: 0.8em
-                        }
-
-                        &.selected-icons {
+                        td{
+                            color: $white;
+                            padding: 1.3em 0.9em;
 
                             span{
-                                cursor: pointer;
-                                text-align: center;
-                                font-size: 1.1em;
-                                padding: 0.4em 0;
+                                display: block;
+                                color: $grey;
+                                text-transform: uppercase;
+                                padding: 1em 0 0;
+                                font-size: 0.8em
                             }
 
-                            a span{
-                                font-size: 1.3em;
+                            &.selected-icons {
+
+                                span{
+                                    cursor: pointer;
+                                    text-align: center;
+                                    font-size: 1.1em;
+                                    padding: 0.4em 0;
+                                }
+
+                                a span{
+                                    font-size: 1.3em;
+                                }
                             }
                         }
-                    }
-                }
-            }
 
-            .selectedButtons {
-                display: flex;
-                padding: 1.4em 1em;
+                        &.selectedButtons {
+                            padding: 0;
 
-                a {
-                    flex: 1;
+                            td{
 
-                    button {
-                        color: $grey;
-                        background: $midnightBlue100;
-                        width: 100%;
-                        padding: 1em 0;
-                        font-size: 0.9em;
-                        text-transform: uppercase;
-                        border: none;
-                        cursor: pointer;
-                        border-left: 1px solid $midnightBlue200;
+                                div {
+                                    display: flex;
+                                    justify-content: space-between;
 
-                        &:hover{
-                            color: $white;
-                            background-color: $blue;
+                                    a {
+                                        flex: 1;
+
+                                        button {
+                                            color: $grey;
+                                            background: $midnightBlue100;
+                                            width: 100%;
+                                            padding: 1em 0;
+                                            font-size: 0.9em;
+                                            text-transform: uppercase;
+                                            border: none;
+                                            cursor: pointer;
+                                            border-left: 1px solid $midnightBlue200;
+
+                                            &:hover{
+                                                color: $white;
+                                                background-color: $blue;
+                                            }
+                                        }
+
+                                        &:first-child button{
+                                            border-radius: 2px 0 0 2px;
+                                            border-left: none;
+                                        }
+
+                                        &:last-child button{
+                                            border-radius: 0 2px 2px 0;
+                                        }
+                                    }
+                                }
+                            }
                         }
-                    }
-
-                    &:first-child button{
-                        border-radius: 2px 0 0 2px;
-                        border-left: none;
-                    }
-
-                    &:last-child button{
-                        border-radius: 0 2px 2px 0;
                     }
                 }
             }
@@ -341,6 +349,52 @@ li {
                             font-weight: 900;
                             padding-left: 2em;
                             line-height: 1.9em;
+                        }
+
+                        .color-tag {
+
+                            span{
+                                padding: .5em .9em .3em;
+                                font-size: .83em;
+                                border-radius: 3px;
+                                margin: 0 .8em 0;
+                                display: inline-block;
+                                color: #fff;
+                                letter-spacing: .03em;
+                                top: -.1em;
+                                position: relative;
+                                min-width: 30px;
+                                text-align: center;
+                                line-height: .83em;
+                                border-width: 1px;
+
+                                &.green {
+                                    border-color: #2be32f;
+                                    color: #2be32f;
+                                }
+
+                                &.subtle-green {
+                                    border-color: #248132;
+                                    color: #248132;
+                                }
+
+                                &.normal {
+                                    border-color: white;
+                                    color: white;
+                                    //border-color: rgba(255,255,255,0.6);
+                                    //color: rgba(255,255,255,0.6);
+                                }
+
+                                &.subtle-red {
+                                    border-color: #992530;
+                                    color: #992530;
+                                }
+
+                                &.red {
+                                    border-color: #ff132b;
+                                    color: #ff132b;
+                                }
+                            }
                         }
                     }
 
@@ -529,7 +583,13 @@ li {
     }
 }
 
+.recharts-wrapper {
+    g.recharts-layer text {
+        fill: $grey;
+    }
 
-g.recharts-layer text {
-    fill: $grey;
+    .recharts-text.recharts-label tspan {
+        fill: $white;
+    }
 }
+

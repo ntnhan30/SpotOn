@@ -12,6 +12,7 @@ class TabulateAnswers {
         let result = [];
         var partitionedByAd = _(results).groupBy('VidDum').values().value();
 
+        // eslint-disable-next-line
         partitionedByAd.map( single => {
             let countanswers = this.countAnswers(single);
             let kpis = this.kpiCalculation(countanswers);
@@ -22,8 +23,10 @@ class TabulateAnswers {
     }
 
     // This function counts the different values
+    // eslint-disable-next-line
     countAnswers = (arr) => {
         let result = [];
+        // eslint-disable-next-line
         arr.map( single => {
             for ( let key in single ) {
                 let qKey = key.split("r");

@@ -1,7 +1,31 @@
 import React, { Component } from 'react';
+import { ColorTag } from '../../components';
+import { FunctionsResults } from '../functions';
 var _ = require('lodash');
 
-class WeightTopBox extends Component {
+const functionsResults  = new FunctionsResults ();
+
+class WeightedReport extends Component {
+    constructor() {
+        super();
+        this.state = {
+            average: [],
+        };
+    }
+
+    static defaultProps = {
+        functionsResults
+    }
+
+    async componentDidMount() {
+       //let average = this.props.functionsResults.getAverageKPIsOfSelected(this.props.allResults);
+       let average = await this.props.functionsResults.getGlobalAverage();
+
+       this.setState({
+           average
+       });
+   }
+
 
     render() {
         let trKey = 0;
@@ -47,6 +71,7 @@ class WeightTopBox extends Component {
                         return (
                             <td key={i}>
                                 {single}
+                                <ColorTag difference={ single - self.state.average[kpi] }/>
                             </td>
                         );
                     })}
@@ -83,6 +108,6 @@ class WeightTopBox extends Component {
     }
 }
 
-export default WeightTopBox;
+export default WeightedReport;
 
 

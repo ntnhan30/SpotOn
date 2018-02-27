@@ -1,21 +1,40 @@
 import React, { Component } from 'react';
-import { ColorChart } from '../../functions';
+import { ColorChart, FunctionsResults } from '../../functions';
 import {
-    BarChart,
     CartesianGrid,
     XAxis,
     YAxis,
     Tooltip,
     Legend,
     Bar,
+    ComposedChart,
+    ReferenceLine,
     ResponsiveContainer
 } from 'recharts';
 
 const colorChart = new ColorChart();
+const functionsResults  = new FunctionsResults ();
 
 class BarCharts extends Component {
+    constructor() {
+        super();
+        this.state = {
+            average: [],
+        };
+    }
+
     static defaultProps = {
-        colorChart
+        colorChart,
+        functionsResults
+    }
+
+    async componentDidMount() {
+        //let average = this.props.functionsResults.getAverageKPIsOfSelected(this.props.allResults);
+        let average = await this.props.functionsResults.getGlobalAverage();
+
+        this.setState({
+            average
+        });
     }
 
     render() {
@@ -25,29 +44,36 @@ class BarCharts extends Component {
         }
 
         let dataForChart = this.props.kpis;
-        // eslint-disable-next-line
-        dataForChart.map((single) => {
+
+        const references = dataForChart.map((single, z) => {
+            const self = this;
             // eslint-disable-next-line
             thisResults.map((i) => {
-                single[i['ad']['shortname']] =  parseInt(i['kpis'][single['nameInDB']],10);
+                single[i.ad.shortname] =  parseInt(i.kpis[single.nameInDB],10);
             });
+
+            let norm = self.state.average[single.nameInDB];
+            console.log(z);
+            return <ReferenceLine key={z} y={norm} label={{ value:(single.name + ' country norm'), position:'insideBottomLeft' }} stroke={this.props.colorChart.getNormColor(z)} strokeDasharray="10 10" />
         });
 
         const data = thisResults.map((obj, i) => {
-            return <Bar key={i} dataKey={obj['ad']['shortname']} fill={this.props.colorChart.getColor(i)} />
+            return <Bar key={i} dataKey={obj.ad.shortname} fill={this.props.colorChart.getColor(i)} />
         });
+
 
         return (
             <div>
                 <ResponsiveContainer width="95%" height={700} minHeight={400} >
-                    <BarChart width={730} height={450} data={dataForChart}>
+                    <ComposedChart width={730} height={450} data={dataForChart}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="name" />
                         <YAxis domain={[0, 100]}  />
                         <Tooltip cursor={false} />
                         <Legend />
                         { data }
-                    </BarChart>
+                        { references }
+                    </ComposedChart>
                 </ResponsiveContainer>
             </div>
         );

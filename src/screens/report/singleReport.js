@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Api } from '../../constants';
-import { WeightTopBox, LoadingSpinner } from '../../components';
+import { WeightedReport, PercentileReport, LoadingSpinner } from '../../components';
 
 const api = new Api();
 
-class WtbReport extends Component {
+class SingleReport extends Component {
     constructor() {
         super();
         this.state = {
@@ -53,9 +53,15 @@ class WtbReport extends Component {
 
     render() {
         if (this.state.isLoaded){
-            return (
-                <WeightTopBox allResults={this.state.thisResults} />
-            )
+            if (this.props.typeOfReport === 'weighted'){
+                return (
+                    <WeightedReport allResults={this.state.thisResults} />
+                )
+            } else if (this.props.typeOfReport === 'percentile'){
+                return (
+                    <PercentileReport allResults={this.state.thisResults} />
+                )
+            }
         } else {
             return (
                 <LoadingSpinner/>
@@ -64,4 +70,4 @@ class WtbReport extends Component {
     }
 }
 
-export default WtbReport;
+export default SingleReport;

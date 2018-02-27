@@ -36,6 +36,23 @@ class ColorChart {
         }
         return colorToReturn;
     }
+
+    getNormColor = num => {
+        let colorToReturn = '';
+        switch(num) {
+            case 0:
+                colorToReturn = '#bd4f1e'
+                break;
+            case 1:
+                colorToReturn = '#d26c24'
+                break;
+            case 2:
+                colorToReturn = '#e68829'
+                break;
+            default:
+        }
+        return colorToReturn;
+    }
 }
 
 export default ColorChart;

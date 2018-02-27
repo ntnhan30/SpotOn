@@ -1,7 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import MoreIcon from'../../Assets/imgs/more.svg';
-import CloseIcon from'../../Assets/imgs/close.svg';
 
 class SelectedAds extends Component {
 
@@ -45,21 +43,30 @@ class SelectedAds extends Component {
         const reportButtons = () => {
             if (selectedAdsID.length > 0) {
                 return (
-                    <div className="selectedButtons">
-                        <Link to={{ pathname:'/wtbReport/' + selectedAdsID.join('&') }}>
-                            <button>
-                                Weighted
-                            </button>
-                        </Link>
-                        <Link to={{ pathname:'/chart/' + selectedAdsID.join('&') }}>
-                            <button>
-                                Chart
-                            </button>
-                        </Link>
-                    </div>
+                    <tr className="selectedButtons">
+                        <td colSpan="2">
+                            <div>
+                                <Link to={{ pathname:'/weightedReport/' + selectedAdsID.join('&') }}>
+                                    <button>
+                                        Weighted
+                                    </button>
+                                </Link>
+                                <Link to={{ pathname:'/percentileReport/' + selectedAdsID.join('&') }}>
+                                    <button>
+                                        Percentile
+                                    </button>
+                                </Link>
+                                <Link to={{ pathname:'/chart/' + selectedAdsID.join('&') }}>
+                                    <button>
+                                        Chart
+                                    </button>
+                                </Link>
+                            </div>
+                        </td>
+                    </tr>
                 )
             } else {
-                return ( <div></div> );
+                return ( <Fragment></Fragment> );
             }
         };
 
@@ -73,10 +80,9 @@ class SelectedAds extends Component {
             } else {
                 return (
                     <tr>
-                        <td>
+                        <td colSpan="2">
                             CLICK ON THE CHECKBOX TO ADD TO THE SELECTION
                         </td>
-                        <td></td>
                     </tr>
                 );
             }
@@ -92,11 +98,10 @@ class SelectedAds extends Component {
                         { tableHeader }
                     </thead>
                     <tbody>
+                        { reportButtons() }
                         { listSelectedAds () }
                     </tbody>
                 </table>
-
-                { reportButtons() }
             </div>
         );
     }
