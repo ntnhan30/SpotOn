@@ -4,6 +4,7 @@ import TabulateAnswers from './tabulateAnswers';
 import FunctionsResults from './functionsResults';
 import ColorChart from './colorChart';
 import GetKPIs from './getKPIs';
+import UserRights from './userRights';
 
 export {
     HandleCSV,
@@ -11,5 +12,6 @@ export {
     TabulateAnswers,
     FunctionsResults,
     ColorChart,
-    GetKPIs
+    GetKPIs,
+    UserRights
 };

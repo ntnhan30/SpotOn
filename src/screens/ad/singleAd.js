@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Api } from '../../constants';
-import { LoadingSpinner, CircleProgress } from '../../components';
+import { LoadingSpinner, CircleProgress, Profile } from '../../components';
 import ThumbAd from'../../Assets/imgs/ad-thumb.jpg';
 import HeroImageAd from'../../Assets/imgs/ad-heroimage.png';
 var _ = require('lodash');
@@ -139,6 +139,9 @@ class SingleAd extends Component {
                         </div>
                         <div className="col-2">
                             <CircleProgress value={Math.round(this.state.thisKPIs.adMessage)} name={'Ad Message'}/>
+                        </div>
+                        <div className="col-2">
+                            <Profile/>
                         </div>
                     </div>
                 </Fragment>

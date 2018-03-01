@@ -56,6 +56,7 @@ class TabulateAnswers {
             maxCount += arr[i];
         }
         result = (maxCount > 0 ? parseFloat((count/maxCount)*100) : 0)
+        // Invert result
         result = 100 - result;
         return result;
     }
@@ -204,11 +205,11 @@ class TabulateAnswers {
         let result = [];
         for ( let i in arr ) {
             switch(i) {
-                case ( 'Q1' ):
+                case ( 'Q1o2' ):
                     /*** Binary scale
                     - Brand Recal
                     */
-                    result[i] = this.binaryScale(arr[i]);
+                    result['Q1'] = this.binaryScale(arr[i]);
                     break;
                 case ( 'Q2' ):
                 case ( 'Q5o1' ): case ( 'Q5o2' ): case ( 'Q5o3' ):
