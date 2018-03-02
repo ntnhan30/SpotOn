@@ -1,6 +1,4 @@
-import React, { Component, Fragment } from 'react';
-import { Redirect } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+import { Component } from 'react';
 
 class Login extends Component {
     login() {

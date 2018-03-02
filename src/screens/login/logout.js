@@ -1,6 +1,5 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
 
 class Logout extends Component {
     logout() {

@@ -30,6 +30,7 @@ class SelectReports extends Component {
     async componentDidMount() {
         // Retrieve the ads from the server
         const ads = await this.props.api.fetchAds();
+
         this.setState({
             ads: _.map(ads, o => _.extend({ show: true }, o)) // Show all the ads
         });

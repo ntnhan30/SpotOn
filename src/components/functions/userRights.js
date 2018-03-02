@@ -4,7 +4,7 @@ class UserRights {
         switch (email)
         {
             case 'andres.guevara@deliveryhero.com':
-                result.country = ['Germany'];
+                result.country = ['Colombia'];
                 result.right = 'admin';
                 break;
             case 'andresgf92@gmail.com':

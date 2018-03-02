@@ -1,26 +1,40 @@
 import axios from 'axios';
+import { Auth } from '../components/auth';
 
-//axios.defaults.baseURL = 'http://10.120.80.251:4000/api';
 axios.defaults.baseURL = 'http://localhost:4000/api';
 
 class Api {
     constructor() {
-        this.getAllAds =    '/single';
-        this.getSingleAd =  '/single/';
-        this.createAd =     '/single/new';
-        this.removeAd =     '/single/remove';
+        this.getAllAds =            '/single';
+        this.getAllCountryAds =     '/single/country/';
+        this.getSingleAd =          '/single/';
+        this.createAd =             '/single/new';
+        this.removeAd =             '/single/remove';
 
-        this.getResultsAd =     '/results/';
-        this.createResults =    '/results/new';
+        this.getResultsAd =         '/results/';
+        this.createResults =        '/results/new';
 
-        this.getAllKPIs =    '/kpi';
-        this.createKPIs =    '/kpi/new';
+        this.getAllKPIs =           '/kpi';
+        this.getAllCountryKPIs =    '/kpi/country/';
+        this.createKPIs =           '/kpi/new';
+
+        this.auth = new Auth();
     }
 
     // Fetch all Ads from the server
     async fetchAds() {
-        const { data } = await axios.get(this.getAllAds);
-        return data.ads;
+        const profile = this.auth.getUserInfo();
+        if (profile.right === 'limited'){
+            let result = [];
+            await Promise.all((profile.country).map(async country => {
+                const { data } = await axios.get(this.getAllCountryAds + country);
+                result = result.concat(data.ads)
+            }));
+            return result;
+        } else {
+            const { data } = await axios.get(this.getAllAds);
+            return data.ads;
+        }
     }
 
     // Fetch a single Ad from the server using the "adname"
@@ -146,8 +160,20 @@ class Api {
 
     // Fetch all KPIs from the server
     async fetchKPIs() {
-        const { data } = await axios.get(this.getAllKPIs);
-        return data.KPIs;
+        const profile = this.auth.getUserInfo();
+        console.log(profile.right);
+        if (profile.right === 'limited'){
+            let result = [];
+            await Promise.all((profile.country).map(async country => {
+                const { data } = await axios.get(this.getAllCountryKPIs + country);
+                console.log(data);
+                result = result.concat(data.KPIs)
+            }));
+            return result;
+        } else {
+            const { data } = await axios.get(this.getAllKPIs);
+            return data.KPIs;
+        }
     }
 
     // Create multiple Ads from an array

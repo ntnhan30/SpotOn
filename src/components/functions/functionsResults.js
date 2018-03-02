@@ -75,6 +75,9 @@ class FunctionsResults {
         // Retrieve all KPIs from the server
         let allKPIs = await this.api.fetchKPIs();
 
+        console.log('allKPIs');
+        console.log(allKPIs);
+
         // Sort the values of every KPI
         let sorted = [];
         const sortNumber = (a,b) => { return a - b; }
@@ -90,6 +93,12 @@ class FunctionsResults {
             sorted[s].forEach(function(i) { count[i] = (count[i]||0) + 1;});
             counted[s] = count;
         }
+        console.log('sorted');
+        console.log(sorted);
+        console.log('counted');
+        console.log(counted);
+        console.log('selectedAds');
+        console.log(selectedAds);
 
         // For each ad selected
         for (let single in selectedAds){

@@ -4,7 +4,6 @@ import {
     Router,
     Switch,
     Route,
-    Link,
     Redirect,
     withRouter
 } from 'react-router-dom';
@@ -17,8 +16,7 @@ import {
     Login,
     Logout,
     Callback,
-    HomeScreen,
-    SelectReports
+    HomeScreen
 } from './screens';
 
 import Auth from './components/auth/auth.js';
@@ -28,12 +26,6 @@ import history from  './components/auth/history';
 import './Assets/css/default.min.css';
 
 const auth = new Auth();
-
-const handleAuthentication = ({location}) => {
-    if (/access_token|id_token|error/.test(location.hash)) {
-      auth.handleAuthentication();
-    }
-}
 
 const AuthButton = withRouter(
     ({ history }) =>

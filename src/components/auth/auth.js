@@ -1,9 +1,9 @@
 import history from './history';
 import auth0 from 'auth0-js';
 import { AUTH_CONFIG } from './auth0-variables';
-import { UserRights } from '../functions';
+import UserRights from '../functions/userRights';
 
-const userRights = new UserRights;
+const userRights = new UserRights();
 
 class Auth {
     auth0 = new auth0.WebAuth({
@@ -105,8 +105,14 @@ class Auth {
         }
     }
 
-    getRights() {
-        return userRights.init(this.getEmail());
+    getUserInfo() {
+        const email = this.getEmail();
+        const rights = userRights.init(email);
+
+        let result = rights;
+        result.email = email;
+
+        return result;
     }
 }
 
