@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Auth } from '../components/auth';
 
+//axios.defaults.baseURL = 'http://10.120.80.251:4000/api';
 axios.defaults.baseURL = 'http://localhost:4000/api';
 
 class Api {
@@ -163,17 +164,20 @@ class Api {
         const profile = this.auth.getUserInfo();
         console.log(profile.right);
         if (profile.right === 'limited'){
-            let result = [];
-            await Promise.all((profile.country).map(async country => {
-                const { data } = await axios.get(this.getAllCountryKPIs + country);
-                console.log(data);
-                result = result.concat(data.KPIs)
-            }));
-            return result;
+            return (await this.fetchCountryKPIs(profile.country));
         } else {
             const { data } = await axios.get(this.getAllKPIs);
             return data.KPIs;
         }
+    }
+
+    async fetchCountryKPIs(countries) {
+        let result = [];
+        await Promise.all((countries).map(async country => {
+            const { data } = await axios.get(this.getAllCountryKPIs + country);
+            result = result.concat(data.KPIs)
+        }));
+        return result;
     }
 
     // Create multiple Ads from an array

@@ -57,6 +57,7 @@ class PercentileReport extends Component {
             );
         }
 
+        const showColorTag = (_.size(this.state.allResults)) >= 5 ? true : false;
 
         const displaySingleKPI = (kpi, nameOfClass, title) => {
             const self = this;
@@ -64,21 +65,24 @@ class PercentileReport extends Component {
 
             let valuesCell = [];
             _.mapValues(self.state.allResults, function (single) {
-                //Get the weighted value
+                //Get the percentile value
                 let v = (single['percentile']==null || (isNaN(single['percentile'][kpi])) ? 0 : single['percentile'][kpi]);
-
                 valuesCell.push(Math.round(v));
             })
+
             return (
                 <tr key={trKey} className={nameOfClass}>
                     <td>
                         {title}
                     </td>
                     {valuesCell.map( function (single, i) {
+                        const kpiValue = self.state.average[kpi];
                         return (
                             <td key={i}>
                                 {single}th
-                                <ColorTag difference={ single - self.state.average[kpi] }/>
+                                { showColorTag && (
+                                    <ColorTag difference={ single - kpiValue }/>
+                                )}
                             </td>
                         );
                     })}

@@ -11,6 +11,7 @@ import {
     ReferenceLine,
     ResponsiveContainer
 } from 'recharts';
+var _ = require('lodash');
 
 const colorChart = new ColorChart();
 const functionsResults  = new FunctionsResults ();
@@ -20,6 +21,7 @@ class BarCharts extends Component {
         super();
         this.state = {
             average: [],
+            selectedCountries: 0
         };
     }
 
@@ -29,13 +31,15 @@ class BarCharts extends Component {
     }
 
     async componentDidMount() {
-        //let average = this.props.functionsResults.getAverageKPIsOfSelected(this.props.allResults);
-        let average = await this.props.functionsResults.getGlobalAverage();
+        const selectedCountries = this.props.functionsResults.getCountriesOfSelectedAds(this.props.thisResults);
+        let average = await this.props.functionsResults.getCountryNorm([selectedCountries[0]]);
 
         this.setState({
+            selectedCountries,
             average
         });
     }
+
 
     render() {
         let thisResults = [];
@@ -45,16 +49,22 @@ class BarCharts extends Component {
 
         let dataForChart = this.props.kpis;
 
-        const references = dataForChart.map((single, z) => {
-            const self = this;
-            // eslint-disable-next-line
-            thisResults.map((i) => {
-                single[i.ad.shortname] =  parseInt(i.kpis[single.nameInDB],10);
-            });
+        const moreThanOneCountry = ( _.size(this.state.selectedCountries) > 1 ) ? true : false;
 
-            let norm = self.state.average[single.nameInDB];
-            console.log(z);
-            return <ReferenceLine key={z} y={norm} label={{ value:(single.name + ' country norm'), position:'insideBottomLeft' }} stroke={this.props.colorChart.getNormColor(z)} strokeDasharray="10 10" />
+        const references = dataForChart.map((single, z) => {
+            console.log(moreThanOneCountry);
+            if (!moreThanOneCountry) {
+                const self = this;
+                // eslint-disable-next-line
+                thisResults.map((i) => {
+                    single[i.ad.shortname] =  parseInt(i.kpis[single.nameInDB],10);
+                });
+
+                let norm = self.state.average[single.nameInDB];
+                return <ReferenceLine key={z} y={norm} label={{ value:(single.name + ' country norm'), position:'insideBottomLeft' }} stroke={this.props.colorChart.getNormColor(z)} strokeDasharray="10 10" />
+            } else {
+                return null
+            }
         });
 
         const data = thisResults.map((obj, i) => {

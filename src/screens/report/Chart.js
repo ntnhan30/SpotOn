@@ -10,7 +10,7 @@ class Chart extends Component {
     constructor() {
         super();
         this.state = {
-            thisResults: [],
+            thisResults: {},
             isLoaded: false
         };
     }
@@ -22,7 +22,7 @@ class Chart extends Component {
 
     getAdsFromURL = async () => {
         // Get the adname of this Ad
-        let allResults = [];
+        let allResults = {};
 
         let ads = this.props.match.params.id;
         ads = ads.split("&");

@@ -19,7 +19,7 @@ class SingleReport extends Component {
 
     getAdsFromURL = async () => {
         // Get the adname of this Ad
-        let allResults = [];
+        let allResults = {};
 
         let ads = this.props.match.params.id;
         ads = ads.split("&");

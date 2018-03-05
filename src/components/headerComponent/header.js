@@ -4,6 +4,7 @@ import Logo from'../../Assets/imgs/logo.svg';
 
 class Header extends Component {
     render() {
+        const profile = this.props.auth.getUserInfo();
         return (
             <header>
 
@@ -20,15 +21,19 @@ class Header extends Component {
                                 <li>
                                     <Link to='/'>Reports</Link>
                                 </li>
-                                <li>
+                                {
+                                (profile.right === 'admin' ) && (
                                     <Link to='/import'>Import</Link>
-                                </li>
+                                )
+                                }
                                 <li>
                                     <Link to='/notifications'>Notifications</Link>
                                 </li>
-                                <li>
+                                {
+                                (profile.right === 'admin' ) && (
                                     <Link to='/users'>Users</Link>
-                                </li>
+                                )
+                                }
                                 <li>
                                     <Link to='/logout'>Logout</Link>
                                 </li>

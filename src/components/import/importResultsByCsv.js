@@ -42,7 +42,7 @@ class ImportResultsByCSV extends Component {
             let results = self.props.handleCSV.csvToObject(reader.result);
 
             // Import to DB the results
-            await self.props.api.createBulkResults(results);
+            //await self.props.api.createBulkResults(results); -- Import the results
             let KPIs = self.props.tabulateAnswers.init(results);
             // Convert the CSV to object and send to API
             self.setStateAsync({

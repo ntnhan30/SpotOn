@@ -1,25 +1,33 @@
 import React, { Component } from 'react';
-import { ColorTag } from '../../components';
+import { LoadingSpinner, ColorTag } from '../../components';
+import { Auth } from '../../components/auth';
 import { FunctionsResults } from '../functions';
 var _ = require('lodash');
 
+const auth  = new Auth ();
 const functionsResults  = new FunctionsResults ();
 
 class WeightedReport extends Component {
     constructor() {
         super();
         this.state = {
-            average: [],
+            average: {},
         };
     }
 
     static defaultProps = {
+        auth,
         functionsResults
     }
 
     async componentDidMount() {
-       //let average = this.props.functionsResults.getAverageKPIsOfSelected(this.props.allResults);
-       let average = await this.props.functionsResults.getGlobalAverage();
+        //let average = this.props.functionsResults.getAverageKPIsOfSelected(this.props.allResults);
+        let profile = this.props.auth.getUserInfo();
+        let average = {};
+
+        await Promise.all((profile.country).map(async country => {
+            average[country] = await this.props.functionsResults.getCountryNorm([country]);
+        }));
 
        this.setState({
            average
@@ -58,9 +66,11 @@ class WeightedReport extends Component {
             trKey++;
 
             let valuesCell = [];
+            let countries = [];
             _.mapValues(self.props.allResults, function (single) {
                 let v = (single['kpis']==null || (isNaN(single['kpis'][kpi])) ? 0 : single['kpis'][kpi]);
                 valuesCell.push(Math.round(v));
+                countries.push(single.ad.country);
             })
             return (
                 <tr key={trKey} className={nameOfClass}>
@@ -71,7 +81,7 @@ class WeightedReport extends Component {
                         return (
                             <td key={i}>
                                 {single}
-                                <ColorTag difference={ single - self.state.average[kpi] }/>
+                                <ColorTag difference={ single - self.state.average[countries[i]][kpi] }/>
                             </td>
                         );
                     })}
@@ -79,32 +89,38 @@ class WeightedReport extends Component {
             );
         }
 
-        return (
-            <table className="table table-striped table-hover">
-                <thead className="thead-dark">
-                    {displayHeaderTable()}
-                </thead>
-                <tbody>
-                    {displaySingleKPI('total', 'level1', 'SpotOn score')}
+        if (_.isEmpty(this.state.average)){
+            return (
+                <LoadingSpinner/>
+            )
+        } else {
+            return (
+                <table className="table table-striped table-hover">
+                    <thead className="thead-dark">
+                        {displayHeaderTable()}
+                    </thead>
+                    <tbody>
+                        {displaySingleKPI('total', 'level1', 'SpotOn score')}
 
-                    {displaySingleKPI('brandRelevance', 'level2', 'Brand Relevance')}
-                    {displaySingleKPI('brandRecall', 'level3', 'Brand Recall')}
-                    {displaySingleKPI('relevance', 'level3', 'Relevance')}
-                    {displaySingleKPI('brandFit', 'level3', 'Brand Fit')}
+                        {displaySingleKPI('brandRelevance', 'level2', 'Brand Relevance')}
+                        {displaySingleKPI('brandRecall', 'level3', 'Brand Recall')}
+                        {displaySingleKPI('relevance', 'level3', 'Relevance')}
+                        {displaySingleKPI('brandFit', 'level3', 'Brand Fit')}
 
-                    {displaySingleKPI('viewerEngagement', 'level2', 'Viewer Engagement')}
-                    {displaySingleKPI('adAppeal', 'level3', 'Ad Appeal')}
-                    {displaySingleKPI('shareability', 'level3', 'Shareability')}
-                    {displaySingleKPI('callToAction', 'level3', 'Call to Action')}
+                        {displaySingleKPI('viewerEngagement', 'level2', 'Viewer Engagement')}
+                        {displaySingleKPI('adAppeal', 'level3', 'Ad Appeal')}
+                        {displaySingleKPI('shareability', 'level3', 'Shareability')}
+                        {displaySingleKPI('callToAction', 'level3', 'Call to Action')}
 
-                    {displaySingleKPI('adMessage', 'level2', 'Ad Message')}
-                    {displaySingleKPI('toneOfVoice', 'level3', 'Tone of Voice')}
-                    {displaySingleKPI('emotion', 'level3', 'Emotion')}
-                    {displaySingleKPI('uniqueness', 'level3', 'Uniqueness')}
-                    {displaySingleKPI('messaging', 'level3', 'Messaging')}
-                </tbody>
-            </table>
-        );
+                        {displaySingleKPI('adMessage', 'level2', 'Ad Message')}
+                        {displaySingleKPI('toneOfVoice', 'level3', 'Tone of Voice')}
+                        {displaySingleKPI('emotion', 'level3', 'Emotion')}
+                        {displaySingleKPI('uniqueness', 'level3', 'Uniqueness')}
+                        {displaySingleKPI('messaging', 'level3', 'Messaging')}
+                    </tbody>
+                </table>
+            );
+        }
     }
 }
 
