@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { Api } from '../../constants';
 import { LoadingSpinner, ColorTag } from '../../components';
 import { FunctionsResults } from '../functions';
 var _ = require('lodash');
 
-const api = new Api();
 const functionsResults  = new FunctionsResults ();
 
 class PercentileReport extends Component {
@@ -17,7 +15,6 @@ class PercentileReport extends Component {
     }
 
     static defaultProps = {
-        api,
         functionsResults
     }
 

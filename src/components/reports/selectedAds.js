@@ -40,6 +40,7 @@ class SelectedAds extends Component {
             }
         });
 
+
         const reportButtons = () => {
             if (selectedAdsID.length > 0) {
                 return (

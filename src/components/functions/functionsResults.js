@@ -78,7 +78,6 @@ class FunctionsResults {
             selectedCountries.push(selectedAds[i].ad.country);
         }
         selectedCountries = Array.from(new Set(selectedCountries))
-        console.log(selectedCountries);
 
         return selectedCountries;
     }
@@ -91,8 +90,6 @@ class FunctionsResults {
 
         // Retrieve all KPIs from the server
         let allKPIs = await this.api.fetchKPIs();
-        console.log(allKPIs);
-
 
         // group the Results by country and Sort them
         const sortNumber = (a,b) => { return a - b; }
@@ -125,13 +122,17 @@ class FunctionsResults {
             selectedAds[single].percentile = {};
             // For KPI of the selected Ad
             for (let kpi in selectedAds[single].kpis){
-                let value = selectedAds[single].kpis[kpi]; // Get value
-                let index = sorted[selectedAds[single].ad.country][kpi].indexOf(selectedAds[single].kpis[kpi]) // Get first position in the sorted array
-                let duplicates = (counted[selectedAds[single].ad.country][kpi][value]);   // Get the number of duplicates
-                let position = index + (duplicates/2);  // Get the final position in the sorted array
-                let percentile = (position/countryKPIs[selectedAds[single].ad.country].length)*100; // Get the percentile value based on the position divided by the amount of Ads.
-                // push the percentile values into the selectedAds
-                selectedAds[single]['percentile'][kpi] = percentile;
+                if (kpi !== 'adID'){
+                    let value = selectedAds[single].kpis[kpi]; // Get value
+                    let index = sorted[selectedAds[single].ad.country][kpi].indexOf(selectedAds[single].kpis[kpi]) // Get first position in the sorted array
+                    let duplicates = (counted[selectedAds[single].ad.country][kpi][value]);   // Get the number of duplicates
+                    let position = index + (duplicates/2);  // Get the final position in the sorted array
+                    let percentile = (position/countryKPIs[selectedAds[single].ad.country].length)*100; // Get the percentile value based on the position divided by the amount of Ads.
+                    // push the percentile values into the selectedAds
+                    selectedAds[single]['percentile'][kpi] = percentile;
+                } else {
+                    selectedAds[single]['percentile'][kpi] = selectedAds[single]['kpis'][kpi];
+                }
             }
         }
 

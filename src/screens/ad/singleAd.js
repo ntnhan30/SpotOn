@@ -141,7 +141,7 @@ class SingleAd extends Component {
                             <CircleProgress value={Math.round(this.state.thisKPIs.adMessage)} name={'Ad Message'}/>
                         </div>
                         <div className="col-2">
-                            <Profile/>
+
                         </div>
                     </div>
                 </Fragment>

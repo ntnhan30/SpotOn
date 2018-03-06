@@ -52,7 +52,6 @@ class BarCharts extends Component {
         const moreThanOneCountry = ( _.size(this.state.selectedCountries) > 1 ) ? true : false;
 
         const references = dataForChart.map((single, z) => {
-            console.log(moreThanOneCountry);
             if (!moreThanOneCountry) {
                 const self = this;
                 // eslint-disable-next-line

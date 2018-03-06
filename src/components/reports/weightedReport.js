@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { LoadingSpinner, ColorTag } from '../../components';
+import { LoadingSpinner, ColorTag, ExportCSV } from '../../components';
 import { Auth } from '../../components/auth';
 import { FunctionsResults } from '../functions';
 var _ = require('lodash');
@@ -36,6 +36,7 @@ class WeightedReport extends Component {
 
 
     render() {
+        console.log(this.props.allResults);
         let trKey = 0;
 
         const displayHeaderTable = () => {
@@ -48,7 +49,9 @@ class WeightedReport extends Component {
             })
             return (
                 <tr key={trKey}>
-                    <th></th>
+                    <th>
+                        <ExportCSV toExport={self.props.allResults}/>
+                    </th>
                     { valuesCell.map( function (single, i) {
                         return (
                             <th key={i}>
