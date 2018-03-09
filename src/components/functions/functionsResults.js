@@ -16,7 +16,7 @@ class FunctionsResults {
 
     getCountryNorm = async (country) => {
         // create empty object
-        let allKPIs = await this.api.fetchCountryKPIs(country);
+        const allKPIs = await this.api.fetchCountryKPIs(country);
         let averageKPIs = [];
 
         // Get the average of every key and assign to avergaeKPIs
@@ -87,9 +87,6 @@ class FunctionsResults {
 
         // Get list of selected countries
         let selectedCountries = this.getCountriesOfSelectedAds(selectedAds);
-
-        // Retrieve all KPIs from the server
-        let allKPIs = await this.api.fetchKPIs();
 
         // group the Results by country and Sort them
         const sortNumber = (a,b) => { return a - b; }

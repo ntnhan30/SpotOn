@@ -46,7 +46,7 @@
     border-radius: 50%;
     float: left;
     margin: 0 0.1em 0.1em 0;
-    background-color: #cccccc;
+    background-color: rgba(255,255,255,0.1);
   }
   .c100 *, .c100 *:before, .c100 *:after {
     -webkit-box-sizing: content-box;
@@ -72,7 +72,7 @@
     width: 5em;
     line-height: 5em;
     font-size: 0.2em;
-    color: #cccccc;
+    color: rgba(255,255,255,0.1);
     display: block;
     text-align: center;
     white-space: nowrap;
@@ -100,7 +100,7 @@
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
     border-radius: 50%;
-    background-color: whitesmoke;
+    background-color: #21233b;
     width: 0.84em;
     height: 0.84em;
     -webkit-transition-property: all;

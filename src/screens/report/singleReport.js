@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Api } from '../../constants';
-import { WeightedReport, PercentileReport, LoadingSpinner } from '../../components';
+import { WeightedReport, PercentileReport, CountryNorm, LoadingSpinner } from '../../components';
 
 const api = new Api();
 
@@ -55,11 +55,17 @@ class SingleReport extends Component {
         if (this.state.isLoaded){
             if (this.props.typeOfReport === 'weighted'){
                 return (
-                    <WeightedReport allResults={this.state.thisResults} />
+                    <Fragment>
+                        <WeightedReport allResults={this.state.thisResults} />
+                        <CountryNorm />
+                    </Fragment>
                 )
             } else if (this.props.typeOfReport === 'percentile'){
                 return (
-                    <PercentileReport allResults={this.state.thisResults} />
+                    <Fragment>
+                        <PercentileReport allResults={this.state.thisResults} />
+                        <CountryNorm />
+                    </Fragment>
                 )
             }
         } else {

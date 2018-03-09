@@ -324,150 +324,219 @@ li {
             overflow-x: auto;
 
             table {
+                width: 100%;
+                margin: 0;
 
-                tr {
+                thead, tbody, tr, td, th { display: block; }
 
-                    &.level1{
-                        background-color: $lightBlue;
-                        border-bottom: 5px solid $midnightBlue500;
+                tr:after {
+                    content: ' ';
+                    display: block;
+                    visibility: hidden;
+                    clear: both;
+                }
 
-                        * {
-                            color: $white;
-                        }
+                thead th {
+                    height: 50px;
 
-                        td {
+                    /*text-align: left;*/
+                }
 
-                            &:nth-child(1){
-                                font-weight: 900;
+                tbody {
+                    height: calc(100vh - 140px);
+                    overflow-y: auto;
+                }
+
+                thead {
+                    text-transform: uppercase;
+                    /* fallback */
+                }
+            }
+
+            tbody td, thead th {
+                width: 11.1%;
+                float: left;
+                display: initial;
+
+                &:nth-child(1){
+                    width: 4.1%;
+                    text-align: center;
+                }
+                &:nth-child(2){
+                    width: 21.1%;
+                }
+                &:last-child{
+                    width: 8.1%;
+                    text-align: center
+                }
+            }
+
+            .sticky-table {
+                height: calc(100vh - 90px);
+
+                .sticky-table-table{
+                    min-width: 100%;
+                }
+
+                .sticky-table-header-wrapper{
+                    .sticky-table-cell {
+                        text-align: left;
+                        text-transform: uppercase;
+                        letter-spacing: 0.08em;
+                        line-height: 1.6em;
+                        padding: 1em;
+                        font-size: 0.9em;
+                    }
+
+                    .sticky-table-corner {
+
+                        .sticky-table-cell{
+                            padding: 0.4em 1em;
+
+                            button{
+                                display: inline;
+                                text-transform: uppercase;
+                                color: $white;
+                                background: $midnightBlue100;
+                                padding: .7em 1.3em .6em;
+                                border-radius: 3px;
+                                cursor: pointer;
+                                font-size: .9em;
+                                border: none;
+
+                                &:hover{
+                                    background: rgba(255,255,255,0.3);
+                                }
+
+                                span{
+                                    padding-right: 1em
+                                }
                             }
                         }
                     }
+                }
 
-                    &.level2{
-                        background-color: $midnightBlue100;
+                .sticky-table-y-wrapper, .sticky-table-x-wrapper{
+                    overflow-y: initial;
 
-                        td {
+                    .sticky-table-column {
 
-                            &:nth-child(1){
+                        .level1{
+                            div {
+                                font-weight: 900;
+                                color: $white;
+                            }
+                        }
+
+                        .level2{
+                            div {
                                 color: $white;
                                 font-weight: 100;
                             }
                         }
-                    }
 
-                    &.level3{
-
-                        td {
-
-                            &:nth-child(1){
+                        .level3{
+                            div {
                                 padding-left: 3em;
                                 font-weight: 100;
                                 font-size: 0.83em;
                             }
                         }
-                    }
 
-                    th {
-                        text-align: left;
-
-                        button{
-                            display: inline;
-                            text-transform: uppercase;
-                            color: $white;
-                            background: $midnightBlue100;
-                            padding: .7em 1.3em .6em;
-                            border-radius: 3px;
-                            cursor: pointer;
-                            font-size: .9em;
-                            border: none;
-
-                            &:hover{
-                                background: rgba(255,255,255,0.3);
-                            }
-
-                            span{
-                                padding-right: 1em
-                            }
-                        }
-                    }
-
-                    td {
-                        text-align: left;
-                        border-right: solid 1px $midnightBlue800;
-                        color: $grey;
-
-                        &:nth-child(1){
+                        .sticky-table-cell {
                             text-align: left;
+                            font-weight: 900;
+                            font-size: 0.9em;
                             text-transform: uppercase;
                             letter-spacing: 0.08em;
-                            font-size: 0.9em;
-                            font-weight: 900;
-                            padding-left: 2em;
                             line-height: 1.9em;
                         }
 
-                        .color-tag {
+                    }
 
-                            span{
-                                padding: .5em .9em .3em;
-                                font-size: .83em;
-                                border-radius: 3px;
-                                margin: 0 .8em 0;
-                                display: inline-block;
-                                color: #fff;
-                                letter-spacing: .03em;
-                                top: -.1em;
-                                position: relative;
-                                min-width: 30px;
-                                text-align: center;
-                                line-height: .83em;
-                                border-width: 1px;
 
-                                &.green {
-                                    border-color: #2be32f;
-                                    color: #2be32f;
-                                }
+                    .sticky-table-row {
 
-                                &.subtle-green {
-                                    border-color: #248132;
-                                    color: #248132;
-                                }
+                        &.level1{
+                            background-color: $lightBlue;
+                            border-bottom: 5px solid $midnightBlue500;
 
-                                &.normal {
-                                    border-color: white;
-                                    color: white;
-                                    //border-color: rgba(255,255,255,0.6);
-                                    //color: rgba(255,255,255,0.6);
-                                }
+                            div {
+                                color: $white;
+                            }
+                        }
 
-                                &.subtle-red {
-                                    border-color: #992530;
-                                    color: #992530;
-                                }
+                        &.level2{
+                            background-color: $midnightBlue100;
+                        }
 
-                                &.red {
-                                    border-color: #ff132b;
-                                    color: #ff132b;
+                        .sticky-table-cell {
+                            text-align: left;
+                            border-right: solid 1px $midnightBlue800;
+                            color: $grey;
+                            padding: 0.9em 1.4em;
+                            line-height: 0;
+
+                            &:nth-child(1){
+                                line-height: 1.9em;
+                            }
+
+                            .color-tag {
+
+                                span{
+                                    padding: .5em .9em .3em;
+                                    font-size: .83em;
+                                    border-radius: 3px;
+                                    margin: 0 .8em 0;
+                                    display: inline-block;
+                                    color: #fff;
+                                    letter-spacing: .03em;
+                                    top: -.1em;
+                                    position: relative;
+                                    min-width: 30px;
+                                    text-align: center;
+                                    line-height: .83em;
+                                    border-width: 1px;
+
+                                    &.green {
+                                        color: #2be32f;
+                                    }
+
+                                    &.subtle-green {
+                                        color: #248132;
+                                    }
+
+                                    &.normal {
+                                        color: $white;
+                                    }
+
+                                    &.subtle-red {
+                                        color: #992530;
+                                    }
+
+                                    &.red {
+                                        color: #ff132b;
+                                    }
                                 }
                             }
                         }
-                    }
 
-                    &.table-fixed{
-                        thead{
-                            position: relative;
-                        }
-                    }
-
-                    a {
-                        &:hover{
-                            color: $white;
-                            text-decoration: none;
+                        &.table-fixed{
+                            thead{
+                                position: relative;
+                            }
                         }
 
-                        .icon-more{
-                            color: $lightGrey;
-                            font-size: 1.6em;
+                        a {
+                            &:hover{
+                                color: $white;
+                                text-decoration: none;
+                            }
+
+                            .icon-more{
+                                color: $lightGrey;
+                                font-size: 1.6em;
+                            }
                         }
                     }
                 }
@@ -505,6 +574,38 @@ li {
                             background: $lightBlue;
                         }
                     }
+                }
+            }
+            .pull-in-sidebar {
+                position: fixed;
+                height: 100%;
+                width: 25%;
+                top: 0;
+                right: -25%;
+                background: black;
+                @include transition(.3s ease-in-out);
+
+                &.active{
+                    right: 0;
+                }
+
+                .toggle-sidebar{
+                    position: absolute;
+                    left: -8em;
+                    width: 13em;
+                    background: black;
+                    color: $white;
+                    border: none;
+                    padding: 1em 0;
+                    top: 50%;
+                    margin-top: -25%;
+                    cursor: pointer;
+                    transform: rotate(-90deg);
+                    -webkit-transform: rotate(-90deg);
+                    -moz-transform: rotate(-90deg);
+                    -ms-transform: rotate(-90deg);
+                    -o-transform: rotate(-90deg);
+                    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
                 }
             }
         }
@@ -612,6 +713,7 @@ li {
         margin-top: -27.7em;
         background: white;
         padding: 0;
+        height: 1%;
 
         img{
             max-width: 100%;

@@ -31,6 +31,13 @@ class FilterAds {
 
 
         const isInsideDateRange = (date, range) => {
+            if (date === null) {
+                // If the Ad doesn't have a date
+                const thisYear = (new Date()).getFullYear().toString().substr(-2);
+                const thisMonth = ("0" + (new Date().getMonth() + 1)).slice(-2);
+                date = thisYear + '/' + thisMonth;
+                console.log(date);
+            }
             date = date.split("/");
             let isInside;
 
@@ -54,6 +61,7 @@ class FilterAds {
                 isInside = false;
             }
             return isInside;
+
         }
 
         const isInsideLengthRange = (length, range) => {

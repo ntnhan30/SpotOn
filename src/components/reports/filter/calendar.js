@@ -44,18 +44,22 @@ class CreateCalendar extends Component {
         result.year = parseInt(this.state.selectedRange.to.year, 10);
         result.month = parseInt(this.state.selectedRange.to.month, 10);
         return data.reduce((r, obj) => {
-            let date = obj[prop].split("/"); // [year, month]
-            date[0] = parseInt('20' + date[0], 10);
-            date[1] = parseInt(date[1], 10);
-            if (date[0] < result.year  ) {
-                result.year = date[0];
-                result.month = date[1];
-            } else if ( date[0] === result.year  ) {
-                if ( date[1] <= result.month ) {
+            if (obj[prop] !== null){
+                let date = obj[prop].split("/"); // [year, month]
+                date[0] = parseInt('20' + date[0], 10);
+                date[1] = parseInt(date[1], 10);
+                if (date[0] < result.year  ) {
+                    result.year = date[0];
                     result.month = date[1];
+                } else if ( date[0] === result.year  ) {
+                    if ( date[1] <= result.month ) {
+                        result.month = date[1];
+                    }
                 }
+                return result;
+            } else {
+                return null;
             }
-            return result;
         }, {})
     }
 

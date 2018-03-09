@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Api } from '../../constants';
-import { LoadingSpinner, CircleProgress, Profile } from '../../components';
+import { LoadingSpinner, CircleProgress } from '../../components';
 import ThumbAd from'../../Assets/imgs/ad-thumb.jpg';
 import HeroImageAd from'../../Assets/imgs/ad-heroimage.png';
 var _ = require('lodash');
@@ -52,6 +52,7 @@ class SingleAd extends Component {
     }
 
     render() {
+        console.log(this.state.thisAd);
         if (!this.state.adStillExist) {
             return (
                 <div className="container-fluid">
@@ -83,13 +84,13 @@ class SingleAd extends Component {
                             <h1>
                                 {this.state.thisAd.adname}
                             </h1>
-                            <p>McDonalds - if you're looking for an ad about burgers from McDonalds - this ad is for you.</p>
+                            <p>{this.state.thisAd.mainMessage}</p>
                         </div>
                     </div>
 
                     <div className="container-fluid single">
                         <div className="col-5 offset-2">
-                            <p>This TVC is a great place to start if you've never eaten burgers before. We'll provide an overview of the ingredients, go over the basic building blocks, and offer suggestions and best practices for eating a burger. And if you're new to the world of fries too, there's plenty of lessons covering the basics of potatoes and salt to help you get up and running.</p>
+                            <p>{this.state.thisAd.summary}</p>
                         </div>
 
                         <div className="col-3 move-up offset-1">

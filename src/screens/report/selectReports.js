@@ -34,9 +34,6 @@ class SelectReports extends Component {
         this.setState({
             ads: _.map(ads, o => _.extend({ show: true }, o)) // Show all the ads
         });
-
-        //const allKPIs = await this.props.api.fetchKPIs();
-        //this.props.handleCSV.exportObjectToCSV('KPIs.csv', allKPIs);
     }
 
 

@@ -1,16 +1,16 @@
 import axios from 'axios';
 import { Auth } from '../components/auth';
 
-//axios.defaults.baseURL = 'http://10.120.80.251:4000/api';
-axios.defaults.baseURL = 'http://localhost:4000/api';
+axios.defaults.baseURL = 'http://10.120.81.53:4000/api';
+//axios.defaults.baseURL = 'http://localhost:4000/api';
 
 class Api {
     constructor() {
-        this.getAllAds =            '/single';
-        this.getAllCountryAds =     '/single/country/';
-        this.getSingleAd =          '/single/';
-        this.createAd =             '/single/new';
-        this.removeAd =             '/single/remove';
+        this.getAllAds =            '/spot';
+        this.getAllCountryAds =     '/spot/country/';
+        this.getSingleAd =          '/spot/';
+        this.createAd =             '/spot/new';
+        this.removeAd =             '/spot/remove';
 
         this.getResultsAd =         '/results/';
         this.createResults =        '/results/new';
@@ -65,6 +65,8 @@ class Api {
                 channel: bulk[bulkIndex]['Channel'],
                 productionState: bulk[bulkIndex]['Production_status'],
                 state: bulk[bulkIndex]['State'],
+                summary: bulk[bulkIndex]['Summary'],
+                mainMessage: bulk[bulkIndex]['Main_message'],
             }).then(aumNum).catch(aumNum);
             if (bulkIndex === maxBulk){
                 finished = true;

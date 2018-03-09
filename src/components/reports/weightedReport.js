@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { LoadingSpinner, ColorTag, ExportCSV } from '../../components';
+import { StickyTable, Row, Cell } from 'react-sticky-table';
+import 'react-sticky-table/dist/react-sticky-table.css';
 import { Auth } from '../../components/auth';
 import { FunctionsResults } from '../functions';
 var _ = require('lodash');
@@ -38,28 +40,28 @@ class WeightedReport extends Component {
     render() {
         console.log(this.props.allResults);
         let trKey = 0;
+        let rows = [];
+
 
         const displayHeaderTable = () => {
             const self = this;
             trKey++;
 
+            let cells = [];
             let valuesCell = [];
             _.mapValues(self.props.allResults, function (single) {
                 valuesCell.push(single.ad.shortname);
             })
+
+            cells.push(<Cell key={0}><ExportCSV toExport={self.props.allResults}/></Cell>);
+            valuesCell.map( function (single, i) {
+                cells.push(<Cell key={i+1}>{single}</Cell>);
+            })
+
             return (
-                <tr key={trKey}>
-                    <th>
-                        <ExportCSV toExport={self.props.allResults}/>
-                    </th>
-                    { valuesCell.map( function (single, i) {
-                        return (
-                            <th key={i}>
-                                {single}
-                            </th>
-                        );
-                    })}
-                </tr>
+                <Row>
+                    { cells }
+                </Row>
             );
         }
 
@@ -68,6 +70,7 @@ class WeightedReport extends Component {
             const self = this;
             trKey++;
 
+            let cells = [];
             let valuesCell = [];
             let countries = [];
             _.mapValues(self.props.allResults, function (single) {
@@ -75,20 +78,21 @@ class WeightedReport extends Component {
                 valuesCell.push(Math.round(v));
                 countries.push(single.ad.country);
             })
+
+            cells.push(<Cell key={0}>{ title }</Cell>);
+            valuesCell.map( function (single, i) {
+                cells.push(
+                    <Cell key={i+1}>
+                        {single}
+                        <ColorTag difference={ single - self.state.average[countries[i]][kpi] }/>
+                    </Cell>
+                );
+            })
+
             return (
-                <tr key={trKey} className={nameOfClass}>
-                    <td>
-                        {title}
-                    </td>
-                    {valuesCell.map( function (single, i) {
-                        return (
-                            <td key={i}>
-                                {single}
-                                <ColorTag difference={ single - self.state.average[countries[i]][kpi] }/>
-                            </td>
-                        );
-                    })}
-                </tr>
+                <Row className={nameOfClass}>
+                    { cells }
+                </Row>
             );
         }
 
@@ -98,30 +102,28 @@ class WeightedReport extends Component {
             )
         } else {
             return (
-                <table className="table table-striped table-hover">
-                    <thead className="thead-dark">
-                        {displayHeaderTable()}
-                    </thead>
-                    <tbody>
-                        {displaySingleKPI('total', 'level1', 'SpotOn score')}
+                <StickyTable stickyHeaderCount={1} stickyColumnCount={1}>
+                    {displayHeaderTable()}
 
-                        {displaySingleKPI('brandRelevance', 'level2', 'Brand Relevance')}
-                        {displaySingleKPI('brandRecall', 'level3', 'Brand Recall')}
-                        {displaySingleKPI('relevance', 'level3', 'Relevance')}
-                        {displaySingleKPI('brandFit', 'level3', 'Brand Fit')}
+                    {displaySingleKPI('total', 'level1', 'SpotOn score')}
 
-                        {displaySingleKPI('viewerEngagement', 'level2', 'Viewer Engagement')}
-                        {displaySingleKPI('adAppeal', 'level3', 'Ad Appeal')}
-                        {displaySingleKPI('shareability', 'level3', 'Shareability')}
-                        {displaySingleKPI('callToAction', 'level3', 'Call to Action')}
+                    {displaySingleKPI('brandRelevance', 'level2', 'Brand Relevance')}
+                    {displaySingleKPI('brandRecall', 'level3', 'Brand Recall')}
+                    {displaySingleKPI('relevance', 'level3', 'Relevance')}
+                    {displaySingleKPI('brandFit', 'level3', 'Brand Fit')}
 
-                        {displaySingleKPI('adMessage', 'level2', 'Ad Message')}
-                        {displaySingleKPI('toneOfVoice', 'level3', 'Tone of Voice')}
-                        {displaySingleKPI('emotion', 'level3', 'Emotion')}
-                        {displaySingleKPI('uniqueness', 'level3', 'Uniqueness')}
-                        {displaySingleKPI('messaging', 'level3', 'Messaging')}
-                    </tbody>
-                </table>
+                    {displaySingleKPI('viewerEngagement', 'level2', 'Viewer Engagement')}
+                    {displaySingleKPI('adAppeal', 'level3', 'Ad Appeal')}
+                    {displaySingleKPI('shareability', 'level3', 'Shareability')}
+                    {displaySingleKPI('callToAction', 'level3', 'Call to Action')}
+
+                    {displaySingleKPI('adMessage', 'level2', 'Ad Message')}
+                    {displaySingleKPI('toneOfVoice', 'level3', 'Tone of Voice')}
+                    {displaySingleKPI('emotion', 'level3', 'Emotion')}
+                    {displaySingleKPI('uniqueness', 'level3', 'Uniqueness')}
+                    {displaySingleKPI('messaging', 'level3', 'Messaging')}
+
+                </StickyTable>
             );
         }
     }

@@ -61,7 +61,6 @@ class ExportCSV extends Component{
     }
 
     render() {
-        const self = this;
         const weightedValues = this.getOrderedValuesForCSV('kpis');
         const percentileValues = this.getOrderedValuesForCSV('percentile');
         let selectedAds =  _.values(this.state.allResults);
