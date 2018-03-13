@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { LoadingSpinner } from '../../components';
 import { FunctionsResults } from '../functions';
-var _ = require('lodash');
 
 const functionsResults  = new FunctionsResults ();
 
@@ -22,6 +20,7 @@ class CountryNorm extends Component {
     }
 
     render() {
+        console.log(this.props.allResults);
         return (
             <div className={ (this.state.showing ? "active " :" " ) + 'pull-in-sidebar' }>
                 SIDEBAR THINGY

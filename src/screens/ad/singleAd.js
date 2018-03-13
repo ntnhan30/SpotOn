@@ -51,6 +51,13 @@ class SingleAd extends Component {
         console.log(this.props.api);
     }
 
+    breakByBR = (text) => {
+        let result = text.split('<br/>').map((item, key) => {
+            return <p key={key}>{item}</p>
+        })
+        return result;
+    }
+
     render() {
         console.log(this.state.thisAd);
         if (!this.state.adStillExist) {
@@ -84,7 +91,7 @@ class SingleAd extends Component {
                             <h1>
                                 {this.state.thisAd.adname}
                             </h1>
-                            <p>{this.state.thisAd.mainMessage}</p>
+                            {this.breakByBR(this.state.thisAd.mainMessage)}
                         </div>
                     </div>
 

@@ -7,13 +7,29 @@ class UserRights {
                 result.country = ['Colombia', 'Germany'];
                 result.right = 'admin';
                 break;
+            case 'mats.diedrichsen@deliveryhero.com':
+                result.country = ['Colombia', 'Germany'];
+                result.right = 'admin';
+                break;
+            case 'sofia.tavares@deliveryhero.com':
+                result.country = ['Colombia', 'Germany'];
+                result.right = 'admin';
+                break;
             case 'marina.kramer@deliveryhero.com':
+                result.country = ['Colombia', 'Germany'];
+                result.right = 'admin';
+                break;
+            case 'donwon.lee@deliveryhero.com':
+                result.country = ['Colombia', 'Germany'];
+                result.right = 'admin';
+                break;
+            case 'anna.permyakova@deliveryhero.com':
                 result.country = ['Germany'];
                 result.right = 'limited';
                 break;
-            case 'donwon.lee@deliveryhero.com':
+            case 'koviljka.neskovic@deliveryhero.com':
                 result.country = ['Colombia'];
-                result.right = 'limited';
+                result.right = 'admin';
                 break;
             default:
                 result.country = [''];

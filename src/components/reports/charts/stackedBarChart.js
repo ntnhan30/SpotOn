@@ -45,8 +45,8 @@ class StackedBarCharts extends Component {
 
         return (
             <div>
-                <ResponsiveContainer width="95%" height={700} minHeight={400} >
-                    <BarChart width={730} height={450} data={dataForChart} margin={{top: 20, right: 30, left: 20, bottom: 5}}>
+                <ResponsiveContainer width="95%" height="100%" minHeight={300} >
+                    <BarChart width={730} height="90%" data={dataForChart} margin={{top: 20, right: 30, left: 20, bottom: 5}}>
                         <XAxis dataKey="name"/>
                         <YAxis domain={[0, 100]} />
                         <CartesianGrid strokeDasharray="3 3"/>

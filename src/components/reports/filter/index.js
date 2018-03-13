@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import CreateDropdownList from './dropdown';
 import CreateMultiselect from './multiselect.js';
 import CreateCalendar from './calendar.js';
 import RangeSlider from './rangeSlider.js';
@@ -12,7 +11,6 @@ class FilterSidebar extends Component {
         super(...args)
 
         this.state = {
-            //adState: this.props.ads,
             itemDropdown: this.props.dataDropdown,
             ads: []
         }
@@ -33,7 +31,6 @@ class FilterSidebar extends Component {
         const productionStates = [...new Set(this.props.ads.map( item => item.productionState ))].sort();
         const states = [...new Set(this.props.ads.map( item => item.state ))].sort();
 
-        //console.log(this.props.ads);
         // Display the sidebar
         return (
             <div>

@@ -73,8 +73,8 @@ class BarCharts extends Component {
 
         return (
             <div>
-                <ResponsiveContainer width="95%" height={700} minHeight={400} >
-                    <ComposedChart width={730} height={450} data={dataForChart}>
+                <ResponsiveContainer width="95%" height="100%" minHeight={300} >
+                    <ComposedChart width={730} data={dataForChart}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="name" />
                         <YAxis domain={[0, 100]}  />

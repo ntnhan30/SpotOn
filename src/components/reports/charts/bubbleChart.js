@@ -35,7 +35,7 @@ class BubbleChart extends Component {
         });
         return (
             <div>
-                <ResponsiveContainer width="95%" height={700} minHeight={400} >
+                <ResponsiveContainer width="95%" height="100%" minHeight={300} >
                     <ScatterChart margin={{top: 20, right: 20, bottom: 20, left: 20}}>
                         <XAxis type="number" dataKey={'brandRelevance'} name='Brand Relevance' domain={[0, 100]}/>
                         <YAxis type="number" dataKey={'adMessage'} name='Ad Message' domain={[0, 100]}  />

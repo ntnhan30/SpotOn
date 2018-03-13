@@ -39,8 +39,8 @@ class RadarCharts extends Component {
 
         return (
             <div>
-                <ResponsiveContainer width="95%" height={700} minHeight={400} >
-                    <RadarChart outerRadius={270} width={730} height={700} data={dataForChart}>
+                <ResponsiveContainer width="95%" height="100%" minHeight={300} >
+                    <RadarChart outerRadius={270} width={730} height="100%" data={dataForChart}>
                         <PolarGrid />
                         <PolarAngleAxis dataKey="name" />
                         <PolarRadiusAxis angle={73} domain={[0, 100]} />

@@ -22,17 +22,25 @@ class Header extends Component {
                                     <Link to='/'>Reports</Link>
                                 </li>
                                 {
-                                (profile.right === 'admin' ) && (
-                                    <Link to='/import'>Import</Link>
-                                )
+                                    (profile.right === 'admin' ) && (
+                                        <li>
+                                            <Link to='/import'>Import</Link>
+                                        </li>
+                                    )
                                 }
-                                <li>
-                                    <Link to='/notifications'>Notifications</Link>
-                                </li>
                                 {
-                                (profile.right === 'admin' ) && (
-                                    <Link to='/users'>Users</Link>
-                                )
+                                    (profile.right === 'admin' ) && (
+                                    <li>
+                                        <Link to='/notifications'>Notifications</Link>
+                                    </li>
+                                    )
+                                }
+                                {
+                                    (profile.right === 'admin' ) && (
+                                        <li>
+                                            <Link to='/users'>Users</Link>
+                                        </li>
+                                    )
                                 }
                                 <li>
                                     <Link to='/logout'>Logout</Link>
