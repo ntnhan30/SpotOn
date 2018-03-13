@@ -108,10 +108,6 @@ class FunctionsResults {
                 counted[c][s] = count;
             }
         }));
-        console.log(sorted);
-        console.log(counted);
-
-
 
         // For each ad selected
         for (let single in selectedAds){
@@ -143,7 +139,6 @@ class FunctionsResults {
         _.mapValues(selectedAds, function (single) {
             allPercentileValues.push(single.percentile);
         })
-        console.log(allPercentileValues);
 
         // Get the average of every key and assign to avergaeKPIs
         for (let key in allPercentileValues['0']){
@@ -151,7 +146,6 @@ class FunctionsResults {
             byKey =_.mean(_.values(byKey));
             averagePercentiles[key] = byKey;
         };
-        console.log(averagePercentiles);
 
         //return the selected Ads and Average Percentiles;
         let result = {};

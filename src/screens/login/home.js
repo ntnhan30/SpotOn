@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import {
-    SelectReports
+    SelectReports,
+    Login
 } from '../../screens';
 
 class HomeScreen extends Component {
@@ -11,12 +11,7 @@ class HomeScreen extends Component {
             <Fragment>
                 {
                 !isAuthenticated && (
-                    <div>
-                        Not logged in
-                        <Link to={{ pathname:'/login' }}>
-                            Login
-                        </Link>
-                    </div>
+                    <Login auth={this.props.auth} />
                 )
                 }
                 {

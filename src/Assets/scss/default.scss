@@ -301,19 +301,18 @@ li {
                                         flex: 1;
 
                                         button {
-                                            color: $grey;
-                                            background: $midnightBlue100;
+                                            color: $white;
+                                            background: $blue;
                                             width: 100%;
                                             padding: 1em 0;
-                                            font-size: 0.9em;
+                                            font-size: 0.8em;
                                             text-transform: uppercase;
                                             border: none;
                                             cursor: pointer;
                                             border-left: 1px solid $midnightBlue200;
 
                                             &:hover{
-                                                color: $white;
-                                                background-color: $blue;
+                                                background-color: $midnightBlue100;
                                             }
                                         }
 
@@ -374,23 +373,25 @@ li {
                     text-transform: uppercase;
                     /* fallback */
                 }
-            }
 
-            tbody td, thead th {
-                width: 11.1%;
-                float: left;
-                display: initial;
+                &.table-fixed{
+                    tbody td, thead th {
+                        width: 11.1%;
+                        float: left;
+                        display: initial;
 
-                &:nth-child(1){
-                    width: 4.1%;
-                    text-align: center;
-                }
-                &:nth-child(2){
-                    width: 21.1%;
-                }
-                &:last-child{
-                    width: 8.1%;
-                    text-align: center
+                        &:nth-child(1){
+                            width: 4.1%;
+                            text-align: center;
+                        }
+                        &:nth-child(2){
+                            width: 21.1%;
+                        }
+                        &:last-child{
+                            width: 8.1%;
+                            text-align: center
+                        }
+                    }
                 }
             }
 
@@ -440,7 +441,8 @@ li {
                 }
 
                 .sticky-table-y-wrapper, .sticky-table-x-wrapper{
-                    overflow-y: initial;
+                    overflow-x: hidden;
+                    overflow-y: auto;
 
                     .sticky-table-column {
 
@@ -607,11 +609,13 @@ li {
 
             .pull-in-sidebar {
                 position: fixed;
-                height: 100%;
+                height: calc(100% - 90px);
                 width: 25%;
-                top: 0;
+                bottom: 0;
                 right: -25%;
-                background: black;
+                background: $midnightBlue200;
+                z-index: 10;
+                box-shadow: -20px 0 60px 4px rgba(0,0,0,0.5);
                 @include transition(.3s ease-in-out);
 
                 &.active{
@@ -622,7 +626,7 @@ li {
                     position: absolute;
                     left: -8em;
                     width: 13em;
-                    background: black;
+                    background: $midnightBlue800;
                     color: $white;
                     border: none;
                     padding: 1em 0;
@@ -636,6 +640,48 @@ li {
                     -o-transform: rotate(-90deg);
                     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
                 }
+
+                table{
+
+                    z-index: 2;
+                    position: relative;
+
+                    tr {
+                        display: flex;
+
+                        td, th {
+                            flex: 1;
+                            text-align: center;
+                        }
+
+                        td {
+                            height: 56px;
+                        }
+
+                        th {
+                            background: $midnightBlue800;
+                            color: $white;
+                            height: 49px;
+                        }
+
+                        &.level1{
+                            background: $lightBlue;
+                        }
+
+                        &.level2{
+                            background: $midnightBlue100;
+                        }
+
+                        &.level3{
+                            background: $midnightBlue200;
+                        }
+                    }
+                }
+            }
+
+            .rc-checkbox-checked .rc-checkbox-inner{
+                background-color: $blue;
+                border-color: $blue;
             }
         }
     }
@@ -764,6 +810,55 @@ li {
                     }
                 }
             }
+        }
+    }
+}
+
+.login-screen{
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    margin-top: -90px;
+
+    > div{
+
+        &:first-child{
+            flex: 2;
+            padding: 6em;
+
+            img{
+                width: 150px;
+            }
+
+            h1{
+                color: $white;
+                font-weight: 100;
+                font-size: 3em;
+                padding: 1.7em 0 0.8em;
+            }
+
+            p{
+                font-size: 1.3em;
+                line-height: 2em;
+            }
+
+            button{
+                cursor: pointer;
+                background: $blue;
+                border: none;
+                color: $white;
+                padding: 0.7em 2.3em;
+                font-size: 0.92em;
+                letter-spacing: 0.06em;
+                border-radius: 3px;
+                margin: 2em 0 0;
+            }
+        }
+
+        &:last-child{
+            flex: 3;
+            background: black;
+            height: 100%;
         }
     }
 }

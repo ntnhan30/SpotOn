@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { LoadingSpinner, ColorTag, ExportCSV } from '../../components';
+import React, { Component, Fragment } from 'react';
+import { LoadingSpinner, ColorTag, ExportCSV, CountryNorm } from '../../components';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
 import 'react-sticky-table/dist/react-sticky-table.css';
 import { Auth } from '../../components/auth';
@@ -38,14 +38,8 @@ class WeightedReport extends Component {
 
 
     render() {
-        console.log(this.props.allResults);
-        let trKey = 0;
-        let rows = [];
-
-
         const displayHeaderTable = () => {
             const self = this;
-            trKey++;
 
             let cells = [];
             let valuesCell = [];
@@ -54,6 +48,7 @@ class WeightedReport extends Component {
             })
 
             cells.push(<Cell key={0}><ExportCSV toExport={self.props.allResults}/></Cell>);
+            // eslint-disable-next-line
             valuesCell.map( function (single, i) {
                 cells.push(<Cell key={i+1}>{single}</Cell>);
             })
@@ -68,11 +63,11 @@ class WeightedReport extends Component {
 
         const displaySingleKPI = (kpi, nameOfClass, title) => {
             const self = this;
-            trKey++;
 
             let cells = [];
             let valuesCell = [];
             let countries = [];
+            // eslint-disable-next-line
             _.mapValues(self.props.allResults, function (single) {
                 let v = (single['kpis']==null || (isNaN(single['kpis'][kpi])) ? 0 : single['kpis'][kpi]);
                 valuesCell.push(Math.round(v));
@@ -80,6 +75,7 @@ class WeightedReport extends Component {
             })
 
             cells.push(<Cell key={0}>{ title }</Cell>);
+            // eslint-disable-next-line
             valuesCell.map( function (single, i) {
                 cells.push(
                     <Cell key={i+1}>
@@ -102,28 +98,31 @@ class WeightedReport extends Component {
             )
         } else {
             return (
-                <StickyTable stickyHeaderCount={1} stickyColumnCount={1}>
-                    {displayHeaderTable()}
+                <Fragment>
+                    <StickyTable stickyHeaderCount={1} stickyColumnCount={1}>
+                        {displayHeaderTable()}
 
-                    {displaySingleKPI('total', 'level1', 'SpotOn score')}
+                        {displaySingleKPI('total', 'level1', 'SpotOn score')}
 
-                    {displaySingleKPI('brandRelevance', 'level2', 'Brand Relevance')}
-                    {displaySingleKPI('brandRecall', 'level3', 'Brand Recall')}
-                    {displaySingleKPI('relevance', 'level3', 'Relevance')}
-                    {displaySingleKPI('brandFit', 'level3', 'Brand Fit')}
+                        {displaySingleKPI('brandRelevance', 'level2', 'Brand Relevance')}
+                        {displaySingleKPI('brandRecall', 'level3', 'Brand Recall')}
+                        {displaySingleKPI('relevance', 'level3', 'Relevance')}
+                        {displaySingleKPI('brandFit', 'level3', 'Brand Fit')}
 
-                    {displaySingleKPI('viewerEngagement', 'level2', 'Viewer Engagement')}
-                    {displaySingleKPI('adAppeal', 'level3', 'Ad Appeal')}
-                    {displaySingleKPI('shareability', 'level3', 'Shareability')}
-                    {displaySingleKPI('callToAction', 'level3', 'Call to Action')}
+                        {displaySingleKPI('viewerEngagement', 'level2', 'Viewer Engagement')}
+                        {displaySingleKPI('adAppeal', 'level3', 'Ad Appeal')}
+                        {displaySingleKPI('shareability', 'level3', 'Shareability')}
+                        {displaySingleKPI('callToAction', 'level3', 'Call to Action')}
 
-                    {displaySingleKPI('adMessage', 'level2', 'Ad Message')}
-                    {displaySingleKPI('toneOfVoice', 'level3', 'Tone of Voice')}
-                    {displaySingleKPI('emotion', 'level3', 'Emotion')}
-                    {displaySingleKPI('uniqueness', 'level3', 'Uniqueness')}
-                    {displaySingleKPI('messaging', 'level3', 'Messaging')}
+                        {displaySingleKPI('adMessage', 'level2', 'Ad Message')}
+                        {displaySingleKPI('toneOfVoice', 'level3', 'Tone of Voice')}
+                        {displaySingleKPI('emotion', 'level3', 'Emotion')}
+                        {displaySingleKPI('uniqueness', 'level3', 'Uniqueness')}
+                        {displaySingleKPI('messaging', 'level3', 'Messaging')}
 
-                </StickyTable>
+                    </StickyTable>
+                    <CountryNorm ads={this.props.allResults} />
+                </Fragment>
             );
         }
     }
