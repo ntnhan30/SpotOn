@@ -842,7 +842,6 @@
   }
   .c100.dark .bar,
   .c100.dark .fill {
-    border-color: #c6ff00 !important;
   }
   .c100.dark > span {
     color: #777777;
@@ -854,13 +853,12 @@
     color: #c6ff00;
   }
   .c100.green .bar, .c100.green .fill {
-    border-color: #4db53c !important;
   }
   .c100.green:hover > span {
-    color: #4db53c;
+    color: white;
   }
   .c100.green.dark .bar, .c100.green.dark .fill {
-    border-color: #5fd400 !important;
+
   }
   .c100.green.dark:hover > span {
     color: #5fd400;

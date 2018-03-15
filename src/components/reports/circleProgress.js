@@ -1,17 +1,30 @@
 import React, { Component } from 'react';
+import { ColorChart } from '../functions';
+
+const colorChart = new ColorChart();
 
 class CircleProgress extends Component {
+    static defaultProps = {
+        colorChart
+    }
+
     render() {
+        const classes = this.props.value + ' ' + this.props.size;
+        const color = this.props.colorChart.getProgressColor(this.props.value);
+        console.log(color);
+
         return (
             <div>
-                <div className={"c100 big green p" + this.props.value}>
-                    <span>{ this.props.value }</span>
+                <div className={ "c100 green p" + classes }>
+                    <span>
+                        { this.props.name }
+                        <span>{ this.props.value }</span>
+                    </span>
                     <div className="slice">
-                        <div className="bar"></div>
-                        <div className="fill"></div>
+                        <div className="bar" style={{borderColor: color}}></div>
+                        <div className="fill" style={{borderColor: color}}></div>
                     </div>
                 </div>
-                <span>{ this.props.name }</span>
             </div>
         );
     }

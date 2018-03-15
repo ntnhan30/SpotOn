@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { FunctionsResults } from '../functions';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { LoadingSpinner } from '../../components';
 var _ = require('lodash');
 
@@ -39,7 +38,6 @@ class CountryNorm extends Component {
     }
 
     displayCountries = () => {
-        const self = this;
         let cells = [];
         let i = 0;
 
@@ -59,8 +57,6 @@ class CountryNorm extends Component {
     }
 
     displaySingleKPI = (kpi, nameOfClass) => {
-        const self = this;
-
         let cells = [];
         let valuesCell = [];
         // eslint-disable-next-line
@@ -88,11 +84,6 @@ class CountryNorm extends Component {
 
     render() {
         if (!_.isEmpty(this.state.normOfCountries)){
-
-            const norm = this.state.normOfCountries;
-            let tabHeaders = [];
-            let i = 0;
-
             const tableHeader = (
                 <thead>
                     {this.displayCountries()}

@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { ColorChart } from '../../functions';
 import {
     BarChart,
-    CartesianGrid,
     XAxis,
     YAxis,
     Tooltip,
@@ -13,7 +12,7 @@ import {
 
 const colorChart = new ColorChart();
 
-class StackedBarCharts extends Component {
+class HorizontalChart extends Component {
     static defaultProps = {
         colorChart
     }
@@ -39,25 +38,28 @@ class StackedBarCharts extends Component {
 
         const data = this.props.kpis.map((kpi, i) => {
             return (
-                <Bar key={i} dataKey={kpi.name} stackId='a' fill={this.props.colorChart.getColor(i)} />
+                <Bar key={i} dataKey={kpi.name} stackId='a' layout='vertical' fill={this.props.colorChart.getColor(i)} />
             )
         });
-
         return (
-            <div>
-                <ResponsiveContainer width="95%" height="100%" minHeight={300} >
-                    <BarChart width={730} data={dataForChart} margin={{top: 20, right: 30, left: 20, bottom: 5}}>
-                        <XAxis dataKey="name"/>
-                        <YAxis domain={[0, 100]} />
-                        <CartesianGrid strokeDasharray="3 3"/>
-                        <Tooltip/>
+            <Fragment>
+                <ResponsiveContainer width="95%" height={120} minHeight={300} >
+                    <BarChart
+                        width={730}
+                        data={dataForChart}
+                        layout="vertical"
+                        margin={{top: 20, right: 30, left: 20, bottom: 5}}
+                        >
+                        <XAxis type="number" domain={[0, 100]} />
+                        <YAxis type="category" dataKey="name" hide={true} />
                         <Legend />
+                        <Tooltip />
                         { data }
                     </BarChart>
                 </ResponsiveContainer>
-            </div>
+            </Fragment>
         );
     }
 }
 
-export default StackedBarCharts;
+export default HorizontalChart;

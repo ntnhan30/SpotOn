@@ -1,11 +1,18 @@
 import React, { Component, Fragment } from 'react';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { Api } from '../../constants';
-import { LoadingSpinner, CircleProgress } from '../../components';
+import {
+    HorizontalChart,
+    GetKPIs,
+    LoadingSpinner,
+    CircleProgress
+} from '../../components';
 import ThumbAd from'../../Assets/imgs/ad-thumb.jpg';
 import HeroImageAd from'../../Assets/imgs/ad-heroimage.png';
 var _ = require('lodash');
 
 const api = new Api();
+const getKPIs = new GetKPIs();
 
 class SingleAd extends Component {
     constructor() {
@@ -17,7 +24,8 @@ class SingleAd extends Component {
     }
 
     static defaultProps = {
-        api
+        api,
+        getKPIs
     }
 
     componentDidMount = async () => {
@@ -29,14 +37,14 @@ class SingleAd extends Component {
 
         // Save them into the state
         this.setState({
-            thisAd: thisAd.ad,
-            thisKPIs: thisAd.kpis
+            thisAd
+            //thisKPIs: thisAd.kpis
         });
     }
 
     deleteSingleAd = async () => {
         // Retrieve the ad details from the server
-        const didItDelete = await this.props.api.deleteAd(this.state.thisAd.adname);
+        const didItDelete = await this.props.api.deleteAd(this.state.thisAd.ad.adname);
 
         this.setState({
             adStillExist: !didItDelete,
@@ -59,7 +67,14 @@ class SingleAd extends Component {
     }
 
     render() {
-        console.log(this.state.thisAd);
+        const thisAd = this.state.thisAd;
+        const brandRelevance = [ 'Brand Recall', 'Relevance', 'Brand Fit' ];
+        const viewerEngagement = [ 'Ad Appeal', 'Shareability', 'Call to action' ];
+        const adMessage = [ 'Messaging', 'Tone of voice', 'Emotion', 'Uniqueness' ];
+
+        console.log(thisAd);
+
+
         if (!this.state.adStillExist) {
             return (
                 <div className="container-fluid">
@@ -70,7 +85,7 @@ class SingleAd extends Component {
                     </div>
                 </div>
             );
-        } else if( !_.isEmpty(this.state.thisAd) ){
+        } else if( !_.isEmpty(thisAd) ){
 
             var heroStyle = {
                 backgroundImage: `url(${HeroImageAd})`
@@ -89,46 +104,46 @@ class SingleAd extends Component {
                                 DELETE
                             </span>
                             <h1>
-                                {this.state.thisAd.adname}
+                                {thisAd.ad.adname}
                             </h1>
-                            {this.breakByBR(this.state.thisAd.mainMessage)}
+                            {this.breakByBR(thisAd.ad.mainMessage)}
                         </div>
                     </div>
 
                     <div className="container-fluid single">
                         <div className="col-5 offset-2">
-                            <p>{this.state.thisAd.summary}</p>
+                            <p>{thisAd.ad.summary}</p>
                         </div>
 
                         <div className="col-3 move-up offset-1">
-                            <a href={this.state.thisAd.videourl} target="_blank">
+                            <a href={thisAd.ad.videourl} target="_blank">
                                 <img  src={ThumbAd} alt="Upload Ads"/>
                             </a>
                             <table className="">
                                 <tbody>
                                     <tr>
                                         <td>Title</td>
-                                        <td>{this.state.thisAd.shortname}</td>
+                                        <td>{thisAd.ad.shortname}</td>
                                     </tr>
                                     <tr>
                                         <td>Brand</td>
-                                        <td>{this.state.thisAd.brand}</td>
+                                        <td>{thisAd.ad.brand}</td>
                                     </tr>
                                     <tr>
                                         <td>Industry</td>
-                                        <td>{this.state.thisAd.industry}</td>
+                                        <td>{thisAd.ad.industry}</td>
                                     </tr>
                                     <tr>
                                         <td>Length</td>
-                                        <td>{this.state.thisAd.lengthAd}"</td>
+                                        <td>{thisAd.ad.lengthAd}"</td>
                                     </tr>
                                     <tr>
                                         <td>Channel</td>
-                                        <td>{this.state.thisAd.channel}</td>
+                                        <td>{thisAd.ad.channel}</td>
                                     </tr>
                                     <tr>
                                         <td>State</td>
-                                        <td>{this.state.thisAd.productionState}</td>
+                                        <td>{thisAd.ad.productionState}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -136,20 +151,44 @@ class SingleAd extends Component {
                     </div>
 
                     <div className="container-fluid single">
-                        <div className="col-2 offset-2">
-                            <CircleProgress value={Math.round(this.state.thisKPIs.total)} name={'SpotOn score'} />
-                        </div>
-                        <div className="col-2">
-                            <CircleProgress value={Math.round(this.state.thisKPIs.brandRelevance)} name={'Brand Relevance'}/>
-                        </div>
-                        <div className="col-2">
-                            <CircleProgress value={Math.round(this.state.thisKPIs.viewerEngagement)} name={'Viewer Engagement'}/>
-                        </div>
-                        <div className="col-2">
-                            <CircleProgress value={Math.round(this.state.thisKPIs.adMessage)} name={'Ad Message'}/>
-                        </div>
-                        <div className="col-2">
+                        <div className="col-9 offset-2">
+                            <Tabs>
+                                <TabList>
+                                    <Tab>
+                                        <div className="col-3">
+                                            <CircleProgress value={Math.round(thisAd.kpis.total)} size={'big'} name={'SpotOn score'} />
+                                        </div>
+                                    </Tab>
+                                    <Tab>
+                                        <div className="col-2">
+                                            <CircleProgress value={Math.round(thisAd.kpis.brandRelevance)} size={'medium'} name={'Brand Relevance'}/>
+                                        </div>
+                                    </Tab>
+                                    <Tab>
+                                        <div className="col-2">
+                                            <CircleProgress value={Math.round(thisAd.kpis.viewerEngagement)} size={'medium'} name={'Viewer Engagement'}/>
+                                        </div>
+                                    </Tab>
+                                    <Tab>
+                                        <div className="col-2">
+                                            <CircleProgress value={Math.round(thisAd.kpis.adMessage)} size={'medium'} name={'Ad Message'}/>
+                                        </div>
+                                    </Tab>
+                                </TabList>
 
+                                <TabPanel>
+
+                                </TabPanel>
+                                <TabPanel>
+                                    <HorizontalChart thisResults={[thisAd]} kpis={this.props.getKPIs.init(brandRelevance)}/>
+                                </TabPanel>
+                                <TabPanel>
+                                    <HorizontalChart thisResults={[thisAd]} kpis={this.props.getKPIs.init(viewerEngagement)}/>
+                                </TabPanel>
+                                <TabPanel>
+                                    <HorizontalChart thisResults={[thisAd]} kpis={this.props.getKPIs.init(adMessage)}/>
+                                </TabPanel>
+                            </Tabs>
                         </div>
                     </div>
                 </Fragment>

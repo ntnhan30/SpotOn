@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { LoadingSpinner, ColorTag, ExportCSV, CountryNorm } from '../../components';
+import { LoadingSpinner, ColorTag, ExportCSV } from '../../components';
 import { FunctionsResults } from '../functions';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
 import 'react-sticky-table/dist/react-sticky-table.css';
