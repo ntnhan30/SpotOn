@@ -53,7 +53,7 @@ class HorizontalChart extends Component {
                         <XAxis type="number" domain={[0, 100]} />
                         <YAxis type="category" dataKey="name" hide={true} />
                         <Legend />
-                        <Tooltip />
+                        <Tooltip cursor={false} />
                         { data }
                     </BarChart>
                 </ResponsiveContainer>

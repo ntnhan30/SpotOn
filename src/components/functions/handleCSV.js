@@ -18,20 +18,20 @@ class HandleCSV {
         for(let rowIndex = 0; rowIndex < csvRows.length; ++rowIndex){
             let rowArray  = csvRows[rowIndex].split(';');
 
-          // Create a new row object to store our data.
-          let rowObject = csvObj[rowIndex] = {};
+            // Create a new row object to store our data.
+            let rowObject = csvObj[rowIndex] = {};
 
-          // Then iterate through the remaining properties and use the headers as keys
-          for(let propIndex = 0; propIndex < rowArray.length; ++propIndex){
-            // Grab the value from the row array we're looping through...
-            let propValue =   rowArray[propIndex].replace('\r','');
-            // ...also grab the relevant header (the RegExp in both of these removes quotes)
-            let propLabel = csvHeaders[propIndex];
-            if (!isNaN(propValue)) {
-                propValue = parseInt(propValue,10);
+            // Then iterate through the remaining properties and use the headers as keys
+            for(let propIndex = 0; propIndex < rowArray.length; ++propIndex){
+                // Grab the value from the row array we're looping through...
+                let propValue =   rowArray[propIndex].replace('\r','');
+                // ...also grab the relevant header (the RegExp in both of these removes quotes)
+                let propLabel = csvHeaders[propIndex];
+                if (!isNaN(propValue)) {
+                    propValue = parseInt(propValue,10);
+                }
+                rowObject[propLabel] = propValue;
             }
-            rowObject[propLabel] = propValue;
-          }
         }
         return csvObj;
     }

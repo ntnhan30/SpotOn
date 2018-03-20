@@ -410,6 +410,14 @@ li {
                         line-height: 1.6em;
                         padding: 1em;
                         font-size: 0.9em;
+
+                        span.sampleSize{
+                            padding-left: 5px;
+                            opacity: 0.5;
+                            font-weight: bold;
+                            border-left: solid 2px rgba(255,255,255,0.4);
+                            margin-left: 5px;
+                        }
                     }
 
                     .sticky-table-corner {
@@ -440,8 +448,16 @@ li {
                     }
                 }
 
-                .sticky-table-y-wrapper, .sticky-table-x-wrapper{
+                .sticky-table-y-wrapper {
                     overflow-y: auto;
+                    overflow-x: hidden;
+
+                    .sticky-table-x-wrapper{
+                        overflow-x: auto;
+                    }
+                }
+
+                .sticky-table-y-wrapper, .sticky-table-x-wrapper{
 
                     .sticky-table-column {
 

@@ -25,7 +25,7 @@ class TabulateAnswers {
     // This function counts the different values
     // eslint-disable-next-line
     countAnswers = (arr) => {
-        let result = [];
+        let result = {};
         // eslint-disable-next-line
         arr.map( single => {
             for ( let key in single ) {
@@ -202,7 +202,7 @@ class TabulateAnswers {
     }
 
     kpiCalculation = (arr) => {
-        let result = [];
+        let result = {};
         for ( let i in arr ) {
             switch(i) {
                 case ( 'Q1o2' ):

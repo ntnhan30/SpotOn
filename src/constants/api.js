@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { Auth } from '../components/auth';
 
-// axios.defaults.baseURL = 'http://10.120.81.53:4000/api'; // LOCAL
-axios.defaults.baseURL = 'https://polar-beyond-85959.herokuapp.com/api';
+ axios.defaults.baseURL = 'http://10.120.81.53:4000/api'; // LOCAL
+//axios.defaults.baseURL = 'https://polar-beyond-85959.herokuapp.com/api'; // Heroku
 
 class Api {
     constructor() {
@@ -11,6 +11,7 @@ class Api {
         this.getSingleAd =          '/spot/';
         this.createAd =             '/spot/new';
         this.removeAd =             '/spot/remove';
+        this.addExtraInfo =         '/spot/addExtraInfo/';
 
         this.getResultsAd =         '/results/';
         this.createResults =        '/results/new';
@@ -53,6 +54,7 @@ class Api {
             bulkIndex++;
         }
         while (bulkIndex <= maxBulk) {
+            console.log(bulk[bulkIndex]);
             await axios.post(this.createAd, {
                 adname: bulk[bulkIndex]['Ad_name'],
                 shortname: bulk[bulkIndex]['Short_name'],
@@ -89,6 +91,49 @@ class Api {
         const { data } = await axios.get(this.getResultsAd + adname);
         return data.results;
     }
+
+    // Create Tone Of Voice of the Ad
+    async updateExtraInfo(arr) {
+        for ( let i in arr ) {
+            let single = arr[i];
+            const adName = single.adName;
+            await axios.post(this.addExtraInfo + adName, {
+                witty: single.toneOfVoice[1],
+                cool: single.toneOfVoice[2],
+                trustworthy: single.toneOfVoice[3],
+                inspiring: single.toneOfVoice[4],
+                friendly: single.toneOfVoice[5],
+                youthful: single.toneOfVoice[6],
+                funny: single.toneOfVoice[7],
+                easyGoing: single.toneOfVoice[8],
+                boring: single.toneOfVoice[9],
+                generic: single.toneOfVoice[10],
+                silly: single.toneOfVoice[11],
+                formal: single.toneOfVoice[12],
+                shocking: single.toneOfVoice[13],
+                aggressive: single.toneOfVoice[14],
+                childish: single.toneOfVoice[15],
+                pretentious: single.toneOfVoice[16],
+
+                excited: single.emotion[1],
+                impressed: single.emotion[2],
+                intrigued: single.emotion[3],
+                entertained: single.emotion[4],
+                informed: single.emotion[5],
+                interested: single.emotion[6],
+                indifferent: single.emotion[7],
+                bored: single.emotion[8],
+                confused: single.emotion[9],
+                offended: single.emotion[10],
+                annoyed: single.emotion[11],
+                irritated: single.emotion[12],
+
+                sampleSize: single.sampleSize
+            });
+        };
+        return true;
+    }
+
 
     // Create multiple Results from an array
     async createBulkResults(bulk) {
@@ -204,6 +249,14 @@ class Api {
                 total: kpis['Total'],
             });
         };
+        return true;
+    }
+
+    // Create multiple Ads from an array
+    async createAdKpisAndExtra(KPIs, extraInfo) {
+        const createdKPI = await this.createKPI(KPIs);
+        const ToneOfVoice = await this.updateExtraInfo(extraInfo);
+
         return true;
     }
 }

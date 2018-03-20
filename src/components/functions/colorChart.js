@@ -1,7 +1,7 @@
 class ColorChart {
     getColor = num => {
         let colorToReturn = '';
-        switch(num) {
+        switch(num%10) {
             case 0:
                 colorToReturn = '#232aa8'
                 break;

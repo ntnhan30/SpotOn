@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Api } from '../../constants';
 import ReactFileReader from 'react-file-reader'; // move to single component later
-import { HandleCSV, TabulateAnswers } from '../functions';
+import { HandleCSV, TabulateAnswers, CountAnswers } from '../functions';
 import QuestIcon from'../../Assets/imgs/questionnaire-icon.svg';
 
 const api = new Api();
 const handleCSV = new HandleCSV();
 const tabulateAnswers  = new TabulateAnswers ();
+const countAnswers  = new CountAnswers ();
 
 
 class ImportResultsByCSV extends Component {
@@ -21,7 +22,8 @@ class ImportResultsByCSV extends Component {
     static defaultProps = {
         api,
         handleCSV,
-        tabulateAnswers
+        tabulateAnswers,
+        countAnswers
     }
 
     setStateAsync(state) {
@@ -43,7 +45,10 @@ class ImportResultsByCSV extends Component {
 
             // Import to DB the results
             //await self.props.api.createBulkResults(results); -- Import the results
-            let KPIs = self.props.tabulateAnswers.init(results);
+            const KPIs = self.props.tabulateAnswers.init(results);
+            const extraInfo = self.props.countAnswers.init(results);
+            self.props.api.updateExtraInfo(extraInfo);
+
             // Convert the CSV to object and send to API
             self.setStateAsync({
                 imported: await self.props.api.createKPI(KPIs),

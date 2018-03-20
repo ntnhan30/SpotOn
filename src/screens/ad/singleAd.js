@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { Api } from '../../constants';
 import {
+    ObjectBarChart,
     HorizontalChart,
     GetKPIs,
     LoadingSpinner,
@@ -18,7 +19,7 @@ class SingleAd extends Component {
     constructor() {
         super();
         this.state = {
-            thisAd: [], // this is the list of filtered ads
+            thisAd: {}, // this is the list of filtered ads
             adStillExist: true
         };
     }
@@ -187,6 +188,8 @@ class SingleAd extends Component {
                                 </TabPanel>
                                 <TabPanel>
                                     <HorizontalChart thisResults={[thisAd]} kpis={this.props.getKPIs.init(adMessage)}/>
+                                    <ObjectBarChart thisResults={thisAd.ad.emotion} kpis={'Emotion'}/>
+                                    <ObjectBarChart thisResults={thisAd.ad.toneOfVoice} kpis={'Tone of Voice'}/>
                                 </TabPanel>
                             </Tabs>
                         </div>

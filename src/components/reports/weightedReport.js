@@ -43,14 +43,21 @@ class WeightedReport extends Component {
 
             let cells = [];
             let valuesCell = [];
+            let sampleSize = [];
             _.mapValues(self.props.allResults, function (single) {
                 valuesCell.push(single.ad.shortname);
+                sampleSize.push(single.ad.sampleSize);
             })
 
             cells.push(<Cell key={0}><ExportCSV toExport={self.props.allResults}/></Cell>);
             // eslint-disable-next-line
             valuesCell.map( function (single, i) {
-                cells.push(<Cell key={i+1}>{single}</Cell>);
+                cells.push(
+                    <Cell key={i+1}>
+                        {single}
+                        <span className="sampleSize">{sampleSize[i]}</span>
+                    </Cell>
+                );
             })
 
             return (

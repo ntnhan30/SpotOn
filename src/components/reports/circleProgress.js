@@ -11,7 +11,6 @@ class CircleProgress extends Component {
     render() {
         const classes = this.props.value + ' ' + this.props.size;
         const color = this.props.colorChart.getProgressColor(this.props.value);
-        console.log(color);
 
         return (
             <div>
