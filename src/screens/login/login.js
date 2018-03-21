@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Logo from'../../Assets/imgs/logo.svg';
+import Video from'../../Assets/video/hero-bg.mp4';
 
 class Login extends Component {
     login = () => {
@@ -17,6 +18,11 @@ class Login extends Component {
                     <button onClick={this.login}>LOG IN</button>
                 </div>
                 <div>
+                    <div className="fullscreen-bg">
+                        <video loop muted autoPlay poster="img/videoframe.jpg" className="fullscreen-bg__video">
+                            <source src={Video} type="video/mp4"/>
+                        </video>
+                    </div>
                 </div>
             </div>
         );

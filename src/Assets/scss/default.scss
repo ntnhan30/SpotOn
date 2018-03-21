@@ -922,6 +922,24 @@ li {
             flex: 3;
             background: black;
             height: 100%;
+            position: relative;
+            overflow: hidden;
+
+            .fullscreen-bg {
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                overflow: hidden;
+                z-index: -100;
+
+                .fullscreen-bg__video {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 100%;
+                }
+            }
         }
     }
 }
