@@ -34,7 +34,7 @@ class ImportResultsByCSV extends Component {
 
     // Returns the csv that the user uploads // move to a single component
 
-    handleFiles = files => {
+    handleFiles = async(files) => {
         const self = this;
         var reader = new FileReader();
         this.setState({
@@ -45,7 +45,7 @@ class ImportResultsByCSV extends Component {
 
             // Import to DB the results
             //await self.props.api.createBulkResults(results); -- Import the results
-            const KPIs = self.props.tabulateAnswers.init(results);
+            const KPIs = await self.props.tabulateAnswers.init(results);
             const extraInfo = self.props.countAnswers.init(results);
             self.props.api.updateExtraInfo(extraInfo);
 

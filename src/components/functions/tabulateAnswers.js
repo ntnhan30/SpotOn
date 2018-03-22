@@ -4,27 +4,36 @@
  * analyses it to give the score for each KPI of Weighted Top Box.
  *
 ============================ ******/
+import { Api } from '../../constants';
+import CountAnswers from './countAnswers';
 var _ = require('lodash');
 
-class TabulateAnswers {
+const api = new Api();
+const countAnswers = new CountAnswers();
 
-    init = (results) => {
+class TabulateAnswers {
+    constructor() {
+        this.api = api;
+        this.countAnswers = countAnswers;
+    }
+
+    init = async (results) => {
         let result = [];
         var partitionedByAd = _(results).groupBy('VidDum').values().value();
 
         // eslint-disable-next-line
-        partitionedByAd.map( single => {
-            let countanswers = this.countAnswers(single);
-            let kpis = this.kpiCalculation(countanswers);
+        await Promise.all((partitionedByAd).map(async single => {
+            let count = this.count(single);
+            let kpis = await this.kpiCalculation(count);
             let mainKpis = this.mainKPI(kpis);
             result.push(mainKpis);
-        });
+        }));
         return result;
     }
 
     // This function counts the different values
     // eslint-disable-next-line
-    countAnswers = (arr) => {
+    count = (arr) => {
         let result = {};
         // eslint-disable-next-line
         arr.map( single => {
@@ -33,7 +42,7 @@ class TabulateAnswers {
                 let k = (qKey.length > 1) ? [qKey[0]] : key ;
                 let i = (qKey.length > 1) ? [qKey[1]] : [single[key]] ;
 
-                result[k] = ( result[k] == null ) ? [] : result[k];
+                result[k] = ( result[k] == null ) ? {} : result[k];
                 result[k][i] = ( result[k][i] == null ) ? 0 : result[k][i];
 
                 if (((qKey.length === 2) && (single[key] === 1)) || (qKey.length === 1)){
@@ -68,18 +77,21 @@ class TabulateAnswers {
         for ( let i in arr ) {
             switch(parseFloat(i)) {
                 case ( 1 ):
-                    count += ( arr[i] * 3.5 );
-                    maxCount += ( arr[i] * 3.5 );
+                    count += ( arr[i] * 3.4 );
+                    maxCount += ( arr[i] * 3.4 );
                     break;
                 case ( 2 ):
-                    count += ( arr[i] * 1.5 );
-                    maxCount += ( arr[i] * 1.5 );
+                    count += ( arr[i] * 1.4 );
+                    maxCount += ( arr[i] * 1.4 );
+                    break;
+                case ( 3 ):
+                    maxCount += ( arr[i] * 0.4 );
                     break;
                 case ( 4 ):
-                    maxCount += ( arr[i] * 1.5 );
+                    maxCount += ( arr[i] * 1.4 );
                     break;
                 case ( 5 ):
-                    maxCount += ( arr[i] * 3.5 );
+                    maxCount += ( arr[i] * 3.4 );
                     break;
                 default:
             }
@@ -88,34 +100,41 @@ class TabulateAnswers {
         return result;
     }
 
-    messagingCalculation = (arr) => {
+    messagingCalculation = async (arr, nameOfAd) => {
         let result = 0;
-        let count = 0;
-        let maxCount = 0;
-        for ( let i in arr ) {
-            switch(parseFloat(i)) {
-                case(1):
-                case(2):
-                case(3):
-                    count += ( arr[i] * 3.5 );
-                    maxCount += ( arr[i] * 3.5 );
-                    break;
-                case(4):
-                case(5):
-                case(6):
-                    count += ( arr[i] * 1.5 );
-                    maxCount += ( arr[i] * 1.5 );
-                    break;
-                case(7):
-                case(8):
-                case(9):
-                case(98):
-                    maxCount += ( arr[i] * 3.5 );
-                    break;
-                default:
-            }
+
+        // thi si only for now, because the user selected 3 options. Delete later
+        arr = _.mapValues(arr, function (v) { return Math.round(v / 3); });
+
+        // Get info of the Ad from the server
+        const singleAd = await this.api.fetchSingleAd(nameOfAd);
+
+        // Fixed Sample Size
+        const sampleSize = 80;
+
+        // Get the Main Messages from the Ad
+        const mainMessage = singleAd.ad.mainMessage;
+        const secondaryMessage = singleAd.ad.secondaryMessage;
+        const tertiaryMessage = singleAd.ad.tertiaryMessage;
+
+        // Weighted values of main messages
+        const valueMainMessage = arr[mainMessage] * 2;
+        const valueSecondaryMessage = arr[secondaryMessage] * 1.2;
+        const valueTertiaryMessage = arr[tertiaryMessage];
+
+        if (secondaryMessage === null){
+            const A = (valueMainMessage / sampleSize) * 100;
+            const B = (((sampleSize - arr[mainMessage]) / 9) / sampleSize) * 100;
+            result = A + B;
+        } else if (tertiaryMessage === null){
+            result = ((valueMainMessage / sampleSize) + (valueSecondaryMessage / sampleSize)) * 100;
+        } else {
+            const A  = ((valueMainMessage / sampleSize) + (valueSecondaryMessage / sampleSize)) * 100;
+            const randomness = (sampleSize - (arr[mainMessage] + arr[secondaryMessage])) / (8);
+            const C = ((valueTertiaryMessage - randomness) / sampleSize) * 100;
+            result = A + C;
         }
-        result = (maxCount > 0 ? parseFloat((count/maxCount)*100) : 0)
+
         return result;
     }
 
@@ -201,7 +220,8 @@ class TabulateAnswers {
         return result;
     }
 
-    kpiCalculation = (arr) => {
+    kpiCalculation = async (arr) => {
+        const self = this;
         let result = {};
         for ( let i in arr ) {
             switch(i) {
@@ -238,7 +258,8 @@ class TabulateAnswers {
                 case ('Q7'):
                     /*** MessagingCalculation
                     */
-                    result[[i]] = this.messagingCalculation(arr[i]);
+                    const nameOfAd = self.countAnswers.getNameOfAd(arr.VidDum);
+                    result[[i]] = await this.messagingCalculation(arr[i], nameOfAd);
                     break;
                 case ('VidDum'):
                     result['Ad name'] = this.getNameOfAd(arr[i]);

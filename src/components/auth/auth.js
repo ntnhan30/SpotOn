@@ -47,6 +47,8 @@ class Auth {
         console.log('setSession(authResult)');
         // Set the time that the access token will expire at
         let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+
+        console.log(expiresAt);
         localStorage.setItem('access_token', authResult.accessToken);
         localStorage.setItem('id_token', authResult.idToken);
         localStorage.setItem('expires_at', expiresAt);
@@ -66,9 +68,11 @@ class Auth {
     }
 
     isAuthenticated() {
+        /* Removed the logout after a period of time
         if (!localStorage.getItem('expires_at')){
             return false;
         }
+        */
         // Check whether the current time is past the
         // access token's expiry time
         let expiresAt = JSON.parse(localStorage.getItem('expires_at'));

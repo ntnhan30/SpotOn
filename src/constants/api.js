@@ -68,7 +68,9 @@ class Api {
                 productionState: bulk[bulkIndex]['Production_status'],
                 state: bulk[bulkIndex]['State'],
                 summary: bulk[bulkIndex]['Summary'],
-                mainMessage: bulk[bulkIndex]['Main_message'],
+                mainMessage: bulk[bulkIndex]['Primary_message'],
+                secondaryMessage: bulk[bulkIndex]['Secondary_message'],
+                tertiaryMessage: bulk[bulkIndex]['Tertiary_message'],
             }).then(aumNum).catch(aumNum);
             if (bulkIndex === maxBulk){
                 finished = true;
@@ -229,8 +231,8 @@ class Api {
 
     // Create multiple Ads from an array
     async createKPI(arryOfKpis) {
-        for ( let i in arryOfKpis ) {
-            let kpis = arryOfKpis[i];
+        let result = false;
+        await Promise.all((arryOfKpis).map(async kpis => {
             await axios.post(this.createKPIs, {
                 adID: kpis['Ad name'],
                 brandRecall: kpis['Q1'],
@@ -247,9 +249,10 @@ class Api {
                 viewerEngagement: kpis['Viewer Engagement'],
                 adMessage: kpis['Ad Message'],
                 total: kpis['Total'],
-            });
-        };
-        return true;
+            })
+            result = true;
+        }));
+        return result;
     }
 
     // Create multiple Ads from an array

@@ -6,7 +6,8 @@ import {
     HorizontalChart,
     GetKPIs,
     LoadingSpinner,
-    CircleProgress
+    CircleProgress,
+    MessagingCode
 } from '../../components';
 import ThumbAd from'../../Assets/imgs/ad-thumb.jpg';
 import HeroImageAd from'../../Assets/imgs/ad-heroimage.png';
@@ -14,6 +15,7 @@ var _ = require('lodash');
 
 const api = new Api();
 const getKPIs = new GetKPIs();
+const messagingCode = new MessagingCode();
 
 class SingleAd extends Component {
     constructor() {
@@ -26,7 +28,8 @@ class SingleAd extends Component {
 
     static defaultProps = {
         api,
-        getKPIs
+        getKPIs,
+        messagingCode
     }
 
     componentDidMount = async () => {
@@ -58,13 +61,6 @@ class SingleAd extends Component {
 
     downloadAd = () => {
         console.log(this.props.api);
-    }
-
-    breakByBR = (text) => {
-        let result = text.split('<br/>').map((item, key) => {
-            return <p key={key}>{item}</p>
-        })
-        return result;
     }
 
     render() {
@@ -107,7 +103,9 @@ class SingleAd extends Component {
                             <h1>
                                 {thisAd.ad.adname}
                             </h1>
-                            {this.breakByBR(thisAd.ad.mainMessage)}
+                            <p><b>{this.props.messagingCode.init(thisAd.ad.mainMessage)}</b></p>
+                            <p>{this.props.messagingCode.init(thisAd.ad.secondaryMessage)}</p>
+                            <p>{this.props.messagingCode.init(thisAd.ad.tertiaryMessage)}</p>
                         </div>
                     </div>
 

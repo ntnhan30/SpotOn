@@ -21,12 +21,6 @@ var SCSS_DEST = './src/Assets/css';
 gulp.task('css', function(){
     gulp.src(SCSS_SRC)
         .pipe(sass().on('error', sass.logError))
-        /*
-        .pipe(compass({
-            css: SCSS_DEST,
-            sass: SCSS_SRC
-        }))
-        */
         .pipe(minifyCSS())
         .pipe(rename({ suffix: '.min' }))
         .pipe(changed(SCSS_DEST))
