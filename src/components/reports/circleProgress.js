@@ -10,7 +10,9 @@ class CircleProgress extends Component {
 
     render() {
         const classes = this.props.value + ' ' + this.props.size;
-        const color = this.props.colorChart.getProgressColor(this.props.value);
+        let color = this.props.colorChart.getProgressColor(this.props.value);
+        color = color + ' !important';
+        console.log(color);
 
         return (
             <div>
@@ -20,8 +22,8 @@ class CircleProgress extends Component {
                         <span>{ this.props.value }</span>
                     </span>
                     <div className="slice">
-                        <div className="bar" style={{borderColor: color + '!important'}}></div>
-                        <div className="fill" style={{borderColor: color + '!important'}}></div>
+                        <div className="bar" style={{borderColor: color}}></div>
+                        <div className="fill" style={{borderColor: color}}></div>
                     </div>
                 </div>
             </div>

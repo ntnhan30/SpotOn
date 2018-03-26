@@ -121,16 +121,11 @@ $secondary-color: transparent;
 $bg-color: transparent;
 
 $primary-color-green: #4db53c;
-$primary-color-orange: #dd9d22;
 
-
-// colors dark skin
-$primary-color-dark: #c6ff00;
-$secondary-color-dark: #777;
-$bg-color-dark: #666;
-
-$primary-color-green-dark: #5fd400;
-$primary-color-orange-dark: #e08833;
+$score1: #bf0a1b;
+$score2: #ec9034;
+$score3: #cfbb3c;
+$score4: #4db53c;
 
 
 // CIRCLE
@@ -171,7 +166,8 @@ $primary-color-orange-dark: #e08833;
 	border-radius: 50%;
 	float: left;
 	margin: 0 0.1em 0.1em 0;
-	background-color: transparent;
+    background-color: transparent;
+    box-shadow: 0 0px 0px .08em rgba(255,255,255,0.1) inset;
 
 	// center circle to its parent
 	&.center{
@@ -284,81 +280,49 @@ $primary-color-orange-dark: #e08833;
 			height: 1 - (2 * $circle-width-hover);
 		}
 
+    }
+
+    // loop to rotate all 100 circles
+	@for $j from 0 through 24 {
+		&.p#{$j} {
+			.bar, .fill { border-color: $score1;}
+
+            &:hover{
+                > span { color: $score1;}
+            }
+		}
+    }
+
+    // loop to rotate all 100 circles
+	@for $j from 25 through 49 {
+		&.p#{$j} {
+			.bar, .fill { border-color: $score2;}
+
+            &:hover{
+                > span { color: $score2;}
+            }
+		}
+    }
+
+    // loop to rotate all 100 circles
+	@for $j from 50 through 74 {
+		&.p#{$j} {
+			.bar, .fill { border-color: $score3;}
+
+            &:hover{
+                > span { color: $score3;}
+            }
+		}
+    }
+
+    // loop to rotate all 100 circles
+	@for $j from 75 through 100 {
+		&.p#{$j} {
+			.bar, .fill { border-color: $score4;}
+
+            &:hover{
+                > span { color: $score4;}
+            }
+		}
 	}
-
-
-	// override colors for the dark skin
-	&.dark {
-
-		background-color: $secondary-color-dark;
-
-		.bar,
-		.fill{
-			border-color: $primary-color-dark;
-		}
-
-		> span {
-			color: $secondary-color-dark;
-		}
-
-
-		&:after{
-			background-color: $bg-color-dark;
-		}
-
-		&:hover{
-
-			> span {
-				color: $primary-color-dark;
-			}
-
-		}
-
-	}
-
-
-	// green skin
-	&.green{
-
-		.bar, .fill { border-color: $primary-color-green !important;}
-
-		&:hover{
-			> span { color: $primary-color-green;}
-		}
-
-	}
-
-		&.green.dark{
-
-			.bar, .fill { border-color: $primary-color-green-dark !important;}
-
-			&:hover{
-				> span { color: $primary-color-green-dark;}
-			}
-
-		}
-
-
-	// orange skin
-	&.orange{
-
-		.bar, .fill { border-color: $primary-color-orange !important;}
-
-		&:hover{
-			> span { color: $primary-color-orange;}
-		}
-
-	}
-
-		&.orange.dark{
-
-			.bar, .fill { border-color: $primary-color-orange-dark !important;}
-
-			&:hover{
-				> span { color: $primary-color-orange-dark;}
-			}
-
-		}
-
-
 }

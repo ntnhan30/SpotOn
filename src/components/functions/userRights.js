@@ -3,23 +3,13 @@ class UserRights {
         let result = [];
         switch (email)
         {
-            case 'andres.guevara@deliveryhero.com':
-                result.country = ['Colombia', 'Germany'];
-                result.right = 'admin';
-                break;
             case 'mats.diedrichsen@deliveryhero.com':
-                result.country = ['Colombia', 'Germany'];
-                result.right = 'admin';
-                break;
+            case 'dan.zbijowski@deliveryhero.com':
+            case 'andres.guevara@deliveryhero.com':
             case 'sofia.tavares@deliveryhero.com':
-                result.country = ['Colombia', 'Germany'];
-                result.right = 'admin';
-                break;
             case 'marina.kramer@deliveryhero.com':
-                result.country = ['Colombia', 'Germany'];
-                result.right = 'admin';
-                break;
             case 'donwon.lee@deliveryhero.com':
+            case 'michael.wicke@deliveryhero.com':
                 result.country = ['Colombia', 'Germany'];
                 result.right = 'admin';
                 break;

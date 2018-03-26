@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { Auth } from '../components/auth';
 
- axios.defaults.baseURL = 'http://10.120.81.53:4000/api'; // LOCAL
-//axios.defaults.baseURL = 'https://polar-beyond-85959.herokuapp.com/api'; // Heroku
+//axios.defaults.baseURL = 'http://10.120.81.53:4000/api'; // LOCAL
+axios.defaults.baseURL = 'https://polar-beyond-85959.herokuapp.com/api'; // Heroku
 
 class Api {
     constructor() {
@@ -49,12 +49,11 @@ class Api {
     async createBulkAds(bulk) {
         let finished = false;
         let bulkIndex = 0;
-        let maxBulk = bulk.length - 1;
+        let maxBulk = bulk.length;
         const aumNum = () => {
             bulkIndex++;
         }
         while (bulkIndex <= maxBulk) {
-            console.log(bulk[bulkIndex]);
             await axios.post(this.createAd, {
                 adname: bulk[bulkIndex]['Ad_name'],
                 shortname: bulk[bulkIndex]['Short_name'],
@@ -141,7 +140,7 @@ class Api {
     async createBulkResults(bulk) {
         let finished = false;
         let bulkIndex = 0;
-        let maxBulk = bulk.length - 1;
+        let maxBulk = bulk.length;
         const aumNum = () => {
             bulkIndex++;
         }
@@ -211,7 +210,6 @@ class Api {
     // Fetch all KPIs from the server
     async fetchKPIs() {
         const profile = this.auth.getUserInfo();
-        console.log(profile.right);
         if (profile.right === 'limited'){
             return (await this.fetchCountryKPIs(profile.country));
         } else {
@@ -253,14 +251,6 @@ class Api {
             result = true;
         }));
         return result;
-    }
-
-    // Create multiple Ads from an array
-    async createAdKpisAndExtra(KPIs, extraInfo) {
-        const createdKPI = await this.createKPI(KPIs);
-        const ToneOfVoice = await this.updateExtraInfo(extraInfo);
-
-        return true;
     }
 }
 

@@ -56,11 +56,11 @@ class SingleAd extends Component {
     }
 
     reimportAd = () => {
-        console.log(this.props.api);
+        //console.log(this.props.api);
     }
 
     downloadAd = () => {
-        console.log(this.props.api);
+        //console.log(this.props.api);
     }
 
     render() {
@@ -69,7 +69,7 @@ class SingleAd extends Component {
         const viewerEngagement = [ 'Ad Appeal', 'Shareability', 'Call to action' ];
         const adMessage = [ 'Messaging', 'Tone of voice', 'Emotion', 'Uniqueness' ];
 
-        console.log(thisAd);
+        //console.log(thisAd);
 
 
         if (!this.state.adStillExist) {

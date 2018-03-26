@@ -19,7 +19,7 @@ class MonthBox extends Component {
 
     _handleClick(e) {
         this.props.onClick && this.props.onClick(e);
-        console.log('clicked');
+        //console.log('clicked');
     }
 
     render() {

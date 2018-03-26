@@ -38,6 +38,7 @@ class ImportAdsByCSV extends Component {
         const self = this;
         var reader = new FileReader();
         reader.onload = async function(e) {
+            //console.log(self.props.handleCSV.csvToObject(reader.result));
             // Convert the CSV to object and send to API
             self.setStateAsync({
                 imported: await self.props.api.createBulkAds(self.props.handleCSV.csvToObject(reader.result)),

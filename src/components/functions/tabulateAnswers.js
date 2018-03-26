@@ -122,11 +122,11 @@ class TabulateAnswers {
         const valueSecondaryMessage = arr[secondaryMessage] * 1.2;
         const valueTertiaryMessage = arr[tertiaryMessage];
 
-        if (secondaryMessage === null){
+        if (secondaryMessage === null || secondaryMessage === 0){
             const A = (valueMainMessage / sampleSize) * 100;
             const B = (((sampleSize - arr[mainMessage]) / 9) / sampleSize) * 100;
             result = A + B;
-        } else if (tertiaryMessage === null){
+        } else if (tertiaryMessage === null || tertiaryMessage === 0){
             result = ((valueMainMessage / sampleSize) + (valueSecondaryMessage / sampleSize)) * 100;
         } else {
             const A  = ((valueMainMessage / sampleSize) + (valueSecondaryMessage / sampleSize)) * 100;
@@ -274,7 +274,7 @@ class TabulateAnswers {
         let result = arr;
 
         result['Brand Relevance'] = ( parseFloat(arr['Q1'])* 0.3 ) + ( parseFloat(arr['Q5o2'])* 0.4 ) + ( parseFloat(arr['Q8'])* 0.3 )
-        result['Viewer Engagement'] = ( parseFloat(arr['Q2'])* 0.3 ) + ( parseFloat(arr['Q5o3'])* 0.4 ) + ( parseFloat(arr['Q6'])* 0.3 )
+        result['Viewer Engagement'] = ( parseFloat(arr['Q2'])* 0.3 ) + ( parseFloat(arr['Q5o3'])* 0.1 ) + ( parseFloat(arr['Q6'])* 0.6 )
         result['Ad Message'] = ( parseFloat(arr['Q3'])* 0.3 ) + ( parseFloat(arr['Q4'])* 0.3 ) + ( parseFloat(arr['Q5o1'])* 0.2 ) + ( parseFloat(arr['Q7'])* 0.2 )
         result['Total'] = ( parseFloat(result['Brand Relevance'])* 0.3 ) + ( parseFloat(result['Viewer Engagement'])* 0.4 ) + ( parseFloat(result['Ad Message'])* 0.3 )
 

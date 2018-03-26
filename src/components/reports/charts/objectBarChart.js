@@ -8,11 +8,9 @@ import {
     Legend,
     Bar,
     BarChart,
-    ReferenceLine,
     ResponsiveContainer,
     LabelList
 } from 'recharts';
-var _ = require('lodash');
 
 const colorChart = new ColorChart();
 const functionsResults  = new FunctionsResults ();
@@ -43,8 +41,6 @@ class ObjectBarChart extends Component {
             thisNames.push(this.props.thisResults[i])
         }
 
-        console.log(thisKeys);
-        console.log(thisNames);
         const data = thisKeys.map((obj, i) => {
             return (
                 <Bar key={i} dataKey={obj} fill={this.props.colorChart.getColor(i)}>

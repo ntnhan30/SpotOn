@@ -32,7 +32,7 @@ class Auth {
     }
 
     handleAuthentication() {
-        console.log('handleAuthentication()');
+        //console.log('handleAuthentication()');
         this.auth0.parseHash((err, authResult) => {
             if (authResult && authResult.accessToken && authResult.idToken) {
                 this.setSession(authResult);
@@ -44,11 +44,10 @@ class Auth {
     }
 
     setSession(authResult) {
-        console.log('setSession(authResult)');
+        //console.log('setSession(authResult)');
         // Set the time that the access token will expire at
         let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
 
-        console.log(expiresAt);
         localStorage.setItem('access_token', authResult.accessToken);
         localStorage.setItem('id_token', authResult.idToken);
         localStorage.setItem('expires_at', expiresAt);
