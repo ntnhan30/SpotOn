@@ -7,7 +7,8 @@ import {
     GetKPIs,
     LoadingSpinner,
     CircleProgress,
-    MessagingCode
+    MessagingCode,
+    FunctionsResults
 } from '../../components';
 import ThumbAd from'../../Assets/imgs/ad-thumb.jpg';
 import HeroImageAd from'../../Assets/imgs/ad-heroimage.png';
@@ -16,12 +17,14 @@ var _ = require('lodash');
 const api = new Api();
 const getKPIs = new GetKPIs();
 const messagingCode = new MessagingCode();
+const functionsResults = new FunctionsResults();
 
 class SingleAd extends Component {
     constructor() {
         super();
         this.state = {
-            thisAd: {}, // this is the list of filtered ads
+            thisAd: null, // this is the list of filtered ads
+            countryNorm: null,
             adStillExist: true
         };
     }
@@ -29,7 +32,8 @@ class SingleAd extends Component {
     static defaultProps = {
         api,
         getKPIs,
-        messagingCode
+        messagingCode,
+        functionsResults
     }
 
     componentDidMount = async () => {
@@ -38,10 +42,12 @@ class SingleAd extends Component {
 
         // Retrieve the ad details from the server
         const thisAd = await this.props.api.fetchSingleAd(adname);
+        const countryNorm = await this.props.functionsResults.getCountryNorm([thisAd.ad.country]);
 
         // Save them into the state
         this.setState({
-            thisAd
+            thisAd,
+            countryNorm
             //thisKPIs: thisAd.kpis
         });
     }
@@ -65,11 +71,11 @@ class SingleAd extends Component {
 
     render() {
         const thisAd = this.state.thisAd;
+        const countryNorm = this.state.countryNorm;
+
         const brandRelevance = [ 'Brand Recall', 'Relevance', 'Brand Fit' ];
         const viewerEngagement = [ 'Ad Appeal', 'Shareability', 'Call to action' ];
         const adMessage = [ 'Messaging', 'Tone of voice', 'Emotion', 'Uniqueness' ];
-
-        //console.log(thisAd);
 
 
         if (!this.state.adStillExist) {
@@ -87,6 +93,9 @@ class SingleAd extends Component {
             var heroStyle = {
                 backgroundImage: `url(${HeroImageAd})`
             };
+
+            console.log(countryNorm);
+
             return (
                 <Fragment>
                     <div className="container-fluid hero-image" style={ heroStyle }>
@@ -155,22 +164,22 @@ class SingleAd extends Component {
                                 <TabList>
                                     <Tab>
                                         <div className="col-3">
-                                            <CircleProgress value={Math.round(thisAd.kpis.total)} size={'big'} name={'SpotOn score'} />
+                                            <CircleProgress value={Math.round(thisAd.kpis.total)} size={'big'} name={'SpotOn score'} countryNorm={countryNorm.total} />
                                         </div>
                                     </Tab>
                                     <Tab>
                                         <div className="col-2">
-                                            <CircleProgress value={Math.round(thisAd.kpis.brandRelevance)} size={'medium'} name={'Brand Relevance'}/>
+                                            <CircleProgress value={Math.round(thisAd.kpis.brandRelevance)} size={'medium'} name={'Brand Relevance'} countryNorm={countryNorm.brandRelevance}/>
                                         </div>
                                     </Tab>
                                     <Tab>
                                         <div className="col-2">
-                                            <CircleProgress value={Math.round(thisAd.kpis.viewerEngagement)} size={'medium'} name={'Viewer Engagement'}/>
+                                            <CircleProgress value={Math.round(thisAd.kpis.viewerEngagement)} size={'medium'} name={'Viewer Engagement'} countryNorm={countryNorm.viewerEngagement}/>
                                         </div>
                                     </Tab>
                                     <Tab>
                                         <div className="col-2">
-                                            <CircleProgress value={Math.round(thisAd.kpis.adMessage)} size={'medium'} name={'Ad Message'}/>
+                                            <CircleProgress value={Math.round(thisAd.kpis.adMessage)} size={'medium'} name={'Ad Message'} countryNorm={countryNorm.adMessage}/>
                                         </div>
                                     </Tab>
                                 </TabList>

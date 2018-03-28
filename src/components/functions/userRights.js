@@ -1,6 +1,6 @@
 class UserRights {
     init(email) {
-        let result = [];
+        let result = {};
         switch (email)
         {
             case 'mats.diedrichsen@deliveryhero.com':
@@ -10,6 +10,16 @@ class UserRights {
             case 'marina.kramer@deliveryhero.com':
             case 'donwon.lee@deliveryhero.com':
             case 'michael.wicke@deliveryhero.com':
+            case 'ross.mcpheat@deliveryhero.com':
+            case 'caroline.stephenson@deliveryhero.com':
+            case 'cristina.dohi@deliveryhero.com':
+            case 'julien.hubert@deliveryhero.com':
+            case 'katarzyna.zablocka@deliveryhero.com':
+            case 'ines.fernandez@deliveryhero.com':
+            case 'frederic.lamotte@deliveryhero.com':
+            case 'aleksej.koscejev@deliveryhero.com':
+            case 'isabella.homann@deliveryhero.com':
+            case 'sophie.connolly@deliveryhero.com':
                 result.country = ['Colombia', 'Germany'];
                 result.right = 'admin';
                 break;
@@ -26,7 +36,6 @@ class UserRights {
                 result.right = 'none';
                 break;
         }
-
         return (result);
     }
 }

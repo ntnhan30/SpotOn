@@ -226,7 +226,13 @@ $score4: #4db53c;
 		position: absolute;
 		width: 1em;
 		height: 1em;
-		clip: rect(0em, 1em, 1em, 0.5em);
+        clip: rect(0em, 1em, 1em, 0.5em);
+
+        @media screen and (max-width: 1280px) {
+            & {
+                font-size: 1.03em;
+            }
+        }
 	}
 
 	// circle to show the status

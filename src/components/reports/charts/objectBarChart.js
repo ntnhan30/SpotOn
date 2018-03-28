@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { ColorChart, FunctionsResults } from '../../functions';
+import {
+    ColorChart,
+    FunctionsResults
+} from '../../functions';
 import {
     CartesianGrid,
     XAxis,
@@ -11,6 +14,7 @@ import {
     ResponsiveContainer,
     LabelList
 } from 'recharts';
+var _ = require('lodash');
 
 const colorChart = new ColorChart();
 const functionsResults  = new FunctionsResults ();
@@ -31,14 +35,24 @@ class ObjectBarChart extends Component {
 
     render() {
         let results = this.props.thisResults;
-        results['adName'] = this.props.kpis;
-        results = [results];
+
+        const sumOfAll = _.sum(_.values(_.omit(this.props.thisResults, ['adName'])));
+
+        let resultsPercentage = {};
+        _.mapKeys(results, (v, key) => {
+            v =  Math.round((v / sumOfAll) * 100)
+            //v =  (v / sumOfAll) * 100
+            resultsPercentage[key] = v;
+        });
+
+        //results['adName'] = this.props.kpis;
+        results = [resultsPercentage];
 
         let thisKeys = [];
-        let thisNames = [];
+
+
         for (let i in this.props.thisResults){
             thisKeys.push(i);
-            thisNames.push(this.props.thisResults[i])
         }
 
         const data = thisKeys.map((obj, i) => {
@@ -54,7 +68,7 @@ class ObjectBarChart extends Component {
                 <BarChart width={730} data={results}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="adName" />
-                    <YAxis />
+                    <YAxis label={{ value: 'Percentage', angle: -90, position: 'center' }} allowDecimals={true} />
                     <Tooltip active={false} cursor={false} />
                     <Legend />
                     { data }
@@ -65,4 +79,3 @@ class ObjectBarChart extends Component {
 }
 
 export default ObjectBarChart;
-

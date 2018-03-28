@@ -870,6 +870,10 @@ li {
                         padding: 0;
                         line-height: 1em;
                         margin-top: 0;
+
+                        i{
+                            font-size: 0.4em;
+                        }
                     }
                 }
             }
@@ -974,4 +978,3 @@ li {
         background: $midnightBlue200;
     }
 }
-

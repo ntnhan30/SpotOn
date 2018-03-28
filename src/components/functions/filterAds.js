@@ -73,21 +73,15 @@ class FilterAds {
         const filterList = (ad, filterKey, single) => {
             switch (filterKey) {
                 case 'brand':
-                    return ad.brand === single;
                 case 'industry':
-                    return ad.industry === single;
                 case 'country':
-                    return ad.country === single;
                 case 'format':
-                    return ad.format === single;
+                case 'channel':
+                case 'productionState':
+                case 'state':
+                    return ad[filterKey] === single;
                 case 'lengthAd':
                     return isInsideLengthRange(ad.lengthAd, single);
-                case 'channel':
-                    return ad.channel === single;
-                case 'productionState':
-                    return ad.productionState === single;
-                case 'state':
-                    return ad.state === single;
                 case 'campaigndate':
                     return isInsideDateRange(ad.campaigndate, single);
                 default:

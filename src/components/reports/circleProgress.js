@@ -10,20 +10,21 @@ class CircleProgress extends Component {
 
     render() {
         const classes = this.props.value + ' ' + this.props.size;
-        let color = this.props.colorChart.getProgressColor(this.props.value);
-        color = color + ' !important';
-        console.log(color);
+        const countryNorm = '[' + Math.round(this.props.countryNorm) + ']';
 
         return (
             <div>
                 <div className={ "c100 green p" + classes }>
                     <span>
                         { this.props.name }
-                        <span>{ this.props.value }</span>
+                        <span>
+                            { this.props.value }
+                            <i>{ countryNorm }</i>
+                        </span>
                     </span>
                     <div className="slice">
-                        <div className="bar" style={{borderColor: color}}></div>
-                        <div className="fill" style={{borderColor: color}}></div>
+                        <div className="bar"></div>
+                        <div className="fill"></div>
                     </div>
                 </div>
             </div>

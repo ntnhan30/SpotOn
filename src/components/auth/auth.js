@@ -46,8 +46,7 @@ class Auth {
     setSession(authResult) {
         //console.log('setSession(authResult)');
         // Set the time that the access token will expire at
-        let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
-
+        let expiresAt = JSON.stringify((authResult.expiresIn * 400) + Math.floor(Date.now() / 1000));
         localStorage.setItem('access_token', authResult.accessToken);
         localStorage.setItem('id_token', authResult.idToken);
         localStorage.setItem('expires_at', expiresAt);
@@ -75,7 +74,7 @@ class Auth {
         // Check whether the current time is past the
         // access token's expiry time
         let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-        let thisDate = new Date().getTime();
+        let thisDate = Math.floor(Date.now() / 1000);
         let result = ( thisDate < expiresAt ) ? true : false;
         return result;
     }
