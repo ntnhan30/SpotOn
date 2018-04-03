@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { ColorChart } from '../../functions';
+import { ColorChart } from '../../constants';
 import {
     BarChart,
     XAxis,
@@ -43,7 +43,7 @@ class HorizontalChart extends Component {
         });
         return (
             <Fragment>
-                <ResponsiveContainer width="95%" height={120} minHeight={300} >
+                <ResponsiveContainer width="95%" height={120} minHeight={120} >
                     <BarChart
                         width={730}
                         data={dataForChart}

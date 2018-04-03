@@ -1,13 +1,20 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Route } from 'react-router-dom'
-import { Api } from '../../constants';
-import { AdList, FilterSidebar, FilterAds, SelectedAds, HandleCSV } from '../../components';
-import { SingleReport, Chart } from '../../screens';
+import {
+    Api,
+    AdList,
+    FilterSidebar,
+    FilterAds,
+    SelectedAds
+} from '../../components';
+import {
+    SingleReport,
+    Chart
+} from '../../screens';
 var _ = require('lodash');
 
 const api = new Api();
 const filterAds = new FilterAds();
-const handleCSV = new HandleCSV();
 
 
 class SelectReports extends Component {
@@ -23,8 +30,7 @@ class SelectReports extends Component {
 
     static defaultProps = {
         api,
-        filterAds,
-        handleCSV
+        filterAds
     }
 
     async componentDidMount() {
@@ -62,57 +68,52 @@ class SelectReports extends Component {
     render() {
         // this is all the ads retrieved
         return (
-            <Fragment>
+            <div className="container-fluid main">
+                <div className="col-2" id="filter">
+                    <FilterSidebar ads={this.state.ads} filteredAds={this.state.ads} filterAdlist={this.filterThisAds} />
+                </div>
 
-                <div className="container-fluid main">
+                <div className="col-2" id="selected">
+                    <Route
+                        key={2}
+                        exact={false}
+                        path='/'
+                        render={ (props) => <SelectedAds ads={this.state.ads} handleSelection={this.handleSelection} {...this.props} {...props} /> }
+                    />
+                </div>
 
-                        <div className="col-2" id="filter">
-                            <FilterSidebar ads={this.state.ads} filteredAds={this.state.ads} filterAdlist={this.filterThisAds} />
-                        </div>
+                <div className="col-8 main-content">
+                    <div>
+                        <Route
+                            key={1}
+                            exact={true}
+                            path='/weightedReport/:id'
+                            render={ (props) => <SingleReport ads={this.state.ads} handleSelection={this.handleSelection} typeOfReport='weighted'  {...this.props} {...props} /> }
+                        />
 
-                        <div className="col-2" id="selected">
-                            <Route
-                                key={2}
-                                exact={false}
-                                path='/'
-                                render={ (props) => <SelectedAds ads={this.state.ads} handleSelection={this.handleSelection} {...this.props} {...props} /> }
-                            />
-                        </div>
+                        <Route
+                            key={2}
+                            exact={true}
+                            path='/percentileReport/:id'
+                            render={ (props) => <SingleReport ads={this.state.ads} handleSelection={this.handleSelection} typeOfReport='percentile'  {...this.props} {...props} /> }
+                        />
 
-                        <div className="col-8 main-content">
-                            <div>
-                                <Route
-                                    key={1}
-                                    exact={true}
-                                    path='/weightedReport/:id'
-                                    render={ (props) => <SingleReport ads={this.state.ads} handleSelection={this.handleSelection} typeOfReport='weighted'  {...this.props} {...props} /> }
-                                />
+                        <Route
+                            key={3}
+                            exact={true}
+                            path='/chart/:id'
+                            render={ (props) => <Chart ads={this.state.ads} handleSelection={this.handleSelection}  {...this.props} {...props} /> }
+                        />
 
-                                <Route
-                                    key={2}
-                                    exact={true}
-                                    path='/percentileReport/:id'
-                                    render={ (props) => <SingleReport ads={this.state.ads} handleSelection={this.handleSelection} typeOfReport='percentile'  {...this.props} {...props} /> }
-                                />
-
-                                <Route
-                                    key={3}
-                                    exact={true}
-                                    path='/chart/:id'
-                                    render={ (props) => <Chart ads={this.state.ads} handleSelection={this.handleSelection}  {...this.props} {...props} /> }
-                                />
-
-                                <Route
-                                    key={4}
-                                    exact={true}
-                                    path='/'
-                                    render={ (props) => <AdList ads={this.state.ads} handleSelection={this.handleSelection} {...this.props} {...props} /> }
-                                />
-                            </div>
-
+                        <Route
+                            key={4}
+                            exact={true}
+                            path='/'
+                            render={ (props) => <AdList ads={this.state.ads} handleSelection={this.handleSelection} {...this.props} {...props} /> }
+                        />
                     </div>
                 </div>
-            </Fragment>
+            </div>
         );
     }
 }

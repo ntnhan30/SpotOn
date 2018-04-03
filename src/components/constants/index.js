@@ -1,3 +1,4 @@
+import Api from './api';
 import HandleCSV from './handleCSV';
 import FilterAds from './filterAds';
 import TabulateAnswers from './tabulateAnswers';
@@ -9,6 +10,7 @@ import GetKPIs from './getKPIs';
 import UserRights from './userRights';
 
 export {
+    Api,
     HandleCSV,
     FilterAds,
     TabulateAnswers,

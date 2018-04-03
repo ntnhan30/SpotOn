@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-import { Api } from '../../constants';
-import { WeightedReport, PercentileReport, LoadingSpinner } from '../../components';
+import {
+    Api,
+    WeightedReport,
+    PercentileReport,
+    LoadingSpinner
+} from '../../components';
 
 const api = new Api();
 

@@ -4,17 +4,15 @@
  * analyses it to give the score for each KPI of Weighted Top Box.
  *
 ============================ ******/
-import { Api } from '../../constants';
-import CountAnswers from './countAnswers';
-var _ = require('lodash');
+// import Api from './api';
+import { Api, CountAnswers } from '../../components';
 
-const api = new Api();
-const countAnswers = new CountAnswers();
+var _ = require('lodash');
 
 class TabulateAnswers {
     constructor() {
-        this.api = api;
-        this.countAnswers = countAnswers;
+        this.api = new Api();
+        this.countAnswers = new CountAnswers();
     }
 
     init = async (results) => {
@@ -103,8 +101,9 @@ class TabulateAnswers {
     messagingCalculation = async (arr, nameOfAd) => {
         let result = 0;
 
-        // thi si only for now, because the user selected 3 options. Delete later
-        arr = _.mapValues(arr, function (v) { return Math.round(v / 3); });
+        // CHECK THIS PLEASE **********
+        // this is only for now, because the user selected 3 options. Delete later
+        arr = _.mapValues(arr, (v) => { return Math.round(v / 3); });
 
         // Get info of the Ad from the server
         const singleAd = await this.api.fetchSingleAd(nameOfAd);

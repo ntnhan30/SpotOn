@@ -1,7 +1,18 @@
 import React, { Component } from 'react';
-import { Api } from '../../constants';
-import { RadarCharts, BarCharts, StackedBarCharts, GetKPIs, LoadingSpinner } from '../../components';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import {
+    Api,
+    RadarCharts,
+    BarCharts,
+    StackedBarCharts,
+    GetKPIs,
+    LoadingSpinner
+} from '../../components';
+import {
+    Tab,
+    Tabs,
+    TabList,
+    TabPanel
+} from 'react-tabs';
 
 const api = new Api();
 const getKPIs = new GetKPIs();

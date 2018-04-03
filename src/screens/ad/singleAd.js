@@ -1,7 +1,12 @@
 import React, { Component, Fragment } from 'react';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import { Api } from '../../constants';
 import {
+    Tab,
+    Tabs,
+    TabList,
+    TabPanel
+} from 'react-tabs';
+import {
+    Api,
     ObjectBarChart,
     HorizontalChart,
     GetKPIs,
@@ -100,15 +105,6 @@ class SingleAd extends Component {
                 <Fragment>
                     <div className="container-fluid hero-image" style={ heroStyle }>
                         <div className="col-5 offset-2">
-                            <span onClick={this.downloadAd}>
-                                DOWNLOAD
-                            </span>
-                            <span onClick={this.reimportAd}>
-                                REIMPORT
-                            </span>
-                            <span onClick={this.deleteSingleAd}>
-                                DELETE
-                            </span>
                             <h1>
                                 {thisAd.ad.adname}
                             </h1>
@@ -195,7 +191,10 @@ class SingleAd extends Component {
                                 </TabPanel>
                                 <TabPanel>
                                     <HorizontalChart thisResults={[thisAd]} kpis={this.props.getKPIs.init(adMessage)}/>
+                                    <h2>Emotion breakout</h2>
                                     <ObjectBarChart thisResults={thisAd.ad.emotion} kpis={'Emotion'}/>
+                                    <br/>
+                                    <h2>Tone of voice breakout</h2>
                                     <ObjectBarChart thisResults={thisAd.ad.toneOfVoice} kpis={'Tone of Voice'}/>
                                 </TabPanel>
                             </Tabs>

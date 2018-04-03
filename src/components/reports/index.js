@@ -5,7 +5,6 @@ import WeightedReport from './weightedReport';
 import PercentileReport from './percentileReport';
 import CountryNorm from './countryNorm';
 import ColorTag from './colorTag';
-import CircleProgress from './circleProgress';
 
 export {
     AdList,
@@ -15,6 +14,5 @@ export {
     PercentileReport,
     CountryNorm,
     ColorTag,
-    CircleProgress
 };
 export * from './charts/';

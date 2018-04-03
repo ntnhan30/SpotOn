@@ -1,21 +1,21 @@
-import React, { Component, Fragment } from 'react';
-import { ImportAdsByCSV, ImportResultsByCSV } from '../../components';
+import React, { Component } from 'react';
+import {
+    ImportAdsByCSV,
+    ImportResultsByCSV
+} from '../../components';
 
 class Import extends Component {
     render() {
         return (
-            <Fragment>
-
-                <div className="import-main">
-                        <div>
-                            <ImportAdsByCSV />
-                        </div>
-
-                        <div>
-                            <ImportResultsByCSV />
-                        </div>
+            <div className="import-main">
+                <div>
+                    <ImportAdsByCSV />
                 </div>
-            </Fragment>
+
+                <div>
+                    <ImportResultsByCSV />
+                </div>
+            </div>
         );
     }
 }

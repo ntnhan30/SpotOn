@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ColorChart } from '../functions';
+import { ColorChart } from '../constants';
 
 const colorChart = new ColorChart();
 

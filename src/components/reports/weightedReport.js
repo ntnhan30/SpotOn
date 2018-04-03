@@ -1,9 +1,18 @@
 import React, { Component, Fragment } from 'react';
-import { LoadingSpinner, ColorTag, ExportCSV, CountryNorm } from '../../components';
-import { StickyTable, Row, Cell } from 'react-sticky-table';
+import {
+    Auth,
+    FunctionsResults,
+    LoadingSpinner,
+    ColorTag,
+    ExportCSV,
+    CountryNorm
+} from '../../components';
+import {
+    StickyTable,
+    Row,
+    Cell
+} from 'react-sticky-table';
 import 'react-sticky-table/dist/react-sticky-table.css';
-import { Auth } from '../../components/auth';
-import { FunctionsResults } from '../functions';
 var _ = require('lodash');
 
 const auth  = new Auth ();
@@ -23,7 +32,6 @@ class WeightedReport extends Component {
     }
 
     async componentDidMount() {
-        //let average = this.props.functionsResults.getAverageKPIsOfSelected(this.props.allResults);
         let profile = this.props.auth.getUserInfo();
         let average = {};
 
@@ -44,14 +52,14 @@ class WeightedReport extends Component {
             let cells = [];
             let valuesCell = [];
             let sampleSize = [];
-            _.mapValues(self.props.allResults, function (single) {
+            _.mapValues(self.props.allResults, (single) => {
                 valuesCell.push(single.ad.shortname);
                 sampleSize.push(single.ad.sampleSize);
             })
 
             cells.push(<Cell key={0}><ExportCSV toExport={self.props.allResults}/></Cell>);
             // eslint-disable-next-line
-            valuesCell.map( function (single, i) {
+            valuesCell.map( (single, i) => {
                 cells.push(
                     <Cell key={i+1}>
                         {single}
@@ -75,7 +83,7 @@ class WeightedReport extends Component {
             let valuesCell = [];
             let countries = [];
             // eslint-disable-next-line
-            _.mapValues(self.props.allResults, function (single) {
+            _.mapValues(self.props.allResults, (single) => {
                 let v = (single['kpis']==null || (isNaN(single['kpis'][kpi])) ? 0 : single['kpis'][kpi]);
                 valuesCell.push(Math.round(v));
                 countries.push(single.ad.country);
@@ -83,7 +91,7 @@ class WeightedReport extends Component {
 
             cells.push(<Cell key={0}>{ title }</Cell>);
             // eslint-disable-next-line
-            valuesCell.map( function (single, i) {
+            valuesCell.map( (single, i) => {
                 cells.push(
                     <Cell key={i+1}>
                         {single}

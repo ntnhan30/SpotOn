@@ -19,11 +19,10 @@ class ColorTag extends Component {
         }
 
         if (diff > 0) {
-            diff = '+ ' + diff;
+            diff = '+' + diff;
         } else if (isNaN(diff)) {
             diff = 0;
         }
-
 
         return (
             <span className='color-tag'>

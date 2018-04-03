@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ColorChart } from '../../functions';
+import { ColorChart } from '../../constants';
 import {
     BarChart,
     CartesianGrid,

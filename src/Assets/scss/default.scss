@@ -132,10 +132,35 @@ header {
                 color: $white;
                 padding: 0 2em;
 
+                &:hover{
+                    text-decoration: none;
+                    color: $headerGrey;
+                }
             }
 
             &:first-child a {
                 padding-left: 1em;
+            }
+        }
+
+        & > a {
+            float: right;
+            background: $blue;
+            padding: 0 1.5em;
+            text-transform: uppercase;
+            height: 45px;
+            line-height: 45px;
+            margin: 20px 0;
+            color: $white;
+            border-radius: 3px;
+            font-size: 0.9em;
+            letter-spacing: 0.06em;
+            cursor: pointer;
+
+            &:hover{
+                text-decoration: none;
+                color: $white;
+                background-color: $lightBlue;
             }
         }
 

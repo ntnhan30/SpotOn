@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { ColorChart, FunctionsResults } from '../../functions';
+import {
+    ColorChart,
+    FunctionsResults
+} from '../../constants';
 import {
     CartesianGrid,
     XAxis,
@@ -51,7 +54,14 @@ class BarCharts extends Component {
 
         const moreThanOneCountry = ( _.size(this.state.selectedCountries) > 1 ) ? true : false;
 
-        const references = dataForChart.map((single, z) => {
+        // Unique key for iterating
+        let k = 0;
+
+        const data = thisResults.map((obj) => {
+            return <Bar key={k++} dataKey={obj.ad.shortname} fill={this.props.colorChart.getColor(k)} />
+        });
+
+        const references = dataForChart.map((single) => {
             if (!moreThanOneCountry) {
                 const self = this;
                 // eslint-disable-next-line
@@ -60,16 +70,11 @@ class BarCharts extends Component {
                 });
 
                 let norm = self.state.average[single.nameInDB];
-                return <ReferenceLine key={z} y={norm} label={{ value:(single.name + ' country norm'), position:'insideBottomLeft' }} stroke={this.props.colorChart.getNormColor(z)} strokeDasharray="10 10" />
+                return <ReferenceLine key={k++} y={norm} label={{ value:(single.name + ' country norm'), position:'insideBottomLeft' }} stroke={this.props.colorChart.getNormColor(k)} strokeDasharray="10 10" />
             } else {
                 return null
             }
         });
-
-        const data = thisResults.map((obj, i) => {
-            return <Bar key={i} dataKey={obj.ad.shortname} fill={this.props.colorChart.getColor(i)} />
-        });
-
 
         return (
             <div>

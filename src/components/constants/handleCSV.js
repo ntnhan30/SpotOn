@@ -48,11 +48,9 @@ class HandleCSV {
 
         rows = toExport;
 
+        // ---------------------
 
-        // _______________
-
-
-        var processRow = function (row) {
+        var processRow = (row) => {
             var finalVal = '';
             for (var j = 0; j < row.length; j++) {
                 var innerValue = row[j] === null ? '' : row[j].toString();

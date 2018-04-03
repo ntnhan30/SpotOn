@@ -29,7 +29,7 @@ class SelectedAds extends Component {
                         </td>
                         <td className="selected-icons">
                             <span className="icon-close" onClick={() => this.props.handleSelection(ad, false)}></span>
-                            <Link to={{ pathname:'/ad/' + ad.adname, query: { ad: ad } }}>
+                            <Link to={{ pathname:'/ad/' + ad.adname }}>
                                 <span className="icon-more"></span>
                             </Link>
                         </td>
@@ -42,22 +42,25 @@ class SelectedAds extends Component {
 
 
         const reportButtons = () => {
+            // get a string with all the selected Ads separated by '&'
+            const selectedAdsURL = selectedAdsID.join('&');
+
             if (selectedAdsID.length > 0) {
                 return (
                     <tr className="selectedButtons">
                         <td colSpan="2">
                             <div>
-                                <Link to={{ pathname:'/weightedReport/' + selectedAdsID.join('&') }}>
+                                <Link to={{ pathname:'/weightedReport/' + selectedAdsURL }}>
                                     <button>
                                         Weighted
                                     </button>
                                 </Link>
-                                <Link to={{ pathname:'/percentileReport/' + selectedAdsID.join('&') }}>
+                                <Link to={{ pathname:'/percentileReport/' + selectedAdsURL }}>
                                     <button>
                                         Percentile
                                     </button>
                                 </Link>
-                                <Link to={{ pathname:'/chart/' + selectedAdsID.join('&') }}>
+                                <Link to={{ pathname:'/chart/' + selectedAdsURL }}>
                                     <button>
                                         Chart
                                     </button>

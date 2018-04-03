@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Auth } from '../components/auth';
+import { Auth } from '../auth';
 
 //axios.defaults.baseURL = 'http://10.120.81.53:4000/api'; // LOCAL
 axios.defaults.baseURL = 'https://polar-beyond-85959.herokuapp.com/api'; // Heroku

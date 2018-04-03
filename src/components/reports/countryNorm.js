@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { FunctionsResults } from '../functions';
-import { LoadingSpinner } from '../../components';
+import {
+    FunctionsResults,
+    LoadingSpinner
+} from '../../components';
 var _ = require('lodash');
 
 const functionsResults  = new FunctionsResults ();
@@ -20,8 +22,11 @@ class CountryNorm extends Component {
     }
 
     async componentDidMount() {
+        //// Calculate Countries norm
+        // Get in an array the name of the countries of the selected Ads
         const selectedCountries = this.props.functionsResults.getCountriesOfSelectedAds(this.props.ads);
 
+        // For each country
         let normOfCountries = {};
         selectedCountries.map(async (country, i) => {
             const countryNorm = await this.props.functionsResults.getCountryNorm([country]);
@@ -34,6 +39,7 @@ class CountryNorm extends Component {
     }
 
     handleClick = () => {
+        // this is for changing the class - to animate
         this.setState( { showing : !this.state.showing } );
     }
 
@@ -60,13 +66,13 @@ class CountryNorm extends Component {
         let cells = [];
         let valuesCell = [];
         // eslint-disable-next-line
-        _.mapValues(this.state.normOfCountries, function (single) {
+        _.mapValues(this.state.normOfCountries, (single) => {
             let v = (single[kpi]==null || (isNaN(single[kpi])) ? 0 : single[kpi]);
             valuesCell.push(Math.round(v));
         })
 
         // eslint-disable-next-line
-        valuesCell.map( function (single, i) {
+        valuesCell.map( (single, i) => {
             cells.push(
                 <td key={i+1}>
                     {single}

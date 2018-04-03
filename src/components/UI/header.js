@@ -7,7 +7,6 @@ class Header extends Component {
         const profile = this.props.auth.getUserInfo();
         return (
             <header>
-
                 <div className="container-fluid">
                     <div className="col-2">
                         <div className="logo">
@@ -27,29 +26,25 @@ class Header extends Component {
                                             <Link to='/import'>Import</Link>
                                         </li>
                                     )
-                                }
-                                {
+                                /*
                                     (profile.right === 'admin' ) && (
                                     <li>
                                         <Link to='/notifications'>Notifications</Link>
                                     </li>
                                     )
-                                }
-                                {
+
                                     (profile.right === 'admin' ) && (
                                         <li>
                                             <Link to='/users'>Users</Link>
                                         </li>
                                     )
-                                }
-                                <li>
-                                    <Link to='/logout'>Logout</Link>
-                                </li>
+                                */
+                               }
                             </ul>
+                            <Link to='/logout'>Logout</Link>
                         </nav>
                     </div>
                 </div>
-
             </header>
         );
     }

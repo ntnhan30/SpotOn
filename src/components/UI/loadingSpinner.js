@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 class LoadingSpinner extends Component {
 
     render() {
-        // The return from the AdList Class
         return (
             <div className="sk-fading-circle">
                 <div className="sk-circle1 sk-circle"></div>

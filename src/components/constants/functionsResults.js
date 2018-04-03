@@ -4,20 +4,18 @@
  * analyses it to give the score for each KPI of Weighted Top Box.
  *
 ============================ ******/
-import { Api } from '../../constants';
+import Api from './api';
 var _ = require('lodash');
-
-const api = new Api();
 
 class FunctionsResults {
     constructor() {
-        this.api = api;
+        this.api = new Api();
     }
 
     getCountryNorm = async (country) => {
         // create empty object
         const allKPIs = await this.api.fetchCountryKPIs(country);
-        let averageKPIs = [];
+        let averageKPIs = {};
 
         // Get the average of every key and assign to avergaeKPIs
         for (let key in allKPIs['0']){
@@ -30,7 +28,7 @@ class FunctionsResults {
     }
 
     getGlobalRange = (KPIs) => {
-        let result = [];
+        let result = {};
 
         let maxPercentile = KPIs[0];
         let minPercentile = KPIs[1];
@@ -54,16 +52,16 @@ class FunctionsResults {
     getAverageKPIsOfSelected = (selectedAds) => {
         // create empty object
         let allKPIs = [];
-        let averageKPIs = [];
+        let averageKPIs = {};
 
         // Asign only the KPI objects into the allKPIs array
-        _.mapValues(selectedAds, function (single) {
+        _.mapValues(selectedAds, (single) =>{
             allKPIs.push(single.kpis);
         })
 
         // Get the average of every key and assign to avergaeKPIs
         for (let key in allKPIs['0']){
-            let byKey = _.mapValues(allKPIs, function(o) { return o[key]; });
+            let byKey = _.mapValues(allKPIs, (o) => { return o[key]; });
             byKey =_.mean(_.values(byKey));
             averageKPIs[key] = byKey;
         };
@@ -136,7 +134,7 @@ class FunctionsResults {
         let averagePercentiles = {};
 
         // Asign only the KPI objects into the allKPIs array
-        _.mapValues(selectedAds, function (single) {
+        _.mapValues(selectedAds, (single) => {
             allPercentileValues.push(single.percentile);
         })
 

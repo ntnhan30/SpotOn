@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Api } from '../../constants';
 import ReactFileReader from 'react-file-reader'; // move to single component later
-import { HandleCSV } from '../functions';
+import {
+    Api,
+    HandleCSV
+} from '../constants';
 import TvIcon from'../../Assets/imgs/tv-icon-upload.svg';
 
 

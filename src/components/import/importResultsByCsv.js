@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import { Api } from '../../constants';
 import ReactFileReader from 'react-file-reader'; // move to single component later
-import { HandleCSV, TabulateAnswers, CountAnswers } from '../functions';
+import {
+    Api,
+    HandleCSV,
+    TabulateAnswers,
+    CountAnswers
+} from '../constants';
 import QuestIcon from'../../Assets/imgs/questionnaire-icon.svg';
 
 const api = new Api();

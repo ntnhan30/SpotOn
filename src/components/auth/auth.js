@@ -1,7 +1,7 @@
 import history from './history';
 import auth0 from 'auth0-js';
 import { AUTH_CONFIG } from './auth0-variables';
-import UserRights from '../functions/userRights';
+import UserRights from '../constants/userRights';
 
 const userRights = new UserRights();
 
@@ -66,11 +66,9 @@ class Auth {
     }
 
     isAuthenticated() {
-        /* Removed the logout after a period of time
         if (!localStorage.getItem('expires_at')){
             return false;
         }
-        */
         // Check whether the current time is past the
         // access token's expiry time
         let expiresAt = JSON.parse(localStorage.getItem('expires_at'));

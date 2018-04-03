@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import Workbook from 'react-excel-workbook'
-import { FunctionsResults } from '../functions';
-import { SmallLoadingSpinner} from '../../components';
+import { FunctionsResults, SmallLoadingSpinner} from '../../components';
 var _ = require('lodash');
 
 const functionsResults  = new FunctionsResults ();
@@ -104,7 +103,6 @@ class ExportCSV extends Component{
                 </Fragment>
             )
         }
-
     }
 }
 

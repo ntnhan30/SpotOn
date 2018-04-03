@@ -4,31 +4,13 @@ import Checkbox from 'rc-checkbox';
 import 'rc-checkbox/assets/index.css';
 
 class AdList extends Component {
-
-    constructor() {
-        super();
-        this.state = {
-            currentPage: 1,
-            adsPerPage: 90
-        };
-        this.changePage = this.changePage.bind(this);
-    }
-
-    changePage(pageNumber) {
-        this.setState({
-            currentPage: pageNumber
-        });
-    }
-
     handleInputChange(ad, event) {
         this.props.handleSelection(ad, event.target.checked);
     }
 
     render() {
         // Logic for displaying ads
-        const indexOfLastAd = this.state.currentPage * this.state.adsPerPage;
-        const indexOfFirstAd = indexOfLastAd - this.state.adsPerPage;
-        const currentAds = this.props.ads.slice( indexOfFirstAd, indexOfLastAd );
+        const currentAds = this.props.ads;
 
         const tableHeader =
             <tr>
@@ -46,6 +28,7 @@ class AdList extends Component {
 
         const renderedAds = currentAds.map((ad, i) => {
             if (ad.show){
+                //<Link to={{ pathname:'/ad/' + ad.adname, query: { ad: ad } }}>
                 return (
                     <tr key={i}>
                         <td>
@@ -63,7 +46,7 @@ class AdList extends Component {
                         <td>{ ad.channel }</td>
                         <td>{ ad.state }</td>
                         <td>
-                            <Link to={{ pathname:'/ad/' + ad.adname, query: { ad: ad } }}>
+                            <Link to={{ pathname:'/ad/' + ad.adname }}>
                                 <span className="icon-more"></span>
                             </Link>
                         </td>
@@ -75,7 +58,6 @@ class AdList extends Component {
         });
 
         // The return from the AdList Class
-        //<Pagination ads={this.props.ads} onClick={this.changePage} />
         return (
             <table className="table table-striped table-hover table-fixed">
                 <thead className="">

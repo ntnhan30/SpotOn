@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     ColorChart,
     FunctionsResults
-} from '../../functions';
+} from '../../constants';
 import {
     CartesianGrid,
     XAxis,
@@ -55,10 +55,23 @@ class ObjectBarChart extends Component {
             thisKeys.push(i);
         }
 
+        const renderCustomLabel = (props) => {
+            const { x, y, width, value } = props;
+            const radius = 10;
+
+            return (
+                <g>
+                    <text x={x + width / 2} y={y - radius} fill="#fff" textAnchor="middle" dominantBaseline="middle">
+                        {value}%
+                    </text>
+                </g>
+            );
+        };
+
         const data = thisKeys.map((obj, i) => {
             return (
                 <Bar key={i} dataKey={obj} fill={this.props.colorChart.getColor(i)}>
-                    <LabelList dataKey={thisKeys[i]} position="top" />
+                    <LabelList dataKey={thisKeys[i]} position="top" content={renderCustomLabel} />
                 </Bar>
             );
         });
@@ -68,7 +81,7 @@ class ObjectBarChart extends Component {
                 <BarChart width={730} data={results}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="adName" />
-                    <YAxis label={{ value: 'Percentage', angle: -90, position: 'center' }} allowDecimals={true} />
+                    <YAxis domain={[0, 'dataMax + 5']} tickCount={10} unit="%" label={{ value: 'Percentage', angle: -90, position: 'insideLeft' }} allowDecimals={true} />
                     <Tooltip active={false} cursor={false} />
                     <Legend />
                     { data }
