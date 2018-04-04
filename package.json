@@ -24,6 +24,7 @@
     "react-excel-workbook": "^0.0.4",
     "react-file-reader": "^1.1.3",
     "react-input-range": "^1.3.0",
+    "react-joyride": "^1.11.4",
     "react-month-picker": "^1.3.5",
     "react-month-picker-input": "^1.0.0",
     "react-redux": "^5.0.7",
