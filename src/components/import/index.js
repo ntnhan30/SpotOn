@@ -1,7 +1,4 @@
-import ImportAdsByCSV from './importAdsByCsv';
-import ImportResultsByCSV from './importResultsByCsv';
+import ImportAdsByCSV from './importAdsByCsv'
+import ImportResultsByCSV from './importResultsByCsv'
 
-export {
-    ImportAdsByCSV,
-    ImportResultsByCSV
-};
+export { ImportAdsByCSV, ImportResultsByCSV }

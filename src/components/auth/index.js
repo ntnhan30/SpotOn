@@ -1,7 +1,4 @@
-import Auth from './auth';
-import history from './history';
+import Auth from './auth'
+import history from './history'
 
-export {
-    Auth,
-    history
-};
+export { Auth, history }

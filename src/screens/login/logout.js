@@ -1,22 +1,22 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 
 class Logout extends Component {
-    logout() {
-        this.props.auth.logout();
-    }
+	logout() {
+		this.props.auth.logout()
+	}
 
-    render() {
-        this.logout();
+	render() {
+		this.logout()
 
-        return (
-            <Redirect
-                to={{
-                pathname: "/"
-                }}
-            />
-        );
-    }
+		return (
+			<Redirect
+				to={{
+					pathname: '/'
+				}}
+			/>
+		)
+	}
 }
 
-export default Logout;
+export default Logout

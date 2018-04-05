@@ -1,5 +1,3 @@
-import Users from './userScreen';
+import Users from './userScreen'
 
-export {
-    Users
-};
+export { Users }

@@ -1,10 +1,3 @@
-/***** ============================
- *
- * This Class takes an array with all the results from an AD and tabulates the, and
- * analyses it to give the score for each KPI of Weighted Top Box.
- *
-============================ ******/
-// import Api from './api';
 import { Api, CountAnswers } from '../../components';
 
 var _ = require('lodash');
@@ -15,6 +8,13 @@ class TabulateAnswers {
         this.countAnswers = new CountAnswers();
     }
 
+    /**
+	 * This Class takes an array with all the results from an AD and tabulates the, and
+     * analyses it to give the score for each KPI of Weighted Top Box.
+	 *
+     * @param {Array} results                 Array of Object of counted results
+	 * @returns {Array}                       Array of Object with the results of each spot
+	 */
     init = async (results) => {
         let result = [];
         var partitionedByAd = _(results).groupBy('VidDum').values().value();

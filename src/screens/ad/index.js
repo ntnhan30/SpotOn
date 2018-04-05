@@ -1,5 +1,3 @@
-import SingleAd from './singleAd';
+import SingleAd from './singleAd'
 
-export {
-    SingleAd
-};
+export { SingleAd }

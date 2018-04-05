@@ -1,148 +1,168 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment } from 'react'
 import {
-    Auth,
-    FunctionsResults,
-    LoadingSpinner,
-    ColorTag,
-    ExportCSV,
-    CountryNorm
-} from '../../components';
-import {
-    StickyTable,
-    Row,
-    Cell
-} from 'react-sticky-table';
-import 'react-sticky-table/dist/react-sticky-table.css';
-var _ = require('lodash');
+	Auth,
+	FunctionsResults,
+	LoadingSpinner,
+	ColorTag,
+	ExportCSV,
+	CountryNorm
+} from '../../components'
+import { StickyTable, Row, Cell } from 'react-sticky-table'
+import 'react-sticky-table/dist/react-sticky-table.css'
+var _ = require('lodash')
 
-const auth  = new Auth ();
-const functionsResults  = new FunctionsResults ();
+const auth = new Auth()
+const functionsResults = new FunctionsResults()
 
 class WeightedReport extends Component {
-    constructor() {
-        super();
-        this.state = {
-            average: {},
-        };
-    }
+	constructor() {
+		super()
+		this.state = {
+			average: {}
+		}
+	}
 
-    static defaultProps = {
-        auth,
-        functionsResults
-    }
+	static defaultProps = {
+		auth,
+		functionsResults
+	}
 
-    async componentDidMount() {
-        let profile = this.props.auth.getUserInfo();
-        let average = {};
+	async componentDidMount() {
+		let profile = this.props.auth.getUserInfo()
+		let average = {}
 
-        await Promise.all((profile.country).map(async country => {
-            average[country] = await this.props.functionsResults.getCountryNorm([country]);
-        }));
+		await Promise.all(
+			profile.country.map(async country => {
+				average[
+					country
+				] = await this.props.functionsResults.getCountryNorm([country])
+			})
+		)
 
-       this.setState({
-           average
-       });
-   }
+		this.setState({
+			average
+		})
+	}
 
+	render() {
+		const displayHeaderTable = () => {
+			const self = this
 
-    render() {
-        const displayHeaderTable = () => {
-            const self = this;
+			let cells = []
+			let valuesCell = []
+			let sampleSize = []
+			_.mapValues(self.props.allResults, single => {
+				valuesCell.push(single.ad.shortname)
+				sampleSize.push(single.ad.sampleSize)
+			})
 
-            let cells = [];
-            let valuesCell = [];
-            let sampleSize = [];
-            _.mapValues(self.props.allResults, (single) => {
-                valuesCell.push(single.ad.shortname);
-                sampleSize.push(single.ad.sampleSize);
-            })
+			cells.push(
+				<Cell key={0}>
+					<ExportCSV toExport={self.props.allResults} />
+				</Cell>
+			)
+			// eslint-disable-next-line
+			valuesCell.map((single, i) => {
+				cells.push(
+					<Cell key={i + 1}>
+						{single}
+						<span className="sampleSize">{sampleSize[i]}</span>
+					</Cell>
+				)
+			})
 
-            cells.push(<Cell key={0}><ExportCSV toExport={self.props.allResults}/></Cell>);
-            // eslint-disable-next-line
-            valuesCell.map( (single, i) => {
-                cells.push(
-                    <Cell key={i+1}>
-                        {single}
-                        <span className="sampleSize">{sampleSize[i]}</span>
-                    </Cell>
-                );
-            })
+			return <Row>{cells}</Row>
+		}
 
-            return (
-                <Row>
-                    { cells }
-                </Row>
-            );
-        }
+		const displaySingleKPI = (kpi, nameOfClass, title) => {
+			const self = this
 
+			let cells = []
+			let valuesCell = []
+			let countries = []
+			// eslint-disable-next-line
+			_.mapValues(self.props.allResults, single => {
+				let v =
+					single['kpis'] == null || isNaN(single['kpis'][kpi])
+						? 0
+						: single['kpis'][kpi]
+				valuesCell.push(Math.round(v))
+				countries.push(single.ad.country)
+			})
 
-        const displaySingleKPI = (kpi, nameOfClass, title) => {
-            const self = this;
+			cells.push(<Cell key={0}>{title}</Cell>)
+			// eslint-disable-next-line
+			valuesCell.map((single, i) => {
+				cells.push(
+					<Cell key={i + 1}>
+						{single}
+						<ColorTag
+							difference={
+								single - self.state.average[countries[i]][kpi]
+							}
+						/>
+					</Cell>
+				)
+			})
 
-            let cells = [];
-            let valuesCell = [];
-            let countries = [];
-            // eslint-disable-next-line
-            _.mapValues(self.props.allResults, (single) => {
-                let v = (single['kpis']==null || (isNaN(single['kpis'][kpi])) ? 0 : single['kpis'][kpi]);
-                valuesCell.push(Math.round(v));
-                countries.push(single.ad.country);
-            })
+			return <Row className={nameOfClass}>{cells}</Row>
+		}
 
-            cells.push(<Cell key={0}>{ title }</Cell>);
-            // eslint-disable-next-line
-            valuesCell.map( (single, i) => {
-                cells.push(
-                    <Cell key={i+1}>
-                        {single}
-                        <ColorTag difference={ single - self.state.average[countries[i]][kpi] }/>
-                    </Cell>
-                );
-            })
+		if (_.isEmpty(this.state.average)) {
+			return <LoadingSpinner />
+		} else {
+			return (
+				<Fragment>
+					<StickyTable stickyHeaderCount={1} stickyColumnCount={1}>
+						{displayHeaderTable()}
 
-            return (
-                <Row className={nameOfClass}>
-                    { cells }
-                </Row>
-            );
-        }
+						{displaySingleKPI('total', 'level1', 'SpotOn score')}
 
-        if (_.isEmpty(this.state.average)){
-            return (
-                <LoadingSpinner/>
-            )
-        } else {
-            return (
-                <Fragment>
-                    <StickyTable stickyHeaderCount={1} stickyColumnCount={1}>
-                        {displayHeaderTable()}
+						{displaySingleKPI(
+							'brandRelevance',
+							'level2',
+							'Brand Relevance'
+						)}
+						{displaySingleKPI(
+							'brandRecall',
+							'level3',
+							'Brand Recall'
+						)}
+						{displaySingleKPI('relevance', 'level3', 'Relevance')}
+						{displaySingleKPI('brandFit', 'level3', 'Brand Fit')}
 
-                        {displaySingleKPI('total', 'level1', 'SpotOn score')}
+						{displaySingleKPI(
+							'viewerEngagement',
+							'level2',
+							'Viewer Engagement'
+						)}
+						{displaySingleKPI('adAppeal', 'level3', 'Ad Appeal')}
+						{displaySingleKPI(
+							'shareability',
+							'level3',
+							'Shareability'
+						)}
+						{displaySingleKPI(
+							'callToAction',
+							'level3',
+							'Call to Action'
+						)}
 
-                        {displaySingleKPI('brandRelevance', 'level2', 'Brand Relevance')}
-                        {displaySingleKPI('brandRecall', 'level3', 'Brand Recall')}
-                        {displaySingleKPI('relevance', 'level3', 'Relevance')}
-                        {displaySingleKPI('brandFit', 'level3', 'Brand Fit')}
-
-                        {displaySingleKPI('viewerEngagement', 'level2', 'Viewer Engagement')}
-                        {displaySingleKPI('adAppeal', 'level3', 'Ad Appeal')}
-                        {displaySingleKPI('shareability', 'level3', 'Shareability')}
-                        {displaySingleKPI('callToAction', 'level3', 'Call to Action')}
-
-                        {displaySingleKPI('adMessage', 'level2', 'Ad Message')}
-                        {displaySingleKPI('toneOfVoice', 'level3', 'Tone of Voice')}
-                        {displaySingleKPI('emotion', 'level3', 'Emotion')}
-                        {displaySingleKPI('uniqueness', 'level3', 'Uniqueness')}
-                        {displaySingleKPI('messaging', 'level3', 'Messaging')}
-
-                    </StickyTable>
-                    <CountryNorm ads={this.props.allResults} />
-                </Fragment>
-            );
-        }
-    }
+						{displaySingleKPI('adMessage', 'level2', 'Ad Message')}
+						{displaySingleKPI(
+							'toneOfVoice',
+							'level3',
+							'Tone of Voice'
+						)}
+						{displaySingleKPI('emotion', 'level3', 'Emotion')}
+						{displaySingleKPI('uniqueness', 'level3', 'Uniqueness')}
+						{displaySingleKPI('messaging', 'level3', 'Messaging')}
+					</StickyTable>
+					<CountryNorm ads={this.props.allResults} />
+				</Fragment>
+			)
+		}
+	}
 }
 
-export default WeightedReport;
-
-
+export default WeightedReport

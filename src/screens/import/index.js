@@ -1,5 +1,3 @@
-import Import from './importScreen';
+import Import from './importScreen'
 
-export {
-    Import
-};
+export { Import }

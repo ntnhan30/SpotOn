@@ -1,5 +1,3 @@
-import Notifications from './notificationScreen';
+import Notifications from './notificationScreen'
 
-export {
-    Notifications
-};
+export { Notifications }

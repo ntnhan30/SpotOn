@@ -1,5 +1,3 @@
-import ExportCSV from './exportCSV';
+import ExportCSV from './exportCSV'
 
-export {
-    ExportCSV
-};
+export { ExportCSV }
