@@ -65,34 +65,6 @@ class ColorChart {
 		}
 		return colorToReturn
 	}
-
-	/**
-	 * Get a color to use for the progress circles. This color depends on the value.
-	 *
-	 * @param {Int} num              Key of the color
-	 * @returns {String}             The color in HEX to use
-	 */
-	getProgressColor = num => {
-		const step = Math.floor(num / 25)
-		let colorToReturn = ''
-		switch (step) {
-			case 0:
-				colorToReturn = '#bf0a1b'
-				break
-			case 1:
-				colorToReturn = '#ec9034'
-				break
-			case 2:
-				colorToReturn = '#cfbb3c'
-				break
-			case 3:
-			case 4:
-				colorToReturn = '#4db53c'
-				break
-			default:
-		}
-		return colorToReturn
-	}
 }
 
 export default ColorChart

@@ -1,13 +1,6 @@
 import React, { Component } from 'react'
-import { ColorChart } from '../constants'
-
-const colorChart = new ColorChart()
 
 class CircleProgress extends Component {
-	static defaultProps = {
-		colorChart
-	}
-
 	render() {
 		const classes = this.props.value + ' ' + this.props.size
 		const countryNorm = '[' + Math.round(this.props.countryNorm) + ']'

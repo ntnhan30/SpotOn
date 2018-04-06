@@ -5,10 +5,10 @@ import {
 	AdList,
 	FilterSidebar,
 	FilterAds,
-	SelectedAds
+	SelectedAds,
+	Tour
 } from '../../components'
 import { SingleReport, Chart } from '../../screens'
-import Joyride from 'react-joyride'
 var _ = require('lodash')
 
 const api = new Api()
@@ -69,6 +69,7 @@ class SelectReports extends Component {
 		// this is all the ads retrieved
 		return (
 			<Fragment>
+				<Tour />
 				<div className="container-fluid main">
 					<div className="col-2" id="filter">
 						<FilterSidebar
