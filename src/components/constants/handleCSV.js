@@ -15,13 +15,17 @@ class HandleCSV {
 		// Take off the first line to get the headers, then split that into an array
 		let csvHeaders = csvRows
 			.shift()
-			.concat(';i')
+			.concat(',i')
 			.replace('\r', '')
-			.split(';')
+			.split(',')
 
 		// Loop through remaining rows
 		for (let rowIndex = 0; rowIndex < csvRows.length; ++rowIndex) {
-			let rowArray = csvRows[rowIndex].split(';')
+			//let rowArray = csvRows[rowIndex].split(',')
+
+			var rowArray = csvRows[rowIndex]
+				.replace(',,', ', ,')
+				.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g)
 
 			// Create a new row object to store our data.
 			let rowObject = (csvObj[rowIndex] = {})

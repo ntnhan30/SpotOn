@@ -69,9 +69,9 @@ class SelectReports extends Component {
 		// this is all the ads retrieved
 		return (
 			<Fragment>
-				<Tour />
+				{/*<Tour />*/}
 				<div className="container-fluid main">
-					<div className="col-2" id="filter">
+					<div className="col-2 sidebar" id="filter">
 						<FilterSidebar
 							ads={this.state.ads}
 							filteredAds={this.state.ads}
@@ -79,7 +79,7 @@ class SelectReports extends Component {
 						/>
 					</div>
 
-					<div className="col-2" id="selected">
+					<div className="col-2 sidebar" id="selected">
 						<Route
 							key={2}
 							exact={false}

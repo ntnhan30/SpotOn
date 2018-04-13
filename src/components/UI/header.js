@@ -3,8 +3,22 @@ import { Link } from 'react-router-dom'
 import Logo from '../../Assets/imgs/logo.svg'
 
 class Header extends Component {
+	constructor() {
+		super()
+		this.state = {
+			profile: {}
+		}
+	}
+
+	async componentDidMount() {
+		const profile = await this.props.auth.getUserInfo()
+		this.setState({
+			profile
+		})
+	}
 	render() {
-		const profile = this.props.auth.getUserInfo()
+		const { profile } = this.state
+
 		return (
 			<header>
 				<div className="container-fluid">
@@ -36,7 +50,10 @@ class Header extends Component {
                                         <li>
                                             <Link to='/users'>Users</Link>
                                         </li>
-                                    )
+									)
+									<li>
+										<Link to="/FAQ">FAQ</Link>
+									</li>
                                 */
 								}
 							</ul>

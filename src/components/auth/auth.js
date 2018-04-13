@@ -1,9 +1,9 @@
 import history from './history'
 import auth0 from 'auth0-js'
 import { AUTH_CONFIG } from './auth0-variables'
-import UserRights from '../constants/userRights'
+import { Api, UserRights } from '../constants'
 
-const userRights = new UserRights()
+//const userRights = new UserRights()
 
 class Auth {
 	auth0 = new auth0.WebAuth({
@@ -112,12 +112,15 @@ class Auth {
 		}
 	}
 
-	getUserInfo() {
-		const email = this.getEmail()
-		const rights = userRights.init(email)
+	async getUserInfo() {
+		const api = new Api()
 
-		let result = rights
-		result.email = email
+		const email = this.getEmail()
+		const result = await api.fetchSingleUser(email)
+		//const rights = userRights.init(email)
+
+		console.log(result)
+		//result.email = email
 
 		return result
 	}

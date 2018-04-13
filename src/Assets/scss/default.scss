@@ -206,9 +206,6 @@ li {
 			z-index: 2;
 
 			& > div {
-				position: fixed !important;
-				width: 16.66%;
-
 				& > div {
 					padding: 0em 1em;
 				}
@@ -267,13 +264,6 @@ li {
 
 		&#selected {
 			z-index: 1;
-
-			& > div {
-				position: fixed;
-				width: 16.666667%;
-				height: calc(100vh - 90px);
-				overflow: auto;
-			}
 
 			table {
 				tbody {
@@ -346,6 +336,31 @@ li {
 								}
 							}
 						}
+					}
+				}
+			}
+		}
+
+		&.sidebar {
+			& > div {
+				position: fixed !important;
+				width: 16.666667%;
+
+				& > .table {
+					margin-bottom: 0;
+				}
+
+				& > div {
+					height: calc(100vh - 139px);
+					overflow-y: auto;
+					overflow-x: hidden;
+				}
+			}
+
+			&#selected {
+				& > div {
+					& > div {
+						height: calc(100vh - 219px);
 					}
 				}
 			}

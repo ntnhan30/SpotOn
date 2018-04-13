@@ -1,6 +1,6 @@
 class UserRights {
 	/**
-	 * The the user right
+	 * Get the user right
 	 *
 	 * @param {String} email                 Email address of the logged in user
 	 * @returns {Object}                     User rights - Countries available
@@ -13,7 +13,6 @@ class UserRights {
 			case 'andres.guevara@deliveryhero.com':
 			case 'sofia.tavares@deliveryhero.com':
 			case 'marina.kramer@deliveryhero.com':
-			case 'donwon.lee@deliveryhero.com':
 			case 'michael.wicke@deliveryhero.com':
 			case 'ross.mcpheat@deliveryhero.com':
 			case 'caroline.stephenson@deliveryhero.com':
@@ -25,6 +24,8 @@ class UserRights {
 			case 'aleksej.koscejev@deliveryhero.com':
 			case 'isabella.homann@deliveryhero.com':
 			case 'sophie.connolly@deliveryhero.com':
+			case 'filippo.gallignani@deliveryhero.com':
+			case 'nikolay.abrosov@pizza.de':
 				result.country = ['Colombia', 'Germany']
 				result.right = 'admin'
 				break

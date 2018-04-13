@@ -4,7 +4,7 @@ const LOCAL_DOMAINS = ['localhost', '127.0.0.1']
 if (LOCAL_DOMAINS.includes(window.location.hostname)) {
 	callbackUrl = 'http://localhost:3000/callback'
 } else {
-	callbackUrl = 'http://enyoia.com/callback'
+	callbackUrl = 'http://spoton.deliveryhero.com/callback'
 }
 
 export const AUTH_CONFIG = {

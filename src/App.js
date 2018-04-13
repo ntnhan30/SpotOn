@@ -16,7 +16,8 @@ import {
 	Login,
 	Logout,
 	Callback,
-	HomeScreen
+	HomeScreen,
+	UserGuideScreen
 } from './screens'
 
 import Auth from './components/auth/auth.js'
@@ -63,6 +64,13 @@ class App extends Component {
 						/>
 						<PrivateRoute path="/users" component={Users} />
 						<PrivateRoute path="/ad/:id" component={SingleAd} />
+						<Route
+							exact
+							path="/FAQ"
+							render={props => (
+								<UserGuideScreen auth={auth} {...props} />
+							)}
+						/>
 						<Route
 							exact
 							path="/login"

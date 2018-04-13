@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import {
+	Api,
 	Auth,
 	FunctionsResults,
 	LoadingSpinner,
@@ -12,6 +13,7 @@ import 'react-sticky-table/dist/react-sticky-table.css'
 var _ = require('lodash')
 
 const auth = new Auth()
+const api = new Api()
 const functionsResults = new FunctionsResults()
 
 class WeightedReport extends Component {
@@ -28,11 +30,11 @@ class WeightedReport extends Component {
 	}
 
 	async componentDidMount() {
-		let profile = this.props.auth.getUserInfo()
+		let profile = await this.props.api.fetchSingleUser()
 		let average = {}
 
 		await Promise.all(
-			profile.country.map(async country => {
+			profile.countries.map(async country => {
 				average[
 					country
 				] = await this.props.functionsResults.getCountryNorm([country])

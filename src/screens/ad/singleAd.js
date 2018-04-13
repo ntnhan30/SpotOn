@@ -99,6 +99,9 @@ class SingleAd extends Component {
 				backgroundImage: `url(${HeroImageAd})`
 			}
 
+			console.log('thisAd')
+			console.log(thisAd)
+			console.log('countryNorm')
 			console.log(countryNorm)
 
 			return (

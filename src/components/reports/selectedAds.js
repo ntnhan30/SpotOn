@@ -103,11 +103,13 @@ class SelectedAds extends Component {
 			<div>
 				<table className="table table-striped table-hover">
 					<thead className="thead-dark">{tableHeader}</thead>
-					<tbody>
-						{reportButtons()}
-						{listSelectedAds()}
-					</tbody>
+					<tbody>{reportButtons()}</tbody>
 				</table>
+				<div>
+					<table className="table table-striped table-hover">
+						<tbody>{listSelectedAds()}</tbody>
+					</table>
+				</div>
 			</div>
 		)
 	}

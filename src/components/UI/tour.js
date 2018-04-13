@@ -3,21 +3,22 @@ import Joyride from 'react-joyride'
 
 class Tour extends Component {
 	render() {
-		const autoStart = false
+		const autoStart = false // Change to true
+		const type = 'click' // Change to 'hover'
 		const joyrideSteps = [
 			{
 				title: 'This is the filter',
 				textAlign: 'center',
 				selector: '#filter',
 				position: 'right',
-				type: 'hover',
+				type: type,
 				isFixed: true
 			},
 			{
 				text: 'this is the spots',
 				selector: '.table-fixed tbody',
 				position: 'left',
-				type: 'hover',
+				type: type,
 				isFixed: true
 			},
 			{
@@ -25,14 +26,14 @@ class Tour extends Component {
 				text: 'This step tests what happens when a target is missing',
 				selector: '#selected',
 				position: 'right',
-				type: 'hover',
+				type: type,
 				isFixed: true
 			}
 		]
 
 		return (
 			<Joyride
-				debug={true}
+				debug={false}
 				disableOverlay={false}
 				scrollToFirstStep
 				type="continuous"

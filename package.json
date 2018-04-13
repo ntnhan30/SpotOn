@@ -19,6 +19,7 @@
     "lodash": "^4.17.5",
     "rc-checkbox": "^2.1.4",
     "react": "^16.2.0",
+    "react-accessible-accordion": "^2.2.1",
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.2.0",
     "react-excel-workbook": "^0.0.4",

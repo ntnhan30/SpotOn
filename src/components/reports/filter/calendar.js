@@ -39,7 +39,7 @@ class CreateCalendar extends Component {
 	}
 
 	getMinDate = (data, prop) => {
-		let result = []
+		let result = {}
 		result.year = parseInt(this.state.selectedRange.to.year, 10)
 		result.month = parseInt(this.state.selectedRange.to.month, 10)
 		return data.reduce((r, obj) => {
@@ -57,7 +57,7 @@ class CreateCalendar extends Component {
 				}
 				return result
 			} else {
-				return null
+				return result
 			}
 		}, {})
 	}

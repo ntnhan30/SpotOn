@@ -8,6 +8,7 @@ import ColorChart from './colorChart'
 import MessagingCode from './messagingCode'
 import GetKPIs from './getKPIs'
 import UserRights from './userRights'
+import Slugify from './slugify'
 
 export {
 	Api,
@@ -19,5 +20,6 @@ export {
 	ColorChart,
 	MessagingCode,
 	GetKPIs,
-	UserRights
+	UserRights,
+	Slugify
 }
