@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { Auth } from '../auth'
 
-axios.defaults.baseURL = 'http://10.120.81.53:4000/api' // LOCAL
-//axios.defaults.baseURL = 'https://polar-beyond-85959.herokuapp.com/api' // Heroku
+//axios.defaults.baseURL = 'http://10.120.81.53:4000/api' // LOCAL
+axios.defaults.baseURL = 'https://polar-beyond-85959.herokuapp.com/api' // Heroku
 
 class Api {
 	constructor() {
@@ -32,7 +32,6 @@ class Api {
 	// Fetch all Ads from the server
 	async fetchAds() {
 		const profile = await this.auth.getUserInfo()
-		console.log(profile)
 		if (profile.right === 'limited') {
 			let result = []
 			await Promise.all(
@@ -285,10 +284,9 @@ class Api {
 
 	// Fetch a single Ad from the server using the "adname"
 	async fetchSingleUser(userEmail) {
-		const allData = await axios.get(this.getSingleUser + userEmail)
-		console.log(allData.data.user)
-		this.profile = allData.data.user
-		return allData.data.user
+		const { data } = await axios.get(this.getSingleUser + userEmail)
+		this.profile = data.user
+		return data.user
 	}
 
 	// Create multiple Ads from an array

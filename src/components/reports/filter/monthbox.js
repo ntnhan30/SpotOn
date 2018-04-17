@@ -11,7 +11,7 @@ class MonthBox extends Component {
 		this._handleClick = this._handleClick.bind(this)
 	}
 
-	componentWillReceiveProps(nextProps) {
+	UNSAFE_componentWillReceiveProps(nextProps) {
 		this.setState({
 			value: nextProps.value || 'N/A'
 		})

@@ -46,7 +46,7 @@ class SingleReport extends Component {
 		this.getAdsFromURL()
 	}
 
-	componentWillReceiveProps = async nextProps => {
+	UNSAFE_componentWillReceiveProps = async nextProps => {
 		const currentID = this.props.match.params.id
 		const nextID = nextProps.match.params.id
 

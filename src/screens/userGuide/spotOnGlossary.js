@@ -1,12 +1,4 @@
 import React, { Component, Fragment } from 'react'
-import {
-	Accordion,
-	AccordionItem,
-	AccordionItemTitle,
-	AccordionItemBody
-} from 'react-accessible-accordion'
-import 'react-accessible-accordion/dist/minimal-example.css'
-var _ = require('lodash')
 
 class SpotOnGlossary extends Component {
 	render() {

@@ -32,7 +32,7 @@ class RangeSlider extends Component {
 		)
 	}
 
-	componentWillReceiveProps(nextProps) {
+	UNSAFE_componentWillReceiveProps(nextProps) {
 		if (
 			nextProps.ads.length > 0 &&
 			!_.isEqual(this.props, nextProps) &&

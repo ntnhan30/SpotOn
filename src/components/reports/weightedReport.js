@@ -12,8 +12,8 @@ import { StickyTable, Row, Cell } from 'react-sticky-table'
 import 'react-sticky-table/dist/react-sticky-table.css'
 var _ = require('lodash')
 
-const auth = new Auth()
 const api = new Api()
+const auth = new Auth()
 const functionsResults = new FunctionsResults()
 
 class WeightedReport extends Component {
@@ -25,12 +25,15 @@ class WeightedReport extends Component {
 	}
 
 	static defaultProps = {
+		api,
 		auth,
 		functionsResults
 	}
 
 	async componentDidMount() {
-		let profile = await this.props.api.fetchSingleUser()
+		const profile = await this.props.auth.getUserInfo()
+		console.log(profile)
+		//let profile = await this.props.api.fetchSingleUser()
 		let average = {}
 
 		await Promise.all(

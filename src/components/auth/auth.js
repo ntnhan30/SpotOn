@@ -1,7 +1,7 @@
 import history from './history'
 import auth0 from 'auth0-js'
 import { AUTH_CONFIG } from './auth0-variables'
-import { Api, UserRights } from '../constants'
+import { Api } from '../constants'
 
 //const userRights = new UserRights()
 
@@ -119,7 +119,7 @@ class Auth {
 		const result = await api.fetchSingleUser(email)
 		//const rights = userRights.init(email)
 
-		console.log(result)
+		//console.log(result)
 		//result.email = email
 
 		return result
