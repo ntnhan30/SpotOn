@@ -3,7 +3,9 @@ import {
 	Api,
 	WeightedReport,
 	PercentileReport,
-	LoadingSpinner
+	LoadingSpinner,
+	AppContext,
+	ErrorBoundary
 } from '../../components'
 
 const api = new Api()
@@ -58,9 +60,31 @@ class SingleReport extends Component {
 	render() {
 		if (this.state.isLoaded) {
 			if (this.props.typeOfReport === 'weighted') {
-				return <WeightedReport allResults={this.state.thisResults} />
+				return (
+					<AppContext.Consumer>
+						{context => (
+							<ErrorBoundary>
+								<WeightedReport
+									allResults={this.state.thisResults}
+									profile={context.profile}
+								/>
+							</ErrorBoundary>
+						)}
+					</AppContext.Consumer>
+				)
 			} else if (this.props.typeOfReport === 'percentile') {
-				return <PercentileReport allResults={this.state.thisResults} />
+				return (
+					<AppContext.Consumer>
+						{context => (
+							<ErrorBoundary>
+								<PercentileReport
+									allResults={this.state.thisResults}
+									profile={context.profile}
+								/>
+							</ErrorBoundary>
+						)}
+					</AppContext.Consumer>
+				)
 			}
 		} else {
 			return <LoadingSpinner />

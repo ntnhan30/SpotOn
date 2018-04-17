@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { LoadingSpinner } from '../../components'
 import { Link } from 'react-router-dom'
 import Checkbox from 'rc-checkbox'
 import 'rc-checkbox/assets/index.css'
@@ -10,7 +11,7 @@ class AdList extends Component {
 
 	render() {
 		// Logic for displaying ads
-		const currentAds = this.props.ads
+		const { ads } = this.props
 
 		const tableHeader = (
 			<tr>
@@ -26,7 +27,7 @@ class AdList extends Component {
 			</tr>
 		)
 
-		const renderedAds = currentAds.map((ad, i) => {
+		const renderedAds = ads.map((ad, i) => {
 			if (ad.show) {
 				//<Link to={{ pathname:'/ad/' + ad.adname, query: { ad: ad } }}>
 				return (
@@ -57,13 +58,17 @@ class AdList extends Component {
 			}
 		})
 
-		// The return from the AdList Class
-		return (
-			<table className="table table-striped table-hover table-fixed">
-				<thead className="">{tableHeader}</thead>
-				<tbody>{renderedAds}</tbody>
-			</table>
-		)
+		if (ads === undefined || ads.length === 0) {
+			return <LoadingSpinner />
+		} else {
+			// The return from the AdList Class
+			return (
+				<table className="table table-striped table-hover table-fixed">
+					<thead className="">{tableHeader}</thead>
+					<tbody>{renderedAds}</tbody>
+				</table>
+			)
+		}
 	}
 }
 

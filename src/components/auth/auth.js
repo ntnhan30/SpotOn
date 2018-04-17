@@ -114,13 +114,8 @@ class Auth {
 
 	async getUserInfo() {
 		const api = new Api()
-
 		const email = this.getEmail()
 		const result = await api.fetchSingleUser(email)
-		//const rights = userRights.init(email)
-
-		//console.log(result)
-		//result.email = email
 
 		return result
 	}

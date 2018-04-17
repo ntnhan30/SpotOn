@@ -1,7 +1,5 @@
 import React, { Component, Fragment } from 'react'
 import {
-	Api,
-	Auth,
 	FunctionsResults,
 	LoadingSpinner,
 	ColorTag,
@@ -12,8 +10,6 @@ import { StickyTable, Row, Cell } from 'react-sticky-table'
 import 'react-sticky-table/dist/react-sticky-table.css'
 var _ = require('lodash')
 
-const api = new Api()
-const auth = new Auth()
 const functionsResults = new FunctionsResults()
 
 class WeightedReport extends Component {
@@ -25,13 +21,11 @@ class WeightedReport extends Component {
 	}
 
 	static defaultProps = {
-		api,
-		auth,
 		functionsResults
 	}
 
 	async componentDidMount() {
-		const profile = await this.props.auth.getUserInfo()
+		const { profile } = this.props
 		console.log(profile)
 		//let profile = await this.props.api.fetchSingleUser()
 		let average = {}

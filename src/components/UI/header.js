@@ -3,21 +3,8 @@ import { Link } from 'react-router-dom'
 import Logo from '../../Assets/imgs/logo.svg'
 
 class Header extends Component {
-	constructor() {
-		super()
-		this.state = {
-			profile: {}
-		}
-	}
-
-	async componentDidMount() {
-		const profile = await this.props.auth.getUserInfo()
-		this.setState({
-			profile
-		})
-	}
 	render() {
-		const { profile } = this.state
+		const { profile } = this.props
 
 		return (
 			<header>

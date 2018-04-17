@@ -30,8 +30,7 @@ class Api {
 	}
 
 	// Fetch all Ads from the server
-	async fetchAds() {
-		const profile = await this.auth.getUserInfo()
+	async fetchAds(profile) {
 		if (profile.right === 'limited') {
 			let result = []
 			await Promise.all(

@@ -7,7 +7,7 @@ import {
 	Redirect,
 	withRouter
 } from 'react-router-dom'
-import { Header } from './components'
+import { Header, AppContext, ErrorBoundary } from './components'
 import {
 	Import,
 	Notifications,
@@ -29,7 +29,12 @@ import './Assets/css/default.min.css'
 const auth = new Auth()
 
 const AuthButton = withRouter(
-	({ history }) => (auth.isAuthenticated() ? <Header auth={auth} /> : null)
+	({ history }) =>
+		auth.isAuthenticated() ? (
+			<AppContext.Consumer>
+				{context => <Header auth={auth} profile={context.profile} />}
+			</AppContext.Consumer>
+		) : null
 )
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -37,7 +42,9 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 		{...rest}
 		render={props =>
 			auth.isAuthenticated() ? (
-				<Component auth={auth} {...props} />
+				<ErrorBoundary>
+					<Component auth={auth} {...props} />
+				</ErrorBoundary>
 			) : (
 				<Redirect
 					to={{

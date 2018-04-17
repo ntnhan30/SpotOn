@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import CreateMultiselect from './multiselect.js'
 import CreateCalendar from './calendar.js'
 import RangeSlider from './rangeSlider.js'
+import { AppContext } from '../../context'
 
 import 'react-widgets/dist/css/react-widgets.css'
 
@@ -15,32 +16,17 @@ class FilterSidebar extends Component {
 		}
 	}
 
-	filterAds = (valueToFilter, key) => {
-		// Calls function in parent Component (selectReports.js)
-		this.props.filterAdlist(valueToFilter, key)
-	}
-
 	render() {
+		const { ads } = this.props
 		// Get the different attributes of every Ad
-		const brands = [
-			...new Set(this.props.ads.map(item => item.brand))
-		].sort()
-		const countries = [
-			...new Set(this.props.ads.map(item => item.country))
-		].sort()
-		//const lengths = [...new Set(this.props.ads.map( item => item.lengthAd ))].sort();
-		const industries = [
-			...new Set(this.props.ads.map(item => item.industry))
-		].sort()
-		const channels = [
-			...new Set(this.props.ads.map(item => item.channel))
-		].sort()
+		const brands = [...new Set(ads.map(i => i.brand))].sort()
+		const countries = [...new Set(ads.map(i => i.country))].sort()
+		const industries = [...new Set(ads.map(i => i.industry))].sort()
+		const channels = [...new Set(ads.map(i => i.channel))].sort()
 		const productionStates = [
-			...new Set(this.props.ads.map(item => item.productionState))
+			...new Set(ads.map(i => i.productionState))
 		].sort()
-		const states = [
-			...new Set(this.props.ads.map(item => item.state))
-		].sort()
+		const states = [...new Set(ads.map(i => i.state))].sort()
 
 		// Display the sidebar
 		return (
@@ -53,53 +39,59 @@ class FilterSidebar extends Component {
 					</thead>
 				</table>
 				<div>
-					<CreateCalendar
-						ads={this.props.ads}
-						filter={this.filterAds}
-						keyName={'campaigndate'}
-					/>
+					<AppContext.Consumer>
+						{context => (
+							<Fragment>
+								<CreateCalendar
+									ads={ads}
+									filter={context.filterAds}
+									keyName={'campaigndate'}
+								/>
 
-					<CreateMultiselect
-						dataDropdown={brands}
-						filter={this.filterAds}
-						keyName={'brand'}
-					/>
+								<CreateMultiselect
+									dataDropdown={brands}
+									filter={context.filterAds}
+									keyName={'brand'}
+								/>
 
-					<CreateMultiselect
-						dataDropdown={industries}
-						filter={this.filterAds}
-						keyName={'industry'}
-					/>
+								<CreateMultiselect
+									dataDropdown={industries}
+									filter={context.filterAds}
+									keyName={'industry'}
+								/>
 
-					<CreateMultiselect
-						dataDropdown={channels}
-						filter={this.filterAds}
-						keyName={'channel'}
-					/>
+								<CreateMultiselect
+									dataDropdown={channels}
+									filter={context.filterAds}
+									keyName={'channel'}
+								/>
 
-					<CreateMultiselect
-						dataDropdown={countries}
-						filter={this.filterAds}
-						keyName={'country'}
-					/>
+								<CreateMultiselect
+									dataDropdown={countries}
+									filter={context.filterAds}
+									keyName={'country'}
+								/>
 
-					<RangeSlider
-						ads={this.props.ads}
-						filter={this.filterAds}
-						keyName={'lengthAd'}
-					/>
+								<RangeSlider
+									ads={ads}
+									filter={context.filterAds}
+									keyName={'lengthAd'}
+								/>
 
-					<CreateMultiselect
-						dataDropdown={productionStates}
-						filter={this.filterAds}
-						keyName={'productionState'}
-					/>
+								<CreateMultiselect
+									dataDropdown={productionStates}
+									filter={context.filterAds}
+									keyName={'productionState'}
+								/>
 
-					<CreateMultiselect
-						dataDropdown={states}
-						filter={this.filterAds}
-						keyName={'state'}
-					/>
+								<CreateMultiselect
+									dataDropdown={states}
+									filter={context.filterAds}
+									keyName={'state'}
+								/>
+							</Fragment>
+						)}
+					</AppContext.Consumer>
 				</div>
 			</div>
 		)
