@@ -119,10 +119,12 @@ class TabulateAnswers {
 			const value = k === '98' ? v * 3 : v
 			sampleSize += value
 		})
+		/*
 		console.log(nameOfAd)
 		console.log(arr)
 		console.log(sampleSize)
 		console.log('+++++++++++++++++++')
+		*/
 
 		// Get info of the Ad from the server
 		const singleAd = await this.api.fetchSingleAd(nameOfAd)

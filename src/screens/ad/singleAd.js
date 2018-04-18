@@ -8,7 +8,8 @@ import {
 	LoadingSpinner,
 	CircleProgress,
 	MessagingCode,
-	FunctionsResults
+	FunctionsResults,
+	ImageOfAd
 } from '../../components'
 import ThumbAd from '../../Assets/imgs/ad-thumb.jpg'
 import HeroImageAd from '../../Assets/imgs/ad-heroimage.png'
@@ -18,6 +19,7 @@ const api = new Api()
 const getKPIs = new GetKPIs()
 const messagingCode = new MessagingCode()
 const functionsResults = new FunctionsResults()
+const imageOfAd = new ImageOfAd()
 
 class SingleAd extends Component {
 	constructor() {
@@ -33,7 +35,8 @@ class SingleAd extends Component {
 		api,
 		getKPIs,
 		messagingCode,
-		functionsResults
+		functionsResults,
+		imageOfAd
 	}
 
 	componentDidMount = async () => {
@@ -50,7 +53,6 @@ class SingleAd extends Component {
 		this.setState({
 			thisAd,
 			countryNorm
-			//thisKPIs: thisAd.kpis
 		})
 	}
 
@@ -95,8 +97,12 @@ class SingleAd extends Component {
 				</div>
 			)
 		} else if (!_.isEmpty(thisAd)) {
-			var heroStyle = {
-				backgroundImage: `url(${HeroImageAd})`
+			const AdImage = this.props.imageOfAd.getRandomImage(
+				thisAd.ad.industry
+			)
+
+			const heroStyle = {
+				backgroundImage: `url(${AdImage})`
 			}
 
 			console.log('thisAd')
@@ -139,7 +145,7 @@ class SingleAd extends Component {
 
 						<div className="col-3 move-up offset-1">
 							<a href={thisAd.ad.videourl} target="_blank">
-								<img src={ThumbAd} alt="Upload Ads" />
+								<img src={AdImage} alt="Upload Ads" />
 							</a>
 							<table className="">
 								<tbody>

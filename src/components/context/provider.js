@@ -17,7 +17,6 @@ class AppProvider extends Component {
 				valueToFilter,
 				key
 			)
-			console.log(result)
 			this.setState({
 				filterAtts: result.filterAtts,
 				ads: result.ads
