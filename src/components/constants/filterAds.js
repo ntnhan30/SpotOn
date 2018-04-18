@@ -62,9 +62,6 @@ class FilterAds {
 			} else {
 				isInside = false
 			}
-			console.log(date)
-			console.log(range)
-			console.log(isInside)
 			return isInside
 		}
 
@@ -73,6 +70,10 @@ class FilterAds {
 			return length >= range['min'] && length <= range['max']
 				? true
 				: false
+		}
+
+		const isNameSimilar = (shortname, shortname2) => {
+			return shortname.includes(shortname2.toUpperCase())
 		}
 
 		const filterList = (ad, filterKey, single) => {
@@ -89,6 +90,8 @@ class FilterAds {
 					return isInsideLengthRange(ad.lengthAd, single)
 				case 'campaigndate':
 					return isInsideDateRange(ad.campaigndate, single)
+				case 'shortname':
+					return isNameSimilar(ad.shortname, single)
 				default:
 					break
 			}

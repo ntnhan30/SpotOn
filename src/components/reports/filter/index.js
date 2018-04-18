@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import SearchBar from './search.js'
 import CreateMultiselect from './multiselect.js'
 import CreateCalendar from './calendar.js'
 import RangeSlider from './rangeSlider.js'
@@ -42,6 +43,12 @@ class FilterSidebar extends Component {
 					<AppContext.Consumer>
 						{context => (
 							<Fragment>
+								<SearchBar
+									ads={ads}
+									filter={context.filterAds}
+									keyName={'shortname'}
+								/>
+
 								<CreateCalendar
 									ads={ads}
 									filter={context.filterAds}
