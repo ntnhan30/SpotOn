@@ -1,58 +1,26 @@
 import React, { Component } from 'react'
 import {
-	Api,
 	RadarCharts,
 	BarCharts,
 	StackedBarCharts,
 	GetKPIs,
-	LoadingSpinner
+	LoadingSpinner,
+	AppContext
 } from '../../components'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
+var _ = require('lodash')
 
-const api = new Api()
 const getKPIs = new GetKPIs()
 
 class Chart extends Component {
-	constructor() {
-		super()
-		this.state = {
-			thisResults: {},
-			isLoaded: false
-		}
-	}
-
 	static defaultProps = {
-		api,
 		getKPIs
 	}
 
-	getAdsFromURL = async () => {
-		// Get the adname of this Ad
-		let allResults = {}
-
-		let ads = this.props.match.params.id
-		ads = ads.split('&')
-
-		for (let single in ads) {
-			if (ads[single]) {
-				const thisAd = await this.props.api.fetchSingleAd(ads[single])
-				allResults[ads[single]] = thisAd
-				this.props.handleSelection(thisAd.ad, true)
-			}
-		}
-		// Save them into the state
-		this.setState({
-			thisResults: allResults,
-			isLoaded: true
-		})
-	}
-
-	componentDidMount = async () => {
-		this.getAdsFromURL()
-	}
-
 	render() {
-		if (this.state.isLoaded) {
+		const { detailsOfSelectedAds } = this.props
+
+		if (!_.isEmpty(detailsOfSelectedAds)) {
 			let total = ['Total']
 			let mainKPIs = [
 				'Brand Relevance',
@@ -85,53 +53,63 @@ class Chart extends Component {
 			]
 
 			return (
-				<Tabs>
-					<TabList>
-						<Tab>Spot On score</Tab>
-						<Tab>L1 KPIs</Tab>
-						<Tab>Brand Relevance</Tab>
-						<Tab>Viewer Engagement</Tab>
-						<Tab>Ad Message</Tab>
-						<Tab>KPIs details</Tab>
-					</TabList>
+				<AppContext.Consumer>
+					{context => (
+						<Tabs>
+							<TabList>
+								<Tab>Spot On score</Tab>
+								<Tab>L1 KPIs</Tab>
+								<Tab>Brand Relevance</Tab>
+								<Tab>Viewer Engagement</Tab>
+								<Tab>Ad Message</Tab>
+								<Tab>KPIs details</Tab>
+							</TabList>
 
-					<TabPanel>
-						<BarCharts
-							thisResults={this.state.thisResults}
-							kpis={this.props.getKPIs.init(total)}
-						/>
-					</TabPanel>
-					<TabPanel>
-						<BarCharts
-							thisResults={this.state.thisResults}
-							kpis={this.props.getKPIs.init(mainKPIs)}
-						/>
-					</TabPanel>
-					<TabPanel>
-						<StackedBarCharts
-							thisResults={this.state.thisResults}
-							kpis={this.props.getKPIs.init(brandRelevance)}
-						/>
-					</TabPanel>
-					<TabPanel>
-						<StackedBarCharts
-							thisResults={this.state.thisResults}
-							kpis={this.props.getKPIs.init(viewerEngagement)}
-						/>
-					</TabPanel>
-					<TabPanel>
-						<StackedBarCharts
-							thisResults={this.state.thisResults}
-							kpis={this.props.getKPIs.init(adMessage)}
-						/>
-					</TabPanel>
-					<TabPanel>
-						<RadarCharts
-							thisResults={this.state.thisResults}
-							kpis={this.props.getKPIs.init(singleKpis)}
-						/>
-					</TabPanel>
-				</Tabs>
+							<TabPanel>
+								<BarCharts
+									thisResults={context.detailsOfSelectedAds}
+									kpis={this.props.getKPIs.init(total)}
+									countryNorms={context.countryNorms}
+								/>
+							</TabPanel>
+							<TabPanel>
+								<BarCharts
+									thisResults={context.detailsOfSelectedAds}
+									kpis={this.props.getKPIs.init(mainKPIs)}
+									countryNorms={context.countryNorms}
+								/>
+							</TabPanel>
+							<TabPanel>
+								<StackedBarCharts
+									thisResults={detailsOfSelectedAds}
+									kpis={this.props.getKPIs.init(
+										brandRelevance
+									)}
+								/>
+							</TabPanel>
+							<TabPanel>
+								<StackedBarCharts
+									thisResults={detailsOfSelectedAds}
+									kpis={this.props.getKPIs.init(
+										viewerEngagement
+									)}
+								/>
+							</TabPanel>
+							<TabPanel>
+								<StackedBarCharts
+									thisResults={detailsOfSelectedAds}
+									kpis={this.props.getKPIs.init(adMessage)}
+								/>
+							</TabPanel>
+							<TabPanel>
+								<RadarCharts
+									thisResults={detailsOfSelectedAds}
+									kpis={this.props.getKPIs.init(singleKpis)}
+								/>
+							</TabPanel>
+						</Tabs>
+					)}
+				</AppContext.Consumer>
 			)
 		} else {
 			return <LoadingSpinner />

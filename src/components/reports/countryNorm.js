@@ -8,35 +8,12 @@ class CountryNorm extends Component {
 	constructor() {
 		super()
 		this.state = {
-			showing: false,
-			isLoaded: true,
-			normOfCountries: {}
+			showing: false
 		}
 	}
 
 	static defaultProps = {
 		functionsResults
-	}
-
-	async componentDidMount() {
-		//// Calculate Countries norm
-		// Get in an array the name of the countries of the selected Ads
-		const selectedCountries = this.props.functionsResults.getCountriesOfSelectedAds(
-			this.props.ads
-		)
-
-		// For each country
-		let normOfCountries = {}
-		selectedCountries.map(async (country, i) => {
-			const countryNorm = await this.props.functionsResults.getCountryNorm(
-				[country]
-			)
-			normOfCountries[country] = countryNorm
-		})
-
-		this.setState({
-			normOfCountries
-		})
 	}
 
 	handleClick = () => {
@@ -48,7 +25,7 @@ class CountryNorm extends Component {
 		let cells = []
 		let i = 0
 
-		for (let country in this.state.normOfCountries) {
+		for (let country in this.props.countryNorm) {
 			cells.push(<th key={i++}>{country}</th>)
 		}
 
@@ -59,7 +36,7 @@ class CountryNorm extends Component {
 		let cells = []
 		let valuesCell = []
 		// eslint-disable-next-line
-		_.mapValues(this.state.normOfCountries, single => {
+		_.mapValues(this.props.countryNorm, single => {
 			let v = single[kpi] == null || isNaN(single[kpi]) ? 0 : single[kpi]
 			valuesCell.push(Math.round(v))
 		})
@@ -73,7 +50,7 @@ class CountryNorm extends Component {
 	}
 
 	render() {
-		if (!_.isEmpty(this.state.normOfCountries)) {
+		if (!_.isEmpty(this.props.countryNorm)) {
 			const tableHeader = <thead>{this.displayCountries()}</thead>
 
 			const tableBody = (

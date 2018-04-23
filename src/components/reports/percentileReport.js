@@ -15,8 +15,9 @@ class PercentileReport extends Component {
 	constructor() {
 		super()
 		this.state = {
-			allResults: [],
-			average: []
+			allResults: {},
+			average: {},
+			isit: 0
 		}
 	}
 
@@ -24,7 +25,8 @@ class PercentileReport extends Component {
 		functionsResults
 	}
 
-	async componentDidMount() {
+	async calculatePercentileAverage() {
+		console.log('calculatePercentileAverage')
 		// Get the percentile values and the percentile average of selected return => [allResults, average]
 		let percentile = await this.props.functionsResults.getPercentileScore(
 			this.props.allResults
@@ -34,6 +36,15 @@ class PercentileReport extends Component {
 			allResults: percentile.selectedAds,
 			average: percentile.average
 		})
+	}
+
+	componentDidUpdate = async (prevProps, prevState, snapshot) => {
+		let { allResults } = this.props
+		let oldAllResults = prevProps.allResults
+
+		if (allResults !== oldAllResults) {
+			await this.calculatePercentileAverage()
+		}
 	}
 
 	render() {

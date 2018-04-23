@@ -10,6 +10,7 @@ import {
 	Bar,
 	ResponsiveContainer
 } from 'recharts'
+var _ = require('lodash')
 
 const colorChart = new ColorChart()
 
@@ -19,10 +20,7 @@ class StackedBarCharts extends Component {
 	}
 
 	render() {
-		let thisResults = []
-		for (let i in this.props.thisResults) {
-			thisResults.push(this.props.thisResults[i])
-		}
+		let thisResults = _.values(this.props.thisResults)
 
 		let dataForChart = []
 		// eslint-disable-next-line
@@ -42,6 +40,11 @@ class StackedBarCharts extends Component {
 			})
 			dataForChart.push(set)
 		})
+		console.log('dataForChart')
+		console.log(dataForChart)
+
+		console.log('thisResults')
+		console.log(thisResults)
 
 		const bars = this.props.kpis.map((kpi, i) => {
 			return (

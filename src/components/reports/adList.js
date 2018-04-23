@@ -6,7 +6,7 @@ import 'rc-checkbox/assets/index.css'
 
 class AdList extends Component {
 	handleInputChange(ad, event) {
-		this.props.handleSelection(ad, event.target.checked)
+		this.props.toggleSelection(ad.adname, event.target.checked)
 	}
 
 	render() {

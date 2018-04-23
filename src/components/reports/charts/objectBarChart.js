@@ -85,6 +85,9 @@ class ObjectBarChart extends Component {
 			)
 		})
 
+		console.log('results')
+		console.log(results)
+
 		return (
 			<ResponsiveContainer width="95%" height="100%" minHeight={300}>
 				<BarChart width={730} data={results}>

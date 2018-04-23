@@ -1,8 +1,11 @@
 import React, { Component, Fragment } from 'react'
 import { Link } from 'react-router-dom'
+var _ = require('lodash')
 
 class SelectedAds extends Component {
 	render() {
+		const ads = _.values(this.props.ads)
+
 		let selectedAdsID = []
 
 		const tableHeader = (
@@ -12,34 +15,30 @@ class SelectedAds extends Component {
 			</tr>
 		)
 
-		const renderedAds = this.props.ads.map((ad, i) => {
-			if (ad.selected) {
-				selectedAdsID.push(ad.adname)
-				return (
-					<tr key={i}>
-						<td>
-							{ad.shortname}
-							<span>
-								{ad.brand}, {ad.industry}, {ad.channel}{' '}
-								{ad.lengthAd}'
-							</span>
-						</td>
-						<td className="selected-icons">
-							<span
-								className="icon-close"
-								onClick={() =>
-									this.props.handleSelection(ad, false)
-								}
-							/>
-							<Link to={{ pathname: '/ad/' + ad.adname }}>
-								<span className="icon-more" />
-							</Link>
-						</td>
-					</tr>
-				)
-			} else {
-				return false
-			}
+		const renderedAds = ads.map((ad, i) => {
+			selectedAdsID.push(ad.adname)
+			return (
+				<tr key={i}>
+					<td>
+						{ad.shortname}
+						<span>
+							{ad.brand}, {ad.industry}, {ad.channel}{' '}
+							{ad.lengthAd}'
+						</span>
+					</td>
+					<td className="selected-icons">
+						<span
+							className="icon-close"
+							onClick={() =>
+								this.props.toggleSelection(ad.adname, false)
+							}
+						/>
+						<Link to={{ pathname: '/ad/' + ad.adname }}>
+							<span className="icon-more" />
+						</Link>
+					</td>
+				</tr>
+			)
 		})
 
 		const reportButtons = () => {

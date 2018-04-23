@@ -17,48 +17,37 @@ const colorChart = new ColorChart()
 const functionsResults = new FunctionsResults()
 
 class BarCharts extends Component {
-	constructor() {
-		super()
-		this.state = {
-			average: [],
-			selectedCountries: 0
-		}
-	}
-
 	static defaultProps = {
 		colorChart,
 		functionsResults
 	}
 
-	async componentDidMount() {
-		const selectedCountries = this.props.functionsResults.getCountriesOfSelectedAds(
-			this.props.thisResults
-		)
-		let average = await this.props.functionsResults.getCountryNorm([
-			selectedCountries[0]
-		])
-
-		this.setState({
-			selectedCountries,
-			average
-		})
-	}
-
 	render() {
-		let thisResults = []
-		for (let i in this.props.thisResults) {
-			thisResults.push(this.props.thisResults[i])
-		}
+		let { countryNorms } = this.props
 
-		let dataForChart = this.props.kpis
+		// Convert the object into array
+		let thisResults = _.values(this.props.thisResults)
 
-		const moreThanOneCountry =
-			_.size(this.state.selectedCountries) > 1 ? true : false
+		// Prepare the data for the chart
+		let dataForChart = []
+		// eslint-disable-next-line
+		this.props.kpis.map(kpi => {
+			const set = {
+				name: kpi.nameInDB
+			}
+			// eslint-disable-next-line
+			thisResults.map(obj => {
+				const kpiValue = obj.kpis
+					? parseInt(obj['kpis'][kpi.nameInDB], 10)
+					: 0
+				set[obj.ad.shortname] = kpiValue
+			})
+			dataForChart.push(set)
+		})
 
 		// Unique key for iterating
 		let k = 0
-
-		const data = thisResults.map(obj => {
+		const bars = thisResults.map(obj => {
 			return (
 				<Bar
 					key={k++}
@@ -68,27 +57,30 @@ class BarCharts extends Component {
 			)
 		})
 
-		const references = dataForChart.map(single => {
+		// Check if there are more than once country selected
+		const moreThanOneCountry =
+			_.size(this.props.countryNorms) > 1 ? true : false
+
+		/* This is the reference line for the country norm
+		It will only show up if there's only 1 country */
+		const references = this.props.kpis.map(single => {
 			if (!moreThanOneCountry) {
 				const self = this
-				// eslint-disable-next-line
-				thisResults.map(i => {
-					const kpiValue = i.kpis
-						? parseInt(i.kpis[single.nameInDB], 10)
-						: 0
-					single[i.ad.shortname] = kpiValue
-				})
+				// Get value pf the norm
+				let countryNorm = {}
+				for (let country in countryNorms) {
+					countryNorm = countryNorms[country][single.nameInDB]
+				}
 
-				let norm = self.state.average[single.nameInDB]
 				return (
 					<ReferenceLine
 						key={k++}
-						y={norm}
+						y={countryNorm}
 						label={{
 							value: single.name + ' country norm',
 							position: 'insideBottomLeft'
 						}}
-						stroke={this.props.colorChart.getNormColor(0)}
+						stroke={self.props.colorChart.getNormColor(0)}
 						strokeDasharray="10 10"
 					/>
 				)
@@ -106,7 +98,7 @@ class BarCharts extends Component {
 						<YAxis domain={[0, 100]} />
 						<Tooltip cursor={false} />
 						<Legend />
-						{data}
+						{bars}
 						{references}
 					</ComposedChart>
 				</ResponsiveContainer>

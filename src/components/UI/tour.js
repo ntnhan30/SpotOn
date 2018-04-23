@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-//import Joyride from 'react-joyride'
+import Joyride from 'react-joyride'
 
 class Tour extends Component {
 	render() {
@@ -32,7 +32,6 @@ class Tour extends Component {
 		]
 
 		return (
-			/*
 			<Joyride
 				debug={false}
 				disableOverlay={false}
@@ -44,9 +43,6 @@ class Tour extends Component {
 				ref={c => (this.joyride = c)}
 				callback={this.handleJoyrideCallback}
 			/>
-			*/
-
-			<div>Tour</div>
 		)
 	}
 }

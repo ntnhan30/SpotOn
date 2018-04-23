@@ -15,7 +15,7 @@ class SelectReports extends Component {
 			<AppContext.Consumer>
 				{context => (
 					<Fragment>
-						{/*<Tour />*/}
+						{/* <Tour />*/}
 						<div className="container-fluid main">
 							<div className="col-2 sidebar" id="filter">
 								<FilterSidebar
@@ -31,8 +31,8 @@ class SelectReports extends Component {
 									path="/"
 									render={props => (
 										<SelectedAds
-											ads={context.ads}
-											handleSelection={
+											ads={context.selectedAds}
+											toggleSelection={
 												context.toggleSelection
 											}
 											{...this.props}
@@ -50,9 +50,17 @@ class SelectReports extends Component {
 										path="/weightedReport/:id"
 										render={props => (
 											<SingleReport
-												ads={context.ads}
-												handleSelection={
+												selectedAds={
+													context.selectedAds
+												}
+												toggleSelection={
 													context.toggleSelection
+												}
+												detailsOfSelectedAds={
+													context.detailsOfSelectedAds
+												}
+												getAdsFromURL={
+													context.getAdsFromURL
 												}
 												typeOfReport="weighted"
 												{...this.props}
@@ -67,9 +75,17 @@ class SelectReports extends Component {
 										path="/percentileReport/:id"
 										render={props => (
 											<SingleReport
-												ads={context.ads}
-												handleSelection={
+												selectedAds={
+													context.selectedAds
+												}
+												toggleSelection={
 													context.toggleSelection
+												}
+												detailsOfSelectedAds={
+													context.detailsOfSelectedAds
+												}
+												getAdsFromURL={
+													context.getAdsFromURL
 												}
 												typeOfReport="percentile"
 												{...this.props}
@@ -84,9 +100,11 @@ class SelectReports extends Component {
 										path="/chart/:id"
 										render={props => (
 											<Chart
-												ads={context.ads}
-												handleSelection={
-													context.toggleSelection
+												detailsOfSelectedAds={
+													context.detailsOfSelectedAds
+												}
+												getAdsFromURL={
+													context.getAdsFromURL
 												}
 												{...this.props}
 												{...props}
@@ -101,7 +119,7 @@ class SelectReports extends Component {
 										render={props => (
 											<AdList
 												ads={context.ads}
-												handleSelection={
+												toggleSelection={
 													context.toggleSelection
 												}
 												{...this.props}

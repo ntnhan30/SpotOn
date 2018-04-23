@@ -12,9 +12,8 @@ class SearchBar extends Component {
 		const value = event.target.value
 		const { keyName } = this.props
 
-		this.setState({ value })
-
 		this.props.filter([value], keyName)
+		this.setState({ value })
 	}
 
 	render() {

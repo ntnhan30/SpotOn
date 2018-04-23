@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react'
 import {
-	FunctionsResults,
 	LoadingSpinner,
 	ColorTag,
 	ExportCSV,
@@ -10,39 +9,7 @@ import { StickyTable, Row, Cell } from 'react-sticky-table'
 import 'react-sticky-table/dist/react-sticky-table.css'
 var _ = require('lodash')
 
-const functionsResults = new FunctionsResults()
-
 class WeightedReport extends Component {
-	constructor() {
-		super()
-		this.state = {
-			average: {}
-		}
-	}
-
-	static defaultProps = {
-		functionsResults
-	}
-
-	async componentDidMount() {
-		const { profile } = this.props
-		console.log(profile)
-		//let profile = await this.props.api.fetchSingleUser()
-		let average = {}
-
-		await Promise.all(
-			profile.countries.map(async country => {
-				average[
-					country
-				] = await this.props.functionsResults.getCountryNorm([country])
-			})
-		)
-
-		this.setState({
-			average
-		})
-	}
-
 	render() {
 		const displayHeaderTable = () => {
 			const self = this
@@ -95,11 +62,7 @@ class WeightedReport extends Component {
 				cells.push(
 					<Cell key={i + 1}>
 						{single}
-						<ColorTag
-							difference={
-								single - self.state.average[countries[i]][kpi]
-							}
-						/>
+						{displayColorTag(single, [countries[i]], kpi)}
 					</Cell>
 				)
 			})
@@ -107,7 +70,21 @@ class WeightedReport extends Component {
 			return <Row className={nameOfClass}>{cells}</Row>
 		}
 
-		if (_.isEmpty(this.state.average)) {
+		const displayColorTag = (single, countryName, kpi) => {
+			if (this.props.countryNorms[countryName] !== undefined) {
+				return (
+					<ColorTag
+						difference={
+							single - this.props.countryNorms[countryName][kpi]
+						}
+					/>
+				)
+			} else {
+				return <ColorTag difference={0} />
+			}
+		}
+
+		if (_.isEmpty(this.props.countryNorms)) {
 			return <LoadingSpinner />
 		} else {
 			return (
@@ -157,7 +134,7 @@ class WeightedReport extends Component {
 						{displaySingleKPI('uniqueness', 'level3', 'Uniqueness')}
 						{displaySingleKPI('messaging', 'level3', 'Messaging')}
 					</StickyTable>
-					<CountryNorm ads={this.props.allResults} />
+					<CountryNorm countryNorm={this.props.countryNorms} />
 				</Fragment>
 			)
 		}

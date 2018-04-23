@@ -1,85 +1,60 @@
 import React, { Component } from 'react'
 import {
-	Api,
 	WeightedReport,
 	PercentileReport,
 	LoadingSpinner,
 	AppContext,
 	ErrorBoundary
 } from '../../components'
-
-const api = new Api()
+var _ = require('lodash')
 
 class SingleReport extends Component {
-	constructor() {
-		super()
-		this.state = {
-			thisResults: [],
-			isLoaded: false
-		}
-	}
-
-	static defaultProps = {
-		api
-	}
-
-	getAdsFromURL = async () => {
-		// Get the adname of this Ad
-		let allResults = {}
-
-		let ads = this.props.match.params.id
-		ads = ads.split('&')
-
-		for (let single in ads) {
-			if (ads[single]) {
-				const thisAd = await this.props.api.fetchSingleAd(ads[single])
-				allResults[ads[single]] = thisAd
-				this.props.handleSelection(thisAd.ad, true)
-			}
-		}
-		// Save them into the state
-		this.setState({
-			thisResults: allResults,
-			isLoaded: true
-		})
-	}
-
 	componentDidMount = async () => {
-		this.getAdsFromURL()
+		//this.props.getAdsFromURL(this.props.match)
 	}
+	/*
 
-	UNSAFE_componentWillReceiveProps = async nextProps => {
-		const currentID = this.props.match.params.id
-		const nextID = nextProps.match.params.id
+	componentDidUpdate = (prevProps, prevState, snapshot) => {
+		let { selectedAds } = this.props
+		let oldSelectedAds = prevProps.selectedAds
 
-		if (currentID !== nextID) {
-			this.getAdsFromURL()
+		if (selectedAds !== oldSelectedAds) {
+			// If the props are different
+			this.props.getAdsFromURL(this.props.match)
 		}
 	}
+	*/
 
 	render() {
-		if (this.state.isLoaded) {
-			if (this.props.typeOfReport === 'weighted') {
+		const { detailsOfSelectedAds, typeOfReport } = this.props
+
+		//this.getAdsFromURL()
+		if (!_.isEmpty(detailsOfSelectedAds)) {
+			if (typeOfReport === 'weighted') {
 				return (
 					<AppContext.Consumer>
 						{context => (
 							<ErrorBoundary>
 								<WeightedReport
-									allResults={this.state.thisResults}
+									allResults={detailsOfSelectedAds}
 									profile={context.profile}
+									countryNorms={context.countryNorms}
+									addCountryNorm={context.addCountryNorm}
 								/>
 							</ErrorBoundary>
 						)}
 					</AppContext.Consumer>
 				)
-			} else if (this.props.typeOfReport === 'percentile') {
+			} else if (typeOfReport === 'percentile') {
 				return (
 					<AppContext.Consumer>
 						{context => (
 							<ErrorBoundary>
 								<PercentileReport
-									allResults={this.state.thisResults}
+									allResults={detailsOfSelectedAds}
 									profile={context.profile}
+									countryNorms={context.countryNorms}
+									addCountryNorm={context.addCountryNorm}
 								/>
 							</ErrorBoundary>
 						)}

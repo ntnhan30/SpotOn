@@ -11,8 +11,6 @@ import {
 	FunctionsResults,
 	ImageOfAd
 } from '../../components'
-import ThumbAd from '../../Assets/imgs/ad-thumb.jpg'
-import HeroImageAd from '../../Assets/imgs/ad-heroimage.png'
 var _ = require('lodash')
 
 const api = new Api()
