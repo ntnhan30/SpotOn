@@ -38,6 +38,12 @@ class PercentileReport extends Component {
 		})
 	}
 
+	async componentDidMount() {
+		if (this.props.allResults) {
+			await this.calculatePercentileAverage()
+		}
+	}
+
 	componentDidUpdate = async (prevProps, prevState, snapshot) => {
 		let { allResults } = this.props
 		let oldAllResults = prevProps.allResults

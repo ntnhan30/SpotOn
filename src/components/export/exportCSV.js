@@ -18,13 +18,27 @@ class ExportCSV extends Component {
 	}
 
 	// Calculate the percentile values of the selceted Ads
-	async componentDidMount() {
+	componentDidMount = async () => {
 		let allResults = await this.props.functionsResults.getPercentileScore(
 			this.props.toExport
 		)
 		this.setState({
 			allResults: allResults.selectedAds
 		})
+	}
+
+	componentDidUpdate = async (prevProps, prevState, snapshot) => {
+		let { toExport } = this.props
+		let oldToExport = prevProps.toExport
+
+		if (toExport !== oldToExport) {
+			let allResults = await this.props.functionsResults.getPercentileScore(
+				this.props.toExport
+			)
+			this.setState({
+				allResults: allResults.selectedAds
+			})
+		}
 	}
 
 	// The Workbook plugin demands the array to be ordered in a different way.
