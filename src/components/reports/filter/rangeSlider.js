@@ -51,6 +51,21 @@ class RangeSlider extends Component {
 		}
 	}
 
+	componentDidMount() {
+		if (this.props.ads.length > 0) {
+			const { min, max } = this.getMinMax(this.props.ads, 'lengthAd')
+			this.setState({
+				value: {
+					min: min,
+					max: max
+				},
+				minValue: min,
+				maxValue: max,
+				isLoaded: true
+			})
+		}
+	}
+
 	render() {
 		const self = this
 
