@@ -36,7 +36,9 @@ class AppProvider extends Component {
 		// This functions filters the ad list [show] = true
 		filterAds: async (valueToFilter, key) => {
 			await this.filterAds(valueToFilter, key)
-		}
+		},
+
+		isInsideReport: false
 	}
 
 	/* *********
@@ -165,6 +167,29 @@ class AppProvider extends Component {
 		})
 	}
 
+	checkIfInsideReport() {
+		const location = history.location.pathname
+		const { isInsideReport } = this.state
+		// Only runs if inside a report
+		if (
+			_.includes(location, 'weightedReport') ||
+			_.includes(location, 'percentileReport') ||
+			_.includes(location, 'chart')
+		) {
+			if (!isInsideReport) {
+				this.setState({
+					isInsideReport: true
+				})
+			}
+		} else {
+			if (isInsideReport) {
+				this.setState({
+					isInsideReport: false
+				})
+			}
+		}
+	}
+
 	async componentDidMount() {
 		// -- init Auth() & Api()
 		const auth = new Auth()
@@ -179,6 +204,12 @@ class AppProvider extends Component {
 
 		// Check if there are ads in the URL
 		await this.getAdsFromURL()
+
+		// List to the changes in the URL to see if inside any report
+		this.checkIfInsideReport()
+		history.listen((location, action) => {
+			this.checkIfInsideReport()
+		})
 	}
 
 	render() {

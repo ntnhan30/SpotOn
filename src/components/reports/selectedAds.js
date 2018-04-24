@@ -8,12 +8,31 @@ class SelectedAds extends Component {
 
 		let selectedAdsID = []
 
-		const tableHeader = (
-			<tr>
-				<th scope="col">SELECTED ADS</th>
-				<th scope="col" />
-			</tr>
-		)
+		const tableHeader = () => {
+			if (this.props.isInsideReport) {
+				return (
+					<tr>
+						<th scope="col">
+							<Link
+								to={{
+									pathname: '/'
+								}}
+							>
+								GO BACK
+							</Link>
+						</th>
+						<th scope="col" />
+					</tr>
+				)
+			} else {
+				return (
+					<tr>
+						<th scope="col">SELECTED ADS</th>
+						<th scope="col" />
+					</tr>
+				)
+			}
+		}
 
 		const renderedAds = ads.map((ad, i) => {
 			selectedAdsID.push(ad.adname)
@@ -101,7 +120,7 @@ class SelectedAds extends Component {
 		return (
 			<div>
 				<table className="table table-striped table-hover">
-					<thead className="thead-dark">{tableHeader}</thead>
+					<thead className="thead-dark">{tableHeader()}</thead>
 					<tbody>{reportButtons()}</tbody>
 				</table>
 				<div>

@@ -173,6 +173,26 @@ li {
 	}
 }
 
+#filter {
+	&,
+	& > * {
+		@include transition(0.3s ease-in-out);
+	}
+}
+.hide {
+	#filter {
+		&,
+		& > * {
+			width: 0;
+			flex: 0;
+			overflow: hidden;
+		}
+	}
+	.col-8 {
+		width: 83.3% !important;
+	}
+}
+
 .container-fluid {
 	display: flex;
 
@@ -376,6 +396,8 @@ li {
 
 	.col-8 {
 		flex: 4;
+		max-width: inherit;
+		@include transition(0.3s ease-in-out);
 
 		&.main-content {
 			padding: 0;

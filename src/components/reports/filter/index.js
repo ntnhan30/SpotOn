@@ -8,15 +8,6 @@ import { AppContext } from '../../context'
 import 'react-widgets/dist/css/react-widgets.css'
 
 class FilterSidebar extends Component {
-	constructor(...args) {
-		super(...args)
-
-		this.state = {
-			itemDropdown: this.props.dataDropdown,
-			ads: []
-		}
-	}
-
 	render() {
 		const { ads } = this.props
 		// Get the different attributes of every Ad

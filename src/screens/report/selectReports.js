@@ -5,16 +5,20 @@ import {
 	AdList,
 	FilterSidebar,
 	SelectedAds,
+	WeightedReport,
+	PercentileReport,
 	Tour
 } from '../../components'
 import { SingleReport, Chart } from '../../screens'
 
 class SelectReports extends Component {
 	render() {
+		const isHide = this.props.isInsideReport ? ' hide' : ''
+
 		return (
 			<AppContext.Consumer>
 				{context => (
-					<Fragment>
+					<div className={isHide}>
 						{/* <Tour />*/}
 						<div className="container-fluid main">
 							<div className="col-2 sidebar" id="filter">
@@ -34,6 +38,9 @@ class SelectReports extends Component {
 											ads={context.selectedAds}
 											toggleSelection={
 												context.toggleSelection
+											}
+											isInsideReport={
+												context.isInsideReport
 											}
 											{...this.props}
 											{...props}
@@ -130,7 +137,7 @@ class SelectReports extends Component {
 								</div>
 							</div>
 						</div>
-					</Fragment>
+					</div>
 				)}
 			</AppContext.Consumer>
 		)
