@@ -5,7 +5,7 @@ var _ = require('lodash')
 
 const functionsResults = new FunctionsResults()
 
-class ExportCSV extends Component {
+class ExportInvertedCSV extends Component {
 	constructor() {
 		super()
 		this.state = {
@@ -41,59 +41,76 @@ class ExportCSV extends Component {
 		}
 	}
 
+	// The Workbook plugin demands the array to be ordered in a different way.
+	// This takes the name of the type report (keyname) and set them grouped by kpi
+	getOrderedValuesForCSV(typeOfReport) {
+		let weightedValues = _.map(this.state.allResults, typeOfReport)
+		console.log(weightedValues)
+		const weighted = {}
+		for (let kpi in weightedValues[0]) {
+			let kpisVal = {}
+			kpisVal['kpi'] = kpi
+			weightedValues = _.pickBy(weightedValues, _.identity)
+			for (let v in weightedValues) {
+				kpisVal[weightedValues[v]['adID']] = weightedValues[v][kpi]
+			}
+			weighted[kpi] = kpisVal
+		}
+
+		// Returns an ordered array§ of results
+		let result = []
+		result.push(weighted.total)
+		result.push(weighted.brandRelevance)
+		result.push(weighted.brandRecall)
+		result.push(weighted.relevance)
+		result.push(weighted.brandFit)
+		result.push(weighted.viewerEngagement)
+		result.push(weighted.adAppeal)
+		result.push(weighted.shareability)
+		result.push(weighted.callToAction)
+		result.push(weighted.adMessage)
+		result.push(weighted.toneOfVoice)
+		result.push(weighted.emotion)
+		result.push(weighted.uniqueness)
+		result.push(weighted.messaging)
+
+		return result
+	}
+
 	render() {
-		let weightedValues = _.map(this.state.allResults, 'kpis')
-		const percentileValues = _.map(this.state.allResults, 'percentile')
+		const weightedValues = this.getOrderedValuesForCSV('kpis')
+		const percentileValues = this.getOrderedValuesForCSV('percentile')
+		let selectedAds = _.values(this.state.allResults)
+
+		console.log(weightedValues)
+		console.log(percentileValues)
 
 		// Returns the name of the kpis
 		const headerCSV = () => {
-			return <Workbook.Column key={0} label="Ad name" value="adID" />
+			return <Workbook.Column key={0} label="KPI" value="kpi" />
 		}
 
-		const kpis = [
-			'total',
-			'brandRelevance',
-			'brandRecall',
-			'relevance',
-			'brandFit',
-			'viewerEngagement',
-			'adAppeal',
-			'shareability',
-			'callToAction',
-			'adMessage',
-			'toneOfVoice',
-			'emotion',
-			'uniqueness',
-			'messaging'
-		]
-
-		// Prepend the country norms into the weighted sheet
-		let { countryNorms } = this.props
-		for (let c in countryNorms) {
-			countryNorms[c]['adID'] = c
-		}
-		countryNorms = _.values(countryNorms)
-		weightedValues = _.concat(weightedValues, countryNorms)
-
-		const columns = kpis.map(function(s, i) {
+		// Creates the columns for the Excel export
+		const columns = selectedAds.map(function(s, i) {
 			return (
 				<Workbook.Column
 					key={i + 1}
-					label={s}
-					value={row => Math.round(row[s])}
+					label={s.ad.adname}
+					value={row => Math.round(row[s.ad.adname])}
 				/>
 			)
 		})
 
-		const percentilColumns = kpis.map(function(s, i) {
+		const percentilColumns = selectedAds.map(function(s, i) {
 			return (
 				<Workbook.Column
 					key={i + 1}
-					label={s}
-					value={row => Math.round(row[s]) + 'th'}
+					label={s.ad.adname}
+					value={row => Math.round(row[s.ad.adname]) + 'th'}
 				/>
 			)
 		})
+		// ----
 
 		// prepend the nameof the KPIs as the first column
 		columns.unshift(headerCSV())
@@ -118,7 +135,6 @@ class ExportCSV extends Component {
 						>
 							{columns}
 						</Workbook.Sheet>
-
 						<Workbook.Sheet
 							data={percentileValues}
 							name="Percentile Report"
@@ -132,4 +148,4 @@ class ExportCSV extends Component {
 	}
 }
 
-export default ExportCSV
+export default ExportInvertedCSV

@@ -65,7 +65,10 @@ class PercentileReport extends Component {
 
 			cells.push(
 				<Cell key={0}>
-					<ExportCSV toExport={self.props.allResults} />
+					<ExportCSV
+						toExport={self.props.allResults}
+						countryNorms={this.props.countryNorms}
+					/>
 				</Cell>
 			)
 			// eslint-disable-next-line
