@@ -107,7 +107,7 @@ class ExportCSV extends Component {
 					<Workbook
 						filename="SpotOnReport.xlsx"
 						element={
-							<button className="btn">
+							<button className="btn download">
 								<span className="icon-in" />Download as Excel
 							</button>
 						}

@@ -1,11 +1,12 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import {
 	RadarCharts,
 	BarCharts,
 	StackedBarCharts,
 	GetKPIs,
 	LoadingSpinner,
-	AppContext
+	AppContext,
+	ChartTour
 } from '../../components'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 var _ = require('lodash')
@@ -52,62 +53,81 @@ class Chart extends Component {
 				'Uniqueness'
 			]
 
+			const showTour = () => {
+				if (this.props.profile.firstTime) {
+					return <ChartTour selectedAds={detailsOfSelectedAds} />
+				} else {
+					return null
+				}
+			}
+
 			return (
 				<AppContext.Consumer>
 					{context => (
-						<Tabs>
-							<TabList>
-								<Tab>Spot On score</Tab>
-								<Tab>L1 KPIs</Tab>
-								<Tab>Brand Relevance</Tab>
-								<Tab>Viewer Engagement</Tab>
-								<Tab>Ad Message</Tab>
-								<Tab>KPIs details</Tab>
-							</TabList>
+						<Fragment>
+							{showTour()}
+							<Tabs>
+								<TabList>
+									<Tab>Spot On score</Tab>
+									<Tab>L1 KPIs</Tab>
+									<Tab>Brand Relevance</Tab>
+									<Tab>Viewer Engagement</Tab>
+									<Tab>Ad Message</Tab>
+									<Tab>KPIs details</Tab>
+								</TabList>
 
-							<TabPanel>
-								<BarCharts
-									thisResults={context.detailsOfSelectedAds}
-									kpis={this.props.getKPIs.init(total)}
-									countryNorms={context.countryNorms}
-								/>
-							</TabPanel>
-							<TabPanel>
-								<BarCharts
-									thisResults={context.detailsOfSelectedAds}
-									kpis={this.props.getKPIs.init(mainKPIs)}
-									countryNorms={context.countryNorms}
-								/>
-							</TabPanel>
-							<TabPanel>
-								<StackedBarCharts
-									thisResults={detailsOfSelectedAds}
-									kpis={this.props.getKPIs.init(
-										brandRelevance
-									)}
-								/>
-							</TabPanel>
-							<TabPanel>
-								<StackedBarCharts
-									thisResults={detailsOfSelectedAds}
-									kpis={this.props.getKPIs.init(
-										viewerEngagement
-									)}
-								/>
-							</TabPanel>
-							<TabPanel>
-								<StackedBarCharts
-									thisResults={detailsOfSelectedAds}
-									kpis={this.props.getKPIs.init(adMessage)}
-								/>
-							</TabPanel>
-							<TabPanel>
-								<RadarCharts
-									thisResults={detailsOfSelectedAds}
-									kpis={this.props.getKPIs.init(singleKpis)}
-								/>
-							</TabPanel>
-						</Tabs>
+								<TabPanel>
+									<BarCharts
+										thisResults={
+											context.detailsOfSelectedAds
+										}
+										kpis={this.props.getKPIs.init(total)}
+										countryNorms={context.countryNorms}
+									/>
+								</TabPanel>
+								<TabPanel>
+									<BarCharts
+										thisResults={
+											context.detailsOfSelectedAds
+										}
+										kpis={this.props.getKPIs.init(mainKPIs)}
+										countryNorms={context.countryNorms}
+									/>
+								</TabPanel>
+								<TabPanel>
+									<StackedBarCharts
+										thisResults={detailsOfSelectedAds}
+										kpis={this.props.getKPIs.init(
+											brandRelevance
+										)}
+									/>
+								</TabPanel>
+								<TabPanel>
+									<StackedBarCharts
+										thisResults={detailsOfSelectedAds}
+										kpis={this.props.getKPIs.init(
+											viewerEngagement
+										)}
+									/>
+								</TabPanel>
+								<TabPanel>
+									<StackedBarCharts
+										thisResults={detailsOfSelectedAds}
+										kpis={this.props.getKPIs.init(
+											adMessage
+										)}
+									/>
+								</TabPanel>
+								<TabPanel>
+									<RadarCharts
+										thisResults={detailsOfSelectedAds}
+										kpis={this.props.getKPIs.init(
+											singleKpis
+										)}
+									/>
+								</TabPanel>
+							</Tabs>
+						</Fragment>
 					)}
 				</AppContext.Consumer>
 			)

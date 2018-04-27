@@ -9,6 +9,17 @@ class AppProvider extends Component {
 	state = {
 		// Object with all the profile details
 		profile: {},
+
+		finishTour: async () => {
+			this.finishTour()
+		},
+
+		lastStepOfTour: false,
+
+		activateLastStepOfTour: () => {
+			this.activateLastStepOfTour()
+		},
+
 		// Array of objects of all the ads loaded from the server
 		ads: [],
 		// Array of Object of ads selected by the user
@@ -39,6 +50,18 @@ class AppProvider extends Component {
 		},
 
 		isInsideReport: false
+	}
+
+	async finishTour() {
+		const api = new Api()
+		// -- Toggle Profile on the Server
+		const profile = await api.toggleUserFirstTime(this.state.profile.email)
+
+		this.setState({ profile })
+	}
+
+	activateLastStepOfTour() {
+		this.setState({ lastStepOfTour: true })
 	}
 
 	/* *********

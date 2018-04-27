@@ -3,7 +3,8 @@ import {
 	LoadingSpinner,
 	ColorTag,
 	ExportCSV,
-	CountryNorm
+	CountryNorm,
+	WeightedTour
 } from '../../components'
 import { StickyTable, Row, Cell } from 'react-sticky-table'
 import 'react-sticky-table/dist/react-sticky-table.css'
@@ -87,11 +88,20 @@ class WeightedReport extends Component {
 			}
 		}
 
+		const showTour = () => {
+			if (this.props.profile.firstTime) {
+				return <WeightedTour />
+			} else {
+				return null
+			}
+		}
+
 		if (_.isEmpty(this.props.countryNorms)) {
 			return <LoadingSpinner />
 		} else {
 			return (
 				<Fragment>
+					{showTour()}
 					<StickyTable stickyHeaderCount={1} stickyColumnCount={1}>
 						{displayHeaderTable()}
 

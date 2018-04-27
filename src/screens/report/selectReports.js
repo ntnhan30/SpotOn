@@ -6,8 +6,7 @@ import {
 	FilterSidebar,
 	SelectedAds,
 	WeightedReport,
-	PercentileReport,
-	Tour
+	PercentileReport
 } from '../../components'
 import { SingleReport, Chart } from '../../screens'
 
@@ -19,7 +18,6 @@ class SelectReports extends Component {
 			<AppContext.Consumer>
 				{context => (
 					<div className={isHide}>
-						{/* <Tour />*/}
 						<div className="container-fluid main">
 							<div className="col-2 sidebar" id="filter">
 								<FilterSidebar
@@ -69,6 +67,7 @@ class SelectReports extends Component {
 												getAdsFromURL={
 													context.getAdsFromURL
 												}
+												profile={context.profile}
 												typeOfReport="weighted"
 												{...this.props}
 												{...props}
@@ -94,6 +93,7 @@ class SelectReports extends Component {
 												getAdsFromURL={
 													context.getAdsFromURL
 												}
+												profile={context.profile}
 												typeOfReport="percentile"
 												{...this.props}
 												{...props}
@@ -113,6 +113,7 @@ class SelectReports extends Component {
 												getAdsFromURL={
 													context.getAdsFromURL
 												}
+												profile={context.profile}
 												{...this.props}
 												{...props}
 											/>
@@ -129,6 +130,11 @@ class SelectReports extends Component {
 												toggleSelection={
 													context.toggleSelection
 												}
+												profile={context.profile}
+												lastStepOfTour={
+													context.lastStepOfTour
+												}
+												finishTour={context.finishTour}
 												{...this.props}
 												{...props}
 											/>

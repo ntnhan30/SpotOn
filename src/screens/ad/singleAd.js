@@ -9,7 +9,9 @@ import {
 	CircleProgress,
 	MessagingCode,
 	FunctionsResults,
-	ImageOfAd
+	ImageOfAd,
+	SingleViewTour,
+	AppContext
 } from '../../components'
 var _ = require('lodash')
 
@@ -103,41 +105,57 @@ class SingleAd extends Component {
 				backgroundImage: `url(${AdImage})`
 			}
 
-			console.log('thisAd')
-			console.log(thisAd)
-			console.log('countryNorm')
-			console.log(countryNorm)
+			const showTour = () => {
+				if (this.props.profile.firstTime) {
+					return (
+						<AppContext.Consumer>
+							{context => (
+								<SingleViewTour
+									activateLastStepOfTour={
+										context.activateLastStepOfTour
+									}
+								/>
+							)}
+						</AppContext.Consumer>
+					)
+				} else {
+					return null
+				}
+			}
 
 			return (
 				<Fragment>
+					{showTour()}
 					<div
 						className="container-fluid hero-image"
 						style={heroStyle}
 					>
 						<div className="col-5 offset-2">
 							<h1>{thisAd.ad.adname}</h1>
-							<p>
-								<b>
+							<article className="ad-messages">
+								<p>
+									<b>
+										{this.props.messagingCode.init(
+											thisAd.ad.mainMessage
+										)}
+									</b>
+								</p>
+								<p>
 									{this.props.messagingCode.init(
-										thisAd.ad.mainMessage
+										thisAd.ad.secondaryMessage
 									)}
-								</b>
-							</p>
-							<p>
-								{this.props.messagingCode.init(
-									thisAd.ad.secondaryMessage
-								)}
-							</p>
-							<p>
-								{this.props.messagingCode.init(
-									thisAd.ad.tertiaryMessage
-								)}
-							</p>
+								</p>
+								<p>
+									{this.props.messagingCode.init(
+										thisAd.ad.tertiaryMessage
+									)}
+								</p>
+							</article>
 						</div>
 					</div>
 
 					<div className="container-fluid single">
-						<div className="col-5 offset-2">
+						<div className="col-5 offset-2 summary">
 							<p>{thisAd.ad.summary}</p>
 						</div>
 
@@ -176,7 +194,7 @@ class SingleAd extends Component {
 						</div>
 					</div>
 
-					<div className="container-fluid single">
+					<div className="container-fluid single details">
 						<div className="col-9 offset-2">
 							<Tabs>
 								<TabList>

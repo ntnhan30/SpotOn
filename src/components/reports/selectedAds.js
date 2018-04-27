@@ -75,7 +75,9 @@ class SelectedAds extends Component {
 											'/weightedReport/' + selectedAdsURL
 									}}
 								>
-									<button>Weighted</button>
+									<button className="weightedButton">
+										Weighted
+									</button>
 								</Link>
 								<Link
 									to={{
@@ -84,14 +86,18 @@ class SelectedAds extends Component {
 											selectedAdsURL
 									}}
 								>
-									<button>Percentile</button>
+									<button className="percentileButton">
+										Percentile
+									</button>
 								</Link>
 								<Link
 									to={{
 										pathname: '/chart/' + selectedAdsURL
 									}}
 								>
-									<button>Chart</button>
+									<button className="chartButton">
+										Chart
+									</button>
 								</Link>
 							</div>
 						</td>

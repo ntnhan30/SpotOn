@@ -1,8 +1,7 @@
 import axios from 'axios'
-import { Auth } from '../auth'
 
-//axios.defaults.baseURL = 'http://10.120.81.53:4000/api' // LOCAL
-axios.defaults.baseURL = 'https://polar-beyond-85959.herokuapp.com/api' // Heroku
+axios.defaults.baseURL = 'http://10.120.81.53:4000/api' // LOCAL
+//axios.defaults.baseURL = 'https://polar-beyond-85959.herokuapp.com/api' // Heroku
 
 class Api {
 	constructor() {
@@ -23,8 +22,7 @@ class Api {
 		this.getAllUsers = '/user'
 		this.getSingleUser = '/user/'
 		this.createUser = '/user/new'
-
-		this.auth = new Auth()
+		this.notFirstTime = '/user/notFirstTime/'
 
 		this.profile = {}
 	}
@@ -296,6 +294,13 @@ class Api {
 			right: right
 		})
 		return true
+	}
+
+	// Fetch a single Ad from the server using the "adname"
+	async toggleUserFirstTime(userEmail) {
+		const { data } = await axios.get(this.notFirstTime + userEmail)
+		this.profile = data
+		return data
 	}
 }
 

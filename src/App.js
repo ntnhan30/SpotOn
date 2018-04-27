@@ -42,9 +42,17 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 		{...rest}
 		render={props =>
 			auth.isAuthenticated() ? (
-				<ErrorBoundary>
-					<Component auth={auth} {...props} />
-				</ErrorBoundary>
+				<AppContext.Consumer>
+					{context => (
+						<ErrorBoundary>
+							<Component
+								auth={auth}
+								profile={context.profile}
+								{...props}
+							/>
+						</ErrorBoundary>
+					)}
+				</AppContext.Consumer>
 			) : (
 				<Redirect
 					to={{

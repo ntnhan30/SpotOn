@@ -1,5 +1,10 @@
-import React, { Component } from 'react'
-import { LoadingSpinner } from '../../components'
+import React, { Component, Fragment } from 'react'
+import {
+	LoadingSpinner,
+	HomeTour,
+	HomeFinalTour,
+	AppContext
+} from '../../components'
 import { Link } from 'react-router-dom'
 import Checkbox from 'rc-checkbox'
 import 'rc-checkbox/assets/index.css'
@@ -58,15 +63,38 @@ class AdList extends Component {
 			}
 		})
 
+		const showTour = () => {
+			if (this.props.profile.firstTime) {
+				if (!this.props.lastStepOfTour) {
+					return <HomeTour />
+				} else {
+					return (
+						<AppContext>
+							{context => (
+								<HomeFinalTour
+									finishTour={context.finishTour}
+								/>
+							)}
+						</AppContext>
+					)
+				}
+			} else {
+				return null
+			}
+		}
+
 		if (ads === undefined || ads.length === 0) {
 			return <LoadingSpinner />
 		} else {
 			// The return from the AdList Class
 			return (
-				<table className="table table-striped table-hover table-fixed">
-					<thead className="">{tableHeader}</thead>
-					<tbody>{renderedAds}</tbody>
-				</table>
+				<Fragment>
+					{showTour()}
+					<table className="table table-striped table-hover table-fixed">
+						<thead className="">{tableHeader}</thead>
+						<tbody>{renderedAds}</tbody>
+					</table>
+				</Fragment>
 			)
 		}
 	}

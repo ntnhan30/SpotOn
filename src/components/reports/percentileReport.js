@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import {
 	FunctionsResults,
 	LoadingSpinner,
 	ColorTag,
-	ExportCSV
+	ExportCSV,
+	PercentileTour
 } from '../../components'
 import { StickyTable, Row, Cell } from 'react-sticky-table'
 import 'react-sticky-table/dist/react-sticky-table.css'
@@ -113,43 +114,66 @@ class PercentileReport extends Component {
 			return <Row className={nameOfClass}>{cells}</Row>
 		}
 
+		const showTour = () => {
+			if (this.props.profile.firstTime) {
+				return <PercentileTour />
+			} else {
+				return null
+			}
+		}
+
 		if (_.isEmpty(this.state.average) || this.state.average.length > 0) {
 			return <LoadingSpinner />
 		} else {
 			return (
-				<StickyTable stickyHeaderCount={1} stickyColumnCount={1}>
-					{displayHeaderTable()}
+				<Fragment>
+					{showTour()}
+					<StickyTable stickyHeaderCount={1} stickyColumnCount={1}>
+						{displayHeaderTable()}
 
-					{displaySingleKPI('total', 'level1', 'SpotOn score')}
+						{displaySingleKPI('total', 'level1', 'SpotOn score')}
 
-					{displaySingleKPI(
-						'brandRelevance',
-						'level2',
-						'Brand Relevance'
-					)}
-					{displaySingleKPI('brandRecall', 'level3', 'Brand Recall')}
-					{displaySingleKPI('relevance', 'level3', 'Relevance')}
-					{displaySingleKPI('brandFit', 'level3', 'Brand Fit')}
+						{displaySingleKPI(
+							'brandRelevance',
+							'level2',
+							'Brand Relevance'
+						)}
+						{displaySingleKPI(
+							'brandRecall',
+							'level3',
+							'Brand Recall'
+						)}
+						{displaySingleKPI('relevance', 'level3', 'Relevance')}
+						{displaySingleKPI('brandFit', 'level3', 'Brand Fit')}
 
-					{displaySingleKPI(
-						'viewerEngagement',
-						'level2',
-						'Viewer Engagement'
-					)}
-					{displaySingleKPI('adAppeal', 'level3', 'Ad Appeal')}
-					{displaySingleKPI('shareability', 'level3', 'Shareability')}
-					{displaySingleKPI(
-						'callToAction',
-						'level3',
-						'Call to Action'
-					)}
+						{displaySingleKPI(
+							'viewerEngagement',
+							'level2',
+							'Viewer Engagement'
+						)}
+						{displaySingleKPI('adAppeal', 'level3', 'Ad Appeal')}
+						{displaySingleKPI(
+							'shareability',
+							'level3',
+							'Shareability'
+						)}
+						{displaySingleKPI(
+							'callToAction',
+							'level3',
+							'Call to Action'
+						)}
 
-					{displaySingleKPI('adMessage', 'level2', 'Ad Message')}
-					{displaySingleKPI('toneOfVoice', 'level3', 'Tone of Voice')}
-					{displaySingleKPI('emotion', 'level3', 'Emotion')}
-					{displaySingleKPI('uniqueness', 'level3', 'Uniqueness')}
-					{displaySingleKPI('messaging', 'level3', 'Messaging')}
-				</StickyTable>
+						{displaySingleKPI('adMessage', 'level2', 'Ad Message')}
+						{displaySingleKPI(
+							'toneOfVoice',
+							'level3',
+							'Tone of Voice'
+						)}
+						{displaySingleKPI('emotion', 'level3', 'Emotion')}
+						{displaySingleKPI('uniqueness', 'level3', 'Uniqueness')}
+						{displaySingleKPI('messaging', 'level3', 'Messaging')}
+					</StickyTable>
+				</Fragment>
 			)
 		}
 	}
