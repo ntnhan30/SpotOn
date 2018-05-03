@@ -114,6 +114,7 @@ class SingleAd extends Component {
 									activateLastStepOfTour={
 										context.activateLastStepOfTour
 									}
+									finishTour={context.finishTour}
 								/>
 							)}
 						</AppContext.Consumer>

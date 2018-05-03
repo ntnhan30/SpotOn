@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Logo from '../../Assets/imgs/logo.svg'
 import Video from '../../Assets/video/hero-bg.mp4'
+import UsageGuidelinesPDF from '../../Assets/pdf/UsageGuidelinesPDF.pdf'
 
 class Login extends Component {
 	login = () => {
@@ -19,6 +20,14 @@ class Login extends Component {
 						compare them based on our amazing data.
 					</p>
 					<button onClick={this.login}>LOG IN</button>
+
+					<a
+						href={UsageGuidelinesPDF}
+						target="_blank"
+						id="usageGuidelinesPDF"
+					>
+						User Guidelines
+					</a>
 				</div>
 				<div>
 					<div className="fullscreen-bg">

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Joyride from 'react-joyride'
-//import ReactDelayRender from 'react-delay-render'
 import jQuery from 'jquery'
 const $ = (window.$ = window.jQuery = jQuery)
 
@@ -9,7 +8,6 @@ class SingleViewTour extends Component {
 		super()
 		this.state = {
 			autoStart: true,
-			type: 'click',
 			run: true,
 			stepIndex: 0,
 			steps: [
@@ -36,9 +34,28 @@ class SingleViewTour extends Component {
 				{
 					title: 'View more details',
 					text:
-						'Click on the details you wish to view to get more info. We use four colours to represent the score, ranging from green for high and red for low!',
+						'Click on the area you wish to view more details about.  We use four colours to represent the score, ranging from green for high and red for low!',
 					selector: '.single.details',
 					position: 'top'
+				},
+				{
+					title: 'View Viewer Engagement',
+					text:
+						'For example, to find out more about ‘Viewer Engagement’, simply click on the circle and view the details below',
+					selector: '#react-tabs-4',
+					position: 'top',
+					style: {
+						button: {
+							display: 'none'
+						}
+					}
+				},
+				{
+					title: 'View Viewer Engagement',
+					text: 'Now you can see this details',
+					selector: '#react-tabs-5',
+					position: 'bottom',
+					rule: 'inside-circle'
 				},
 				{
 					title: 'Return to the ad list',
@@ -46,6 +63,7 @@ class SingleViewTour extends Component {
 						'Click ‘SpotON’ or ‘Reports’ to go back to the ad list!',
 					selector: 'nav ul li:first-child a',
 					position: 'bottom',
+					isFixed: true,
 					style: {
 						button: {
 							display: 'none'
@@ -62,10 +80,11 @@ class SingleViewTour extends Component {
 	}
 	componentDidMount() {
 		this.props.activateLastStepOfTour()
+		this.jqueryClickHandlers()
 	}
 
 	render() {
-		const { autoStart, type, run, stepIndex, steps } = this.state
+		const { autoStart, run, stepIndex, steps } = this.state
 
 		return (
 			<Joyride
@@ -88,9 +107,11 @@ class SingleViewTour extends Component {
 	}
 
 	handleJoyrideCallback = data => {
-		// After closing the step
 		if (data.type === 'step:before') {
-			if (data.step.rule === 'click') {
+			if (
+				data.step.rule === 'click' ||
+				data.step.rule === 'inside-circle'
+			) {
 				const { steps } = this.state
 				steps.splice(0, data.index - 1)
 				this.setState({
@@ -98,7 +119,29 @@ class SingleViewTour extends Component {
 				})
 				this.joyride.reset(true)
 			}
+		} else if (data.type === 'step:after') {
+			if (data.action === 'skip' || data.action === 'close') {
+				this.props.finishTour()
+			}
 		}
+	}
+
+	jqueryClickHandlers() {
+		const self = this
+		$('#react-tabs-4').on('click', function() {
+			self.joyrideMoveUp()
+		})
+	}
+
+	joyrideMoveUp() {
+		const index = this.joyride.state.index
+
+		const { steps } = this.state
+		steps.splice(0, index + 1)
+		this.setState({
+			steps
+		})
+		this.joyride.reset(true)
 	}
 }
 export default SingleViewTour

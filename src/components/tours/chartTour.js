@@ -9,7 +9,6 @@ class ChartTour extends Component {
 		this.state = {
 			selectedAds: {},
 			autoStart: true,
-			type: 'click',
 			run: true,
 			stepIndex: 0,
 			steps: [
@@ -111,7 +110,7 @@ class ChartTour extends Component {
 	}
 
 	render() {
-		const { autoStart, type, run, stepIndex, steps } = this.state
+		const { autoStart, run, stepIndex, steps } = this.state
 		return (
 			<Joyride
 				debug={false}
@@ -158,6 +157,10 @@ class ChartTour extends Component {
 					steps
 				})
 				this.joyride.reset(true)
+			}
+		} else if (data.type === 'step:after') {
+			if (data.action === 'skip' || data.action === 'close') {
+				this.props.finishTour()
 			}
 		}
 	}

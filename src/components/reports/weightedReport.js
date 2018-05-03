@@ -4,7 +4,8 @@ import {
 	ColorTag,
 	ExportCSV,
 	CountryNorm,
-	WeightedTour
+	WeightedTour,
+	AppContext
 } from '../../components'
 import { StickyTable, Row, Cell } from 'react-sticky-table'
 import 'react-sticky-table/dist/react-sticky-table.css'
@@ -90,7 +91,13 @@ class WeightedReport extends Component {
 
 		const showTour = () => {
 			if (this.props.profile.firstTime) {
-				return <WeightedTour />
+				return (
+					<AppContext>
+						{context => (
+							<WeightedTour finishTour={context.finishTour} />
+						)}
+					</AppContext>
+				)
 			} else {
 				return null
 			}

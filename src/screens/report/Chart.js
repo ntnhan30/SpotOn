@@ -55,7 +55,16 @@ class Chart extends Component {
 
 			const showTour = () => {
 				if (this.props.profile.firstTime) {
-					return <ChartTour selectedAds={detailsOfSelectedAds} />
+					return (
+						<AppContext.Consumer>
+							{context => (
+								<ChartTour
+									selectedAds={detailsOfSelectedAds}
+									finishTour={context.finishTour}
+								/>
+							)}
+						</AppContext.Consumer>
+					)
 				} else {
 					return null
 				}

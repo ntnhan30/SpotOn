@@ -1,15 +1,11 @@
 import React, { Component } from 'react'
 import Joyride from 'react-joyride'
-import { findDOMNode } from 'react-dom'
-import jQuery from 'jquery'
-const $ = (window.$ = window.jQuery = jQuery)
 
 class HomeFinalTour extends Component {
 	constructor() {
 		super()
 		this.state = {
 			autoStart: true,
-			type: 'click',
 			run: true,
 			stepIndex: 0,
 			steps: [
@@ -17,21 +13,16 @@ class HomeFinalTour extends Component {
 					title: 'Thanks for taking our tour!',
 					text:
 						'We’ve reached the end of our tour - thanks for joining us! Still want to know more? Check out our ‘User Guidelines’. Enjoy SpotON!',
-					selector: '.col-8.main-content',
-					position: 'left',
-					isFixed: true,
-					button: {
-						arrow: {
-							display: 'none'
-						}
-					}
+					selector: '#usageGuidelinesPDF',
+					position: 'bottom',
+					isFixed: true
 				}
 			]
 		}
 	}
 
 	render() {
-		const { autoStart, type, run, stepIndex, steps } = this.state
+		const { autoStart, run, stepIndex, steps } = this.state
 
 		return (
 			<Joyride
@@ -46,7 +37,7 @@ class HomeFinalTour extends Component {
 				ref={c => (this.joyride = c)}
 				callback={this.handleJoyrideCallback}
 				showBackButton={false}
-				showSkipButton={true}
+				showSkipButton={false}
 				allowClicksThruHole={true}
 				keyboardNavigation={true}
 			/>
@@ -56,7 +47,6 @@ class HomeFinalTour extends Component {
 	handleJoyrideCallback = data => {
 		// After closing the step
 		if (data.type === 'finished') {
-			console.log('finished')
 			this.props.finishTour()
 		}
 	}

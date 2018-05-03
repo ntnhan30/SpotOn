@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://10.120.81.53:4000/api' // LOCAL
+axios.defaults.baseURL = 'http://localhost:4000/api' // LOCAL
 //axios.defaults.baseURL = 'https://polar-beyond-85959.herokuapp.com/api' // Heroku
 
 class Api {
@@ -29,6 +29,7 @@ class Api {
 
 	// Fetch all Ads from the server
 	async fetchAds(profile) {
+		console.log(profile)
 		if (profile.right === 'limited') {
 			let result = []
 			await Promise.all(
@@ -281,8 +282,10 @@ class Api {
 
 	// Fetch a single Ad from the server using the "adname"
 	async fetchSingleUser(userEmail) {
+		console.log(userEmail)
 		const { data } = await axios.get(this.getSingleUser + userEmail)
 		this.profile = data.user
+		console.log(data.user)
 		return data.user
 	}
 

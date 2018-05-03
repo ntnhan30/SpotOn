@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Joyride from 'react-joyride'
-import ReactDelayRender from 'react-delay-render'
-import { findDOMNode } from 'react-dom'
+import Delay from 'react-delay'
 import jQuery from 'jquery'
 const $ = (window.$ = window.jQuery = jQuery)
 
@@ -10,7 +9,6 @@ class WeightedTour extends Component {
 		super()
 		this.state = {
 			autoStart: true,
-			type: 'click',
 			run: true,
 			stepIndex: 0,
 			steps: [
@@ -81,29 +79,27 @@ class WeightedTour extends Component {
 		}
 	}
 
-	componentDidMount() {
-		this.jqueryClickHandlers()
-	}
-
 	render() {
-		const { autoStart, type, run, stepIndex, steps } = this.state
+		const { autoStart, run, stepIndex, steps } = this.state
 		return (
-			<Joyride
-				debug={false}
-				disableOverlay={false}
-				scrollToFirstStep
-				type="continuous"
-				run={run}
-				autoStart={autoStart}
-				stepIndex={stepIndex}
-				steps={steps}
-				ref={c => (this.joyride = c)}
-				callback={this.handleJoyrideCallback}
-				showBackButton={false}
-				showSkipButton={true}
-				allowClicksThruHole={true}
-				keyboardNavigation={true}
-			/>
+			<Delay wait={1000}>
+				<Joyride
+					debug={false}
+					disableOverlay={false}
+					scrollToFirstStep
+					type="continuous"
+					run={run}
+					autoStart={autoStart}
+					stepIndex={stepIndex}
+					steps={steps}
+					ref={c => (this.joyride = c)}
+					callback={this.handleJoyrideCallback}
+					showBackButton={false}
+					showSkipButton={true}
+					allowClicksThruHole={true}
+					keyboardNavigation={true}
+				/>
+			</Delay>
 		)
 	}
 
@@ -128,6 +124,10 @@ class WeightedTour extends Component {
 				})
 				this.joyride.reset(true)
 			}
+		} else if (data.type === 'step:after') {
+			if (data.action === 'skip' || data.action === 'close') {
+				this.props.finishTour()
+			}
 		}
 	}
 
@@ -150,4 +150,4 @@ class WeightedTour extends Component {
 	}
 }
 
-export default ReactDelayRender({ delay: 1000 })(WeightedTour)
+export default WeightedTour

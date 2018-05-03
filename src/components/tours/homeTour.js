@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Joyride from 'react-joyride'
-import { findDOMNode } from 'react-dom'
 import jQuery from 'jquery'
 const $ = (window.$ = window.jQuery = jQuery)
 
@@ -103,7 +102,7 @@ class HomeTour extends Component {
 	}
 
 	render() {
-		const { autoStart, type, run, stepIndex, steps } = this.state
+		const { autoStart, run, stepIndex, steps } = this.state
 
 		return (
 			<Joyride
@@ -163,6 +162,10 @@ class HomeTour extends Component {
 					steps
 				})
 				this.joyride.reset(true)
+			}
+		} else if (data.type === 'step:after') {
+			if (data.action === 'skip' || data.action === 'close') {
+				this.props.finishTour()
 			}
 		}
 	}

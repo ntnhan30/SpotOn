@@ -101,11 +101,16 @@ class App extends Component {
 							path="/callback"
 							render={props => {
 								return (
-									<Callback
-										auth={auth}
-										changeLogin={this.changeLogin}
-										{...props}
-									/>
+									<AppContext.Consumer>
+										{context => (
+											<Callback
+												auth={auth}
+												changeLogin={this.changeLogin}
+												init={context.init}
+												{...props}
+											/>
+										)}
+									</AppContext.Consumer>
 								)
 							}}
 						/>

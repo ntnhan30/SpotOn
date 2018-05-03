@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Logo from '../../Assets/imgs/logo.svg'
+import UsageGuidelinesPDF from '../../Assets/pdf/UsageGuidelinesPDF.pdf'
 
 class Header extends Component {
 	render() {
@@ -11,7 +12,9 @@ class Header extends Component {
 				<div className="container-fluid">
 					<div className="col-2">
 						<div className="logo">
-							<img src={Logo} alt="SpotOn" />
+							<Link to="/">
+								<img src={Logo} alt="SpotOn" />
+							</Link>
 						</div>
 					</div>
 
@@ -38,11 +41,17 @@ class Header extends Component {
                                             <Link to='/users'>Users</Link>
                                         </li>
 									)
-									<li>
-										<Link to="/FAQ">FAQ</Link>
-									</li>
                                 */
 								}
+								<li>
+									<a
+										href={UsageGuidelinesPDF}
+										target="_blank"
+										id="usageGuidelinesPDF"
+									>
+										User Guidelines
+									</a>
+								</li>
 							</ul>
 							<Link to="/logout">Logout</Link>
 						</nav>

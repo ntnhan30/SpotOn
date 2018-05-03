@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import Joyride from 'react-joyride'
-import ReactDelayRender from 'react-delay-render'
+import Delay from 'react-delay'
 
 class PercentileTour extends Component {
 	constructor() {
 		super()
 		this.state = {
 			autoStart: true,
-			type: 'click',
 			run: true,
 			stepIndex: 0,
 			steps: [
@@ -41,25 +40,27 @@ class PercentileTour extends Component {
 	}
 
 	render() {
-		const { autoStart, type, run, stepIndex, steps } = this.state
+		const { autoStart, run, stepIndex, steps } = this.state
 
 		return (
-			<Joyride
-				debug={false}
-				disableOverlay={false}
-				scrollToFirstStep
-				type="continuous"
-				run={run}
-				autoStart={autoStart}
-				stepIndex={stepIndex}
-				steps={steps}
-				ref={c => (this.joyride = c)}
-				showBackButton={false}
-				showSkipButton={true}
-				allowClicksThruHole={true}
-				callback={this.handleJoyrideCallback}
-				keyboardNavigation={true}
-			/>
+			<Delay wait={1000}>
+				<Joyride
+					debug={false}
+					disableOverlay={false}
+					scrollToFirstStep
+					type="continuous"
+					run={run}
+					autoStart={autoStart}
+					stepIndex={stepIndex}
+					steps={steps}
+					ref={c => (this.joyride = c)}
+					showBackButton={false}
+					showSkipButton={true}
+					allowClicksThruHole={true}
+					callback={this.handleJoyrideCallback}
+					keyboardNavigation={true}
+				/>
+			</Delay>
 		)
 	}
 	handleJoyrideCallback = data => {
@@ -73,7 +74,11 @@ class PercentileTour extends Component {
 				})
 				this.joyride.reset(true)
 			}
+		} else if (data.type === 'step:after') {
+			if (data.action === 'skip' || data.action === 'close') {
+				this.props.finishTour()
+			}
 		}
 	}
 }
-export default ReactDelayRender({ delay: 500 })(PercentileTour)
+export default PercentileTour

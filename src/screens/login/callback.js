@@ -6,7 +6,7 @@ class Callback extends Component {
 		const { location } = props
 		const { auth } = props
 		if (/access_token|id_token|error/.test(location.hash)) {
-			auth.handleAuthentication()
+			auth.handleAuthentication(this.props)
 		}
 	}
 

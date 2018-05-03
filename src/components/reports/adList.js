@@ -66,7 +66,13 @@ class AdList extends Component {
 		const showTour = () => {
 			if (this.props.profile.firstTime) {
 				if (!this.props.lastStepOfTour) {
-					return <HomeTour />
+					return (
+						<AppContext>
+							{context => (
+								<HomeTour finishTour={context.finishTour} />
+							)}
+						</AppContext>
+					)
 				} else {
 					return (
 						<AppContext>

@@ -7,6 +7,10 @@ var _ = require('lodash')
 
 class AppProvider extends Component {
 	state = {
+		init: async () => {
+			this.init()
+		},
+
 		// Object with all the profile details
 		profile: {},
 
@@ -214,6 +218,10 @@ class AppProvider extends Component {
 	}
 
 	async componentDidMount() {
+		this.init()
+	}
+
+	async init() {
 		// -- init Auth() & Api()
 		const auth = new Auth()
 		const api = new Api()

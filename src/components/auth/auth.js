@@ -22,20 +22,23 @@ class Auth {
 		this.isAuthenticated = this.isAuthenticated.bind(this)
 		this.getProfile = this.getProfile.bind(this)
 		this.getEmail = this.getEmail.bind(this)
+		this.userEmail = ''
 	}
 
 	userProfile
-	userEmail
 
 	login() {
 		this.auth0.authorize()
 	}
 
-	handleAuthentication() {
+	handleAuthentication(props) {
 		//console.log('handleAuthentication()');
 		this.auth0.parseHash((err, authResult) => {
+			console.log(authResult.idTokenPayload.email)
 			if (authResult && authResult.accessToken && authResult.idToken) {
 				this.setSession(authResult)
+				// Run the Init method in the provider
+				props.init()
 			} else if (err) {
 				console.log(err)
 				alert(
@@ -48,7 +51,9 @@ class Auth {
 	}
 
 	setSession(authResult) {
-		//console.log('setSession(authResult)');
+		console.log('setSession(authResult)')
+		this.userEmail = authResult.idTokenPayload.email
+		console.log(this.userEmail)
 		// Set the time that the access token will expire at
 		let expiresAt = JSON.stringify(
 			authResult.expiresIn * 400 + Math.floor(Date.now() / 1000)
@@ -103,6 +108,8 @@ class Auth {
 
 	getEmail() {
 		let userEmail = localStorage.getItem('user_email')
+		console.log(this.userEmail)
+		console.log(userEmail)
 
 		if (userEmail) {
 			this.userEmail = userEmail
@@ -115,7 +122,10 @@ class Auth {
 	async getUserInfo() {
 		const api = new Api()
 		const email = this.getEmail()
+		console.log('the email is ' + email)
 		const result = await api.fetchSingleUser(email)
+
+		console.log(result)
 
 		return result
 	}

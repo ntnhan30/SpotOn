@@ -4,7 +4,8 @@ import {
 	LoadingSpinner,
 	ColorTag,
 	ExportCSV,
-	PercentileTour
+	PercentileTour,
+	AppContext
 } from '../../components'
 import { StickyTable, Row, Cell } from 'react-sticky-table'
 import 'react-sticky-table/dist/react-sticky-table.css'
@@ -27,7 +28,6 @@ class PercentileReport extends Component {
 	}
 
 	async calculatePercentileAverage() {
-		console.log('calculatePercentileAverage')
 		// Get the percentile values and the percentile average of selected return => [allResults, average]
 		let percentile = await this.props.functionsResults.getPercentileScore(
 			this.props.allResults
@@ -116,7 +116,13 @@ class PercentileReport extends Component {
 
 		const showTour = () => {
 			if (this.props.profile.firstTime) {
-				return <PercentileTour />
+				return (
+					<AppContext>
+						{context => (
+							<PercentileTour finishTour={context.finishTour} />
+						)}
+					</AppContext>
+				)
 			} else {
 				return null
 			}

@@ -1,12 +1,10 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
 import {
 	AppContext,
 	AdList,
 	FilterSidebar,
-	SelectedAds,
-	WeightedReport,
-	PercentileReport
+	SelectedAds
 } from '../../components'
 import { SingleReport, Chart } from '../../screens'
 
