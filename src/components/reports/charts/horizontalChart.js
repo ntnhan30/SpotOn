@@ -57,8 +57,7 @@ class HorizontalChart extends Component {
 						width={730}
 						data={dataForChart}
 						layout="vertical"
-						margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-					>
+						margin={{ top: 20, right: 30, left: 20, bottom: 40 }}>
 						<XAxis type="number" domain={[0, 100]} />
 						<YAxis type="category" dataKey="name" hide={true} />
 						<Legend />

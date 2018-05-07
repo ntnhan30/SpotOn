@@ -61,8 +61,7 @@ class ObjectBarChart extends Component {
 						y={y - radius}
 						fill="#fff"
 						textAnchor="middle"
-						dominantBaseline="middle"
-					>
+						dominantBaseline="middle">
 						{value}%
 					</text>
 				</g>
@@ -74,8 +73,7 @@ class ObjectBarChart extends Component {
 				<Bar
 					key={i}
 					dataKey={obj}
-					fill={this.props.colorChart.getColor(i)}
-				>
+					fill={this.props.colorChart.getColor(i)}>
 					<LabelList
 						dataKey={thisKeys[i]}
 						position="top"
@@ -89,8 +87,11 @@ class ObjectBarChart extends Component {
 		console.log(results)
 
 		return (
-			<ResponsiveContainer width="95%" height="100%" minHeight={300}>
-				<BarChart width={730} data={results}>
+			<ResponsiveContainer width="95%" height="95%" minHeight={300}>
+				<BarChart
+					width={730}
+					data={results}
+					margin={{ top: 20, right: 0, left: 0, bottom: 90 }}>
 					<CartesianGrid strokeDasharray="3 3" />
 					<XAxis dataKey="adName" />
 					<YAxis

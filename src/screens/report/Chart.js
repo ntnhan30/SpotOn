@@ -6,7 +6,8 @@ import {
 	GetKPIs,
 	LoadingSpinner,
 	AppContext,
-	ChartTour
+	ChartTour,
+	ExportChart
 } from '../../components'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 var _ = require('lodash')
@@ -77,6 +78,7 @@ class Chart extends Component {
 							{showTour()}
 							<Tabs>
 								<TabList>
+									<ExportChart />
 									<Tab>Spot On score</Tab>
 									<Tab>L1 KPIs</Tab>
 									<Tab>Brand Relevance</Tab>

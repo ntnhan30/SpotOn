@@ -493,26 +493,6 @@ li {
 					.sticky-table-corner {
 						.sticky-table-cell {
 							padding: 0.4em 1em;
-
-							button {
-								display: inline;
-								text-transform: uppercase;
-								color: $white;
-								background: $midnightBlue100;
-								padding: 0.7em 1.3em 0.6em;
-								border-radius: 3px;
-								cursor: pointer;
-								font-size: 0.9em;
-								border: none;
-
-								&:hover {
-									background: rgba(255, 255, 255, 0.3);
-								}
-
-								span {
-									padding-right: 1em;
-								}
-							}
 						}
 					}
 				}
@@ -672,8 +652,8 @@ li {
 						text-transform: uppercase;
 						color: $white;
 						background: $midnightBlue100;
-						margin: 2em 0.7em 1.5em 0;
-						padding: 0.6em 1.3em 0.5em;
+						margin: 2em 0 1.5em 0.8em;
+						padding: 0.8em 1.3em;
 						border-radius: 3px;
 						cursor: pointer;
 						font-size: 0.9em;
@@ -681,6 +661,28 @@ li {
 						&.react-tabs__tab--selected {
 							background: $lightBlue;
 						}
+					}
+				}
+			}
+
+			button {
+				&.download {
+					display: inline;
+					text-transform: uppercase;
+					color: $white;
+					background: $blue;
+					padding: 0.7em 1.3em 0.6em;
+					border-radius: 3px;
+					cursor: pointer;
+					font-size: 0.9em;
+					border: none;
+
+					&:hover {
+						background: rgba(255, 255, 255, 0.3);
+					}
+
+					span {
+						padding-right: 1em;
 					}
 				}
 			}
@@ -1051,7 +1053,7 @@ li {
 	a {
 		font-size: 1.1em;
 		color: white;
-		padding: 0 1em
+		padding: 0 1em;
 	}
 }
 

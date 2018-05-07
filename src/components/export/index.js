@@ -1,3 +1,4 @@
 import ExportCSV from './exportCSV'
+import ExportChart from './exportChart'
 
-export { ExportCSV }
+export {ExportCSV, ExportChart}

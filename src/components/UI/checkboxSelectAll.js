@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Checkbox from 'rc-checkbox'
 var _ = require('lodash')
 
@@ -12,11 +12,11 @@ class CheckBoxSelectAll extends Component {
 
 	handleInputChange(event) {
 		this.bulkToggleAds(event.target.checked)
-		this.setState({checked: event.target.checked})
+		this.setState({ checked: event.target.checked })
 	}
 
 	bulkToggleAds(checked) {
-		const {ads, toggleSelection} = this.props
+		const { ads, toggleSelection } = this.props
 
 		// Get an array of alll the shown Ads
 		let shownAds = _.map(ads, function(a) {
@@ -30,13 +30,13 @@ class CheckBoxSelectAll extends Component {
 	}
 
 	render() {
-		const {checked} = this.state
-		let {filterAtts} = this.props
+		const { checked } = this.state
+		let { filterAtts } = this.props
 		filterAtts = _.omitBy(filterAtts, _.isEmpty)
 
 		if (_.isEmpty(filterAtts)) {
 			if (checked) {
-				this.setState({checked: false})
+				this.setState({ checked: false })
 			}
 			return null
 		} else {
