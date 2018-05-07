@@ -1,7 +1,7 @@
 import history from './history'
 import auth0 from 'auth0-js'
-import { AUTH_CONFIG } from './auth0-variables'
-import { Api } from '../constants'
+import {AUTH_CONFIG} from './auth0-variables'
+import {Api} from '../constants'
 
 //const userRights = new UserRights()
 
@@ -34,7 +34,6 @@ class Auth {
 	handleAuthentication(props) {
 		//console.log('handleAuthentication()');
 		this.auth0.parseHash((err, authResult) => {
-			console.log(authResult.idTokenPayload.email)
 			if (authResult && authResult.accessToken && authResult.idToken) {
 				this.setSession(authResult)
 				// Run the Init method in the provider
@@ -51,9 +50,7 @@ class Auth {
 	}
 
 	setSession(authResult) {
-		console.log('setSession(authResult)')
 		this.userEmail = authResult.idTokenPayload.email
-		console.log(this.userEmail)
 		// Set the time that the access token will expire at
 		let expiresAt = JSON.stringify(
 			authResult.expiresIn * 400 + Math.floor(Date.now() / 1000)
@@ -63,7 +60,7 @@ class Auth {
 		localStorage.setItem('expires_at', expiresAt)
 		localStorage.setItem('user_email', authResult.idTokenPayload.email)
 		// navigate to the home route
-		history.push({ pathname: '/' })
+		history.push({pathname: '/'})
 	}
 
 	logout() {
@@ -73,7 +70,7 @@ class Auth {
 		localStorage.removeItem('expires_at')
 		localStorage.removeItem('user_email')
 		// navigate to the home route
-		history.push({ pathname: '/' })
+		history.push({pathname: '/'})
 	}
 
 	isAuthenticated() {
@@ -108,8 +105,6 @@ class Auth {
 
 	getEmail() {
 		let userEmail = localStorage.getItem('user_email')
-		console.log(this.userEmail)
-		console.log(userEmail)
 
 		if (userEmail) {
 			this.userEmail = userEmail
@@ -122,10 +117,7 @@ class Auth {
 	async getUserInfo() {
 		const api = new Api()
 		const email = this.getEmail()
-		console.log('the email is ' + email)
 		const result = await api.fetchSingleUser(email)
-
-		console.log(result)
 
 		return result
 	}

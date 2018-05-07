@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import AppContext from './context'
-import { Auth, Api, FilterAds, FunctionsResults } from '../../components'
-import { history } from '../../components/auth'
+import {Auth, Api, FilterAds, FunctionsResults} from '../../components'
+import {history} from '../../components/auth'
 
 var _ = require('lodash')
 
@@ -61,42 +61,11 @@ class AppProvider extends Component {
 		// -- Toggle Profile on the Server
 		const profile = await api.toggleUserFirstTime(this.state.profile.email)
 
-		this.setState({ profile })
+		this.setState({profile})
 	}
 
 	activateLastStepOfTour() {
-		this.setState({ lastStepOfTour: true })
-	}
-
-	/* *********
-	// This function toggles the ad.
-	- It adds or delete the spot on "selectedAds"
-	- It toggles ['selected'] on "ads"
-	********* */
-	async toggleSelection(adName, isSelected) {
-		let { ads, selectedAds } = this.state
-
-		let thisAd = _.find(ads, o => o.adname === adName)
-		thisAd.selected = isSelected
-
-		_.map(ads, function(obj) {
-			return _.assign(obj, _.find([thisAd], { adname: obj.adname }))
-		})
-
-		// Add to the selected list
-		if (isSelected) {
-			selectedAds[adName] = thisAd
-		} else {
-			selectedAds = _.omit(selectedAds, adName)
-		}
-
-		this.setState({ ads, selectedAds })
-
-		if (_.size(selectedAds) > 0) {
-			await this.getDetailsOfSelectedAds(selectedAds)
-		} else {
-			history.push('/')
-		}
+		this.setState({lastStepOfTour: true})
 	}
 
 	// This acepts this.props.match
@@ -109,7 +78,7 @@ class AppProvider extends Component {
 			_.includes(location, 'chart')
 		) {
 			// List of all selected Ads
-			let { selectedAds } = this.state
+			let {selectedAds} = this.state
 			// Aray of the names of the ads
 			let adsOnURL = []
 
@@ -133,35 +102,81 @@ class AppProvider extends Component {
 		}
 	}
 
-	async getDetailsOfSelectedAds(selectedAds) {
-		let { detailsOfSelectedAds } = this.state
+	/**
+	 * This ASYNC function toggles the selection of the ad --
+	 * - It adds or delete the spot on "selectedAds"
+	 * - It toggles ['selected'] on "ads"
+	 * Update state => ads, selectedAds
+	 *
+	 * @param {String} adName                 String of the Shortname of the ad
+	 * @param {Boolean} isSelected            New state of selection
+	 */
+
+	async toggleSelection(adName, isSelected) {
+		let {ads, selectedAds} = this.state
+
+		let thisAd = _.find(ads, o => o.adname === adName)
+		thisAd.selected = isSelected
+
+		_.map(ads, function(obj) {
+			return _.assign(obj, _.find([thisAd], {adname: obj.adname}))
+		})
+
+		// If isSelected is TRUE add it to the selectedAds
+		// Otherwise remove it from the collection
+		if (isSelected) {
+			selectedAds[adName] = thisAd
+		} else {
+			selectedAds = _.omit(selectedAds, adName)
+		}
+
+		this.setState({ads, selectedAds})
+
+		// If there are selected ads, get the details
+		// Otherwise go back to the report page
+		if (_.size(selectedAds) > 0) {
+			await this.getDetailsOfSelectedAds(adName, isSelected)
+		} else {
+			history.push('/')
+		}
+	}
+
+	/**
+	 * This ASYNC function gets the details of the selected ad --
+	 * Update state => detailsOfSelectedAds
+	 * Fires the country norm retrieval
+	 *
+	 * @param {String} adName                 String of the Shortname of the ad
+	 * @param {Boolean} isSelected            New state of selection
+	 */
+	async getDetailsOfSelectedAds(adName, isSelected) {
+		let {detailsOfSelectedAds} = this.state
 		const api = new Api()
-		let newDetailsOfSelectedAds = {}
-		for (let single in selectedAds) {
-			if (detailsOfSelectedAds[single] === undefined) {
-				const thisAd = await api.fetchSingleAd(single)
-				newDetailsOfSelectedAds[single] = thisAd
-			} else {
-				newDetailsOfSelectedAds[single] = detailsOfSelectedAds[single]
+
+		if (isSelected) {
+			if (detailsOfSelectedAds[adName] === undefined) {
+				const thisAd = await api.fetchSingleAd(adName)
+				detailsOfSelectedAds[adName] = thisAd
+				this.addCountryNorm(thisAd.ad.country)
 			}
+		} else {
+			detailsOfSelectedAds = _.omit(detailsOfSelectedAds, [adName])
 		}
 
 		// Save them into the state
 		this.setState({
-			detailsOfSelectedAds: newDetailsOfSelectedAds
+			detailsOfSelectedAds
 		})
-
-		this.addCountryNorm()
 	}
 
-	async addCountryNorm() {
+	async addCountryNorm(countryName) {
 		const functionsResults = new FunctionsResults()
-		const { detailsOfSelectedAds, countryNorms } = this.state
+		const {selectedAds, countryNorms} = this.state
 
 		// Get an Array of the countries selected
 		let countries = []
-		_.forEach(detailsOfSelectedAds, s => {
-			countries.push(s.ad.country)
+		_.forEach(selectedAds, s => {
+			countries.push(s.country)
 		})
 		countries = _.uniq(countries)
 
@@ -196,7 +211,7 @@ class AppProvider extends Component {
 
 	checkIfInsideReport() {
 		const location = history.location.pathname
-		const { isInsideReport } = this.state
+		const {isInsideReport} = this.state
 		// Only runs if inside a report
 		if (
 			_.includes(location, 'weightedReport') ||
@@ -230,8 +245,8 @@ class AppProvider extends Component {
 		const profile = await auth.getUserInfo()
 		// -- Get All ads from server and add 'show' attr
 		let ads = await api.fetchAds(profile)
-		ads = _.map(ads, o => _.extend({ show: true }, o))
-		this.setState({ profile, ads })
+		ads = _.map(ads, o => _.extend({show: true}, o))
+		this.setState({profile, ads})
 
 		// Check if there are ads in the URL
 		await this.getAdsFromURL()

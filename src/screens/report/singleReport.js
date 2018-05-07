@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import {
 	WeightedReport,
 	PercentileReport,
@@ -10,7 +10,7 @@ var _ = require('lodash')
 
 class SingleReport extends Component {
 	render() {
-		const { detailsOfSelectedAds, typeOfReport } = this.props
+		const {detailsOfSelectedAds, typeOfReport} = this.props
 
 		if (!_.isEmpty(detailsOfSelectedAds)) {
 			if (typeOfReport === 'weighted') {
@@ -22,7 +22,6 @@ class SingleReport extends Component {
 									allResults={detailsOfSelectedAds}
 									profile={context.profile}
 									countryNorms={context.countryNorms}
-									addCountryNorm={context.addCountryNorm}
 								/>
 							</ErrorBoundary>
 						)}
@@ -37,7 +36,6 @@ class SingleReport extends Component {
 									allResults={detailsOfSelectedAds}
 									profile={context.profile}
 									countryNorms={context.countryNorms}
-									addCountryNorm={context.addCountryNorm}
 								/>
 							</ErrorBoundary>
 						)}

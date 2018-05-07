@@ -1,11 +1,12 @@
-import React, { Component, Fragment } from 'react'
+import React, {Component, Fragment} from 'react'
 import {
 	LoadingSpinner,
 	HomeTour,
 	HomeFinalTour,
-	AppContext
+	AppContext,
+	CheckBoxSelectAll
 } from '../../components'
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import Checkbox from 'rc-checkbox'
 import 'rc-checkbox/assets/index.css'
 
@@ -16,11 +17,21 @@ class AdList extends Component {
 
 	render() {
 		// Logic for displaying ads
-		const { ads } = this.props
+		const {ads} = this.props
 
 		const tableHeader = (
 			<tr>
-				<th scope="col" />
+				<th scope="col">
+					<AppContext>
+						{context => (
+							<CheckBoxSelectAll
+								ads={context.ads}
+								toggleSelection={context.toggleSelection}
+								filterAtts={context.filterAtts}
+							/>
+						)}
+					</AppContext>
+				</th>
 				<th scope="col">Title</th>
 				<th scope="col">Brand</th>
 				<th scope="col">Date</th>
@@ -52,7 +63,7 @@ class AdList extends Component {
 						<td>{ad.channel}</td>
 						<td>{ad.state}</td>
 						<td>
-							<Link to={{ pathname: '/ad/' + ad.adname }}>
+							<Link to={{pathname: '/ad/' + ad.adname}}>
 								<span className="icon-more" />
 							</Link>
 						</td>

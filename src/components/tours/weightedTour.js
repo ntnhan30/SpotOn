@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import Joyride from 'react-joyride'
 import Delay from 'react-delay'
 import jQuery from 'jquery'
@@ -79,8 +79,12 @@ class WeightedTour extends Component {
 		}
 	}
 
+	componentDidMount() {
+		this.jqueryClickHandlers()
+	}
+
 	render() {
-		const { autoStart, run, stepIndex, steps } = this.state
+		const {autoStart, run, stepIndex, steps} = this.state
 		return (
 			<Delay wait={1000}>
 				<Joyride
@@ -109,7 +113,8 @@ class WeightedTour extends Component {
 			if (data.step.rule === 'color coding') {
 				if ($('.active.pull-in-sidebar').length > 0) {
 				} else {
-					const { steps } = this.state
+					console.log('inside color coding')
+					const {steps} = this.state
 					steps.splice(0, data.index - 1)
 					this.setState({
 						steps
@@ -117,7 +122,7 @@ class WeightedTour extends Component {
 					this.joyride.reset(true)
 				}
 			} else if (data.step.rule === 'click') {
-				const { steps } = this.state
+				const {steps} = this.state
 				steps.splice(0, data.index - 1)
 				this.setState({
 					steps
@@ -141,7 +146,7 @@ class WeightedTour extends Component {
 	joyrideMoveUp() {
 		const index = this.joyride.state.index
 
-		const { steps } = this.state
+		const {steps} = this.state
 		steps.splice(0, index + 1)
 		this.setState({
 			steps
