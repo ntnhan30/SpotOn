@@ -2,7 +2,9 @@ import React, { Component, Fragment } from 'react'
 import SearchBar from './search.js'
 import CreateMultiselect from './multiselect.js'
 import CreateCalendar from './calendar.js'
+import CreateDropdownList from './dropdown.js'
 import RangeSlider from './rangeSlider.js'
+import CreateToggle from './toggle.js'
 import { AppContext } from '../../context'
 
 import 'react-widgets/dist/css/react-widgets.css'
@@ -19,6 +21,7 @@ class FilterSidebar extends Component {
 			...new Set(ads.map(i => i.productionState))
 		].sort()
 		const states = [...new Set(ads.map(i => i.state))].sort()
+		const favourites = [...new Set(ads.map(i => i.favourite))].sort()
 
 		// Display the sidebar
 		return (
@@ -86,6 +89,11 @@ class FilterSidebar extends Component {
 									dataDropdown={states}
 									filter={context.filterAds}
 									keyName={'state'}
+								/>
+								<CreateToggle
+									dataDropdown={favourites}
+									filter={context.filterAds}
+									keyName={'favourite'}
 								/>
 							</Fragment>
 						)}

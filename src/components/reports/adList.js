@@ -1,12 +1,13 @@
-import React, {Component, Fragment} from 'react'
+import React, { Component, Fragment } from 'react'
 import {
 	LoadingSpinner,
 	HomeTour,
 	HomeFinalTour,
 	AppContext,
-	CheckBoxSelectAll
+	CheckBoxSelectAll,
+	Favourite
 } from '../../components'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Checkbox from 'rc-checkbox'
 import 'rc-checkbox/assets/index.css'
 
@@ -17,7 +18,7 @@ class AdList extends Component {
 
 	render() {
 		// Logic for displaying ads
-		const {ads} = this.props
+		const { ads } = this.props
 
 		const tableHeader = (
 			<tr>
@@ -39,7 +40,8 @@ class AdList extends Component {
 				<th scope="col">Length</th>
 				<th scope="col">Channel</th>
 				<th scope="col">State</th>
-				<th scope="col">Ad info</th>
+				<th scope="col">More</th>
+				<th scope="col">Fav</th>
 			</tr>
 		)
 
@@ -63,9 +65,22 @@ class AdList extends Component {
 						<td>{ad.channel}</td>
 						<td>{ad.state}</td>
 						<td>
-							<Link to={{pathname: '/ad/' + ad.adname}}>
-								<span className="icon-more" />
+							<Link to={{ pathname: '/ad/' + ad.adname }}>
+								<span className="icon-eye" />
 							</Link>
+						</td>
+						<td>
+							<AppContext>
+								{context => (
+									<Favourite
+										isFavorite={ad.favourite}
+										adname={ad.adname}
+										updateFavourites={
+											context.updateFavourites
+										}
+									/>
+								)}
+							</AppContext>
 						</td>
 					</tr>
 				)

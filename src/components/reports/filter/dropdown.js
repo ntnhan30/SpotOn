@@ -2,6 +2,14 @@ import React, { Component } from 'react'
 import { DropdownList } from 'react-widgets'
 
 class CreateDropdownList extends Component {
+	constructor(...args) {
+		super(...args)
+
+		this.state = {
+			values: []
+		}
+	}
+
 	render() {
 		const self = this
 		const key = this.props.keyName
@@ -15,6 +23,7 @@ class CreateDropdownList extends Component {
 				onSelect={function(i) {
 					// enclose the value in an array
 					const thisValue = [i]
+					self.setState({ values: i })
 					self.props.filter(thisValue, key)
 				}}
 				textField="name"

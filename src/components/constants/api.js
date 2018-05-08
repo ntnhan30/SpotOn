@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-//axios.defaults.baseURL = 'http://localhost:4000/api' // LOCAL
-axios.defaults.baseURL = 'https://polar-beyond-85959.herokuapp.com/api' // Heroku
+axios.defaults.baseURL = 'http://localhost:4000/api' // LOCAL
+//axios.defaults.baseURL = 'https://polar-beyond-85959.herokuapp.com/api' // Heroku
 
 class Api {
 	constructor() {
@@ -22,6 +22,7 @@ class Api {
 		this.getAllUsers = '/user'
 		this.getSingleUser = '/user/'
 		this.createUser = '/user/new'
+		this.updateFavourites = '/user/favourites'
 		this.notFirstTime = '/user/notFirstTime/'
 
 		this.profile = {}
@@ -34,7 +35,7 @@ class Api {
 			await Promise.all(
 				profile.countries.map(async country => {
 					console.log(country)
-					const {data} = await axios.get(
+					const { data } = await axios.get(
 						this.getAllCountryAds + country
 					)
 					result = result.concat(data.ads)
@@ -42,14 +43,14 @@ class Api {
 			)
 			return result
 		} else {
-			const {data} = await axios.get(this.getAllAds)
+			const { data } = await axios.get(this.getAllAds)
 			return data.ads
 		}
 	}
 
 	// Fetch a single Ad from the server using the "adname"
 	async fetchSingleAd(adname) {
-		const {data} = await axios.get(this.getSingleAd + adname)
+		const { data } = await axios.get(this.getSingleAd + adname)
 		return data
 	}
 
@@ -92,7 +93,7 @@ class Api {
 
 	// Remove a single Ad from the server using the "adname"
 	async deleteAd(adname) {
-		const {data} = await axios.post(this.removeAd, {
+		const { data } = await axios.post(this.removeAd, {
 			adname: adname
 		})
 		return !data.error
@@ -100,7 +101,7 @@ class Api {
 
 	// Fetch Results from single Ad
 	async fetchResultsFromAd(adname) {
-		const {data} = await axios.get(this.getResultsAd + adname)
+		const { data } = await axios.get(this.getResultsAd + adname)
 		return data.results
 	}
 
@@ -226,7 +227,7 @@ class Api {
 		if (profile.right === 'limited') {
 			return await this.fetchCountryKPIs(profile.country)
 		} else {
-			const {data} = await axios.get(this.getAllKPIs)
+			const { data } = await axios.get(this.getAllKPIs)
 			return data.KPIs
 		}
 	}
@@ -235,7 +236,9 @@ class Api {
 		let result = []
 		await Promise.all(
 			countries.map(async country => {
-				const {data} = await axios.get(this.getAllCountryKPIs + country)
+				const { data } = await axios.get(
+					this.getAllCountryKPIs + country
+				)
 				result = result.concat(data.KPIs)
 			})
 		)
@@ -270,20 +273,20 @@ class Api {
 		return result
 	}
 
-	// Fetch all KPIs from the server
+	// Fetch all Users from the server
 	async fetchAllUsers() {
-		const {data} = await axios.get(this.getAllUsers)
+		const { data } = await axios.get(this.getAllUsers)
 		return data.users
 	}
 
-	// Fetch a single Ad from the server using the "adname"
+	// Fetch a single User from the server using the "email"
 	async fetchSingleUser(userEmail) {
-		const {data} = await axios.get(this.getSingleUser + userEmail)
+		const { data } = await axios.get(this.getSingleUser + userEmail)
 		this.profile = data.user
 		return data.user
 	}
 
-	// Create multiple Ads from an array
+	// Create Single User
 	async createUser(email, countries, right) {
 		await axios.post(this.createUser, {
 			email: email,
@@ -293,9 +296,18 @@ class Api {
 		return true
 	}
 
-	// Fetch a single Ad from the server using the "adname"
+	// Create Single User
+	async updateUserFavorites(email, favourites) {
+		const { data } = await axios.post(this.updateFavourites, {
+			email: email,
+			favourites: favourites
+		})
+		return data.user
+	}
+
+	//
 	async toggleUserFirstTime(userEmail) {
-		const {data} = await axios.get(this.notFirstTime + userEmail)
+		const { data } = await axios.get(this.notFirstTime + userEmail)
 		this.profile = data
 		return data
 	}

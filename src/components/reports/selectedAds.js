@@ -16,8 +16,7 @@ class SelectedAds extends Component {
 							<Link
 								to={{
 									pathname: '/'
-								}}
-							>
+								}}>
 								GO BACK
 							</Link>
 						</th>
@@ -53,7 +52,7 @@ class SelectedAds extends Component {
 							}
 						/>
 						<Link to={{ pathname: '/ad/' + ad.adname }}>
-							<span className="icon-more" />
+							<span className="icon-eye" />
 						</Link>
 					</td>
 				</tr>
@@ -73,8 +72,7 @@ class SelectedAds extends Component {
 									to={{
 										pathname:
 											'/weightedReport/' + selectedAdsURL
-									}}
-								>
+									}}>
 									<button className="weightedButton">
 										Weighted
 									</button>
@@ -84,8 +82,7 @@ class SelectedAds extends Component {
 										pathname:
 											'/percentileReport/' +
 											selectedAdsURL
-									}}
-								>
+									}}>
 									<button className="percentileButton">
 										Percentile
 									</button>
@@ -93,8 +90,7 @@ class SelectedAds extends Component {
 								<Link
 									to={{
 										pathname: '/chart/' + selectedAdsURL
-									}}
-								>
+									}}>
 									<button className="chartButton">
 										Chart
 									</button>

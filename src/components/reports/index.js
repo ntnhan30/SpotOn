@@ -5,6 +5,7 @@ import WeightedReport from './weightedReport'
 import PercentileReport from './percentileReport'
 import CountryNorm from './countryNorm'
 import ColorTag from './colorTag'
+import Favourite from './favourite'
 
 export {
 	AdList,
@@ -13,6 +14,7 @@ export {
 	WeightedReport,
 	PercentileReport,
 	CountryNorm,
-	ColorTag
+	ColorTag,
+	Favourite
 }
 export * from './charts/'

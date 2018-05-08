@@ -34,6 +34,8 @@ class CheckBoxSelectAll extends Component {
 		let { filterAtts } = this.props
 		filterAtts = _.omitBy(filterAtts, _.isEmpty)
 
+		console.log(filterAtts)
+
 		if (_.isEmpty(filterAtts)) {
 			if (checked) {
 				this.setState({ checked: false })

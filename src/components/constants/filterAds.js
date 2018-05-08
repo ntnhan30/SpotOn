@@ -85,6 +85,7 @@ class FilterAds {
 				case 'channel':
 				case 'productionState':
 				case 'state':
+				case 'favourite':
 					return ad[filterKey] === single
 				case 'lengthAd':
 					return isInsideLengthRange(ad.lengthAd, single)

@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import AppContext from './context'
-import {Auth, Api, FilterAds, FunctionsResults} from '../../components'
-import {history} from '../../components/auth'
+import { Auth, Api, FilterAds, FunctionsResults } from '../../components'
+import { history } from '../../components/auth'
 
 var _ = require('lodash')
 
@@ -34,6 +34,10 @@ class AppProvider extends Component {
 		toggleSelection: (ad, isSelected) => {
 			this.toggleSelection(ad, isSelected)
 		},
+		//
+		updateFavourites: (adname, isFavorite) => {
+			this.updateFavourites(adname, isFavorite)
+		},
 
 		// This acepts this.props.match
 		getAdsFromURL: async propsMatch => {
@@ -61,11 +65,11 @@ class AppProvider extends Component {
 		// -- Toggle Profile on the Server
 		const profile = await api.toggleUserFirstTime(this.state.profile.email)
 
-		this.setState({profile})
+		this.setState({ profile })
 	}
 
 	activateLastStepOfTour() {
-		this.setState({lastStepOfTour: true})
+		this.setState({ lastStepOfTour: true })
 	}
 
 	// This acepts this.props.match
@@ -78,7 +82,7 @@ class AppProvider extends Component {
 			_.includes(location, 'chart')
 		) {
 			// List of all selected Ads
-			let {selectedAds} = this.state
+			let { selectedAds } = this.state
 			// Aray of the names of the ads
 			let adsOnURL = []
 
@@ -113,13 +117,13 @@ class AppProvider extends Component {
 	 */
 
 	async toggleSelection(adName, isSelected) {
-		let {ads, selectedAds} = this.state
+		let { ads, selectedAds } = this.state
 
 		let thisAd = _.find(ads, o => o.adname === adName)
 		thisAd.selected = isSelected
 
 		_.map(ads, function(obj) {
-			return _.assign(obj, _.find([thisAd], {adname: obj.adname}))
+			return _.assign(obj, _.find([thisAd], { adname: obj.adname }))
 		})
 
 		// If isSelected is TRUE add it to the selectedAds
@@ -130,7 +134,7 @@ class AppProvider extends Component {
 			selectedAds = _.omit(selectedAds, adName)
 		}
 
-		this.setState({ads, selectedAds})
+		this.setState({ ads, selectedAds })
 
 		// If there are selected ads, get the details
 		// Otherwise go back to the report page
@@ -150,7 +154,7 @@ class AppProvider extends Component {
 	 * @param {Boolean} isSelected            New state of selection
 	 */
 	async getDetailsOfSelectedAds(adName, isSelected) {
-		let {detailsOfSelectedAds} = this.state
+		let { detailsOfSelectedAds } = this.state
 		const api = new Api()
 
 		if (isSelected) {
@@ -169,9 +173,41 @@ class AppProvider extends Component {
 		})
 	}
 
+	async updateFavourites(adname, isFavorite) {
+		const api = new Api()
+		let { ads, profile } = this.state
+
+		if (isFavorite) {
+			profile.favourites.push(adname)
+			profile.favourites = _.uniq(profile.favourites)
+		} else {
+			profile.favourites = _.remove(profile.favourites, n => {
+				return n !== adname
+			})
+		}
+
+		api.updateUserFavorites(profile.email, profile.favourites)
+
+		let thisAd = _.find(ads, o => o.adname === adname)
+		if (isFavorite) {
+			thisAd.favourite = true
+		} else {
+			thisAd.favourite = false
+		}
+
+		_.map(ads, function(obj) {
+			return _.assign(obj, _.find([thisAd], { adname: obj.adname }))
+		})
+
+		this.setState({
+			profile,
+			ads
+		})
+	}
+
 	async addCountryNorm(countryName) {
 		const functionsResults = new FunctionsResults()
-		const {selectedAds, countryNorms} = this.state
+		const { selectedAds, countryNorms } = this.state
 
 		// Get an Array of the countries selected
 		let countries = []
@@ -211,7 +247,7 @@ class AppProvider extends Component {
 
 	checkIfInsideReport() {
 		const location = history.location.pathname
-		const {isInsideReport} = this.state
+		const { isInsideReport } = this.state
 		// Only runs if inside a report
 		if (
 			_.includes(location, 'weightedReport') ||
@@ -243,10 +279,20 @@ class AppProvider extends Component {
 
 		// -- Get Profile from server
 		const profile = await auth.getUserInfo()
-		// -- Get All ads from server and add 'show' attr
+		// -- Get All ads from server and add 'show' & 'favourite' attr
 		let ads = await api.fetchAds(profile)
-		ads = _.map(ads, o => _.extend({show: true}, o))
-		this.setState({profile, ads})
+		ads = _.map(ads, o => _.extend({ show: true, favourite: false }, o))
+
+		// Adds the favorites to the collection of ads
+		profile.favourites.forEach(function(adName) {
+			let thisAd = _.find(ads, o => o.adname === adName)
+			thisAd.favourite = true
+			_.map(ads, function(obj) {
+				return _.assign(obj, _.find([thisAd], { adname: obj.adname }))
+			})
+		})
+
+		this.setState({ profile, ads })
 
 		// Check if there are ads in the URL
 		await this.getAdsFromURL()

@@ -32,6 +32,12 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-life-bouy:before {
+	content: '\e905';
+}
+.icon-heart:before {
+	content: '\e904';
+}
 .icon-list:before {
 	content: '\e903';
 }
@@ -52,6 +58,9 @@
 }
 .icon-stats-bars:before {
 	content: '\e99c';
+}
+.icon-eye:before {
+	content: '\e9ce';
 }
 .icon-eye-blocked:before {
 	content: '\e9d1';
@@ -90,6 +99,12 @@ body {
 	@media screen and (max-width: 1280px) {
 		* {
 			font-size: 0.97em;
+		}
+	}
+
+	a {
+		&:hover {
+			text-decoration: none;
 		}
 	}
 }
@@ -177,6 +192,12 @@ li {
 	&,
 	& > * {
 		@include transition(0.3s ease-in-out);
+	}
+
+	.toggleButton {
+		> div {
+			float: right;
+		}
 	}
 }
 .hide {
@@ -316,6 +337,10 @@ li {
 									text-align: center;
 									font-size: 1.1em;
 									padding: 0.4em 0;
+
+									&:hover {
+										color: $blue;
+									}
 								}
 
 								a span {
@@ -410,56 +435,55 @@ li {
 				width: 100%;
 				margin: 0;
 
-				thead,
-				tbody,
-				tr,
-				td,
-				th {
-					display: block;
-				}
-
-				tr:after {
-					content: ' ';
-					display: block;
-					visibility: hidden;
-					clear: both;
-				}
-
-				thead th {
-					height: 50px;
-
-					/*text-align: left;*/
-				}
-
 				tbody {
-					height: calc(100vh - 140px);
+					max-height: calc(100vh - 140px);
 					overflow-y: auto;
+
+					tr {
+						&:after {
+							content: ' ';
+							display: block;
+							visibility: hidden;
+							clear: both;
+						}
+
+						td {
+							a {
+								display: block;
+								text-align: center;
+							}
+						}
+					}
 				}
 
 				thead {
 					text-transform: uppercase;
 					/* fallback */
+
+					th {
+						height: 50px;
+						line-height: 50px;
+						padding: 0 10px;
+					}
 				}
 
 				&.table-fixed {
 					tbody td,
 					thead th {
-						width: 11.1%;
-						float: left;
-						display: initial;
-
 						&:nth-child(1) {
-							width: 4.1%;
 							text-align: center;
-							padding-left: 0;
-							padding-right: 0;
-						}
-						&:nth-child(2) {
-							width: 21.1%;
 						}
 						&:last-child {
-							width: 8.1%;
 							text-align: center;
+							color: rgba(255, 255, 255, 0.1);
+						}
+
+						.icon-heart {
+							cursor: pointer;
+
+							&.favourite {
+								color: #bf0a1b;
+							}
 						}
 					}
 				}
