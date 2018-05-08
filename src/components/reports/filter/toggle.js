@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import ToggleButton from 'react-toggle-button'
 
 class CreateToggle extends Component {

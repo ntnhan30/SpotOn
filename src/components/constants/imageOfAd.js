@@ -55,7 +55,7 @@ class ImageOfAd {
 	getRandomImage = industry => {
 		let imageToReturn = ''
 		switch (industry) {
-			case 'Food Delivery':
+			case 'Food delivery':
 				imageToReturn = _.sample(this.foodDelivery)
 				break
 			case 'Non-food offline':

@@ -11,7 +11,6 @@ import {
 	ReferenceLine,
 	ResponsiveContainer
 } from 'recharts'
-import { ExportChart } from '../../../components'
 var _ = require('lodash')
 
 const colorChart = new ColorChart()

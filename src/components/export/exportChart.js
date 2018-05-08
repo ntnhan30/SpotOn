@@ -1,11 +1,9 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import domtoimage from 'dom-to-image'
 import FileSaver from 'file-saver'
-var _ = require('lodash')
 
 class ExportChart extends Component {
 	handleClick = () => {
-		//var node = document.getElementById('react-tabs-1')
 		var node = document.getElementsByClassName(
 			'react-tabs__tab-panel--selected'
 		)[0]

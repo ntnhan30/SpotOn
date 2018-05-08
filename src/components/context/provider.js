@@ -284,13 +284,18 @@ class AppProvider extends Component {
 		ads = _.map(ads, o => _.extend({ show: true, favourite: false }, o))
 
 		// Adds the favorites to the collection of ads
-		profile.favourites.forEach(function(adName) {
-			let thisAd = _.find(ads, o => o.adname === adName)
-			thisAd.favourite = true
-			_.map(ads, function(obj) {
-				return _.assign(obj, _.find([thisAd], { adname: obj.adname }))
+		if (ads.length > 0) {
+			profile.favourites.forEach(function(adName) {
+				let thisAd = _.find(ads, o => o.adname === adName)
+				thisAd.favourite = true
+				_.map(ads, function(obj) {
+					return _.assign(
+						obj,
+						_.find([thisAd], { adname: obj.adname })
+					)
+				})
 			})
-		})
+		}
 
 		this.setState({ profile, ads })
 

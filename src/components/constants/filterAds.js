@@ -28,8 +28,6 @@ class FilterAds {
 		// add the new value
 		tempFilt[key] = valueToFilter
 
-		console.log('=====================')
-
 		const isInsideDateRange = (date, range) => {
 			if (date === null) {
 				// If the Ad doesn't have a date

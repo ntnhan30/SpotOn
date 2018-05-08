@@ -11,7 +11,8 @@ import {
 	FunctionsResults,
 	ImageOfAd,
 	SingleViewTour,
-	AppContext
+	AppContext,
+	VideoLightbox
 } from '../../components'
 var _ = require('lodash')
 
@@ -129,8 +130,7 @@ class SingleAd extends Component {
 					{showTour()}
 					<div
 						className="container-fluid hero-image"
-						style={heroStyle}
-					>
+						style={heroStyle}>
 						<div className="col-5 offset-2">
 							<h1>{thisAd.ad.adname}</h1>
 							<article className="ad-messages">
@@ -161,9 +161,11 @@ class SingleAd extends Component {
 						</div>
 
 						<div className="col-3 move-up offset-1">
-							<a href={thisAd.ad.videourl} target="_blank">
-								<img src={AdImage} alt="Upload Ads" />
-							</a>
+							<VideoLightbox
+								url={thisAd.ad.videourl}
+								image={AdImage}
+							/>
+
 							<table className="">
 								<tbody>
 									<tr>
