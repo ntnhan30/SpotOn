@@ -6,6 +6,7 @@ import PercentileReport from './percentileReport'
 import CountryNorm from './countryNorm'
 import ColorTag from './colorTag'
 import Favourite from './favourite'
+import SortToggle from './sortToggle'
 
 export {
 	AdList,
@@ -15,6 +16,7 @@ export {
 	PercentileReport,
 	CountryNorm,
 	ColorTag,
-	Favourite
+	Favourite,
+	SortToggle
 }
 export * from './charts/'

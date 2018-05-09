@@ -26,7 +26,10 @@ class SelectedAds extends Component {
 			} else {
 				return (
 					<tr>
-						<th scope="col">SELECTED ADS</th>
+						<th scope="col">
+							<span className="icon-list" />
+							SELECTED ADS
+						</th>
 						<th scope="col" />
 					</tr>
 				)

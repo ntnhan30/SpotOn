@@ -32,14 +32,17 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.icon-life-bouy:before {
-	content: '\e905';
+.icon-image:before {
+	content: '\e909';
 }
 .icon-heart:before {
 	content: '\e904';
 }
 .icon-list:before {
 	content: '\e903';
+}
+.icon-narrow:before {
+	content: '\e908';
 }
 .icon-in:before {
 	content: '\e902';
@@ -88,6 +91,21 @@
 }
 .icon-play:before {
 	content: '\ea15';
+}
+.icon-sort-alpha-asc:before {
+	content: '\ea48';
+}
+.icon-file-excel:before {
+	content: '\eae2';
+}
+.icon-arrow_drop_up:before {
+	content: '\e906';
+}
+.icon-arrow_drop_down:before {
+	content: '\e907';
+}
+.icon-life-bouy:before {
+	content: '\e905';
 }
 
 body {
@@ -467,6 +485,12 @@ li {
 						height: 50px;
 						line-height: 50px;
 						padding: 0 10px;
+
+						span {
+							font-size: 23px;
+							bottom: -3px;
+							position: relative;
+						}
 					}
 				}
 
@@ -710,6 +734,10 @@ li {
 
 					span {
 						padding-right: 1em;
+						font-size: 1.5em;
+						line-height: 0;
+						position: relative;
+						top: 0.1em;
 					}
 				}
 			}

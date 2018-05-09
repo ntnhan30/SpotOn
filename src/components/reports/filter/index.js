@@ -28,7 +28,10 @@ class FilterSidebar extends Component {
 				<table className="table">
 					<thead className="thead-dark">
 						<tr>
-							<th scope="col">FILTER</th>
+							<th scope="col">
+								<span className="icon-narrow" />
+								FILTER
+							</th>
 						</tr>
 					</thead>
 				</table>

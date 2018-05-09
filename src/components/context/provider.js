@@ -44,6 +44,15 @@ class AppProvider extends Component {
 			await this.getAdsFromURL(propsMatch)
 		},
 
+		sorting: {
+			key: '',
+			order: 'desc'
+		},
+
+		sortAds: key => {
+			this.sortAds(key)
+		},
+
 		countryNorms: {},
 
 		addCountryNorm: async () => {
@@ -107,6 +116,33 @@ class AppProvider extends Component {
 	}
 
 	/**
+	 * Sorts the array of Ads by the key
+	 * - It depends on the 'sorting' state
+	 * - If the sorting is already applied on a column toggle the order
+	 * - If is a new key order, start as ASC
+	 * Update state => ads, sorting
+	 *
+	 * @param {String} key                   String of the key to sort on the ad list
+	 */
+	sortAds(key) {
+		let { ads, sorting } = this.state
+
+		if (key === sorting.key) {
+			sorting.order = sorting.order == 'desc' ? 'asc' : 'desc'
+		} else {
+			sorting.key = key
+			sorting.order = 'asc'
+		}
+		// Use Lodash to sort array by the key
+		ads = _.orderBy(ads, [key], [sorting.order])
+
+		this.setState({
+			ads,
+			sorting
+		})
+	}
+
+	/**
 	 * This ASYNC function toggles the selection of the ad --
 	 * - It adds or delete the spot on "selectedAds"
 	 * - It toggles ['selected'] on "ads"
@@ -115,7 +151,6 @@ class AppProvider extends Component {
 	 * @param {String} adName                 String of the Shortname of the ad
 	 * @param {Boolean} isSelected            New state of selection
 	 */
-
 	async toggleSelection(adName, isSelected) {
 		let { ads, selectedAds } = this.state
 
@@ -173,10 +208,22 @@ class AppProvider extends Component {
 		})
 	}
 
+	/**
+	 * This ASYNC function toggles the favorite value of a single ad
+	 * and saves it into the server --
+	 * - Toggles the ad from the 'profile.favourites' state
+	 * - Update the profile on the server
+	 * - Update the ad on the 'ads' state
+	 * Update state => ads, selectedAds
+	 *
+	 * @param {String} adName                 String of the Shortname of the ad
+	 * @param {Boolean} isSelected            New state of selection
+	 */
 	async updateFavourites(adname, isFavorite) {
 		const api = new Api()
 		let { ads, profile } = this.state
 
+		// Toggles the ad from the 'profile.favourites' state
 		if (isFavorite) {
 			profile.favourites.push(adname)
 			profile.favourites = _.uniq(profile.favourites)
@@ -185,20 +232,21 @@ class AppProvider extends Component {
 				return n !== adname
 			})
 		}
-
+		// Update the profile on the server
 		api.updateUserFavorites(profile.email, profile.favourites)
 
+		// Update the ad on the ad state
 		let thisAd = _.find(ads, o => o.adname === adname)
 		if (isFavorite) {
 			thisAd.favourite = true
 		} else {
 			thisAd.favourite = false
 		}
-
 		_.map(ads, function(obj) {
 			return _.assign(obj, _.find([thisAd], { adname: obj.adname }))
 		})
 
+		// Update state => ads, selectedAds
 		this.setState({
 			profile,
 			ads

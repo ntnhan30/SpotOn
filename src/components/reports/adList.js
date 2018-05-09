@@ -5,46 +5,114 @@ import {
 	HomeFinalTour,
 	AppContext,
 	CheckBoxSelectAll,
-	Favourite
+	Favourite,
+	SortToggle
 } from '../../components'
 import { Link } from 'react-router-dom'
 import Checkbox from 'rc-checkbox'
 import 'rc-checkbox/assets/index.css'
+var _ = require('lodash')
 
 class AdList extends Component {
-	handleInputChange(ad, event) {
+	constructor(props) {
+		super(props)
+	}
+
+	handleInputChange = (ad, event) => {
 		this.props.toggleSelection(ad.adname, event.target.checked)
 	}
 
-	render() {
-		// Logic for displaying ads
-		const { ads } = this.props
+	sortAds = (title, key) => {
+		return (
+			<th
+				scope="col"
+				onClick={() => {
+					this.props.sortAds(key)
+				}}>
+				{title}
+			</th>
+		)
+	}
 
+	// Logic for displaying ads
+	render = () => {
+		let { ads } = this.props
+
+		/**
+		 * Set the header of the Ad list Table
+		 *
+		 * @returns {Component}                       The header
+		 */
 		const tableHeader = (
-			<tr>
-				<th scope="col">
-					<AppContext>
-						{context => (
+			<AppContext>
+				{context => (
+					<tr>
+						<th scope="col">
 							<CheckBoxSelectAll
 								ads={context.ads}
 								toggleSelection={context.toggleSelection}
 								filterAtts={context.filterAtts}
 							/>
-						)}
-					</AppContext>
-				</th>
-				<th scope="col">Title</th>
-				<th scope="col">Brand</th>
-				<th scope="col">Date</th>
-				<th scope="col">Industry</th>
-				<th scope="col">Length</th>
-				<th scope="col">Channel</th>
-				<th scope="col">State</th>
-				<th scope="col">More</th>
-				<th scope="col">Fav</th>
-			</tr>
+						</th>
+						<SortToggle
+							title={'Title'}
+							keyName={'shortname'}
+							sorting={context.sorting}
+							sortAds={context.sortAds}
+						/>
+						<SortToggle
+							title={'Brand'}
+							keyName={'brand'}
+							sorting={context.sorting}
+							sortAds={context.sortAds}
+						/>
+						<SortToggle
+							title={'Date'}
+							keyName={'campaigndate'}
+							sorting={context.sorting}
+							sortAds={context.sortAds}
+						/>
+						<SortToggle
+							title={'Industry'}
+							keyName={'industry'}
+							sorting={context.sorting}
+							sortAds={context.sortAds}
+						/>
+						<SortToggle
+							title={'Length'}
+							keyName={'lengthAd'}
+							sorting={context.sorting}
+							sortAds={context.sortAds}
+						/>
+						<SortToggle
+							title={'Channel'}
+							keyName={'channel'}
+							sorting={context.sorting}
+							sortAds={context.sortAds}
+						/>
+						<SortToggle
+							title={'State'}
+							keyName={'productionState'}
+							sorting={context.sorting}
+							sortAds={context.sortAds}
+						/>
+						<th scope="col">More</th>
+						<SortToggle
+							title={'Fav'}
+							keyName={'favourite'}
+							sorting={context.sorting}
+							sortAds={context.sortAds}
+						/>
+					</tr>
+				)}
+			</AppContext>
 		)
 
+		/**
+		 * Loop of the ads, each loop is a row
+		 *
+		 * @returns {Component}                       The Table
+		 */
 		const renderedAds = ads.map((ad, i) => {
 			if (ad.show) {
 				//<Link to={{ pathname:'/ad/' + ad.adname, query: { ad: ad } }}>
@@ -89,6 +157,11 @@ class AdList extends Component {
 			}
 		})
 
+		/**
+		 * Show tour Only if its the first time opening the app
+		 *
+		 * @returns {Component}                       The Tour
+		 */
 		const showTour = () => {
 			if (this.props.profile.firstTime) {
 				if (!this.props.lastStepOfTour) {
@@ -115,10 +188,13 @@ class AdList extends Component {
 			}
 		}
 
+		/**
+		 * The return of the class
+		 */
 		if (ads === undefined || ads.length === 0) {
+			// If there is nothing
 			return <LoadingSpinner />
 		} else {
-			// The return from the AdList Class
 			return (
 				<Fragment>
 					{showTour()}

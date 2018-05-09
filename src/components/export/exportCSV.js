@@ -108,21 +108,19 @@ class ExportCSV extends Component {
 						filename="SpotOnReport.xlsx"
 						element={
 							<button className="btn download">
-								<span className="icon-in" />Download as Excel
+								<span className="icon-file-excel" />
+								Download as Excel
 							</button>
-						}
-					>
+						}>
 						<Workbook.Sheet
 							data={weightedValues}
-							name="Weighted Report"
-						>
+							name="Weighted Report">
 							{columns}
 						</Workbook.Sheet>
 
 						<Workbook.Sheet
 							data={percentileValues}
-							name="Percentile Report"
-						>
+							name="Percentile Report">
 							{percentilColumns}
 						</Workbook.Sheet>
 					</Workbook>

@@ -18,7 +18,8 @@ class ExportChart extends Component {
 	render() {
 		return (
 			<button className="btn download" onClick={this.handleClick}>
-				<span className="icon-in" />Download as Image
+				<span className="icon-image" />
+				Download as Image
 			</button>
 		)
 	}

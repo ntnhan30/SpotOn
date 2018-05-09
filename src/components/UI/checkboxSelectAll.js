@@ -38,7 +38,7 @@ class CheckBoxSelectAll extends Component {
 			if (checked) {
 				this.setState({ checked: false })
 			}
-			return null
+			return <span className="icon-sort-alpha-asc" />
 		} else {
 			return (
 				<Checkbox
