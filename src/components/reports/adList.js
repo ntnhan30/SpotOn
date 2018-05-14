@@ -11,13 +11,8 @@ import {
 import { Link } from 'react-router-dom'
 import Checkbox from 'rc-checkbox'
 import 'rc-checkbox/assets/index.css'
-var _ = require('lodash')
 
 class AdList extends Component {
-	constructor(props) {
-		super(props)
-	}
-
 	handleInputChange = (ad, event) => {
 		this.props.toggleSelection(ad.adname, event.target.checked)
 	}

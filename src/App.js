@@ -17,7 +17,8 @@ import {
 	Logout,
 	Callback,
 	HomeScreen,
-	UserGuideScreen
+	UserGuideScreen,
+	FeaturedScreen
 } from './screens'
 
 import Auth from './components/auth/auth.js'
@@ -47,6 +48,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 						<ErrorBoundary>
 							<Component
 								auth={auth}
+								ads={context.ads}
 								profile={context.profile}
 								{...props}
 							/>
@@ -73,6 +75,10 @@ class App extends Component {
 					<AuthButton />
 					<Switch>
 						<PrivateRoute path="/import" component={Import} />
+						<PrivateRoute
+							path="/featured"
+							component={FeaturedScreen}
+						/>
 						<PrivateRoute
 							path="/notifications"
 							component={Notifications}

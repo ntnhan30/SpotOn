@@ -95,8 +95,8 @@ class ExportInvertedCSV extends Component {
 			return (
 				<Workbook.Column
 					key={i + 1}
-					label={s.ad.adname}
-					value={row => Math.round(row[s.ad.adname])}
+					label={s.adname}
+					value={row => Math.round(row[s.adname])}
 				/>
 			)
 		})
@@ -105,8 +105,8 @@ class ExportInvertedCSV extends Component {
 			return (
 				<Workbook.Column
 					key={i + 1}
-					label={s.ad.adname}
-					value={row => Math.round(row[s.ad.adname]) + 'th'}
+					label={s.adname}
+					value={row => Math.round(row[s.adname]) + 'th'}
 				/>
 			)
 		})

@@ -40,7 +40,7 @@ class BubbleChart extends Component {
 				<Scatter
 					key={i}
 					data={dataForStats}
-					name={obj['ad']['shortname']}
+					name={obj.shortname}
 					fill={this.props.colorChart.getColor(i)}
 					shape="circle"
 				/>
@@ -50,8 +50,7 @@ class BubbleChart extends Component {
 			<div>
 				<ResponsiveContainer width="95%" height="100%" minHeight={300}>
 					<ScatterChart
-						margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
-					>
+						margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
 						<XAxis
 							type="number"
 							dataKey={'brandRelevance'}

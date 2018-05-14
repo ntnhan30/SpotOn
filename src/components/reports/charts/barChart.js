@@ -40,7 +40,7 @@ class BarCharts extends Component {
 				const kpiValue = obj.kpis
 					? parseInt(obj['kpis'][kpi.nameInDB], 10)
 					: 0
-				set[obj.ad.shortname] = kpiValue
+				set[obj.shortname] = kpiValue
 			})
 			dataForChart.push(set)
 		})
@@ -51,7 +51,7 @@ class BarCharts extends Component {
 			return (
 				<Bar
 					key={k++}
-					dataKey={obj.ad.shortname}
+					dataKey={obj.shortname}
 					fill={this.props.colorChart.getColor(k)}
 				/>
 			)

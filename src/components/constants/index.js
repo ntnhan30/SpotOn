@@ -9,6 +9,7 @@ import MessagingCode from './messagingCode'
 import GetKPIs from './getKPIs'
 import UserRights from './userRights'
 import ImageOfAd from './imageOfAd'
+import GetFeaturedAds from './getFeaturedAds'
 
 export {
 	Api,
@@ -21,5 +22,6 @@ export {
 	MessagingCode,
 	GetKPIs,
 	UserRights,
-	ImageOfAd
+	ImageOfAd,
+	GetFeaturedAds
 }

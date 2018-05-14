@@ -32,7 +32,7 @@ class RadarCharts extends Component {
 				const kpiValue = i.kpis
 					? parseInt(i['kpis'][single['nameInDB']], 10)
 					: 0
-				single[i['ad']['shortname']] = kpiValue
+				single[i.shortname] = kpiValue
 			})
 		})
 
@@ -40,8 +40,8 @@ class RadarCharts extends Component {
 			return (
 				<Radar
 					key={i}
-					name={obj['ad']['shortname']}
-					dataKey={obj['ad']['shortname']}
+					name={obj.shortname}
+					dataKey={obj.shortname}
 					stroke={this.props.colorChart.getColor(i)}
 					fill={this.props.colorChart.getColor(i)}
 					fillOpacity={0.4}

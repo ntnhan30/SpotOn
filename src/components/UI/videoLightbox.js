@@ -11,11 +11,13 @@ class VideoLightbox extends Component {
 	}
 
 	render() {
-		const { photoIndex, isOpen } = this.state
+		const { isOpen } = this.state
 		let { url, image } = this.props
 		url += '/preview'
 
-		const iframe = <iframe src={url} width="640" height="480" />
+		const iframe = (
+			<iframe title={'Video'} src={url} width="640" height="480" />
+		)
 
 		return (
 			<Fragment>

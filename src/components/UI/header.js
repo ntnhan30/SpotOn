@@ -24,6 +24,9 @@ class Header extends Component {
 								<li>
 									<Link to="/">Reports</Link>
 								</li>
+								<li>
+									<Link to="/featured">Featured Ads</Link>
+								</li>
 								{profile.right === 'admin' && (
 									<li>
 										<Link to="/import">Import</Link>
@@ -47,8 +50,7 @@ class Header extends Component {
 									<a
 										href={UsageGuidelinesPDF}
 										target="_blank"
-										id="usageGuidelinesPDF"
-									>
+										id="usageGuidelinesPDF">
 										User Guidelines
 									</a>
 								</li>

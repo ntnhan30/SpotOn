@@ -27,7 +27,7 @@ class HorizontalChart extends Component {
 		// eslint-disable-next-line
 		thisResults.map(singleResult => {
 			const set = {
-				name: singleResult['ad']['shortname']
+				name: singleResult.shortname
 			}
 			// eslint-disable-next-line
 			this.props.kpis.map(kpi => {

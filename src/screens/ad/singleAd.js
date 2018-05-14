@@ -47,7 +47,7 @@ class SingleAd extends Component {
 		// Retrieve the ad details from the server
 		const thisAd = await this.props.api.fetchSingleAd(adname)
 		const countryNorm = await this.props.functionsResults.getCountryNorm([
-			thisAd.ad.country
+			thisAd.country
 		])
 
 		// Save them into the state
@@ -60,7 +60,7 @@ class SingleAd extends Component {
 	deleteSingleAd = async () => {
 		// Retrieve the ad details from the server
 		const didItDelete = await this.props.api.deleteAd(
-			this.state.thisAd.ad.adname
+			this.state.thisAd.adname
 		)
 
 		this.setState({
@@ -98,9 +98,7 @@ class SingleAd extends Component {
 				</div>
 			)
 		} else if (!_.isEmpty(thisAd)) {
-			const AdImage = this.props.imageOfAd.getRandomImage(
-				thisAd.ad.industry
-			)
+			const AdImage = this.props.imageOfAd.getRandomImage(thisAd.industry)
 
 			const heroStyle = {
 				backgroundImage: `url(${AdImage})`
@@ -132,23 +130,23 @@ class SingleAd extends Component {
 						className="container-fluid hero-image"
 						style={heroStyle}>
 						<div className="col-5 offset-2">
-							<h1>{thisAd.ad.adname}</h1>
+							<h1>{thisAd.adname}</h1>
 							<article className="ad-messages">
 								<p>
 									<b>
 										{this.props.messagingCode.init(
-											thisAd.ad.mainMessage
+											thisAd.mainMessage
 										)}
 									</b>
 								</p>
 								<p>
 									{this.props.messagingCode.init(
-										thisAd.ad.secondaryMessage
+										thisAd.secondaryMessage
 									)}
 								</p>
 								<p>
 									{this.props.messagingCode.init(
-										thisAd.ad.tertiaryMessage
+										thisAd.tertiaryMessage
 									)}
 								</p>
 							</article>
@@ -157,12 +155,12 @@ class SingleAd extends Component {
 
 					<div className="container-fluid single">
 						<div className="col-5 offset-2 summary">
-							<p>{thisAd.ad.summary}</p>
+							<p>{thisAd.summary}</p>
 						</div>
 
 						<div className="col-3 move-up offset-1">
 							<VideoLightbox
-								url={thisAd.ad.videourl}
+								url={thisAd.videourl}
 								image={AdImage}
 							/>
 
@@ -170,27 +168,27 @@ class SingleAd extends Component {
 								<tbody>
 									<tr>
 										<td>Title</td>
-										<td>{thisAd.ad.shortname}</td>
+										<td>{thisAd.shortname}</td>
 									</tr>
 									<tr>
 										<td>Brand</td>
-										<td>{thisAd.ad.brand}</td>
+										<td>{thisAd.brand}</td>
 									</tr>
 									<tr>
 										<td>Industry</td>
-										<td>{thisAd.ad.industry}</td>
+										<td>{thisAd.industry}</td>
 									</tr>
 									<tr>
 										<td>Length</td>
-										<td>{thisAd.ad.lengthAd}"</td>
+										<td>{thisAd.lengthAd}"</td>
 									</tr>
 									<tr>
 										<td>Channel</td>
-										<td>{thisAd.ad.channel}</td>
+										<td>{thisAd.channel}</td>
 									</tr>
 									<tr>
 										<td>State</td>
-										<td>{thisAd.ad.productionState}</td>
+										<td>{thisAd.productionState}</td>
 									</tr>
 								</tbody>
 							</table>
@@ -283,13 +281,13 @@ class SingleAd extends Component {
 									/>
 									<h2>Emotion breakout</h2>
 									<ObjectBarChart
-										thisResults={thisAd.ad.emotion}
+										thisResults={thisAd.emotion}
 										kpis={'Emotion'}
 									/>
 									<br />
 									<h2>Tone of voice breakout</h2>
 									<ObjectBarChart
-										thisResults={thisAd.ad.toneOfVoice}
+										thisResults={thisAd.toneOfVoice}
 										kpis={'Tone of Voice'}
 									/>
 								</TabPanel>

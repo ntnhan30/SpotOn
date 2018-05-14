@@ -128,7 +128,7 @@ class AppProvider extends Component {
 		let { ads, sorting } = this.state
 
 		if (key === sorting.key) {
-			sorting.order = sorting.order == 'desc' ? 'asc' : 'desc'
+			sorting.order = sorting.order === 'desc' ? 'asc' : 'desc'
 		} else {
 			sorting.key = key
 			sorting.order = 'asc'
@@ -189,14 +189,15 @@ class AppProvider extends Component {
 	 * @param {Boolean} isSelected            New state of selection
 	 */
 	async getDetailsOfSelectedAds(adName, isSelected) {
-		let { detailsOfSelectedAds } = this.state
+		let { detailsOfSelectedAds, ads } = this.state
 		const api = new Api()
 
 		if (isSelected) {
 			if (detailsOfSelectedAds[adName] === undefined) {
-				const thisAd = await api.fetchSingleAd(adName)
-				detailsOfSelectedAds[adName] = thisAd
-				this.addCountryNorm(thisAd.ad.country)
+				detailsOfSelectedAds[adName] = _.find(ads, function(i) {
+					return i.adname === adName
+				})
+				this.addCountryNorm(detailsOfSelectedAds[adName].country)
 			}
 		} else {
 			detailsOfSelectedAds = _.omit(detailsOfSelectedAds, [adName])

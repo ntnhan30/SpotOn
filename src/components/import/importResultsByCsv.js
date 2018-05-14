@@ -41,6 +41,9 @@ class ImportResultsByCSV extends Component {
 		reader.onload = async function(e) {
 			let results = self.props.handleCSV.csvToObject(reader.result)
 
+			self.props.api.createBulkResults(results)
+
+			/*
 			// Import to DB the results
 			//await self.props.api.createBulkResults(results); -- Import the results
 			const KPIs = await self.props.tabulateAnswers.init(results)
@@ -52,6 +55,7 @@ class ImportResultsByCSV extends Component {
 				imported: await self.props.api.createKPI(KPIs),
 				uploading: false
 			})
+			*/
 		}
 		reader.readAsText(files[0])
 	}
@@ -82,8 +86,7 @@ class ImportResultsByCSV extends Component {
 				<img src={QuestIcon} alt="Upload Results" />
 				<ReactFileReader
 					handleFiles={this.handleFiles}
-					fileTypes={'.csv'}
-				>
+					fileTypes={'.csv'}>
 					{buttonToUpload()}
 				</ReactFileReader>
 				<span>CSV format only</span>

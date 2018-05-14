@@ -20,8 +20,8 @@ class WeightedReport extends Component {
 			let valuesCell = []
 			let sampleSize = []
 			_.mapValues(self.props.allResults, single => {
-				valuesCell.push(single.ad.shortname)
-				sampleSize.push(single.ad.sampleSize)
+				valuesCell.push(single.shortname)
+				sampleSize.push(single.sampleSize)
 			})
 
 			cells.push(
@@ -58,7 +58,7 @@ class WeightedReport extends Component {
 						? 0
 						: single['kpis'][kpi]
 				valuesCell.push(Math.round(v))
-				countries.push(single.ad.country)
+				countries.push(single.country)
 			})
 
 			cells.push(<Cell key={0}>{title}</Cell>)

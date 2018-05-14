@@ -61,7 +61,7 @@ class PercentileReport extends Component {
 			let cells = []
 			let valuesCell = []
 			_.mapValues(self.state.allResults, single => {
-				valuesCell.push(single.ad.shortname)
+				valuesCell.push(single.shortname)
 			})
 
 			cells.push(

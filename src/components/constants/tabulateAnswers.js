@@ -130,9 +130,9 @@ class TabulateAnswers {
 		const singleAd = await this.api.fetchSingleAd(nameOfAd)
 
 		// Get the Main Messages from the Ad
-		const mainMessage = singleAd.ad.mainMessage
-		const secondaryMessage = singleAd.ad.secondaryMessage
-		const tertiaryMessage = singleAd.ad.tertiaryMessage
+		const mainMessage = singleAd.mainMessage
+		const secondaryMessage = singleAd.secondaryMessage
+		const tertiaryMessage = singleAd.tertiaryMessage
 
 		// Weighted values of main messages
 		const valueMainMessage = arr[mainMessage] * 2
