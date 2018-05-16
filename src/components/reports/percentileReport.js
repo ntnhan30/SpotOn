@@ -17,9 +17,8 @@ class PercentileReport extends Component {
 	constructor() {
 		super()
 		this.state = {
-			allResults: {},
-			average: {},
-			isit: 0
+			selectedAds: {},
+			average: {}
 		}
 	}
 
@@ -27,30 +26,17 @@ class PercentileReport extends Component {
 		functionsResults
 	}
 
-	async calculatePercentileAverage() {
-		// Get the percentile values and the percentile average of selected return => [allResults, average]
-		let percentile = await this.props.functionsResults.getPercentileScore(
-			this.props.allResults
+	static getDerivedStateFromProps(nextProps, prevState, prevProps) {
+		let percentile = nextProps.functionsResults.getPercentileScore(
+			nextProps.ads,
+			nextProps.selectedAds
 		)
+		const { selectedAds, average } = percentile
 
-		this.setState({
-			allResults: percentile.selectedAds,
-			average: percentile.average
-		})
-	}
-
-	async componentDidMount() {
-		if (this.props.allResults) {
-			await this.calculatePercentileAverage()
-		}
-	}
-
-	componentDidUpdate = async (prevProps, prevState, snapshot) => {
-		let { allResults } = this.props
-		let oldAllResults = prevProps.allResults
-
-		if (allResults !== oldAllResults) {
-			await this.calculatePercentileAverage()
+		// Update state
+		return {
+			selectedAds,
+			average
 		}
 	}
 
@@ -60,14 +46,15 @@ class PercentileReport extends Component {
 
 			let cells = []
 			let valuesCell = []
-			_.mapValues(self.state.allResults, single => {
+			_.mapValues(self.state.selectedAds, single => {
 				valuesCell.push(single.shortname)
 			})
 
 			cells.push(
 				<Cell key={0}>
 					<ExportCSV
-						toExport={self.props.allResults}
+						ads={self.props.ads}
+						toExport={self.state.selectedAds}
 						countryNorms={this.props.countryNorms}
 					/>
 				</Cell>
@@ -80,14 +67,14 @@ class PercentileReport extends Component {
 			return <Row>{cells}</Row>
 		}
 
-		const showColorTag = _.size(this.state.allResults) >= 5 ? true : false
+		const showColorTag = _.size(this.state.selectedAds) >= 5 ? true : false
 
 		const displaySingleKPI = (kpi, nameOfClass, title) => {
 			const self = this
 
 			let cells = []
 			let valuesCell = []
-			_.mapValues(self.state.allResults, single => {
+			_.mapValues(self.state.selectedAds, single => {
 				//Get the percentile value
 				let v =
 					single['percentile'] == null ||

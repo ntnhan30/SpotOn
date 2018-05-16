@@ -9,7 +9,7 @@ class ExportCSV extends Component {
 	constructor() {
 		super()
 		this.state = {
-			allResults: []
+			selectedAds: []
 		}
 	}
 
@@ -19,31 +19,34 @@ class ExportCSV extends Component {
 
 	// Calculate the percentile values of the selceted Ads
 	componentDidMount = async () => {
+		let { ads, toExport } = this.props
 		let allResults = await this.props.functionsResults.getPercentileScore(
-			this.props.toExport
+			ads,
+			toExport
 		)
 		this.setState({
-			allResults: allResults.selectedAds
+			selectedAds: allResults.selectedAds
 		})
 	}
 
 	componentDidUpdate = async (prevProps, prevState, snapshot) => {
-		let { toExport } = this.props
+		let { ads, toExport } = this.props
 		let oldToExport = prevProps.toExport
 
 		if (toExport !== oldToExport) {
 			let allResults = await this.props.functionsResults.getPercentileScore(
-				this.props.toExport
+				ads,
+				toExport
 			)
 			this.setState({
-				allResults: allResults.selectedAds
+				selectedAds: allResults.selectedAds
 			})
 		}
 	}
 
 	render() {
-		let weightedValues = _.map(this.state.allResults, 'kpis')
-		const percentileValues = _.map(this.state.allResults, 'percentile')
+		let weightedValues = _.map(this.state.selectedAds, 'kpis')
+		const percentileValues = _.map(this.state.selectedAds, 'percentile')
 
 		// Returns the name of the kpis
 		const headerCSV = () => {
@@ -99,7 +102,7 @@ class ExportCSV extends Component {
 		columns.unshift(headerCSV())
 		percentilColumns.unshift(headerCSV())
 
-		if (_.isEmpty(this.state.allResults)) {
+		if (_.isEmpty(this.state.selectedAds)) {
 			return <SmallLoadingSpinner />
 		} else {
 			return (

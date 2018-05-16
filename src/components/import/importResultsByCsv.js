@@ -43,7 +43,6 @@ class ImportResultsByCSV extends Component {
 
 			self.props.api.createBulkResults(results)
 
-			/*
 			// Import to DB the results
 			//await self.props.api.createBulkResults(results); -- Import the results
 			const KPIs = await self.props.tabulateAnswers.init(results)
@@ -55,7 +54,6 @@ class ImportResultsByCSV extends Component {
 				imported: await self.props.api.createKPI(KPIs),
 				uploading: false
 			})
-			*/
 		}
 		reader.readAsText(files[0])
 	}

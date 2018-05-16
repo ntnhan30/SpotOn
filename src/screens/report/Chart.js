@@ -20,9 +20,9 @@ class Chart extends Component {
 	}
 
 	render() {
-		const { detailsOfSelectedAds } = this.props
+		const { selectedAds } = this.props
 
-		if (!_.isEmpty(detailsOfSelectedAds)) {
+		if (!_.isEmpty(selectedAds)) {
 			let total = ['Total']
 			let mainKPIs = [
 				'Brand Relevance',
@@ -60,7 +60,7 @@ class Chart extends Component {
 						<AppContext.Consumer>
 							{context => (
 								<ChartTour
-									selectedAds={detailsOfSelectedAds}
+									selectedAds={selectedAds}
 									finishTour={context.finishTour}
 								/>
 							)}
@@ -89,25 +89,21 @@ class Chart extends Component {
 
 								<TabPanel>
 									<BarCharts
-										thisResults={
-											context.detailsOfSelectedAds
-										}
+										selectedAds={context.selectedAds}
 										kpis={this.props.getKPIs.init(total)}
 										countryNorms={context.countryNorms}
 									/>
 								</TabPanel>
 								<TabPanel>
 									<BarCharts
-										thisResults={
-											context.detailsOfSelectedAds
-										}
+										selectedAds={context.selectedAds}
 										kpis={this.props.getKPIs.init(mainKPIs)}
 										countryNorms={context.countryNorms}
 									/>
 								</TabPanel>
 								<TabPanel>
 									<StackedBarCharts
-										thisResults={detailsOfSelectedAds}
+										selectedAds={selectedAds}
 										kpis={this.props.getKPIs.init(
 											brandRelevance
 										)}
@@ -115,7 +111,7 @@ class Chart extends Component {
 								</TabPanel>
 								<TabPanel>
 									<StackedBarCharts
-										thisResults={detailsOfSelectedAds}
+										selectedAds={selectedAds}
 										kpis={this.props.getKPIs.init(
 											viewerEngagement
 										)}
@@ -123,7 +119,7 @@ class Chart extends Component {
 								</TabPanel>
 								<TabPanel>
 									<StackedBarCharts
-										thisResults={detailsOfSelectedAds}
+										selectedAds={selectedAds}
 										kpis={this.props.getKPIs.init(
 											adMessage
 										)}
@@ -131,7 +127,7 @@ class Chart extends Component {
 								</TabPanel>
 								<TabPanel>
 									<RadarCharts
-										thisResults={detailsOfSelectedAds}
+										selectedAds={selectedAds}
 										kpis={this.props.getKPIs.init(
 											singleKpis
 										)}

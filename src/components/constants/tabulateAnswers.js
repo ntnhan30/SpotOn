@@ -253,39 +253,59 @@ class TabulateAnswers {
 					/*** Binary scale
                     - Brand Recal
                     */
-					result['Q1'] = this.binaryScale(arr[i])
+					result.brandRecall = this.binaryScale(arr[i])
 					break
 				case 'Q2':
+					/*** Likert Scale
+					- Ad appeal
+					*/
+					result.adAppeal = this.likertScale(arr[i])
+					break
 				case 'Q5o1':
+					/*** Likert Scale
+					- Uniqueness
+					*/
+					result.uniqueness = this.likertScale(arr[i])
+					break
 				case 'Q5o2':
+					/*** Likert Scale
+					- Relevance
+					*/
+					result.relevance = this.likertScale(arr[i])
+					break
 				case 'Q5o3':
+					/*** Likert Scale
+					- Shareability
+					*/
+					result.shareability = this.likertScale(arr[i])
+					break
 				case 'Q6':
+					/*** Likert Scale
+					- Call to action
+					*/
+					result.callToAction = this.likertScale(arr[i])
+					break
 				case 'Q8':
 					/*** Likert Scale
-                    - Ad appeal
-                        - Uniqueness
-                        - Relevance
-                        - Shareability
-                    - Call to action
                     - Brand fit
                     */
-					result[i] = this.likertScale(arr[i])
+					result.brandFit = this.likertScale(arr[i])
 					break
 				case 'Q3':
 					/*** Tone of voice
 					 */
-					result[i] = this.toneOfVoiceCalculation(arr[i])
+					result.toneOfVoice = this.toneOfVoiceCalculation(arr[i])
 					break
 				case 'Q4':
 					/*** Emotion
 					 */
-					result[i] = this.emotionCalculation(arr[i])
+					result.emotion = this.emotionCalculation(arr[i])
 					break
 				case 'Q7':
 					/*** MessagingCalculation
 					 */
 					const nameOfAd = self.countAnswers.getNameOfAd(arr.VidDum)
-					result[[i]] = await this.messagingCalculation(
+					result.messaging = await this.messagingCalculation(
 						arr[i],
 						nameOfAd
 					)
@@ -302,23 +322,23 @@ class TabulateAnswers {
 	mainKPI = arr => {
 		let result = arr
 
-		result['Brand Relevance'] =
-			parseFloat(arr['Q1']) * 0.3 +
-			parseFloat(arr['Q5o2']) * 0.4 +
-			parseFloat(arr['Q8']) * 0.3
-		result['Viewer Engagement'] =
-			parseFloat(arr['Q2']) * 0.3 +
-			parseFloat(arr['Q5o3']) * 0.1 +
-			parseFloat(arr['Q6']) * 0.6
-		result['Ad Message'] =
-			parseFloat(arr['Q3']) * 0.3 +
-			parseFloat(arr['Q4']) * 0.3 +
-			parseFloat(arr['Q5o1']) * 0.2 +
-			parseFloat(arr['Q7']) * 0.2
-		result['Total'] =
-			parseFloat(result['Brand Relevance']) * 0.3 +
-			parseFloat(result['Viewer Engagement']) * 0.4 +
-			parseFloat(result['Ad Message']) * 0.3
+		result.brandRelevance =
+			parseFloat(arr.brandRecall) * 0.3 +
+			parseFloat(arr.relevance) * 0.4 +
+			parseFloat(arr.brandFit) * 0.3
+		result.viewerEngagement =
+			parseFloat(arr.adAppeal) * 0.3 +
+			parseFloat(arr.shareability) * 0.1 +
+			parseFloat(arr.callToAction) * 0.6
+		result.adMessage =
+			parseFloat(arr.toneOfVoice) * 0.3 +
+			parseFloat(arr.emotion) * 0.3 +
+			parseFloat(arr.uniqueness) * 0.2 +
+			parseFloat(arr.messaging) * 0.2
+		result.total =
+			parseFloat(result.brandRelevance) * 0.3 +
+			parseFloat(result.viewerEngagement) * 0.4 +
+			parseFloat(result.adMessage) * 0.3
 
 		return result
 	}

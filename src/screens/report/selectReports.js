@@ -59,9 +59,6 @@ class SelectReports extends Component {
 												toggleSelection={
 													context.toggleSelection
 												}
-												detailsOfSelectedAds={
-													context.detailsOfSelectedAds
-												}
 												getAdsFromURL={
 													context.getAdsFromURL
 												}
@@ -85,9 +82,6 @@ class SelectReports extends Component {
 												toggleSelection={
 													context.toggleSelection
 												}
-												detailsOfSelectedAds={
-													context.detailsOfSelectedAds
-												}
 												getAdsFromURL={
 													context.getAdsFromURL
 												}
@@ -105,8 +99,8 @@ class SelectReports extends Component {
 										path="/chart/:id"
 										render={props => (
 											<Chart
-												detailsOfSelectedAds={
-													context.detailsOfSelectedAds
+												selectedAds={
+													context.selectedAds
 												}
 												getAdsFromURL={
 													context.getAdsFromURL

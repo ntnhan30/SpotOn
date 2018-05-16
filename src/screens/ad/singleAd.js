@@ -26,7 +26,7 @@ class SingleAd extends Component {
 	constructor() {
 		super()
 		this.state = {
-			thisAd: null, // this is the list of filtered ads
+			thisAd: null,
 			countryNorm: null,
 			adStillExist: true
 		}
@@ -45,7 +45,17 @@ class SingleAd extends Component {
 		const adname = this.props.match.params.id
 
 		// Retrieve the ad details from the server
-		const thisAd = await this.props.api.fetchSingleAd(adname)
+		const { ads } = this.props
+		let thisAd = {}
+		if (ads.length > 0) {
+			thisAd = this.props.ads.filter(function(ad) {
+				return ad.adname === adname
+			})
+			thisAd = thisAd[0]
+		} else {
+			thisAd = await this.props.api.fetchSingleAd(adname)
+		}
+
 		const countryNorm = await this.props.functionsResults.getCountryNorm([
 			thisAd.country
 		])
@@ -258,7 +268,7 @@ class SingleAd extends Component {
 								<TabPanel />
 								<TabPanel>
 									<HorizontalChart
-										thisResults={[thisAd]}
+										selectedAds={[thisAd]}
 										kpis={this.props.getKPIs.init(
 											brandRelevance
 										)}
@@ -266,7 +276,7 @@ class SingleAd extends Component {
 								</TabPanel>
 								<TabPanel>
 									<HorizontalChart
-										thisResults={[thisAd]}
+										selectedAds={[thisAd]}
 										kpis={this.props.getKPIs.init(
 											viewerEngagement
 										)}
@@ -274,20 +284,20 @@ class SingleAd extends Component {
 								</TabPanel>
 								<TabPanel>
 									<HorizontalChart
-										thisResults={[thisAd]}
+										selectedAds={[thisAd]}
 										kpis={this.props.getKPIs.init(
 											adMessage
 										)}
 									/>
 									<h2>Emotion breakout</h2>
 									<ObjectBarChart
-										thisResults={thisAd.emotion}
+										selectedAds={thisAd.emotion}
 										kpis={'Emotion'}
 									/>
 									<br />
 									<h2>Tone of voice breakout</h2>
 									<ObjectBarChart
-										thisResults={thisAd.toneOfVoice}
+										selectedAds={thisAd.toneOfVoice}
 										kpis={'Tone of Voice'}
 									/>
 								</TabPanel>

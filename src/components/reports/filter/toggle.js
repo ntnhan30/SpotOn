@@ -12,13 +12,13 @@ class CreateToggle extends Component {
 
 	render() {
 		const self = this
-		const key = this.props.keyName
+		const { placeholder, keyName, filter } = this.props
 
 		const colorFont = { color: '#010000' }
 
 		return (
 			<div className="toggleButton">
-				Only favourites?
+				{placeholder}
 				<ToggleButton
 					inactiveLabel={'OFF'}
 					activeLabel={'ON'}
@@ -41,13 +41,12 @@ class CreateToggle extends Component {
 					activeLabelStyle={colorFont}
 					inactiveLabelStyle={colorFont}
 					thumbAnimateRange={[0, 34]}
-					//thumbIcon={<ThumbIcon />}
 					value={self.state.value}
 					onToggle={value => {
 						if (!value === true) {
-							self.props.filter([!value], key)
+							filter([!value], keyName)
 						} else {
-							self.props.filter([!value, value], key)
+							filter('', keyName)
 						}
 						self.setState({
 							value: !value

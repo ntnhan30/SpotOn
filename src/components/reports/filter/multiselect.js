@@ -12,18 +12,18 @@ class CreateMultiselect extends Component {
 
 	render() {
 		const self = this
-		const key = this.props.keyName
+		const { dataDropdown, placeholder, keyName, filter } = this.props
 
 		return (
 			<Multiselect
 				filter
-				data={this.props.dataDropdown}
-				placeholder={key}
+				data={dataDropdown}
+				placeholder={placeholder}
 				value={this.state.values}
 				allowCreate="onFilter"
 				onChange={function(i, k) {
 					self.setState({ values: i })
-					self.props.filter(i, key)
+					filter(i, keyName)
 				}}
 				textField="name"
 			/>

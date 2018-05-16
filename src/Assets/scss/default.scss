@@ -273,63 +273,6 @@ li {
 					padding: 0em 1em;
 				}
 			}
-
-			.rw-widget-container,
-			.rw-multiselect {
-				background: transparent;
-			}
-
-			.rw-widget,
-			.input-range,
-			.month-picker {
-				margin: 1em 0;
-				display: block;
-				width: 100%;
-
-				.rw-widget-input {
-					& > div {
-						padding: 0.5em 0.5em;
-
-						.rw-multiselect-tag {
-							margin: 0.15em 0.3em 0.15em 0;
-							display: table;
-							clear: none;
-							float: left;
-						}
-					}
-				}
-
-				label {
-					margin: 0;
-				}
-			}
-			.input-range {
-				margin: 1.3em 0 2.4em 0 !important;
-			}
-
-			.rw-input-reset {
-				text-transform: capitalize;
-
-				&[size='2'] {
-					display: none;
-				}
-			}
-
-			.month-picker {
-				.box {
-					display: block;
-					border: solid 1px rgb(230, 230, 230);
-					border-radius: 4px;
-					padding: 1em;
-				}
-			}
-
-			.form-control-lg {
-				font-size: 15px;
-				padding: 1em;
-				margin-top: 1em;
-				color: $white;
-			}
 		}
 
 		&#selected {
@@ -414,6 +357,29 @@ li {
 					}
 				}
 			}
+
+			.breakoutTitle {
+				font-size: 1em;
+				padding: 1em;
+				color: #007bff;
+				background-color: $midnightBlue800;
+				letter-spacing: 0.05em;
+				cursor: pointer;
+				text-transform: uppercase;
+
+			}
+
+			.breakout {
+				overflow: hidden;
+				max-height: 0;
+				transition: max-height 0.4s ease-out;
+				padding: 0 1em;
+
+				&.open {
+					overflow: initial;
+					max-height: 500px;
+				}
+			}
 		}
 
 		&.sidebar {
@@ -434,10 +400,78 @@ li {
 
 			&#selected {
 				& > div {
-					& > div {
+					& > div.list-selected {
 						height: calc(100vh - 219px);
+
+						table {
+							position: relative;
+							z-index: 4;
+							background-color: $midnightBlue200;
+						}
 					}
 				}
+			}
+
+			.rw-widget-container,
+			.rw-multiselect {
+				background: transparent;
+			}
+
+			.rw-widget,
+			.input-range,
+			.month-picker {
+				margin: 1em 0;
+				display: block;
+				width: 100%;
+
+				.rw-widget-input {
+					& > div {
+						padding: 0.5em 0.5em;
+
+						.rw-multiselect-tag {
+							margin: 0.15em 0.3em 0.15em 0;
+							display: table;
+							clear: none;
+							float: left;
+						}
+					}
+
+					.rw-dropdown-list-input {
+						padding: 0.8em 1.3em !important;
+						color: white;
+					}
+				}
+
+				label {
+					margin: 0;
+				}
+			}
+			.input-range {
+				margin: 1.3em 0 2.4em 0 !important;
+			}
+
+			.rw-input-reset {
+				text-transform: capitalize;
+
+				&[size='2'] {
+					display: none;
+				}
+			}
+
+			.month-picker {
+				.box {
+					display: block;
+					border: solid 1px rgb(230, 230, 230);
+					border-radius: 4px;
+					padding: 1em;
+				}
+			}
+
+			.form-control-lg {
+				font-size: 15px;
+				padding: 1em;
+				margin-top: 1em;
+				color: $white;
 			}
 		}
 	}

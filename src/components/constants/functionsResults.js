@@ -29,34 +29,6 @@ class FunctionsResults {
 		return averageKPIs
 	}
 
-	getGlobalRange = KPIs => {
-		let result = {}
-
-		let maxPercentile = KPIs[0]
-		let minPercentile = KPIs[1]
-
-		// for each kpi
-		for (let single in KPIs) {
-			// For each value inside KPI
-			for (let key in KPIs[single]) {
-				// Get maximum
-				maxPercentile[key] =
-					KPIs[single][key] > maxPercentile[key]
-						? KPIs[single][key]
-						: maxPercentile[key]
-				// Get minimum
-				minPercentile[key] =
-					KPIs[single][key] < minPercentile[key]
-						? KPIs[single][key]
-						: minPercentile[key]
-			}
-		}
-
-		result.maxPercentile = maxPercentile
-		result.minPercentile = minPercentile
-		return result
-	}
-
 	getAverageKPIsOfSelected = selectedAds => {
 		// create empty object
 		let allKPIs = []
@@ -90,9 +62,7 @@ class FunctionsResults {
 		return selectedCountries
 	}
 
-	getPercentileScore = async selectedAds => {
-		const self = this
-
+	getPercentileScore = (ads, selectedAds) => {
 		// Get list of selected countries
 		let selectedCountries = this.getCountriesOfSelectedAds(selectedAds)
 
@@ -104,27 +74,32 @@ class FunctionsResults {
 		let countryKPIs = {}
 		let sorted = {}
 		let counted = []
-		await Promise.all(
-			selectedCountries.map(async c => {
-				countryKPIs[c] = await self.api.fetchCountryKPIs([c])
-				sorted[c] = {}
-				for (let singleKPI in countryKPIs[c]['0']) {
-					sorted[c][singleKPI] = _.map(
-						countryKPIs[c],
-						singleKPI
-					).sort(sortNumber)
-				}
-				counted[c] = {}
-				for (let s in sorted[c]) {
-					var count = {}
-					// eslint-disable-next-line
-					sorted[c][s].forEach(function(i) {
-						count[i] = (count[i] || 0) + 1
-					})
-					counted[c][s] = count
+
+		selectedCountries.map(async c => {
+			countryKPIs[c] = []
+			_.forEach(ads, function(ad) {
+				if (ad.country === c) {
+					countryKPIs[c].push(ad.kpis)
+					return ad.kpis
 				}
 			})
-		)
+			countryKPIs[c] = _.compact(countryKPIs[c])
+			sorted[c] = {}
+			for (let singleKPI in countryKPIs[c]['0']) {
+				sorted[c][singleKPI] = _.map(countryKPIs[c], singleKPI).sort(
+					sortNumber
+				)
+			}
+			counted[c] = {}
+			for (let s in sorted[c]) {
+				var count = {}
+				// eslint-disable-next-line
+				sorted[c][s].forEach(function(i) {
+					count[i] = (count[i] || 0) + 1
+				})
+				counted[c][s] = count
+			}
+		})
 
 		// For each ad selected
 		for (let single in selectedAds) {
@@ -132,7 +107,7 @@ class FunctionsResults {
 			selectedAds[single].percentile = {}
 			// For KPI of the selected Ad
 			for (let kpi in selectedAds[single].kpis) {
-				if (kpi !== 'adID') {
+				if (kpi !== 'adID' && kpi !== 'Ad name') {
 					let value = selectedAds[single].kpis[kpi] // Get value
 					let index = sorted[selectedAds[single].country][
 						kpi

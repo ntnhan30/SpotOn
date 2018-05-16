@@ -19,7 +19,7 @@ class WeightedReport extends Component {
 			let cells = []
 			let valuesCell = []
 			let sampleSize = []
-			_.mapValues(self.props.allResults, single => {
+			_.mapValues(self.props.selectedAds, single => {
 				valuesCell.push(single.shortname)
 				sampleSize.push(single.sampleSize)
 			})
@@ -27,7 +27,8 @@ class WeightedReport extends Component {
 			cells.push(
 				<Cell key={0}>
 					<ExportCSV
-						toExport={self.props.allResults}
+						ads={self.props.ads}
+						toExport={self.props.selectedAds}
 						countryNorms={this.props.countryNorms}
 					/>
 				</Cell>
@@ -52,7 +53,7 @@ class WeightedReport extends Component {
 			let valuesCell = []
 			let countries = []
 			// eslint-disable-next-line
-			_.mapValues(self.props.allResults, single => {
+			_.mapValues(self.props.selectedAds, single => {
 				let v =
 					single['kpis'] == null || isNaN(single['kpis'][kpi])
 						? 0

@@ -23,10 +23,10 @@ class BarCharts extends Component {
 	}
 
 	render() {
-		let { countryNorms } = this.props
+		let { countryNorms, selectedAds } = this.props
 
 		// Convert the object into array
-		let thisResults = _.values(this.props.thisResults)
+		selectedAds = _.values(selectedAds)
 
 		// Prepare the data for the chart
 		let dataForChart = []
@@ -36,7 +36,7 @@ class BarCharts extends Component {
 				name: kpi.nameInDB
 			}
 			// eslint-disable-next-line
-			thisResults.map(obj => {
+			selectedAds.map(obj => {
 				const kpiValue = obj.kpis
 					? parseInt(obj['kpis'][kpi.nameInDB], 10)
 					: 0
@@ -47,7 +47,7 @@ class BarCharts extends Component {
 
 		// Unique key for iterating
 		let k = 0
-		const bars = thisResults.map(obj => {
+		const bars = selectedAds.map(obj => {
 			return (
 				<Bar
 					key={k++}

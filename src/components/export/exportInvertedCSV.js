@@ -9,7 +9,7 @@ class ExportInvertedCSV extends Component {
 	constructor() {
 		super()
 		this.state = {
-			allResults: []
+			selectedAds: []
 		}
 	}
 
@@ -20,23 +20,25 @@ class ExportInvertedCSV extends Component {
 	// Calculate the percentile values of the selceted Ads
 	componentDidMount = async () => {
 		let allResults = await this.props.functionsResults.getPercentileScore(
+			this.props.ads,
 			this.props.toExport
 		)
 		this.setState({
-			allResults: allResults.selectedAds
+			selectedAds: allResults.selectedAds
 		})
 	}
 
 	componentDidUpdate = async (prevProps, prevState, snapshot) => {
-		let { toExport } = this.props
+		let { ads, toExport } = this.props
 		let oldToExport = prevProps.toExport
 
 		if (toExport !== oldToExport) {
 			let allResults = await this.props.functionsResults.getPercentileScore(
-				this.props.toExport
+				ads,
+				toExport
 			)
 			this.setState({
-				allResults: allResults.selectedAds
+				selectedAds: allResults.selectedAds
 			})
 		}
 	}
@@ -44,7 +46,7 @@ class ExportInvertedCSV extends Component {
 	// The Workbook plugin demands the array to be ordered in a different way.
 	// This takes the name of the type report (keyname) and set them grouped by kpi
 	getOrderedValuesForCSV(typeOfReport) {
-		let weightedValues = _.map(this.state.allResults, typeOfReport)
+		let weightedValues = _.map(this.state.selectedAds, typeOfReport)
 		console.log(weightedValues)
 		const weighted = {}
 		for (let kpi in weightedValues[0]) {
@@ -80,7 +82,7 @@ class ExportInvertedCSV extends Component {
 	render() {
 		const weightedValues = this.getOrderedValuesForCSV('kpis')
 		const percentileValues = this.getOrderedValuesForCSV('percentile')
-		let selectedAds = _.values(this.state.allResults)
+		let selectedAds = _.values(this.state.selectedAds)
 
 		console.log(weightedValues)
 		console.log(percentileValues)
@@ -116,7 +118,7 @@ class ExportInvertedCSV extends Component {
 		columns.unshift(headerCSV())
 		percentilColumns.unshift(headerCSV())
 
-		if (_.isEmpty(this.state.allResults)) {
+		if (_.isEmpty(this.state.selectedAds)) {
 			return <SmallLoadingSpinner />
 		} else {
 			return (
@@ -127,18 +129,15 @@ class ExportInvertedCSV extends Component {
 							<button className="btn">
 								<span className="icon-in" />Download as Excel
 							</button>
-						}
-					>
+						}>
 						<Workbook.Sheet
 							data={weightedValues}
-							name="Weighted Report"
-						>
+							name="Weighted Report">
 							{columns}
 						</Workbook.Sheet>
 						<Workbook.Sheet
 							data={percentileValues}
-							name="Percentile Report"
-						>
+							name="Percentile Report">
 							{percentilColumns}
 						</Workbook.Sheet>
 					</Workbook>

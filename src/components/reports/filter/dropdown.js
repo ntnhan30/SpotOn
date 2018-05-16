@@ -12,19 +12,19 @@ class CreateDropdownList extends Component {
 
 	render() {
 		const self = this
-		const key = this.props.keyName
+		const { dataDropdown, placeholder, keyName, filter } = this.props
 
 		return (
 			<DropdownList
 				filter
-				data={this.props.dataDropdown}
-				placeholder={key}
+				data={dataDropdown}
+				placeholder={placeholder}
 				allowCreate="onFilter"
 				onSelect={function(i) {
 					// enclose the value in an array
 					const thisValue = [i]
 					self.setState({ values: i })
-					self.props.filter(thisValue, key)
+					filter(thisValue, keyName)
 				}}
 				textField="name"
 			/>

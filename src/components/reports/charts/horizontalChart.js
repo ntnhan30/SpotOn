@@ -18,9 +18,11 @@ class HorizontalChart extends Component {
 	}
 
 	render() {
+		let { selectedAds } = this.props
+
 		let thisResults = []
-		for (let i in this.props.thisResults) {
-			thisResults.push(this.props.thisResults[i])
+		for (let i in selectedAds) {
+			thisResults.push(selectedAds[i])
 		}
 
 		let dataForChart = []

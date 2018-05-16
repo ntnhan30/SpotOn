@@ -28,10 +28,10 @@ class ObjectBarChart extends Component {
 	}
 
 	render() {
-		let results = this.props.thisResults
+		let results = this.props.selectedAds
 
 		const sumOfAll = _.sum(
-			_.values(_.omit(this.props.thisResults, ['adName']))
+			_.values(_.omit(this.props.selectedAds, ['adName']))
 		)
 
 		let resultsPercentage = {}
@@ -46,7 +46,7 @@ class ObjectBarChart extends Component {
 
 		let thisKeys = []
 
-		for (let i in this.props.thisResults) {
+		for (let i in this.props.selectedAds) {
 			thisKeys.push(i)
 		}
 

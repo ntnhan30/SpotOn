@@ -1,6 +1,7 @@
 import Api from './api'
 import HandleCSV from './handleCSV'
 import FilterAds from './filterAds'
+import FilterResults from './filterResults'
 import TabulateAnswers from './tabulateAnswers'
 import CountAnswers from './countAnswers'
 import FunctionsResults from './functionsResults'
@@ -15,6 +16,7 @@ export {
 	Api,
 	HandleCSV,
 	FilterAds,
+	FilterResults,
 	TabulateAnswers,
 	CountAnswers,
 	FunctionsResults,

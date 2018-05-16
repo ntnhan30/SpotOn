@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Link } from 'react-router-dom'
+import { AppContext, Breakout } from '../../components'
 var _ = require('lodash')
 
 class SelectedAds extends Component {
@@ -48,15 +49,15 @@ class SelectedAds extends Component {
 						</span>
 					</td>
 					<td className="selected-icons">
+						<Link to={{ pathname: '/ad/' + ad.adname }}>
+							<span className="icon-eye" />
+						</Link>
 						<span
 							className="icon-close"
 							onClick={() =>
 								this.props.toggleSelection(ad.adname, false)
 							}
 						/>
-						<Link to={{ pathname: '/ad/' + ad.adname }}>
-							<span className="icon-eye" />
-						</Link>
 					</td>
 				</tr>
 			)
@@ -128,7 +129,19 @@ class SelectedAds extends Component {
 					<thead className="thead-dark">{tableHeader()}</thead>
 					<tbody>{reportButtons()}</tbody>
 				</table>
-				<div>
+				<div className="list-selected">
+					<AppContext.Consumer>
+						{context => (
+							<Breakout
+								ads={context.ads}
+								selectedAds={context.selectedAds}
+								breakoutSelectedAds={
+									context.breakoutSelectedAds
+								}
+								isInsideReport={context.isInsideReport}
+							/>
+						)}
+					</AppContext.Consumer>
 					<table className="table table-striped table-hover">
 						<tbody>{listSelectedAds()}</tbody>
 					</table>

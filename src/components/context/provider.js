@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
 import AppContext from './context'
-import { Auth, Api, FilterAds, FunctionsResults } from '../../components'
-import { history } from '../../components/auth'
+import {
+	Auth,
+	Api,
+	FilterAds,
+	FunctionsResults,
+	history
+} from '../../components'
 
 var _ = require('lodash')
 
@@ -28,8 +33,6 @@ class AppProvider extends Component {
 		ads: [],
 		// Array of Object of ads selected by the user
 		selectedAds: {},
-		// Object of the selected ads with all the details (kpis, percentile, results)
-		detailsOfSelectedAds: {},
 		// This function toggles the [selected]
 		toggleSelection: (ad, isSelected) => {
 			this.toggleSelection(ad, isSelected)
@@ -66,6 +69,10 @@ class AppProvider extends Component {
 			await this.filterAds(valueToFilter, key)
 		},
 
+		breakoutSelectedAds: newSelectedAds => {
+			this.breakoutSelectedAds(newSelectedAds)
+		},
+
 		isInsideReport: false
 	}
 
@@ -81,7 +88,6 @@ class AppProvider extends Component {
 		this.setState({ lastStepOfTour: true })
 	}
 
-	// This acepts this.props.match
 	async getAdsFromURL() {
 		const location = history.location.pathname
 		// Only runs if inside a report
@@ -98,15 +104,10 @@ class AppProvider extends Component {
 			if (_.isEmpty(selectedAds)) {
 				// If there is no selected Ads on the Provider get it from the URL
 				adsOnURL = _.last(location.split('/'))
-				//propsMatch.params.id
 				adsOnURL = adsOnURL.split('&')
-				//console.log('no provider selected')
-				//console.log(ads)
 			} else {
 				// If its on provider get the names from there
 				adsOnURL = _.map(selectedAds, 'adname')
-				//console.log('yes in provider')
-				//console.log(ads)
 			}
 
 			for (let i in adsOnURL) {
@@ -165,6 +166,8 @@ class AppProvider extends Component {
 		// Otherwise remove it from the collection
 		if (isSelected) {
 			selectedAds[adName] = thisAd
+
+			this.addCountryNorm(selectedAds[adName].country)
 		} else {
 			selectedAds = _.omit(selectedAds, adName)
 		}
@@ -173,40 +176,9 @@ class AppProvider extends Component {
 
 		// If there are selected ads, get the details
 		// Otherwise go back to the report page
-		if (_.size(selectedAds) > 0) {
-			await this.getDetailsOfSelectedAds(adName, isSelected)
-		} else {
+		if (!(_.size(selectedAds) > 0)) {
 			history.push('/')
 		}
-	}
-
-	/**
-	 * This ASYNC function gets the details of the selected ad --
-	 * Update state => detailsOfSelectedAds
-	 * Fires the country norm retrieval
-	 *
-	 * @param {String} adName                 String of the Shortname of the ad
-	 * @param {Boolean} isSelected            New state of selection
-	 */
-	async getDetailsOfSelectedAds(adName, isSelected) {
-		let { detailsOfSelectedAds, ads } = this.state
-		const api = new Api()
-
-		if (isSelected) {
-			if (detailsOfSelectedAds[adName] === undefined) {
-				detailsOfSelectedAds[adName] = _.find(ads, function(i) {
-					return i.adname === adName
-				})
-				this.addCountryNorm(detailsOfSelectedAds[adName].country)
-			}
-		} else {
-			detailsOfSelectedAds = _.omit(detailsOfSelectedAds, [adName])
-		}
-
-		// Save them into the state
-		this.setState({
-			detailsOfSelectedAds
-		})
 	}
 
 	/**
@@ -291,6 +263,18 @@ class AppProvider extends Component {
 		this.setState({
 			filterAtts: result.filterAtts,
 			ads: result.ads
+		})
+	}
+
+	breakoutSelectedAds(newSelectedAds) {
+		let { selectedAds } = this.state
+		_.forEach(newSelectedAds, newKPI => {
+			let adName = newKPI['Ad name']
+			selectedAds[adName].kpis = newKPI
+		})
+
+		this.setState({
+			selectedAds
 		})
 	}
 

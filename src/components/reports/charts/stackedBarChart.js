@@ -20,7 +20,7 @@ class StackedBarCharts extends Component {
 	}
 
 	render() {
-		let thisResults = _.values(this.props.thisResults)
+		let thisResults = _.values(this.props.selectedAds)
 
 		let dataForChart = []
 		// eslint-disable-next-line
@@ -40,11 +40,6 @@ class StackedBarCharts extends Component {
 			})
 			dataForChart.push(set)
 		})
-		console.log('dataForChart')
-		console.log(dataForChart)
-
-		console.log('thisResults')
-		console.log(thisResults)
 
 		const bars = this.props.kpis.map((kpi, i) => {
 			return (

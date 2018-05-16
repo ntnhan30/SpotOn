@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { constants } from 'os'
+
 var _ = require('lodash')
 
 axios.defaults.baseURL = 'http://localhost:4000/api' // LOCAL
@@ -15,6 +15,7 @@ class Api {
 		this.addExtraInfo = '/spot/addExtraInfo/'
 
 		this.getResultsAd = '/results/'
+		this.getResultsVarious = '/results/various'
 		this.createResults = '/results/new'
 
 		this.getAllKPIs = '/kpi'
@@ -107,6 +108,14 @@ class Api {
 		return data.results
 	}
 
+	// Fetch Results from Various Ad
+	async fetchResultsFromVariousAds(adnames) {
+		const { data } = await axios.post(this.getResultsVarious, {
+			adIDs: adnames
+		})
+		return data.results
+	}
+
 	// Create Tone Of Voice of the Ad
 	async updateExtraInfo(arr) {
 		for (let i in arr) {
@@ -190,21 +199,21 @@ class Api {
 		await Promise.all(
 			arryOfKpis.map(async kpis => {
 				await axios.post(this.createKPIs, {
-					adname: kpis['Ad name'],
-					brandRecall: kpis['Q1'],
-					adAppeal: kpis['Q2'],
-					toneOfVoice: kpis['Q3'],
-					emotion: kpis['Q4'],
-					uniqueness: kpis['Q5o1'],
-					relevance: kpis['Q5o2'],
-					shareability: kpis['Q5o3'],
-					callToAction: kpis['Q6'],
-					messaging: kpis['Q7'],
-					brandFit: kpis['Q8'],
-					brandRelevance: kpis['Brand Relevance'],
-					viewerEngagement: kpis['Viewer Engagement'],
-					adMessage: kpis['Ad Message'],
-					total: kpis['Total']
+					adname: kpis.adname,
+					brandRecall: kpis.brandRecall,
+					adAppeal: kpis.adAppeal,
+					toneOfVoice: kpis.toneOfVoice,
+					emotion: kpis.emotion,
+					uniqueness: kpis.uniqueness,
+					relevance: kpis.relevance,
+					shareability: kpis.shareability,
+					callToAction: kpis.callToAction,
+					messaging: kpis.messaging,
+					brandFit: kpis.brandFit,
+					brandRelevance: kpis.brandRelevance,
+					viewerEngagement: kpis.viewerEngagement,
+					adMessage: kpis.adMessage,
+					total: kpis.total
 				})
 				result = true
 			})
