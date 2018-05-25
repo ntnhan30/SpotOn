@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Picker from 'react-month-picker'
-import MonthBox from './monthbox'
+//import MonthBox from './monthbox'
+import { MonthBox } from '../../../components'
 require('react-month-picker-input/dist/react-month-picker-input.css')
 var _ = require('lodash')
 
@@ -157,8 +158,7 @@ class CreateCalendar extends Component {
 				lang={pickerLang}
 				theme="light"
 				onChange={handleRangeChange}
-				onDismiss={handleRangeDissmis}
-			>
+				onDismiss={handleRangeDissmis}>
 				<MonthBox
 					value={
 						makeText(selectedRange.from) +

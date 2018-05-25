@@ -1,4 +1,5 @@
 import { Api, CountAnswers } from '../../components'
+import FuzzySet from 'fuzzyset.js'
 
 var _ = require('lodash')
 
@@ -6,6 +7,7 @@ class TabulateAnswers {
 	constructor() {
 		this.api = new Api()
 		this.countAnswers = new CountAnswers()
+		this.ads = {}
 	}
 
 	/**
@@ -31,6 +33,7 @@ class TabulateAnswers {
 				result.push(mainKpis)
 			})
 		)
+
 		return result
 	}
 
@@ -66,6 +69,36 @@ class TabulateAnswers {
 		let maxCount = 0
 		for (let i in arr) {
 			if (parseFloat(i) === 1) {
+				count += arr[i]
+			}
+			maxCount += arr[i]
+		}
+		result = maxCount > 0 ? parseFloat(count / maxCount * 100) : 0
+		// Invert result
+		result = 100 - result
+		return result
+	}
+
+	checkBrandRecall = (arr, adname) => {
+		//this.ads
+
+		//let thisAd = _.find(this.ads, o => o.adname === adname)
+		console.log(this.ads[adname].brand)
+
+		console.log(arr)
+
+		let result = 0
+		let count = 0
+		let maxCount = 0
+		for (let i in arr) {
+			// for each name
+			if (parseFloat(i) === 1) {
+				/*
+
+				let a = FuzzySet(['Lieferheld'])
+				a.get(i)
+*/
+
 				count += arr[i]
 			}
 			maxCount += arr[i]
@@ -126,8 +159,7 @@ class TabulateAnswers {
 		console.log('+++++++++++++++++++')
 		*/
 
-		// Get info of the Ad from the server
-		const singleAd = await this.api.fetchSingleAd(nameOfAd)
+		const singleAd = this.ads[nameOfAd]
 
 		// Get the Main Messages from the Ad
 		const mainMessage = singleAd.mainMessage
@@ -247,14 +279,29 @@ class TabulateAnswers {
 	kpiCalculation = async arr => {
 		const self = this
 		let result = {}
+
+		// Get info of the Ad from the server
+		const nameOfAd = this.getNameOfAd(arr.VidDum)
+		const singleAd = await this.api.fetchSingleAd(nameOfAd)
+		this.ads[nameOfAd] = singleAd
+
 		for (let i in arr) {
 			switch (i) {
-				case 'Q1o2':
+				case 'Q1o1':
 					/*** Binary scale
                     - Brand Recal
                     */
+					result.brandRecall = this.checkBrandRecall(
+						arr[i],
+						this.getNameOfAd(arr['VidDum'])
+					)
+					break
+				/*** Binary scale
+				case 'Q1o2':
+                    - Brand Recal
 					result.brandRecall = this.binaryScale(arr[i])
 					break
+				  */
 				case 'Q2':
 					/*** Likert Scale
 					- Ad appeal
@@ -311,7 +358,7 @@ class TabulateAnswers {
 					)
 					break
 				case 'VidDum':
-					result['Ad name'] = this.getNameOfAd(arr[i])
+					result['adname'] = this.getNameOfAd(arr[i])
 					break
 				default:
 			}

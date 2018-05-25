@@ -11,11 +11,11 @@ import {
 	ResponsiveContainer
 } from 'recharts'
 
-const colorChart = new ColorChart()
-
 class RadarCharts extends Component {
-	static defaultProps = {
-		colorChart
+	constructor() {
+		super()
+
+		this.colorChart = new ColorChart()
 	}
 
 	render() {
@@ -44,8 +44,8 @@ class RadarCharts extends Component {
 					key={i}
 					name={obj.shortname}
 					dataKey={obj.shortname}
-					stroke={this.props.colorChart.getColor(i)}
-					fill={this.props.colorChart.getColor(i)}
+					stroke={this.colorChart.getColor(i)}
+					fill={this.colorChart.getColor(i)}
 					fillOpacity={0.4}
 				/>
 			)

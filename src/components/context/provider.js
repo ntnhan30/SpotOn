@@ -11,75 +11,81 @@ import {
 var _ = require('lodash')
 
 class AppProvider extends Component {
-	state = {
-		init: async () => {
-			this.init()
-		},
+	constructor() {
+		super()
+		this.state = {
+			init: async () => {
+				this.init()
+			},
 
-		// Object with all the profile details
-		profile: {},
+			// Object with all the profile details
+			profile: {},
 
-		finishTour: async () => {
-			this.finishTour()
-		},
+			finishTour: async () => {
+				this.finishTour()
+			},
 
-		lastStepOfTour: false,
+			lastStepOfTour: false,
 
-		activateLastStepOfTour: () => {
-			this.activateLastStepOfTour()
-		},
+			activateLastStepOfTour: () => {
+				this.activateLastStepOfTour()
+			},
 
-		// Array of objects of all the ads loaded from the server
-		ads: [],
-		// Array of Object of ads selected by the user
-		selectedAds: {},
-		// This function toggles the [selected]
-		toggleSelection: (ad, isSelected) => {
-			this.toggleSelection(ad, isSelected)
-		},
-		//
-		updateFavourites: (adname, isFavorite) => {
-			this.updateFavourites(adname, isFavorite)
-		},
+			// Array of objects of all the ads loaded from the server
+			ads: [],
+			// Array of Object of ads selected by the user
+			selectedAds: {},
+			// This function toggles the [selected]
+			toggleSelection: (ad, isSelected) => {
+				this.toggleSelection(ad, isSelected)
+			},
+			//
+			updateFavourites: (adname, isFavorite) => {
+				this.updateFavourites(adname, isFavorite)
+			},
 
-		// This acepts this.props.match
-		getAdsFromURL: async propsMatch => {
-			await this.getAdsFromURL(propsMatch)
-		},
+			// This acepts this.props.match
+			getAdsFromURL: async propsMatch => {
+				await this.getAdsFromURL(propsMatch)
+			},
 
-		sorting: {
-			key: '',
-			order: 'desc'
-		},
+			sorting: {
+				key: '',
+				order: 'desc'
+			},
 
-		sortAds: key => {
-			this.sortAds(key)
-		},
+			sortAds: key => {
+				this.sortAds(key)
+			},
 
-		countryNorms: {},
+			countryNorms: {},
 
-		addCountryNorm: async () => {
-			await this.addCountryNorm()
-		},
+			addCountryNorm: async () => {
+				await this.addCountryNorm()
+			},
 
-		// Object of the filters applied in the search
-		filterAtts: {},
-		// This functions filters the ad list [show] = true
-		filterAds: async (valueToFilter, key) => {
-			await this.filterAds(valueToFilter, key)
-		},
+			// Object of the filters applied in the search
+			filterAtts: {},
+			// This functions filters the ad list [show] = true
+			filterAds: async (valueToFilter, key) => {
+				await this.filterAds(valueToFilter, key)
+			},
 
-		breakoutSelectedAds: newSelectedAds => {
-			this.breakoutSelectedAds(newSelectedAds)
-		},
+			breakoutSelectedAds: newSelectedAds => {
+				this.breakoutSelectedAds(newSelectedAds)
+			},
 
-		isInsideReport: false
+			isInsideReport: false
+		}
+
+		this.api = new Api()
 	}
 
 	async finishTour() {
-		const api = new Api()
 		// -- Toggle Profile on the Server
-		const profile = await api.toggleUserFirstTime(this.state.profile.email)
+		const profile = await this.api.toggleUserFirstTime(
+			this.state.profile.email
+		)
 
 		this.setState({ profile })
 	}
@@ -193,7 +199,6 @@ class AppProvider extends Component {
 	 * @param {Boolean} isSelected            New state of selection
 	 */
 	async updateFavourites(adname, isFavorite) {
-		const api = new Api()
 		let { ads, profile } = this.state
 
 		// Toggles the ad from the 'profile.favourites' state
@@ -206,7 +211,7 @@ class AppProvider extends Component {
 			})
 		}
 		// Update the profile on the server
-		api.updateUserFavorites(profile.email, profile.favourites)
+		this.api.updateUserFavorites(profile.email, profile.favourites)
 
 		// Update the ad on the ad state
 		let thisAd = _.find(ads, o => o.adname === adname)
@@ -269,7 +274,7 @@ class AppProvider extends Component {
 	breakoutSelectedAds(newSelectedAds) {
 		let { selectedAds } = this.state
 		_.forEach(newSelectedAds, newKPI => {
-			let adName = newKPI['Ad name']
+			let adName = newKPI['adname']
 			selectedAds[adName].kpis = newKPI
 		})
 
@@ -308,12 +313,11 @@ class AppProvider extends Component {
 	async init() {
 		// -- init Auth() & Api()
 		const auth = new Auth()
-		const api = new Api()
 
 		// -- Get Profile from server
 		const profile = await auth.getUserInfo()
 		// -- Get All ads from server and add 'show' & 'favourite' attr
-		let ads = await api.fetchAds(profile)
+		let ads = await this.api.fetchAds(profile)
 		ads = _.map(ads, o => _.extend({ show: true, favourite: false }, o))
 
 		// Adds the favorites to the collection of ads

@@ -1,7 +1,7 @@
 import history from './history'
 import auth0 from 'auth0-js'
-import {AUTH_CONFIG} from './auth0-variables'
-import {Api} from '../constants'
+import { AUTH_CONFIG } from './auth0-variables'
+import { Api } from '../constants'
 
 //const userRights = new UserRights()
 
@@ -23,6 +23,8 @@ class Auth {
 		this.getProfile = this.getProfile.bind(this)
 		this.getEmail = this.getEmail.bind(this)
 		this.userEmail = ''
+
+		this.api = new Api()
 	}
 
 	userProfile
@@ -60,7 +62,7 @@ class Auth {
 		localStorage.setItem('expires_at', expiresAt)
 		localStorage.setItem('user_email', authResult.idTokenPayload.email)
 		// navigate to the home route
-		history.push({pathname: '/'})
+		history.push({ pathname: '/' })
 	}
 
 	logout() {
@@ -70,7 +72,7 @@ class Auth {
 		localStorage.removeItem('expires_at')
 		localStorage.removeItem('user_email')
 		// navigate to the home route
-		history.push({pathname: '/'})
+		history.push({ pathname: '/' })
 	}
 
 	isAuthenticated() {
@@ -115,9 +117,8 @@ class Auth {
 	}
 
 	async getUserInfo() {
-		const api = new Api()
 		const email = this.getEmail()
-		const result = await api.fetchSingleUser(email)
+		const result = await this.api.fetchSingleUser(email)
 
 		return result
 	}

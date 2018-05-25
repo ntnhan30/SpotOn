@@ -10,11 +10,11 @@ import {
 	ResponsiveContainer
 } from 'recharts'
 
-const colorChart = new ColorChart()
-
 class HorizontalChart extends Component {
-	static defaultProps = {
-		colorChart
+	constructor() {
+		super()
+
+		this.colorChart = new ColorChart()
 	}
 
 	render() {
@@ -48,7 +48,7 @@ class HorizontalChart extends Component {
 					dataKey={kpi.name}
 					stackId="a"
 					layout="vertical"
-					fill={this.props.colorChart.getColor(i)}
+					fill={this.colorChart.getColor(i)}
 				/>
 			)
 		})

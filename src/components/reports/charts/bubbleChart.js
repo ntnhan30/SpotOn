@@ -12,11 +12,11 @@ import {
 	ResponsiveContainer
 } from 'recharts'
 
-const colorChart = new ColorChart()
-
 class BubbleChart extends Component {
-	static defaultProps = {
-		colorChart
+	constructor() {
+		super()
+
+		this.colorChart = new ColorChart()
 	}
 
 	render() {
@@ -43,7 +43,7 @@ class BubbleChart extends Component {
 					key={i}
 					data={dataForStats}
 					name={obj.shortname}
-					fill={this.props.colorChart.getColor(i)}
+					fill={this.colorChart.getColor(i)}
 					shape="circle"
 				/>
 			)

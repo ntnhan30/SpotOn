@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ColorChart, FunctionsResults } from '../../constants'
+import { ColorChart } from '../../constants'
 import {
 	CartesianGrid,
 	XAxis,
@@ -13,13 +13,11 @@ import {
 } from 'recharts'
 var _ = require('lodash')
 
-const colorChart = new ColorChart()
-const functionsResults = new FunctionsResults()
-
 class BarCharts extends Component {
-	static defaultProps = {
-		colorChart,
-		functionsResults
+	constructor() {
+		super()
+
+		this.colorChart = new ColorChart()
 	}
 
 	render() {
@@ -52,7 +50,7 @@ class BarCharts extends Component {
 				<Bar
 					key={k++}
 					dataKey={obj.shortname}
-					fill={this.props.colorChart.getColor(k)}
+					fill={this.colorChart.getColor(k)}
 				/>
 			)
 		})
@@ -80,7 +78,7 @@ class BarCharts extends Component {
 							value: single.name + ' country norm',
 							position: 'insideBottomLeft'
 						}}
-						stroke={self.props.colorChart.getNormColor(0)}
+						stroke={self.colorChart.getNormColor(0)}
 						strokeDasharray="10 10"
 					/>
 				)

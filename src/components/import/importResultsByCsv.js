@@ -3,11 +3,6 @@ import ReactFileReader from 'react-file-reader' // move to single component late
 import { Api, HandleCSV, TabulateAnswers, CountAnswers } from '../constants'
 import QuestIcon from '../../Assets/imgs/questionnaire-icon.svg'
 
-const api = new Api()
-const handleCSV = new HandleCSV()
-const tabulateAnswers = new TabulateAnswers()
-const countAnswers = new CountAnswers()
-
 class ImportResultsByCSV extends Component {
 	constructor(props, context) {
 		super(props, context)
@@ -15,13 +10,11 @@ class ImportResultsByCSV extends Component {
 		this.state = {
 			imported: false
 		}
-	}
 
-	static defaultProps = {
-		api,
-		handleCSV,
-		tabulateAnswers,
-		countAnswers
+		this.api = new Api()
+		this.handleCSV = new HandleCSV()
+		this.tabulateAnswers = new TabulateAnswers()
+		this.countAnswers = new CountAnswers()
 	}
 
 	setStateAsync(state) {
@@ -39,19 +32,19 @@ class ImportResultsByCSV extends Component {
 			uploading: true
 		})
 		reader.onload = async function(e) {
-			let results = self.props.handleCSV.csvToObject(reader.result)
+			let results = self.handleCSV.csvToObject(reader.result)
 
-			self.props.api.createBulkResults(results)
+			self.api.createBulkResults(results)
 
 			// Import to DB the results
 			//await self.props.api.createBulkResults(results); -- Import the results
-			const KPIs = await self.props.tabulateAnswers.init(results)
-			const extraInfo = self.props.countAnswers.init(results)
-			self.props.api.updateExtraInfo(extraInfo)
+			const KPIs = await self.tabulateAnswers.init(results)
+			const extraInfo = self.countAnswers.init(results)
+			self.api.updateExtraInfo(extraInfo)
 
 			// Convert the CSV to object and send to API
 			self.setStateAsync({
-				imported: await self.props.api.createKPI(KPIs),
+				imported: await self.api.createKPI(KPIs),
 				uploading: false
 			})
 		}

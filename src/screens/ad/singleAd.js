@@ -16,12 +16,6 @@ import {
 } from '../../components'
 var _ = require('lodash')
 
-const api = new Api()
-const getKPIs = new GetKPIs()
-const messagingCode = new MessagingCode()
-const functionsResults = new FunctionsResults()
-const imageOfAd = new ImageOfAd()
-
 class SingleAd extends Component {
 	constructor() {
 		super()
@@ -30,14 +24,12 @@ class SingleAd extends Component {
 			countryNorm: null,
 			adStillExist: true
 		}
-	}
 
-	static defaultProps = {
-		api,
-		getKPIs,
-		messagingCode,
-		functionsResults,
-		imageOfAd
+		this.api = new Api()
+		this.getKPIs = new GetKPIs()
+		this.messagingCode = new MessagingCode()
+		this.functionsResults = new FunctionsResults()
+		this.imageOfAd = new ImageOfAd()
 	}
 
 	componentDidMount = async () => {
@@ -53,10 +45,10 @@ class SingleAd extends Component {
 			})
 			thisAd = thisAd[0]
 		} else {
-			thisAd = await this.props.api.fetchSingleAd(adname)
+			thisAd = await this.api.fetchSingleAd(adname)
 		}
 
-		const countryNorm = await this.props.functionsResults.getCountryNorm([
+		const countryNorm = await this.functionsResults.getCountryNorm([
 			thisAd.country
 		])
 
@@ -69,9 +61,7 @@ class SingleAd extends Component {
 
 	deleteSingleAd = async () => {
 		// Retrieve the ad details from the server
-		const didItDelete = await this.props.api.deleteAd(
-			this.state.thisAd.adname
-		)
+		const didItDelete = await this.api.deleteAd(this.state.thisAd.adname)
 
 		this.setState({
 			adStillExist: !didItDelete
@@ -108,7 +98,7 @@ class SingleAd extends Component {
 				</div>
 			)
 		} else if (!_.isEmpty(thisAd)) {
-			const AdImage = this.props.imageOfAd.getRandomImage(thisAd.industry)
+			const AdImage = this.imageOfAd.getRandomImage(thisAd.industry)
 
 			const heroStyle = {
 				backgroundImage: `url(${AdImage})`
@@ -144,18 +134,18 @@ class SingleAd extends Component {
 							<article className="ad-messages">
 								<p>
 									<b>
-										{this.props.messagingCode.init(
+										{this.messagingCode.init(
 											thisAd.mainMessage
 										)}
 									</b>
 								</p>
 								<p>
-									{this.props.messagingCode.init(
+									{this.messagingCode.init(
 										thisAd.secondaryMessage
 									)}
 								</p>
 								<p>
-									{this.props.messagingCode.init(
+									{this.messagingCode.init(
 										thisAd.tertiaryMessage
 									)}
 								</p>
@@ -269,15 +259,13 @@ class SingleAd extends Component {
 								<TabPanel>
 									<HorizontalChart
 										selectedAds={[thisAd]}
-										kpis={this.props.getKPIs.init(
-											brandRelevance
-										)}
+										kpis={this.getKPIs.init(brandRelevance)}
 									/>
 								</TabPanel>
 								<TabPanel>
 									<HorizontalChart
 										selectedAds={[thisAd]}
-										kpis={this.props.getKPIs.init(
+										kpis={this.getKPIs.init(
 											viewerEngagement
 										)}
 									/>
@@ -285,9 +273,7 @@ class SingleAd extends Component {
 								<TabPanel>
 									<HorizontalChart
 										selectedAds={[thisAd]}
-										kpis={this.props.getKPIs.init(
-											adMessage
-										)}
+										kpis={this.getKPIs.init(adMessage)}
 									/>
 									<h2>Emotion breakout</h2>
 									<ObjectBarChart

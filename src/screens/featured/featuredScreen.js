@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
 import { GetFeaturedAds } from '../../components'
 
-const getFeaturedAds = new GetFeaturedAds()
-
 class FeaturedScreen extends Component {
-	static defaultProps = {
-		getFeaturedAds
+	constructor() {
+		super()
+
+		this.getFeaturedAds = new GetFeaturedAds()
 	}
+
 	render() {
-		const { ads, getFeaturedAds } = this.props
+		const { ads } = this.props
+		const { getFeaturedAds } = this
 
 		console.log(getFeaturedAds.bestFiveByKPI('total', 'desc', ads))
 		console.log(getFeaturedAds.bestFiveByKPI('brandRelevance', 'desc', ads))

@@ -11,6 +11,8 @@ import GetKPIs from './getKPIs'
 import UserRights from './userRights'
 import ImageOfAd from './imageOfAd'
 import GetFeaturedAds from './getFeaturedAds'
+import BrandRecall from './brandRecall'
+import NamingCodes from './namingCodes'
 
 export {
 	Api,
@@ -25,5 +27,7 @@ export {
 	GetKPIs,
 	UserRights,
 	ImageOfAd,
-	GetFeaturedAds
+	GetFeaturedAds,
+	BrandRecall,
+	NamingCodes
 }

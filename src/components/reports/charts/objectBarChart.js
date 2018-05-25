@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ColorChart, FunctionsResults } from '../../constants'
+import { ColorChart } from '../../constants'
 import {
 	CartesianGrid,
 	XAxis,
@@ -13,18 +13,11 @@ import {
 } from 'recharts'
 var _ = require('lodash')
 
-const colorChart = new ColorChart()
-const functionsResults = new FunctionsResults()
-
 class ObjectBarChart extends Component {
 	constructor() {
 		super()
-		this.state = {}
-	}
 
-	static defaultProps = {
-		colorChart,
-		functionsResults
+		this.colorChart = new ColorChart()
 	}
 
 	render() {
@@ -70,10 +63,7 @@ class ObjectBarChart extends Component {
 
 		const bars = thisKeys.map((obj, i) => {
 			return (
-				<Bar
-					key={i}
-					dataKey={obj}
-					fill={this.props.colorChart.getColor(i)}>
+				<Bar key={i} dataKey={obj} fill={this.colorChart.getColor(i)}>
 					<LabelList
 						dataKey={thisKeys[i]}
 						position="top"

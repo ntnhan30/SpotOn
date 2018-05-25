@@ -18,7 +18,8 @@ import {
 	Callback,
 	HomeScreen,
 	UserGuideScreen,
-	FeaturedScreen
+	FeaturedScreen,
+	NameGenerator
 } from './screens'
 
 import Auth from './components/auth/auth.js'
@@ -90,6 +91,13 @@ class App extends Component {
 							path="/FAQ"
 							render={props => (
 								<UserGuideScreen auth={auth} {...props} />
+							)}
+						/>
+						<Route
+							exact
+							path="/name_generator"
+							render={props => (
+								<NameGenerator auth={auth} {...props} />
 							)}
 						/>
 						<Route

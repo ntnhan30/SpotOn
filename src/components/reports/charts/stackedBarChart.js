@@ -12,11 +12,11 @@ import {
 } from 'recharts'
 var _ = require('lodash')
 
-const colorChart = new ColorChart()
-
 class StackedBarCharts extends Component {
-	static defaultProps = {
-		colorChart
+	constructor() {
+		super()
+
+		this.colorChart = new ColorChart()
 	}
 
 	render() {
@@ -47,7 +47,7 @@ class StackedBarCharts extends Component {
 					key={i}
 					dataKey={kpi.name}
 					stackId="a"
-					fill={this.props.colorChart.getColor(i)}
+					fill={this.colorChart.getColor(i)}
 				/>
 			)
 		})

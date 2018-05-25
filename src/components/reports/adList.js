@@ -6,7 +6,8 @@ import {
 	AppContext,
 	CheckBoxSelectAll,
 	Favourite,
-	SortToggle
+	SortToggle,
+	BrandRecall
 } from '../../components'
 import { Link } from 'react-router-dom'
 import Checkbox from 'rc-checkbox'
@@ -29,9 +30,14 @@ class AdList extends Component {
 		)
 	}
 
+	componentDidMount() {}
+
 	// Logic for displaying ads
 	render = () => {
 		let { ads } = this.props
+
+		const brandRecall = new BrandRecall()
+		brandRecall.init('leifer', 'lieferheld')
 
 		/**
 		 * Set the header of the Ad list Table

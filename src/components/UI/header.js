@@ -47,6 +47,11 @@ class Header extends Component {
                                 */
 								}
 								<li>
+									<Link to="/name_generator">
+										Name Generator
+									</Link>
+								</li>
+								<li>
 									<a
 										href={UsageGuidelinesPDF}
 										target="_blank"
