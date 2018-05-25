@@ -30,7 +30,11 @@ class SingleCalendarMonth extends Component {
 		})
 
 		year = +year.toString().slice(-2) //convert to string
-		this.props.passData({ year, month })
+
+		let result = {}
+		result.date = { year, month }
+
+		this.props.passData(result)
 	}
 
 	render() {

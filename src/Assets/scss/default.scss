@@ -366,7 +366,6 @@ li {
 				letter-spacing: 0.05em;
 				cursor: pointer;
 				text-transform: uppercase;
-
 			}
 
 			.breakout {
@@ -410,68 +409,6 @@ li {
 						}
 					}
 				}
-			}
-
-			.rw-widget-container,
-			.rw-multiselect {
-				background: transparent;
-			}
-
-			.rw-widget,
-			.input-range,
-			.month-picker {
-				margin: 1em 0;
-				display: block;
-				width: 100%;
-
-				.rw-widget-input {
-					& > div {
-						padding: 0.5em 0.5em;
-
-						.rw-multiselect-tag {
-							margin: 0.15em 0.3em 0.15em 0;
-							display: table;
-							clear: none;
-							float: left;
-						}
-					}
-
-					.rw-dropdown-list-input {
-						padding: 0.8em 1.3em !important;
-						color: white;
-					}
-				}
-
-				label {
-					margin: 0;
-				}
-			}
-			.input-range {
-				margin: 1.3em 0 2.4em 0 !important;
-			}
-
-			.rw-input-reset {
-				text-transform: capitalize;
-
-				&[size='2'] {
-					display: none;
-				}
-			}
-
-			.month-picker {
-				.box {
-					display: block;
-					border: solid 1px rgb(230, 230, 230);
-					border-radius: 4px;
-					padding: 1em;
-				}
-			}
-
-			.form-control-lg {
-				font-size: 15px;
-				padding: 1em;
-				margin-top: 1em;
-				color: $white;
 			}
 		}
 	}
@@ -910,12 +847,9 @@ li {
 }
 
 .import-main {
-	display: flex;
-	width: 90%;
-	max-width: 850px;
-	background-color: $midnightBlue500;
+	background-color: #1c1e35;
 	margin: 6em auto 0;
-	padding: 5em;
+	padding: 7em 5em;
 
 	& > div {
 		flex: 1;
@@ -1166,6 +1100,12 @@ li {
 	}
 }
 
+.name-generator-screen {
+	background-color: #1c1e35;
+	margin: 6em auto 0;
+	padding: 7em 5em;
+}
+
 .recharts-wrapper {
 	g.recharts-layer text {
 		fill: $grey;
@@ -1211,6 +1151,103 @@ li {
 		left: inherit;
 		right: inherit;
 	}
+}
+
+/* FORM STYLES */
+.rw-widget-container,
+.rw-multiselect {
+	background: transparent;
+}
+
+.rw-widget,
+.input-range,
+.month-picker {
+	margin: 1em 0;
+	display: block;
+	width: 100%;
+
+	.rw-widget-input {
+		& > div {
+			padding: 0.5em 0.5em;
+
+			.rw-multiselect-tag {
+				margin: 0.15em 0.3em 0.15em 0;
+				display: table;
+				clear: none;
+				float: left;
+			}
+		}
+
+		.rw-dropdown-list-input {
+			padding: 0.8em 1.3em !important;
+			color: white;
+		}
+	}
+
+	label {
+		margin: 0;
+	}
+}
+.input-range {
+	margin: 1.3em 0 2.4em 0 !important;
+}
+
+.rw-input-reset {
+	text-transform: capitalize;
+
+	&[size='2'] {
+		display: none;
+	}
+}
+
+.month-picker {
+	.box {
+		display: block;
+		border: solid 1px rgb(230, 230, 230);
+		border-radius: 4px;
+		padding: 1em;
+	}
+}
+
+.form-control-lg {
+	font-size: 15px;
+	padding: 1em;
+	margin-top: 1em;
+	color: $white;
+}
+
+.input-group {
+	margin: 2em 0 0 !important;
+
+	.form-control,
+	.btn {
+		padding: 0.8rem 0.75rem;
+	}
+
+	.form-control {
+		background: rgba(0, 0, 0, 0.25);
+		border: none;
+		color: $white;
+		font-weight: bold;
+	}
+
+	.btn {
+		background: $blue;
+		border: none;
+		border-radius: 0 0.25rem 0.25rem 0;
+		color: white;
+		text-transform: uppercase;
+		font-size: 0.9rem;
+		letter-spacing: 0.05em;
+		cursor: pointer;
+	}
+}
+
+.rw-btn,
+.rw-input-reset,
+.rw-input,
+.rw-filter-input {
+	color: white;
 }
 
 $joyride-color: $midnightBlue500;

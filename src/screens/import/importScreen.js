@@ -4,13 +4,15 @@ import { ImportAdsByCSV, ImportResultsByCSV } from '../../components'
 class Import extends Component {
 	render() {
 		return (
-			<div className="import-main">
-				<div>
-					<ImportAdsByCSV />
-				</div>
+			<div className="container">
+				<div className="import-main row">
+					<div className="col-6">
+						<ImportAdsByCSV />
+					</div>
 
-				<div>
-					<ImportResultsByCSV />
+					<div className="col-6">
+						<ImportResultsByCSV />
+					</div>
 				</div>
 			</div>
 		)

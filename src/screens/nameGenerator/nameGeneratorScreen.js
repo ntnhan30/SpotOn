@@ -1,7 +1,11 @@
 import React, { Component, Fragment } from 'react'
-import { DropdownList } from 'react-widgets'
-import { NamingCodes, SingleCalendarMonth } from '../../components'
-import { CopyToClipboard } from 'react-copy-to-clipboard'
+import {
+	NamingCodes,
+	SingleCalendarMonth,
+	DropdownNameGenerator,
+	InputNameGenerator,
+	CopyNameToClipboard
+} from '../../components'
 
 var _ = require('lodash')
 
@@ -15,119 +19,80 @@ class NameGenerator extends Component {
 		}
 	}
 
-	decodedName() {
-		let { values } = this.state
-		const { industries, countries, brands, channels } = this.namingCodes
-
-		let name = ''
-
-		let industryCode = _.findKey(industries, o => {
-			return o === values.industry
-		})
-		let countryCode = _.findKey(countries, o => {
-			return o === values.country
-		})
-		let brandCode = _.findKey(brands, o => {
-			return o === values.brand
-		})
-		let channelCode = _.findKey(channels, o => {
-			return o === values.channel
-		})
-
-		let dateCode = !_.isEmpty(values.date)
-			? values.date.year + '' + values.date.month
-			: ''
-
-		name =
-			industryCode +
-			'_' +
-			brandCode +
-			'_' +
-			countryCode +
-			'_' +
-			channelCode +
-			'_' +
-			values.length +
-			'_' +
-			dateCode +
-			'_' +
-			values.adname +
-			'_' +
-			values.version
-
-		return name.toUpperCase()
-	}
-
 	render() {
 		const self = this
 		let { values } = this.state
 
 		const { industries, countries, brands, channels } = this.namingCodes
 
-		const dropdown = (v, dataDropdown) => (
-			<DropdownList
-				filter
-				data={_.values(dataDropdown)}
-				placeholder={'Select ' + v}
-				allowCreate="onFilter"
-				onSelect={i => {
-					values[v] = i
-					self.setState({ values })
-				}}
-				textField="name"
-			/>
-		)
-
-		const inputText = (v, placeholder) => (
-			<input
-				type="text"
-				placeholder={placeholder}
-				value={this.state.values.v}
-				onChange={e => {
-					const textFromInput = e.target.value
-					values[v] = textFromInput
-					self.setState({ values })
-				}}
-			/>
-		)
-
-		const getValuesFromCalendar = dateObj => {
+		const getValuesFromInputs = newObj => {
 			let { values } = self.state
-			values.date = dateObj
+			values = _.merge(values, newObj)
 			self.setState({ values })
 		}
 
 		return (
 			<div className="container">
-				<div className="row">
-					<div className="col-sm">
+				<div className="row name-generator-screen">
+					<div className="col-12">
 						<h1>Name Generator</h1>
 					</div>
-				</div>
-				<div className="row">
-					<div className="col-sm">
-						<div style={{ width: '100%' }}>
-							{dropdown('industry', industries)}
-							{dropdown('country', countries)}
-							{dropdown('brand', brands)}
-							{dropdown('channel', channels)}
-							<SingleCalendarMonth
-								passData={getValuesFromCalendar}
-							/>
-							{inputText('length', 'Enter Length')}
-							{inputText('adname', 'Enter Adname')}
-							{inputText('version', 'Enter version')}
-						</div>
 
-						{this.decodedName()}
-						<CopyToClipboard
-							//onCopy={this.onCopy}
-							options={{ message: 'Whoa!' }}
-							text={this.decodedName()}>
-							<button onClick={this.onClick}>
-								Copy to clipboard with onClick prop
-							</button>
-						</CopyToClipboard>
+					<div className="col-6">
+						<DropdownNameGenerator
+							name={'industry'}
+							data={industries}
+							passData={getValuesFromInputs}
+						/>
+					</div>
+					<div className="col-6">
+						<DropdownNameGenerator
+							name={'country'}
+							data={countries}
+							passData={getValuesFromInputs}
+						/>
+					</div>
+					<div className="col-6">
+						<DropdownNameGenerator
+							name={'brand'}
+							data={brands}
+							passData={getValuesFromInputs}
+						/>{' '}
+					</div>
+					<div className="col-6">
+						<DropdownNameGenerator
+							name={'channel'}
+							data={channels}
+							passData={getValuesFromInputs}
+						/>
+					</div>
+					<div className="col-6">
+						<SingleCalendarMonth passData={getValuesFromInputs} />
+					</div>
+					<div className="col-6">
+						<InputNameGenerator
+							name={'length'}
+							placeholder={'Enter Length'}
+							passData={getValuesFromInputs}
+						/>
+					</div>
+					<div className="col-6">
+						<InputNameGenerator
+							name={'adname'}
+							placeholder={'Enter Adname'}
+							passData={getValuesFromInputs}
+						/>
+					</div>
+					<div className="col-6">
+						<InputNameGenerator
+							name={'version'}
+							placeholder={'Enter version'}
+							passData={getValuesFromInputs}
+						/>
+					</div>
+
+					<div className="col-12">
+						<CopyNameToClipboard values={this.state.values} />
 					</div>
 				</div>
 			</div>
