@@ -32,6 +32,15 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-trash:before {
+	content: '\e90a';
+}
+.icon-arrow_drop_up:before {
+	content: '\e906';
+}
+.icon-arrow_drop_down:before {
+	content: '\e907';
+}
 .icon-image:before {
 	content: '\e909';
 }
@@ -94,16 +103,9 @@
 }
 .icon-sort-alpha-asc:before {
 	content: '\ea48';
-	font-size: 14px;
 }
 .icon-file-excel:before {
 	content: '\eae2';
-}
-.icon-arrow_drop_up:before {
-	content: '\e906';
-}
-.icon-arrow_drop_down:before {
-	content: '\e907';
 }
 .icon-life-bouy:before {
 	content: '\e905';
@@ -1248,6 +1250,54 @@ li {
 .rw-input,
 .rw-filter-input {
 	color: white;
+}
+
+.lightbox {
+	width: 100%;
+	background: $white;
+	padding: 2em 3em;
+	box-sizing: content-box;
+	border-radius: 0.3em;
+
+	div.form {
+		.btn {
+			color: #f9f9f9;
+			background: #414bff;
+			background-color: rgb(65, 75, 255);
+			width: 100%;
+			padding: 1em 0;
+			font-size: 0.9em;
+			text-transform: uppercase;
+			border: none;
+			border-left-color: currentcolor;
+			border-left-style: none;
+			border-left-width: medium;
+			cursor: pointer;
+		}
+
+		.form-control-lg,
+		.rw-btn,
+		.rw-filter-input,
+		.rw-input,
+		.rw-input-reset,
+		.input-range .rw-widget-input .rw-dropdown-list-input,
+		.month-picker .rw-widget-input .rw-dropdown-list-input,
+		.rw-widget .rw-widget-input .rw-dropdown-list-input {
+			color: #010000;
+		}
+
+		& > span {
+			color: red;
+			border-bottom: solid 2px red;
+			width: 100%;
+			display: block;
+		}
+	}
+}
+
+.inner___1rfRQ .image___2FLq2 {
+	width: 600px;
+	max-width: 70%;
 }
 
 $joyride-color: $midnightBlue500;

@@ -27,6 +27,7 @@ class Api {
 		this.createUser = '/user/new'
 		this.updateFavourites = '/user/favourites'
 		this.notFirstTime = '/user/notFirstTime/'
+		this.deleteUser = '/user/delete/'
 
 		this.profile = {}
 	}
@@ -235,13 +236,18 @@ class Api {
 	}
 
 	// Create Single User
-	async createUser(email, countries, right) {
+	async addUser(email, countries, right) {
 		await axios.post(this.createUser, {
 			email: email,
 			countries: countries,
 			right: right
 		})
 		return true
+	}
+
+	async removeUser(userEmail) {
+		const { data } = await axios.get(this.deleteUser + userEmail)
+		return data
 	}
 
 	// Create Single User

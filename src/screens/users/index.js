@@ -1,3 +1,3 @@
-import Users from './userScreen'
+import UserDashboardScreen from './userScreen'
 
-export { Users }
+export { UserDashboardScreen }

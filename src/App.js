@@ -11,7 +11,6 @@ import { Header, AppContext, ErrorBoundary } from './components'
 import {
 	Import,
 	Notifications,
-	Users,
 	SingleAd,
 	Login,
 	Logout,
@@ -19,7 +18,8 @@ import {
 	HomeScreen,
 	UserGuideScreen,
 	FeaturedScreen,
-	NameGenerator
+	NameGenerator,
+	UserDashboardScreen
 } from './screens'
 
 import Auth from './components/auth/auth.js'
@@ -84,7 +84,6 @@ class App extends Component {
 							path="/notifications"
 							component={Notifications}
 						/>
-						<PrivateRoute path="/users" component={Users} />
 						<PrivateRoute path="/ad/:id" component={SingleAd} />
 						<Route
 							exact
@@ -99,6 +98,10 @@ class App extends Component {
 							render={props => (
 								<NameGenerator auth={auth} {...props} />
 							)}
+						/>
+						<PrivateRoute
+							path="/users"
+							component={UserDashboardScreen}
 						/>
 						<Route
 							exact

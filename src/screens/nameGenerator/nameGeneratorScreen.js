@@ -1,9 +1,9 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import {
 	NamingCodes,
 	SingleCalendarMonth,
-	DropdownNameGenerator,
-	InputNameGenerator,
+	DropdownFormElement,
+	InputFormElement,
 	CopyNameToClipboard
 } from '../../components'
 
@@ -21,7 +21,6 @@ class NameGenerator extends Component {
 
 	render() {
 		const self = this
-		let { values } = this.state
 
 		const { industries, countries, brands, channels } = this.namingCodes
 
@@ -39,28 +38,28 @@ class NameGenerator extends Component {
 					</div>
 
 					<div className="col-6">
-						<DropdownNameGenerator
+						<DropdownFormElement
 							name={'industry'}
 							data={industries}
 							passData={getValuesFromInputs}
 						/>
 					</div>
 					<div className="col-6">
-						<DropdownNameGenerator
+						<DropdownFormElement
 							name={'country'}
 							data={countries}
 							passData={getValuesFromInputs}
 						/>
 					</div>
 					<div className="col-6">
-						<DropdownNameGenerator
+						<DropdownFormElement
 							name={'brand'}
 							data={brands}
 							passData={getValuesFromInputs}
 						/>{' '}
 					</div>
 					<div className="col-6">
-						<DropdownNameGenerator
+						<DropdownFormElement
 							name={'channel'}
 							data={channels}
 							passData={getValuesFromInputs}
@@ -70,21 +69,21 @@ class NameGenerator extends Component {
 						<SingleCalendarMonth passData={getValuesFromInputs} />
 					</div>
 					<div className="col-6">
-						<InputNameGenerator
+						<InputFormElement
 							name={'length'}
 							placeholder={'Enter Length'}
 							passData={getValuesFromInputs}
 						/>
 					</div>
 					<div className="col-6">
-						<InputNameGenerator
+						<InputFormElement
 							name={'adname'}
 							placeholder={'Enter Adname'}
 							passData={getValuesFromInputs}
 						/>
 					</div>
 					<div className="col-6">
-						<InputNameGenerator
+						<InputFormElement
 							name={'version'}
 							placeholder={'Enter version'}
 							passData={getValuesFromInputs}

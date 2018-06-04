@@ -1,5 +1,5 @@
 import { Api, CountAnswers } from '../../components'
-import FuzzySet from 'fuzzyset.js'
+//import FuzzySet from 'fuzzyset.js'
 
 var _ = require('lodash')
 

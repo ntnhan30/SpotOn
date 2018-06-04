@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-var _ = require('lodash')
 
-class InputNameGenerator extends Component {
+class InputFormElement extends Component {
 	constructor(props, context) {
 		super(props, context)
 		this.state = {
@@ -34,4 +33,4 @@ class InputNameGenerator extends Component {
 	}
 }
 
-export default InputNameGenerator
+export default InputFormElement

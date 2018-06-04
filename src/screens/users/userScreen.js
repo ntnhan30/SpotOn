@@ -1,34 +1,38 @@
 import React, { Component } from 'react'
+import { Api, UserList, AddUserLightbox } from '../../components'
 
-class Users extends Component {
+class UserDashboardScreen extends Component {
+	constructor() {
+		super()
+
+		this.state = {
+			users: []
+		}
+
+		this.api = new Api()
+	}
+
+	async componentDidMount() {
+		// Get all Users from the server and set the state
+		const users = await this.api.fetchAllUsers()
+		this.setState({ users })
+	}
+
 	render() {
-		return (
-			<div className="container-fluid">
-				<h1>Users</h1>
+		const refreshUserList = async () => {
+			// Get all Users from the server and set the state
+			const users = await this.api.fetchAllUsers()
+			this.setState({ users })
+		}
 
-				<h4>Here are the functionalities:</h4>
-				<ul>
-					<li>
-						<b>Auth0 Login / Logout </b>
-					</li>
-					<li>
-						<b>Set user rights -> </b>
-						<ul>
-							<li>
-								<b>Admin (Views everything, set permissions)</b>
-							</li>
-							<li>
-								<b>Manager (Views everything)</b>
-							</li>
-							<li>
-								<b>Limited (only sees his brands reports)</b>
-							</li>
-						</ul>
-					</li>
-				</ul>
+		const { users } = this.state
+		return (
+			<div className="container">
+				<AddUserLightbox refreshUserList={refreshUserList} />
+				<UserList users={users} refreshUserList={refreshUserList} />
 			</div>
 		)
 	}
 }
 
-export default Users
+export default UserDashboardScreen

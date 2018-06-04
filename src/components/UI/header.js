@@ -7,6 +7,26 @@ class Header extends Component {
 	render() {
 		const { profile } = this.props
 
+		const menuItem = (link, text, isPublic) => {
+			if (isPublic) {
+				return (
+					<li>
+						<Link to={link}>{text}</Link>
+					</li>
+				)
+			} else {
+				if (profile.right === 'admin') {
+					return (
+						<li>
+							<Link to={link}>{text}</Link>
+						</li>
+					)
+				} else {
+					return null
+				}
+			}
+		}
+
 		return (
 			<header>
 				<div className="container-fluid">
@@ -21,36 +41,16 @@ class Header extends Component {
 					<div className="col-10">
 						<nav>
 							<ul>
-								<li>
-									<Link to="/">Reports</Link>
-								</li>
-								<li>
-									<Link to="/featured">Featured Ads</Link>
-								</li>
-								{profile.right === 'admin' && (
-									<li>
-										<Link to="/import">Import</Link>
-									</li>
-								)
-								/*
-                                    (profile.right === 'admin' ) && (
-                                    <li>
-                                        <Link to='/notifications'>Notifications</Link>
-                                    </li>
-                                    )
+								{menuItem('/', 'Reports', true)}
+								{menuItem('/featured', 'Featured Ads', true)}
+								{menuItem('/import', 'Import', false)}
+								{menuItem(
+									'/name_generator',
+									'Name Generator',
+									true
+								)}
+								{menuItem('/users', 'Users', false)}
 
-                                    (profile.right === 'admin' ) && (
-                                        <li>
-                                            <Link to='/users'>Users</Link>
-                                        </li>
-									)
-                                */
-								}
-								<li>
-									<Link to="/name_generator">
-										Name Generator
-									</Link>
-								</li>
 								<li>
 									<a
 										href={UsageGuidelinesPDF}

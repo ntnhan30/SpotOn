@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { DropdownList } from 'react-widgets'
 var _ = require('lodash')
 
-class DropdownNameGenerator extends Component {
+class DropdownFormElement extends Component {
 	render() {
 		const { name, data, passData } = this.props
 
@@ -23,4 +23,4 @@ class DropdownNameGenerator extends Component {
 	}
 }
 
-export default DropdownNameGenerator
+export default DropdownFormElement

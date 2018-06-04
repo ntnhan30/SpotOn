@@ -1,12 +1,12 @@
 import FuzzySet from 'fuzzyset.js'
-var _ = require('lodash')
+//var _ = require('lodash')
 
 class BrandRecall {
 	init = (nameToCheck, correctName) => {
 		const length = this.checkLenghtOfWord(nameToCheck, correctName)
 
 		let a = FuzzySet(['Lieferheld'])
-		//a.get('micael asiak')
+		a.get('micael asiak')
 
 		//console.log(a.get('Liefer Held'))
 
