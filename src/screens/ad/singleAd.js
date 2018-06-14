@@ -7,12 +7,14 @@ import {
 	GetKPIs,
 	LoadingSpinner,
 	CircleProgress,
+	SingleValueCell,
 	MessagingCode,
 	FunctionsResults,
 	ImageOfAd,
 	SingleViewTour,
 	AppContext,
-	VideoLightbox
+	VideoLightbox,
+	AdCPA
 } from '../../components'
 var _ = require('lodash')
 
@@ -154,107 +156,54 @@ class SingleAd extends Component {
 					</div>
 
 					<div className="container-fluid single">
-						<div className="col-5 offset-2 summary">
-							<p>{thisAd.summary}</p>
-						</div>
-
-						<div className="col-3 move-up offset-1">
-							<VideoLightbox
-								url={thisAd.videourl}
-								image={AdImage}
-							/>
-
-							<table className="">
-								<tbody>
-									<tr>
-										<td>Title</td>
-										<td>{thisAd.shortname}</td>
-									</tr>
-									<tr>
-										<td>Brand</td>
-										<td>{thisAd.brand}</td>
-									</tr>
-									<tr>
-										<td>Industry</td>
-										<td>{thisAd.industry}</td>
-									</tr>
-									<tr>
-										<td>Length</td>
-										<td>{thisAd.lengthAd}"</td>
-									</tr>
-									<tr>
-										<td>Channel</td>
-										<td>{thisAd.channel}</td>
-									</tr>
-									<tr>
-										<td>State</td>
-										<td>{thisAd.productionState}</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-
-					<div className="container-fluid single details">
-						<div className="col-9 offset-2">
+						<div className="col-6 offset-2 details">
 							<Tabs>
-								<TabList>
-									<Tab>
-										<div className="col-3">
-											<CircleProgress
-												value={Math.round(
-													thisAd.kpis.total
-												)}
-												size={'big'}
-												name={'SpotOn score'}
-												countryNorm={countryNorm.total}
-											/>
-										</div>
+								<TabList className="row">
+									<Tab className="col-md-3 col-sm-6">
+										<SingleValueCell
+											value={Math.round(
+												thisAd.kpis.total
+											)}
+											size={'big'}
+											name={'SpotOn score'}
+											countryNorm={countryNorm.total}
+										/>
 									</Tab>
-									<Tab>
-										<div className="col-2">
-											<CircleProgress
-												value={Math.round(
-													thisAd.kpis.brandRelevance
-												)}
-												size={'medium'}
-												name={'Brand Relevance'}
-												countryNorm={
-													countryNorm.brandRelevance
-												}
-											/>
-										</div>
+									<Tab className="col-md-3 col-sm-6">
+										<SingleValueCell
+											value={Math.round(
+												thisAd.kpis.brandRelevance
+											)}
+											size={'medium'}
+											name={'Brand Relevance'}
+											countryNorm={
+												countryNorm.brandRelevance
+											}
+										/>
 									</Tab>
-									<Tab>
-										<div className="col-2">
-											<CircleProgress
-												value={Math.round(
-													thisAd.kpis.viewerEngagement
-												)}
-												size={'medium'}
-												name={'Viewer Engagement'}
-												countryNorm={
-													countryNorm.viewerEngagement
-												}
-											/>
-										</div>
+									<Tab className="col-md-3 col-sm-6">
+										<SingleValueCell
+											value={Math.round(
+												thisAd.kpis.viewerEngagement
+											)}
+											size={'medium'}
+											name={'Viewer Engagement'}
+											countryNorm={
+												countryNorm.viewerEngagement
+											}
+										/>
 									</Tab>
-									<Tab>
-										<div className="col-2">
-											<CircleProgress
-												value={Math.round(
-													thisAd.kpis.adMessage
-												)}
-												size={'medium'}
-												name={'Ad Message'}
-												countryNorm={
-													countryNorm.adMessage
-												}
-											/>
-										</div>
+									<Tab className="col-md-3 col-sm-6">
+										<SingleValueCell
+											value={Math.round(
+												thisAd.kpis.adMessage
+											)}
+											size={'medium'}
+											name={'Ad Message'}
+											countryNorm={countryNorm.adMessage}
+										/>
 									</Tab>
 								</TabList>
-
 								<TabPanel />
 								<TabPanel>
 									<HorizontalChart
@@ -288,6 +237,50 @@ class SingleAd extends Component {
 									/>
 								</TabPanel>
 							</Tabs>
+						</div>
+
+						<div className="col-3 move-up">
+							<VideoLightbox
+								url={thisAd.videourl}
+								image={AdImage}
+							/>
+
+							<table className="">
+								<tbody>
+									<tr>
+										<td>Title</td>
+										<td>{thisAd.shortname}</td>
+									</tr>
+									<tr>
+										<td>Brand</td>
+										<td>{thisAd.brand}</td>
+									</tr>
+									<tr>
+										<td>Industry</td>
+										<td>{thisAd.industry}</td>
+									</tr>
+									<tr>
+										<td>Length</td>
+										<td>{thisAd.lengthAd}"</td>
+									</tr>
+									<tr>
+										<td>Channel</td>
+										<td>{thisAd.channel}</td>
+									</tr>
+									<tr>
+										<td>State</td>
+										<td>{thisAd.productionState}</td>
+									</tr>
+								</tbody>
+							</table>
+
+							<AdCPA thisAd={thisAd} />
+						</div>
+					</div>
+
+					<div className="container-fluid single summary">
+						<div className="col-9 offset-2">
+							<p>{thisAd.summary}</p>
 						</div>
 					</div>
 				</Fragment>

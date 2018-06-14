@@ -1,9 +1,9 @@
 class NamingCodes {
 	constructor() {
 		this.industries = {
-			FD: 'Food Delivery',
-			OO: 'Online Ordering',
-			OF: 'Ofline Food',
+			FD: 'Food delivery',
+			OO: 'Online ordering',
+			OF: 'Ofline food',
 			NO: 'Non-online ordering'
 		}
 

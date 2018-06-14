@@ -35,7 +35,7 @@ class SingleViewTour extends Component {
 					title: 'View more details',
 					text:
 						'Click on the area you wish to view more details about.  We use four colours to represent the score, ranging from green for high and red for low!',
-					selector: '.single.details',
+					selector: '.details',
 					position: 'top'
 				},
 				{

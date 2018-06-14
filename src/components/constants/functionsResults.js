@@ -1,9 +1,10 @@
-/***** ============================
- *
+/**
  * This Class takes an array with all the results from an AD and tabulates the, and
  * analyses it to give the score for each KPI of Weighted Top Box.
  *
- ============================ ******/
+ * @param {Int} num              Key of the color
+ * @returns {String}             The color in HEX to use
+ */
 import Api from './api'
 var _ = require('lodash')
 

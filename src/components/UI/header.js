@@ -45,6 +45,11 @@ class Header extends Component {
 								{menuItem('/featured', 'Featured Ads', true)}
 								{menuItem('/import', 'Import', false)}
 								{menuItem(
+									'/notifications',
+									'Notifications',
+									true
+								)}
+								{menuItem(
 									'/name_generator',
 									'Name Generator',
 									true

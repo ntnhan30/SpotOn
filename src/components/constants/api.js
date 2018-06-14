@@ -25,9 +25,12 @@ class Api {
 		this.getAllUsers = '/user'
 		this.getSingleUser = '/user/'
 		this.createUser = '/user/new'
-		this.updateFavourites = '/user/favourites'
 		this.notFirstTime = '/user/notFirstTime/'
 		this.deleteUser = '/user/delete/'
+		this.updateFavourites = '/user/favourites'
+		this.updateSubscription = '/user/subscription/'
+
+		this.getCPA = '/getCPA/'
 
 		this.profile = {}
 	}
@@ -60,38 +63,7 @@ class Api {
 
 	// Create multiple Ads from an array
 	async createBulkAds(bulk) {
-		let finished = false
-		let bulkIndex = 0
-		let maxBulk = bulk.length
-		const aumNum = () => {
-			bulkIndex++
-		}
-		while (bulkIndex <= maxBulk) {
-			await axios
-				.post(this.createAd, {
-					adname: bulk[bulkIndex]['Ad_name'],
-					shortname: bulk[bulkIndex]['Short_name'],
-					videourl: bulk[bulkIndex]['Video_URL'],
-					industry: bulk[bulkIndex]['Industry'],
-					brand: bulk[bulkIndex]['Brand'],
-					country: bulk[bulkIndex]['Country'],
-					campaigndate: bulk[bulkIndex]['Campaign_date'],
-					lengthAd: bulk[bulkIndex]['Length'],
-					channel: bulk[bulkIndex]['Channel'],
-					productionState: bulk[bulkIndex]['Production_status'],
-					state: bulk[bulkIndex]['State'],
-					summary: bulk[bulkIndex]['Summary'],
-					mainMessage: bulk[bulkIndex]['Primary_message'],
-					secondaryMessage: bulk[bulkIndex]['Secondary_message'],
-					tertiaryMessage: bulk[bulkIndex]['Tertiary_message']
-				})
-				.then(aumNum)
-				.catch(aumNum)
-			if (bulkIndex === maxBulk) {
-				finished = true
-				return finished
-			}
-		}
+		await axios.post(this.createAd, { ads: bulk })
 		return true
 	}
 
@@ -259,10 +231,25 @@ class Api {
 		return data.user
 	}
 
+	// Create Single User
+	async updateUserSubscriptions(userEmail, subscriptions) {
+		const { data } = await axios.post(this.updateSubscription + userEmail, {
+			industries: subscriptions.industries,
+			brands: subscriptions.brands
+		})
+		return data
+	}
+
 	//
 	async toggleUserFirstTime(userEmail) {
 		const { data } = await axios.get(this.notFirstTime + userEmail)
 		this.profile = data
+		return data
+	}
+
+	// Fetch a single Ad from the server using the "adname"
+	async fetchAdCPA(name) {
+		const { data } = await axios.get(this.getCPA + name)
 		return data
 	}
 }

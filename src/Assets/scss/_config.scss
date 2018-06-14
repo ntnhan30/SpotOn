@@ -16,36 +16,38 @@ $midnightBlue500: #1c1e35;
 $midnightBlue200: #21233b;
 $midnightBlue100: #363957;
 
-
+$score1: #bf0a1b;
+$score2: #ec9034;
+$score3: #cfbb3c;
+$score4: #4db53c;
 
 /*
 Mixins
 */
 
 @mixin translateY($e) {
-    -webkit-transform: translateY($e);
-        -moz-transform: translateY($e);
-            transform: translateY($e);
+	-webkit-transform: translateY($e);
+	-moz-transform: translateY($e);
+	transform: translateY($e);
 }
 
 @mixin transition($e) {
-    -webkit-transition: $e;
-        -moz-transition: $e;
-            transition: $e;
+	-webkit-transition: $e;
+	-moz-transition: $e;
+	transition: $e;
 }
-
 
 /*
 Common styles
 */
 
 body {
-    font-size: 18px;
-    color: $black;
+	font-size: 18px;
+	color: $black;
 }
 
 a {
-    text-decoration: none;
-    @include transition(.4s ease-in-out);
-    cursor: pointer;
+	text-decoration: none;
+	@include transition(0.4s ease-in-out);
+	cursor: pointer;
 }

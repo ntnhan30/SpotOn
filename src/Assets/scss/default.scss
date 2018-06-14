@@ -121,8 +121,8 @@ body {
 	word-wrap: break-word;
 
 	@media screen and (max-width: 1280px) {
-		* {
-			font-size: 0.97em;
+		& {
+			font-size: 0.72em;
 		}
 	}
 
@@ -651,45 +651,6 @@ li {
 				}
 			}
 
-			.react-tabs {
-				&__tab-panel > div {
-					height: calc(100vh - 200px);
-				}
-
-				ul.react-tabs__tab-list {
-					display: inline-block;
-					height: 1%;
-					display: block;
-					margin: 2em 0;
-
-					&:after {
-						visibility: hidden;
-						display: block;
-						font-size: 0;
-						content: ' ';
-						clear: both;
-						height: 0;
-					}
-
-					li {
-						display: inline;
-						list-style: none;
-						text-transform: uppercase;
-						color: $white;
-						background: $midnightBlue100;
-						margin: 2em 0 1.5em 0.8em;
-						padding: 0.8em 1.3em;
-						border-radius: 3px;
-						cursor: pointer;
-						font-size: 0.9em;
-
-						&.react-tabs__tab--selected {
-							background: $lightBlue;
-						}
-					}
-				}
-			}
-
 			button {
 				&.download {
 					display: inline;
@@ -848,6 +809,53 @@ li {
 	}
 }
 
+.react-tabs {
+	&__tab-panel > div {
+		height: calc(100vh - 200px);
+	}
+
+	ul.react-tabs__tab-list {
+		display: inline-block;
+		height: 1%;
+		display: block;
+		margin: 2em 0;
+
+		&:after {
+			visibility: hidden;
+			display: block;
+			font-size: 0;
+			content: ' ';
+			clear: both;
+			height: 0;
+		}
+
+		li {
+			display: inline;
+			list-style: none;
+			text-transform: uppercase;
+			color: $white;
+			background: $midnightBlue100;
+			margin: 2em 0 1.5em 0.8em;
+			padding: 0.8em 1.3em;
+			border-radius: 3px;
+			cursor: pointer;
+			font-size: 0.9em;
+
+			&.react-tabs__tab--selected {
+				background: $lightBlue;
+			}
+		}
+	}
+
+	ul.row {
+		padding: 0;
+
+		li {
+			list-style: none;
+		}
+	}
+}
+
 .import-main {
 	background-color: #1c1e35;
 	margin: 6em auto 0;
@@ -931,7 +939,6 @@ li {
 	}
 	.move-up {
 		margin-top: -27.7em;
-		background: white;
 		padding: 0;
 		height: 1%;
 
@@ -961,6 +968,8 @@ li {
 		}
 
 		table {
+			background: $white;
+
 			tr {
 				border-bottom: solid 1px #d8d8d8;
 
@@ -974,6 +983,10 @@ li {
 					}
 				}
 			}
+		}
+
+		.cpa {
+			margin-top: 1em;
 		}
 	}
 
@@ -1212,7 +1225,7 @@ li {
 }
 
 .form-control-lg {
-	font-size: 15px;
+	font-size: 0.97em;
 	padding: 1em;
 	margin-top: 1em;
 	color: $white;
@@ -1298,6 +1311,29 @@ li {
 .inner___1rfRQ .image___2FLq2 {
 	width: 600px;
 	max-width: 70%;
+}
+
+.singleValueCell {
+	cursor: pointer;
+
+	h6 {
+		text-transform: uppercase;
+		color: #f9f9f9;
+		word-break: unset;
+		width: 40%;
+		word-wrap: initial;
+		font-size: 1.2em;
+		letter-spacing: 0.06em;
+	}
+
+	h4 {
+		font-size: 4.5em;
+
+		span {
+			font-size: 0.25em;
+			color: rgba(255, 255, 255, 0.3);
+		}
+	}
 }
 
 $joyride-color: $midnightBlue500;

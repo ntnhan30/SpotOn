@@ -1,6 +1,14 @@
 import { Api, TabulateAnswers } from '../../components'
 var _ = require('lodash')
 
+/**
+ * This Class handles the breakout of the results.
+ * It filter the results based on the demographic selected values and
+ * runs the TabulateAnswers Class to calculate again the KPIs
+ *
+ * @param {Int} num              Key of the color
+ * @returns {String}             The color in HEX to use
+ */
 class FilterResults {
 	constructor() {
 		this.ads = []
@@ -12,10 +20,18 @@ class FilterResults {
 		this.tabulateAnswers = new TabulateAnswers()
 
 		this.results = []
-	}
+	} // valueToFilter - is an array of the selected values
 
-	// valueToFilter - is an array of the selected values
-	// key is a string with the name of the attr
+	/**
+	 * Entry Point
+	 *
+	 * @param {Array} ads             	Array of Objects wth Ads
+	 * @param {Object} selectedAds      Object with details of selected Ads
+	 * @param {String} value      		Value to filter
+	 * @param {String} key      		Property to filter
+	 *
+	 * @returns {String}             The color in HEX to use
+	 */ // key is a string with the name of the attr
 
 	// copy the state
 	async init(ads, selectedAds, value, key) {
@@ -28,7 +44,6 @@ class FilterResults {
 		this.results = await this.api.fetchResultsFromVariousAds(
 			arrayNamesSelectedAds
 		)
-		//console.log(this.results)
 
 		const isGender = gender => {
 			switch (gender[0]) {
@@ -155,7 +170,6 @@ class FilterResults {
 			}
 		}
 
-		//console.log(this.filters)
 		_.forEach(this.filters, (value, filterKey) => {
 			switch (filterKey) {
 				case 'Gender':
@@ -175,9 +189,7 @@ class FilterResults {
 			}
 		})
 
-		//console.log(this.results)
 		let tabulated = await this.tabulateAnswers.init(this.results)
-		//console.log(tabulated)
 
 		return tabulated
 	}

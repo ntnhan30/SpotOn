@@ -29,7 +29,7 @@ class HomeTour extends Component {
 					text:
 						'On this page you will find the main list of ads, allowing you to select ads you’re interested in finding out the performance of',
 					selector: '.col-8.main-content',
-					position: 'left',
+					position: 'bottom-left',
 					isFixed: true
 				},
 				{

@@ -8,6 +8,7 @@ import ColorTag from './colorTag'
 import Favourite from './favourite'
 import SortToggle from './sortToggle'
 import Breakout from './breakout'
+import AdCPA from './adCPA'
 
 export {
 	AdList,
@@ -19,7 +20,8 @@ export {
 	ColorTag,
 	Favourite,
 	SortToggle,
-	Breakout
+	Breakout,
+	AdCPA
 }
 export * from './charts/'
 export * from './filter/'

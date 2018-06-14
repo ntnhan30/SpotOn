@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Form, Text } from 'react-form'
 import {
 	InputFormElement,
 	NamingCodes,
@@ -24,8 +23,8 @@ class AddUser extends Component {
 
 	validation = () => {
 		const { values } = this.state
-		console.log(values)
 
+		// eslint-disable-next-line
 		const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/gim
 
 		if (!re.test(values.email)) {
@@ -39,14 +38,12 @@ class AddUser extends Component {
 				return 'Please select countries'
 			}
 		}
-
 		return ''
 	}
 
 	addUserToServer = async () => {
 		const { values } = this.state
 		const error = this.validation()
-		console.log(error)
 
 		if (error.length <= 0) {
 			const created = await this.api.addUser(
@@ -55,7 +52,6 @@ class AddUser extends Component {
 				values.right
 			)
 			if (created) {
-				console.log(this)
 				this.props.refreshUserList()
 				this.setState({ done: true })
 			}
@@ -99,6 +95,7 @@ class AddUser extends Component {
 							name={'countries'}
 							data={countries}
 							passData={getValuesFromInputs}
+							values={values.countries}
 						/>
 					)}
 
