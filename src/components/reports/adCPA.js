@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { SmallLoadingSpinner, Api } from '../../components'
+import { Api } from '../../components'
 var _ = require('lodash')
 
 class AdCPA extends Component {
@@ -41,6 +41,18 @@ class AdCPA extends Component {
 								<tr>
 									<td>Local CPA:</td>
 									<td>{cpa.CPA_local.toFixed(2)}</td>
+								</tr>
+							)}
+							{_.isEmpty(cpa.GRP) ? null : (
+								<tr>
+									<td>GRP:</td>
+									<td>{cpa.GRP}</td>
+								</tr>
+							)}
+							{_.isEmpty(cpa.times_aired) ? null : (
+								<tr>
+									<td>Times Aired:</td>
+									<td>{cpa.times_aired}</td>
 								</tr>
 							)}
 						</tbody>

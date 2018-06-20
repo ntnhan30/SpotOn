@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Api, NamingCodes, MultiselectFormElement } from '../../components'
 
-
 class Notifications extends Component {
 	constructor(...args) {
 		super(...args)
@@ -11,7 +10,7 @@ class Notifications extends Component {
 		this.state = {
 			values: {
 				industries: [],
-				brands: []
+				countries: []
 			}
 		}
 	}
@@ -28,7 +27,7 @@ class Notifications extends Component {
 	render() {
 		const self = this
 		let { values } = this.state
-		const { brands, industries } = this.namingCodes
+		const { industries, countries } = this.namingCodes
 
 		const getValuesFromInputs = newObj => {
 			for (var key in newObj) {
@@ -46,12 +45,12 @@ class Notifications extends Component {
 					<h1>Notifications</h1>
 					<br />
 
-					<h4>Brands:</h4>
+					<h4>Countries:</h4>
 					<MultiselectFormElement
-						name={'brands'}
-						data={brands}
+						name={'countries'}
+						data={countries}
 						passData={getValuesFromInputs}
-						values={values.brands}
+						values={values.countries}
 					/>
 
 					<h4>Industries:</h4>

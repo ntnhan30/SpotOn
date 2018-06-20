@@ -316,9 +316,13 @@ class AppProvider extends Component {
 
 		// -- Get Profile from server
 		const profile = await auth.getUserInfo()
-		// -- Get All ads from server and add 'show' & 'favourite' attr
+
+		// -- Get All ads from server
 		let ads = await this.api.fetchAds(profile)
+		// add 'show' & 'favourite' attr
 		ads = _.map(ads, o => _.extend({ show: true, favourite: false }, o))
+		// Reverse the Array - show the newest sposts first
+		ads = _.reverse(ads)
 
 		// Adds the favorites to the collection of ads
 		if (ads.length > 0) {

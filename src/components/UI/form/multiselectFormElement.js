@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import Select from 'react-select'
+import 'react-select/dist/react-select.css'
 import { Multiselect } from 'react-widgets'
 var _ = require('lodash')
 
@@ -22,23 +24,43 @@ class MultiselectFormElement extends Component {
 	}
 
 	render() {
+		const self = this
+		const { values } = this.state
 		const { name, data, passData } = this.props
 
-		return (
-			<Multiselect
-				filter
-				data={_.values(data)}
-				placeholder={'Select ' + name}
-				value={this.state.values}
-				allowCreate="onFilter"
-				onChange={(i, k) => {
-					//self.setState({ values: i })
-					let result = {}
-					result[name] = i
+		const options = []
 
-					passData(result)
-				}}
-				textField="name"
+		_.values(data).forEach(function(d) {
+			options.push({
+				label: d,
+				value: d
+			})
+		})
+
+		const handleSelectChange = values => {
+			self.setState({ values })
+
+			values = _.values(
+				values.map(i => {
+					return i['label']
+				})
+			)
+
+			let result = {}
+			result[name] = values
+			passData(result)
+		}
+
+		return (
+			<Select
+				closeOnSelect={true}
+				disabled={false}
+				multi
+				onChange={handleSelectChange}
+				options={options}
+				placeholder={'Select ' + name}
+				removeSelected={true}
+				value={values}
 			/>
 		)
 	}

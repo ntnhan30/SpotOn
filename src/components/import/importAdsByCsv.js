@@ -34,7 +34,7 @@ class ImportAdsByCSV extends Component {
 			// Convert the CSV to object and send to API
 			self.setStateAsync({
 				imported: await self.api.createBulkAds(
-					self.handleCSV.csvToObject(reader.result)
+					await self.handleCSV.csvToObject(reader.result)
 				),
 				uploading: false
 			})

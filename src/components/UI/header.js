@@ -55,7 +55,6 @@ class Header extends Component {
 									true
 								)}
 								{menuItem('/users', 'Users', false)}
-
 								<li>
 									<a
 										href={UsageGuidelinesPDF}

@@ -81,11 +81,10 @@ class TabulateAnswers {
 
 	checkBrandRecall = (arr, adname) => {
 		//this.ads
-
+		//console.log(this.ads)
 		//let thisAd = _.find(this.ads, o => o.adname === adname)
-		console.log(this.ads[adname].brand)
-
-		console.log(arr)
+		//console.log(this.ads[adname].brand)
+		//console.log(arr)
 
 		let result = 0
 		let count = 0
@@ -94,11 +93,9 @@ class TabulateAnswers {
 			// for each name
 			if (parseFloat(i) === 1) {
 				/*
-
 				let a = FuzzySet(['Lieferheld'])
 				a.get(i)
-*/
-
+				*/
 				count += arr[i]
 			}
 			maxCount += arr[i]

@@ -175,6 +175,7 @@ class HomeTour extends Component {
 		$(
 			'.col-8.main-content tbody tr:first-child td span, .col-8.main-content tbody tr:nth-child(2) td span'
 		).on('click', function() {
+			console.log('click clik')
 			self.joyrideMoveUp()
 		})
 	}

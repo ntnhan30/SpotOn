@@ -6,7 +6,6 @@ import {
 	HorizontalChart,
 	GetKPIs,
 	LoadingSpinner,
-	CircleProgress,
 	SingleValueCell,
 	MessagingCode,
 	FunctionsResults,
@@ -237,6 +236,9 @@ class SingleAd extends Component {
 									/>
 								</TabPanel>
 							</Tabs>
+							<div className="container-fluid single summary">
+								<p>{thisAd.summary}</p>
+							</div>
 						</div>
 
 						<div className="col-3 move-up">
@@ -275,12 +277,6 @@ class SingleAd extends Component {
 							</table>
 
 							<AdCPA thisAd={thisAd} />
-						</div>
-					</div>
-
-					<div className="container-fluid single summary">
-						<div className="col-9 offset-2">
-							<p>{thisAd.summary}</p>
 						</div>
 					</div>
 				</Fragment>

@@ -1,3 +1,4 @@
+const csv = require('csvtojson')
 var _ = require('lodash')
 
 class HandleCSV {
@@ -7,8 +8,9 @@ class HandleCSV {
 	 * @param {String} csvString              String of the CSV imported
 	 * @returns {Array}                       Array of object of the CSV rows
 	 */
-	csvToObject = csvString => {
+	csvToObject = async csvString => {
 		// The array we're going to build
+		/*
 		let csvObj = []
 		// Break it into rows to start
 		let csvRows = csvString.split(/\n/)
@@ -42,7 +44,38 @@ class HandleCSV {
 				rowObject[propLabel] = propValue
 			}
 		}
+		console.log(csvObj)
 		return csvObj
+		*/
+		let jsonObj = []
+
+		// Async / await usage
+		const csvArray = await csv({
+			noheader: true,
+			output: 'csv'
+		}).fromString(csvString)
+		console.log(csvArray)
+		var headers = csvArray[0]
+		for (var i = 1; i < csvArray.length; i++) {
+			var data = csvArray[i]
+			var obj = {}
+			for (var j = 0; j < data.length; j++) {
+				//console.log(data[j])
+				if (
+					data[j] !== undefined ||
+					data[j] !== null ||
+					data[j].trim() !== ''
+				) {
+					obj[headers[j].trim()] = data[j].trim()
+				} else {
+					obj[headers[j].trim()] = null
+				}
+			}
+			jsonObj.push(obj)
+		}
+		JSON.stringify(jsonObj)
+		console.log(jsonObj)
+		return jsonObj
 	}
 
 	exportObjectToCSV = (filename, rows) => {

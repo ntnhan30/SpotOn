@@ -235,7 +235,7 @@ class Api {
 	async updateUserSubscriptions(userEmail, subscriptions) {
 		const { data } = await axios.post(this.updateSubscription + userEmail, {
 			industries: subscriptions.industries,
-			brands: subscriptions.brands
+			countries: subscriptions.countries
 		})
 		return data
 	}

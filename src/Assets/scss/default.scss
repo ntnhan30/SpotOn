@@ -1170,10 +1170,41 @@ li {
 
 /* FORM STYLES */
 .rw-widget-container,
-.rw-multiselect {
+.rw-multiselect,
+.Select-control,
+.Select.is-focused > .Select-control {
 	background: transparent;
 }
 
+.Select--multi .Select-value {
+	background: $white;
+	padding-top: 2px;
+}
+
+.Select-control {
+	height: 50px;
+}
+
+.Select-placeholder {
+	top: 11px;
+	left: 6px;
+}
+
+.Select--multi .Select-value {
+	margin-left: 7px;
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+.Select--multi .Select-multi-value-wrapper {
+	padding: 10px 5px;
+}
+
+.Select.is-focused:not(.is-open) > .Select-control {
+	background: rgba(255, 255, 255, 0.13);
+}
+
+.Select--multi,
 .rw-widget,
 .input-range,
 .month-picker {
@@ -1181,7 +1212,8 @@ li {
 	display: block;
 	width: 100%;
 
-	.rw-widget-input {
+	.rw-widget-input,
+	.Select-placeholder {
 		& > div {
 			padding: 0.5em 0.5em;
 
@@ -1295,7 +1327,8 @@ li {
 		.rw-input-reset,
 		.input-range .rw-widget-input .rw-dropdown-list-input,
 		.month-picker .rw-widget-input .rw-dropdown-list-input,
-		.rw-widget .rw-widget-input .rw-dropdown-list-input {
+		.rw-widget .rw-widget-input .rw-dropdown-list-input,
+		.Select-placeholder {
 			color: #010000;
 		}
 
@@ -1334,6 +1367,10 @@ li {
 			color: rgba(255, 255, 255, 0.3);
 		}
 	}
+}
+
+.rw-multiselect-tag-btn {
+	color: black;
 }
 
 $joyride-color: $midnightBlue500;
