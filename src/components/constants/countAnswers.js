@@ -21,6 +21,7 @@ class CountAnswers {
 			let cleaned = this.cleanOutput(countanswers)
 			result.push(cleaned)
 		})
+		console.log(result)
 		return result
 	}
 
@@ -35,15 +36,16 @@ class CountAnswers {
 		// eslint-disable-next-line
 		ans.map(single => {
 			for (let key in single) {
-				let qKey = key.split('r')
-				let k = qKey.length > 1 ? [qKey[0]] : key
-				let i = qKey.length > 1 ? [qKey[1]] : [single[key]]
+				const qKey = key.split('r')
+
+				let k = qKey.length > 1 ? qKey[0] : key
+				let i = qKey.length > 1 ? qKey[1] : single[key]
 
 				result[k] = result[k] == null ? {} : result[k]
 				result[k][i] = result[k][i] == null ? 0 : result[k][i]
 
 				if (
-					(qKey.length === 2 && single[key] === 1) ||
+					(qKey.length === 2 && single[key] === '1') ||
 					qKey.length === 1
 				) {
 					result[k][i]++

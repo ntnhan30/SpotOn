@@ -32,7 +32,7 @@ class ImportResultsByCSV extends Component {
 			uploading: true
 		})
 		reader.onload = async function(e) {
-			let results = self.handleCSV.csvToObject(reader.result)
+			let results = await self.handleCSV.csvToObject(reader.result)
 
 			self.api.createBulkResults(results)
 

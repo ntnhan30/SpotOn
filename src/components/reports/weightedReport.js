@@ -5,7 +5,8 @@ import {
 	ExportCSV,
 	CountryNorm,
 	WeightedTour,
-	AppContext
+	AppContext,
+	CellCPA
 } from '../../components'
 import { StickyTable, Row, Cell } from 'react-sticky-table'
 import 'react-sticky-table/dist/react-sticky-table.css'
@@ -76,6 +77,29 @@ class WeightedReport extends Component {
 			return <Row className={nameOfClass}>{cells}</Row>
 		}
 
+		const displayCPArow = () => {
+			const self = this
+
+			const getCPA = CPA => {
+				this.api
+			}
+
+			let cells = []
+			let valuesCell = []
+			// eslint-disable-next-line
+			_.mapValues(self.props.selectedAds, single => {
+				valuesCell.push(<CellCPA cpa={single.CPA_name} />)
+			})
+
+			cells.push(<Cell key={0}>{'CPA / GRP'}</Cell>)
+			// eslint-disable-next-line
+			valuesCell.map((single, i) => {
+				cells.push(<Cell key={i + 1}>{single}</Cell>)
+			})
+
+			return <Row className={'level2'}>{cells}</Row>
+		}
+
 		const displayColorTag = (single, countryName, kpi) => {
 			if (this.props.countryNorms[countryName] !== undefined) {
 				return (
@@ -112,6 +136,8 @@ class WeightedReport extends Component {
 					{showTour()}
 					<StickyTable stickyHeaderCount={1} stickyColumnCount={1}>
 						{displayHeaderTable()}
+
+						{displayCPArow()}
 
 						{displaySingleKPI('total', 'level1', 'SpotOn score')}
 

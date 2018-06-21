@@ -9,6 +9,7 @@ import Favourite from './favourite'
 import SortToggle from './sortToggle'
 import Breakout from './breakout'
 import AdCPA from './adCPA'
+import CellCPA from './cellCPA'
 
 export {
 	AdList,
@@ -21,7 +22,8 @@ export {
 	Favourite,
 	SortToggle,
 	Breakout,
-	AdCPA
+	AdCPA,
+	CellCPA
 }
 export * from './charts/'
 export * from './filter/'

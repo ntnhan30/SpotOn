@@ -27,39 +27,13 @@ class TabulateAnswers {
 		// eslint-disable-next-line
 		await Promise.all(
 			partitionedByAd.map(async single => {
-				let count = this.count(single)
+				let count = this.countAnswers.countAnswers(single)
 				let kpis = await this.kpiCalculation(count)
 				let mainKpis = this.mainKPI(kpis)
 				result.push(mainKpis)
 			})
 		)
 
-		return result
-	}
-
-	// This function counts the different values
-	// eslint-disable-next-line
-	count = arr => {
-		let result = {}
-		// eslint-disable-next-line
-		arr.map(single => {
-			for (let key in single) {
-				let qKey = key.split('r')
-				let k = qKey.length > 1 ? [qKey[0]] : key
-				let i = qKey.length > 1 ? [qKey[1]] : [single[key]]
-
-				result[k] = result[k] == null ? {} : result[k]
-				result[k][i] = result[k][i] == null ? 0 : result[k][i]
-
-				if (
-					(qKey.length === 2 && single[key] === 1) ||
-					qKey.length === 1
-				) {
-					result[k][i]++
-				}
-			}
-			return true
-		})
 		return result
 	}
 

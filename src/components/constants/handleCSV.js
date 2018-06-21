@@ -54,13 +54,12 @@ class HandleCSV {
 			noheader: true,
 			output: 'csv'
 		}).fromString(csvString)
-		console.log(csvArray)
+
 		var headers = csvArray[0]
 		for (var i = 1; i < csvArray.length; i++) {
 			var data = csvArray[i]
 			var obj = {}
 			for (var j = 0; j < data.length; j++) {
-				//console.log(data[j])
 				if (
 					data[j] !== undefined ||
 					data[j] !== null ||
@@ -74,7 +73,6 @@ class HandleCSV {
 			jsonObj.push(obj)
 		}
 		JSON.stringify(jsonObj)
-		console.log(jsonObj)
 		return jsonObj
 	}
 

@@ -133,6 +133,7 @@ class Api {
 
 	// Create multiple Results from an array
 	async createBulkResults(bulk) {
+		console.log(bulk)
 		await axios.post(this.createResults, { results: bulk })
 	}
 
