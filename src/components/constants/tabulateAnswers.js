@@ -28,6 +28,7 @@ class TabulateAnswers {
 		await Promise.all(
 			partitionedByAd.map(async single => {
 				let count = this.countAnswers.countAnswers(single)
+				console.log(count)
 				let kpis = await this.kpiCalculation(count)
 				let mainKpis = this.mainKPI(kpis)
 				result.push(mainKpis)

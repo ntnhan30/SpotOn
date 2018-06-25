@@ -4,7 +4,7 @@ import {
 	BarCharts,
 	StackedBarCharts,
 	GetKPIs,
-	LoadingSpinner,
+	SmallLoadingSpinner,
 	AppContext,
 	ChartTour,
 	ExportChart
@@ -139,7 +139,7 @@ class Chart extends Component {
 				</AppContext.Consumer>
 			)
 		} else {
-			return <LoadingSpinner />
+			return <SmallLoadingSpinner />
 		}
 	}
 }

@@ -20,7 +20,7 @@ class FilterResults {
 		this.tabulateAnswers = new TabulateAnswers()
 
 		this.results = []
-	} // valueToFilter - is an array of the selected values
+	} // valueToFilter - is an array of the selected values // key is a string with the name of the attr // copy the state
 
 	/**
 	 * Entry Point
@@ -31,10 +31,7 @@ class FilterResults {
 	 * @param {String} key      		Property to filter
 	 *
 	 * @returns {String}             The color in HEX to use
-	 */ // key is a string with the name of the attr
-
-	// copy the state
-	async init(ads, selectedAds, value, key) {
+	 */ async init(ads, selectedAds, value, key) {
 		this.filters[key] = value
 
 		this.ads = ads
@@ -69,16 +66,28 @@ class FilterResults {
 		const onlyHeavyUsers = v => {
 			const checkHeavyUser = o => {
 				if (o.S4a && o.S4a <= 4) {
+					console.log(o.S4a)
 					return o
 				} else if (o.S4b <= 2) {
+					console.log(o.S4b)
 					return o
 				}
+				/*
+				let S4toInt = parseInt(o.S4a, 10)
+				if (o.S4a && S4toInt <= 4) {
+					return o
+				} else if (S4toInt <= 2) {
+					return o
+				}
+				*/
 			}
 
 			if (v) {
 				this.results = _.map(this.results, checkHeavyUser)
 			}
 			this.results = _.without(this.results, undefined)
+			console.log(v)
+			console.log(this.results)
 		}
 
 		const isMaritalStatus = values => {

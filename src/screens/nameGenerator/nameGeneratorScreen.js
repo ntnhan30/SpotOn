@@ -32,7 +32,7 @@ class NameGenerator extends Component {
 
 		return (
 			<div className="container">
-				<div className="row name-generator-screen">
+				<div className="row name-generator-screen boxed">
 					<div className="col-12">
 						<h1>Name Generator</h1>
 					</div>

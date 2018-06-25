@@ -5,7 +5,7 @@ class Import extends Component {
 	render() {
 		return (
 			<div className="container">
-				<div className="import-main row">
+				<div className="import-main row boxed">
 					<div className="col-6">
 						<ImportAdsByCSV />
 					</div>

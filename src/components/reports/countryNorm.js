@@ -49,12 +49,30 @@ class CountryNorm extends Component {
 		return <tr className={nameOfClass}>{cells}</tr>
 	}
 
+	displayEmptyRow = (kpi, nameOfClass) => {
+		let cells = []
+		let valuesCell = []
+		// eslint-disable-next-line
+		_.mapValues(this.props.countryNorm, single => {
+			valuesCell.push('-')
+		})
+
+		// eslint-disable-next-line
+		valuesCell.map((single, i) => {
+			cells.push(<td key={i + 1}>{single}</td>)
+		})
+
+		return <tr className={nameOfClass}>{cells}</tr>
+	}
+
 	render() {
 		if (!_.isEmpty(this.props.countryNorm)) {
 			const tableHeader = <thead>{this.displayCountries()}</thead>
 
 			const tableBody = (
 				<tbody>
+					{this.displayEmptyRow('total', 'level4')}
+
 					{this.displaySingleKPI('total', 'level1')}
 
 					{this.displaySingleKPI('brandRelevance', 'level2')}
@@ -80,8 +98,7 @@ class CountryNorm extends Component {
 					className={
 						(this.state.showing ? 'active' : '') +
 						' pull-in-sidebar'
-					}
-				>
+					}>
 					<table>
 						{tableHeader}
 						{tableBody}
@@ -89,8 +106,7 @@ class CountryNorm extends Component {
 					<button
 						type="button"
 						className="toggle-sidebar"
-						onClick={this.handleClick}
-					>
+						onClick={this.handleClick}>
 						COUNTRY NORM
 					</button>
 				</div>
@@ -101,14 +117,12 @@ class CountryNorm extends Component {
 					className={
 						(this.state.showing ? 'active' : '') +
 						' pull-in-sidebar'
-					}
-				>
+					}>
 					<LoadingSpinner />
 					<button
 						type="button"
 						className="toggle-sidebar"
-						onClick={this.handleClick}
-					>
+						onClick={this.handleClick}>
 						COUNTRY NORM
 					</button>
 				</div>

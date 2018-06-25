@@ -28,8 +28,20 @@ class UserDashboardScreen extends Component {
 		const { users } = this.state
 		return (
 			<div className="container">
-				<AddUserLightbox refreshUserList={refreshUserList} />
-				<UserList users={users} refreshUserList={refreshUserList} />
+				<div className="row user-screen boxed">
+					<div className="col-8">
+						<h1>User dashboard</h1>
+					</div>
+					<div className="col-4">
+						<AddUserLightbox refreshUserList={refreshUserList} />
+					</div>
+					<div className="col-12">
+						<UserList
+							users={users}
+							refreshUserList={refreshUserList}
+						/>
+					</div>
+				</div>
 			</div>
 		)
 	}

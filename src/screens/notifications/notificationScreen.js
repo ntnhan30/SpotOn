@@ -40,28 +40,42 @@ class Notifications extends Component {
 		}
 
 		return (
-			<Fragment>
-				<div className="container">
-					<h1>Notifications</h1>
-					<br />
+			<div className="container">
+				<div className="row notification-screen boxed">
+					<div className="col-12">
+						<h1>Hi, this is your notifications page!</h1>
+						<p>
+							Here you can pick brands and industries which you
+							wish to follow. Once subscribed, you’ll receive
+							notifications both via email and in SpotON whenever
+							new content matching your interests is uploaded,
+							which you'll find right here.
+							<br />
+							Enjoy!
+						</p>
+					</div>
 
-					<h4>Countries:</h4>
-					<MultiselectFormElement
-						name={'countries'}
-						data={countries}
-						passData={getValuesFromInputs}
-						values={values.countries}
-					/>
+					<div className="col-6">
+						<h4>Countries:</h4>
+						<MultiselectFormElement
+							name={'countries'}
+							data={countries}
+							passData={getValuesFromInputs}
+							values={values.countries}
+						/>
+					</div>
 
-					<h4>Industries:</h4>
-					<MultiselectFormElement
-						name={'industries'}
-						data={industries}
-						passData={getValuesFromInputs}
-						values={values.industries}
-					/>
+					<div className="col-6">
+						<h4>Industries:</h4>
+						<MultiselectFormElement
+							name={'industries'}
+							data={industries}
+							passData={getValuesFromInputs}
+							values={values.industries}
+						/>
+					</div>
 				</div>
-			</Fragment>
+			</div>
 		)
 	}
 }
