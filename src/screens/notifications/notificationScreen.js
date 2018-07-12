@@ -1,9 +1,9 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { Api, NamingCodes, MultiselectFormElement } from '../../components'
 
 class Notifications extends Component {
-	constructor(...args) {
-		super(...args)
+	constructor( ...args ) {
+		super( ...args )
 
 		this.api = new Api()
 		this.namingCodes = new NamingCodes()
@@ -15,53 +15,67 @@ class Notifications extends Component {
 		}
 	}
 
-	static getDerivedStateFromProps(nextProps, prevState, prevProps) {
+	static getDerivedStateFromProps ( nextProps, prevState, prevProps ) {
 		let { subscriptions } = nextProps.profile
 		return subscriptions !== undefined
 			? {
-					values: subscriptions
-			  }
+				values: subscriptions
+			}
 			: null
 	}
 
-	render() {
+	render () {
 		const self = this
 		let { values } = this.state
 		const { industries, countries } = this.namingCodes
 
 		const getValuesFromInputs = newObj => {
-			for (var key in newObj) {
+			for ( var key in newObj ) {
 				values[key] = newObj[key]
 			}
 
-			self.setState({ values })
+			self.setState( { values } )
 
-			this.api.updateUserSubscriptions(this.props.profile.email, values)
+			this.api.updateUserSubscriptions( this.props.profile.email, values )
 		}
 
 		return (
-			<Fragment>
-				<div className="container">
-					<h1>Notifications</h1>
-					<br />
+			<div className="container">
+				<div className="row notification-screen boxed">
+					<div className="col-12">
+						<h1>Hi, this is your notifications page!</h1>
+						<p>
+							Here you can pick brands and industries which you
+							wish to follow. Once subscribed, you’ll receive
+							notifications both via email and in SpotON whenever
+							new content matching your interests is uploaded,
+							which you'll find right here.
+							<br />
+							Enjoy!
+						</p>
+					</div>
 
-					<h4>Countries:</h4>
-					<MultiselectFormElement
-						name={'countries'}
-						data={countries}
-						passData={getValuesFromInputs}
-						values={values.countries}
-					/>
+					<div className="col-6">
+						<h4>Countries:</h4>
+						<MultiselectFormElement
+							name={'countries'}
+							data={countries}
+							passData={getValuesFromInputs}
+							values={values.countries}
+						/>
+					</div>
 
-					<h4>Industries:</h4>
-					<MultiselectFormElement
-						name={'industries'}
-						data={industries}
-						passData={getValuesFromInputs}
-						values={values.industries}
-					/>
+					<div className="col-6">
+						<h4>Industries:</h4>
+						<MultiselectFormElement
+							name={'industries'}
+							data={industries}
+							passData={getValuesFromInputs}
+							values={values.industries}
+						/>
+					</div>
 				</div>
-			</Fragment>
+			</div>
 		)
 	}
 }

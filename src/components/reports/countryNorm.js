@@ -1,5 +1,10 @@
-import React, { Component } from 'react'
-import { FunctionsResults, LoadingSpinner } from '../../components'
+import React, {
+	Component
+} from 'react'
+import {
+	FunctionsResults,
+	LoadingSpinner
+} from '../../components'
 var _ = require('lodash')
 
 const functionsResults = new FunctionsResults()
@@ -18,7 +23,9 @@ class CountryNorm extends Component {
 
 	handleClick = () => {
 		// this is for changing the class - to animate
-		this.setState({ showing: !this.state.showing })
+		this.setState({
+			showing: !this.state.showing
+		})
 	}
 
 	displayCountries = () => {
@@ -36,9 +43,26 @@ class CountryNorm extends Component {
 		let cells = []
 		let valuesCell = []
 		// eslint-disable-next-line
+
 		_.mapValues(this.props.countryNorm, single => {
 			let v = single[kpi] == null || isNaN(single[kpi]) ? 0 : single[kpi]
 			valuesCell.push(Math.round(v))
+		})
+
+		// eslint-disable-next-line
+		valuesCell.map((single, i) => {
+			cells.push(<td key={i + 1}>{single}</td>)
+		})
+
+		return <tr className={nameOfClass}>{cells}</tr>
+	}
+
+	displayEmptyRow = (kpi, nameOfClass) => {
+		let cells = []
+		let valuesCell = []
+		// eslint-disable-next-line
+		_.mapValues(this.props.countryNorm, single => {
+			valuesCell.push('-')
 		})
 
 		// eslint-disable-next-line
@@ -53,8 +77,10 @@ class CountryNorm extends Component {
 		if (!_.isEmpty(this.props.countryNorm)) {
 			const tableHeader = <thead>{this.displayCountries()}</thead>
 
+			this.displayEmptyRow('total', 'level4')
 			const tableBody = (
 				<tbody>
+					{}
 					{this.displaySingleKPI('total', 'level1')}
 
 					{this.displaySingleKPI('brandRelevance', 'level2')}
@@ -76,42 +102,31 @@ class CountryNorm extends Component {
 			)
 
 			return (
-				<div
-					className={
-						(this.state.showing ? 'active' : '') +
-						' pull-in-sidebar'
-					}
-				>
-					<table>
+				<div className={(this.state.showing ? 'active' : '') + ' pull-in-sidebar'} >
+					<table >
 						{tableHeader}
 						{tableBody}
 					</table>
-					<button
-						type="button"
+					<button type="button"
 						className="toggle-sidebar"
-						onClick={this.handleClick}
-					>
+						onClick={
+							this.handleClick
+						} >
 						COUNTRY NORM
 					</button>
 				</div>
 			)
 		} else {
-			return (
-				<div
-					className={
-						(this.state.showing ? 'active' : '') +
-						' pull-in-sidebar'
-					}
-				>
-					<LoadingSpinner />
-					<button
-						type="button"
-						className="toggle-sidebar"
-						onClick={this.handleClick}
-					>
-						COUNTRY NORM
-					</button>
-				</div>
+			return (<div className={(this.state.showing ? 'active' : '') + ' pull-in-sidebar'} >
+				<LoadingSpinner />
+				<button type="button"
+					className="toggle-sidebar"
+					onClick={
+						this.handleClick
+					} >
+					COUNTRY NORM
+				</button>
+			</div>
 			)
 		}
 	}

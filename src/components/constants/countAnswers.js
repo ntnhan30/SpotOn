@@ -45,7 +45,8 @@ class CountAnswers {
 				result[k][i] = result[k][i] == null ? 0 : result[k][i]
 
 				if (
-					(qKey.length === 2 && single[key] === '1') ||
+					(qKey.length === 2 &&
+						(single[key] === '1' || single[key] === 1)) ||
 					qKey.length === 1
 				) {
 					result[k][i]++

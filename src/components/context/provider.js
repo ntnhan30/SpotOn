@@ -316,6 +316,7 @@ class AppProvider extends Component {
 
 		// -- Get Profile from server
 		const profile = await auth.getUserInfo()
+		//console.log(profile)
 
 		// -- Get All ads from server
 		let ads = await this.api.fetchAds(profile)
@@ -328,13 +329,15 @@ class AppProvider extends Component {
 		if (ads.length > 0) {
 			profile.favourites.forEach(function(adName) {
 				let thisAd = _.find(ads, o => o.adname === adName)
-				thisAd.favourite = true
-				_.map(ads, function(obj) {
-					return _.assign(
-						obj,
-						_.find([thisAd], { adname: obj.adname })
-					)
-				})
+				if (!_.isEmpty(thisAd)) {
+					thisAd.favourite = true
+					_.map(ads, function(obj) {
+						return _.assign(
+							obj,
+							_.find([thisAd], { adname: obj.adname })
+						)
+					})
+				}
 			})
 		}
 

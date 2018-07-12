@@ -77,18 +77,18 @@ class Breakout extends Component {
 							placeholder={'Gender'}
 						/>
 
-						<CreateToggle
-							dataDropdown={heavyUsers}
-							filter={this.filterAds}
-							keyName={'Heavy Users'}
-							placeholder={'Only Heavy Users?'}
-						/>
-
 						<CreateMultiselect
 							dataDropdown={maritalStatus}
 							filter={this.filterAds}
 							keyName={'Marital Status'}
 							placeholder={'Marital Status'}
+						/>
+
+						<CreateToggle
+							dataDropdown={heavyUsers}
+							filter={this.filterAds}
+							keyName={'Heavy Users'}
+							placeholder={'Only Heavy Users?'}
 						/>
 					</div>
 				</Fragment>
