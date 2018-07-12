@@ -120,7 +120,7 @@ class TabulateAnswers {
 		// this is only for now, because the user selected 3 options. Delete later
 
 		let sampleSize = 0
-		_.forEach(arr, function(v, k) {
+		_.forEach(arr, function (v, k) {
 			const value = k === '98' ? v * 3 : v
 			sampleSize += value
 		})
@@ -259,21 +259,23 @@ class TabulateAnswers {
 
 		for (let i in arr) {
 			switch (i) {
+				/*** Binary scale
 				case 'Q1o1':
-					/*** Binary scale
                     - Brand Recal
-                    */
+                    
 					result.brandRecall = this.checkBrandRecall(
 						arr[i],
 						this.getNameOfAd(arr['VidDum'])
 					)
 					break
+				*/
 				/*** Binary scale
+				 * Brand Recall
+				*/
 				case 'Q1o2':
-                    - Brand Recal
 					result.brandRecall = this.binaryScale(arr[i])
 					break
-				  */
+
 				case 'Q2':
 					/*** Likert Scale
 					- Ad appeal
