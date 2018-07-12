@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import {
+	Api,
+	HandleCSV,
 	AppContext,
 	Favourite,
 	CellCPA,
@@ -8,8 +10,8 @@ import {
 } from '../../components'
 
 class FeaturedTable extends Component {
-	constructor( props, context ) {
-		super( props, context )
+	constructor(props, context) {
+		super(props, context)
 
 		this.state = {
 			imported: false,
@@ -17,9 +19,9 @@ class FeaturedTable extends Component {
 		}
 	}
 
-	render () {
+	render() {
 		const { ads } = this.props
-		console.log( ads )
+		console.log(ads)
 
 		const tableHeader = (
 			<tr>
@@ -34,14 +36,14 @@ class FeaturedTable extends Component {
 			</tr>
 		)
 
-		const listOfAds = ads.map( ( ad, i ) => {
+		const listOfAds = ads.map((ad, i) => {
 			return (
 				<tr key={i}>
 					<td>{i + 1}</td>
 					<td>{ad.shortname}</td>
 					<td>{ad.brand}</td>
 					<td>{ad.industry}</td>
-					<td>{Math.round( ad.kpis.total )}</td>
+					<td>{Math.round(ad.kpis.total)}</td>
 					<td>{<CellCPA cpa={ad.CPA_name} />}</td>
 					<td>
 						<Link to={{ pathname: '/ad/' + ad.adname }}>
@@ -61,9 +63,9 @@ class FeaturedTable extends Component {
 					</td>
 				</tr>
 			)
-		} )
+		})
 
-		if ( ads.length > 0 ) {
+		if (ads.length > 0) {
 			return (
 				<table className="table table-striped table-hover table-fixed">
 					<thead className="">{tableHeader}</thead>

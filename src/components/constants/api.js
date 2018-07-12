@@ -4,6 +4,8 @@ var _ = require('lodash')
 
 axios.defaults.baseURL = 'http://localhost:4000/api' // LOCAL
 //axios.defaults.baseURL = 'https://polar-beyond-85959.herokuapp.com/api' // Heroku
+//axios.defaults.baseURL = 'http://localhost:4000/api' // LOCAL
+axios.defaults.baseURL = 'https://polar-beyond-85959.herokuapp.com/api' // Heroku
 
 class Api {
 	constructor() {

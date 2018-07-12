@@ -80,7 +80,8 @@ class CountryNorm extends Component {
 			this.displayEmptyRow('total', 'level4')
 			const tableBody = (
 				<tbody>
-					{}
+					{this.displayEmptyRow('total', 'level4')}
+
 					{this.displaySingleKPI('total', 'level1')}
 
 					{this.displaySingleKPI('brandRelevance', 'level2')}
@@ -102,31 +103,37 @@ class CountryNorm extends Component {
 			)
 
 			return (
-				<div className={(this.state.showing ? 'active' : '') + ' pull-in-sidebar'} >
-					<table >
+				<div
+					className={
+						(this.state.showing ? 'active' : '') +
+						' pull-in-sidebar'
+					}>
+					<table>
 						{tableHeader}
 						{tableBody}
 					</table>
 					<button type="button"
 						className="toggle-sidebar"
-						onClick={
-							this.handleClick
-						} >
+						onClick={this.handleClick}>
 						COUNTRY NORM
 					</button>
 				</div>
 			)
 		} else {
-			return (<div className={(this.state.showing ? 'active' : '') + ' pull-in-sidebar'} >
-				<LoadingSpinner />
-				<button type="button"
-					className="toggle-sidebar"
-					onClick={
-						this.handleClick
-					} >
-					COUNTRY NORM
-				</button>
-			</div>
+			return (
+				<div
+					className={
+						(this.state.showing ? 'active' : '') +
+						' pull-in-sidebar'
+					}>
+					<LoadingSpinner />
+					<button
+						type="button"
+						className="toggle-sidebar"
+						onClick={this.handleClick}>
+						COUNTRY NORM
+					</button>
+				</div>
 			)
 		}
 	}
