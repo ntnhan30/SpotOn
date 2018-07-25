@@ -78,10 +78,14 @@ class PercentileReport extends Component {
 				//Get the percentile value
 				let v =
 					single['percentile'] == null ||
-					isNaN(single['percentile'][kpi])
+						isNaN(single['percentile'][kpi])
 						? 0
 						: single['percentile'][kpi]
-				valuesCell.push(Math.round(v))
+				// push {country, value}
+				valuesCell.push({
+					country: single.country,
+					value: Math.round(v)
+				})
 			})
 
 			cells.push(<Cell key={0}>{title}</Cell>)
@@ -90,10 +94,18 @@ class PercentileReport extends Component {
 				const kpiValue = self.state.average[kpi]
 				cells.push(
 					<Cell key={i + 1}>
-						{single}th
-						{showColorTag && (
-							<ColorTag difference={single - kpiValue} />
-						)}
+						{single.value}th
+						{
+							/*
+							showColorTag && (
+								<AppContext>
+									{context => (
+										<ColorTag country={single.country} difference={single.value - kpiValue} standardDeviation={context.standardDeviation[single.country][kpi]} />
+									)}
+								</AppContext>
+							)
+							*/
+						}
 					</Cell>
 				)
 			})

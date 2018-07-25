@@ -13,6 +13,7 @@ import ImageOfAd from './imageOfAd'
 import GetFeaturedAds from './getFeaturedAds'
 import BrandRecall from './brandRecall'
 import NamingCodes from './namingCodes'
+import StandardDeviation from './standardDeviation'
 
 export {
 	Api,
@@ -29,5 +30,6 @@ export {
 	ImageOfAd,
 	GetFeaturedAds,
 	BrandRecall,
-	NamingCodes
+	NamingCodes,
+	StandardDeviation
 }

@@ -1,18 +1,23 @@
 import React, { Component } from 'react'
 
-class ColorTag extends Component {
-	render() {
-		let tagClassName = ''
-		let diff = Math.round(this.props.difference)
 
-		if (diff >= 15) {
+
+class ColorTag extends Component {
+
+	render() {
+		let { country, difference, standardDeviation } = this.props
+
+		let tagClassName = ''
+		let diff = Math.round(difference)
+
+		if (diff >= standardDeviation * 2) {
 			tagClassName = 'green'
-		} else if (diff >= 7) {
+		} else if (diff >= standardDeviation) {
 			tagClassName = 'subtle-green'
-		} else if (diff >= -7) {
+		} else if (diff >= -standardDeviation) {
 			diff = ''
 			tagClassName = 'normal'
-		} else if (diff > -15) {
+		} else if (diff > -(standardDeviation * 2)) {
 			tagClassName = 'subtle-red'
 		} else {
 			tagClassName = 'red'

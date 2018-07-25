@@ -5,6 +5,7 @@ import {
 	Api,
 	FilterAds,
 	FunctionsResults,
+	StandardDeviation,
 	history
 } from '../../components'
 
@@ -64,6 +65,12 @@ class AppProvider extends Component {
 				await this.addCountryNorm()
 			},
 
+			standardDeviation: {},
+
+			calculateStdDev: () => {
+
+			},
+
 			// Object of the filters applied in the search
 			filterAtts: {},
 			// This functions filters the ad list [show] = true
@@ -79,6 +86,7 @@ class AppProvider extends Component {
 		}
 
 		this.api = new Api()
+		this.standardDeviation = new StandardDeviation();
 	}
 
 	async finishTour() {
@@ -164,7 +172,7 @@ class AppProvider extends Component {
 		let thisAd = _.find(ads, o => o.adname === adName)
 		thisAd.selected = isSelected
 
-		_.map(ads, function(obj) {
+		_.map(ads, function (obj) {
 			return _.assign(obj, _.find([thisAd], { adname: obj.adname }))
 		})
 
@@ -220,7 +228,7 @@ class AppProvider extends Component {
 		} else {
 			thisAd.favourite = false
 		}
-		_.map(ads, function(obj) {
+		_.map(ads, function (obj) {
 			return _.assign(obj, _.find([thisAd], { adname: obj.adname }))
 		})
 
@@ -228,6 +236,46 @@ class AppProvider extends Component {
 		this.setState({
 			profile,
 			ads
+		})
+	}
+
+	/**
+	 * This function takes all the ads, groups them into countries
+	 * caclulate the country Standard Deviation and svaes it into the state as
+	 * an Object
+	 * Updates state => standardDeviation
+	 *
+	 * @param {Boolean} isSelected            New state of selection
+	 */
+	calculateStdDev() {
+		const { ads } = this.state
+
+		// Group all the Ads by Countries nad pick only the 'kpis' object
+		let groupedAds = _.mapValues(_.groupBy(ads, 'country'),
+			clist => _.flattenDeep(clist.map(car => _.values(_.pick(car, 'kpis')))));
+
+
+		/* Create an object with two levels:
+		* First Key is the name of the country
+	    * Second level is the name of the KPI with an array of all the values */
+		let standardDeviation = {}
+		for (var country in groupedAds) {
+			// This is the country object
+			let thisCountry = groupedAds[country]
+
+			// Create an empty object
+			standardDeviation[country] = {}
+
+			// Iterate through the KPIs
+			for (var kpi in thisCountry[0]) {
+				let arrayOfKPIs = _.map(thisCountry, kpi); // [12, 14, 16, 18] 	
+
+				standardDeviation[country][kpi] = this.standardDeviation.init(arrayOfKPIs);
+			}
+		}
+
+		this.setState({
+			standardDeviation
 		})
 	}
 
@@ -327,11 +375,11 @@ class AppProvider extends Component {
 
 		// Adds the favorites to the collection of ads
 		if (ads.length > 0) {
-			profile.favourites.forEach(function(adName) {
+			profile.favourites.forEach(function (adName) {
 				let thisAd = _.find(ads, o => o.adname === adName)
 				if (!_.isEmpty(thisAd)) {
 					thisAd.favourite = true
-					_.map(ads, function(obj) {
+					_.map(ads, function (obj) {
 						return _.assign(
 							obj,
 							_.find([thisAd], { adname: obj.adname })
@@ -342,6 +390,8 @@ class AppProvider extends Component {
 		}
 
 		this.setState({ profile, ads })
+
+		this.calculateStdDev()
 
 		// Check if there are ads in the URL
 		await this.getAdsFromURL()
