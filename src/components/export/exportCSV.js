@@ -45,8 +45,14 @@ class ExportCSV extends Component {
 	}
 
 	render() {
-		let weightedValues = _.map(this.state.selectedAds, 'kpis')
-		const percentileValues = _.map(this.state.selectedAds, 'percentile')
+		const insertName = (i, kpi) => {
+			let k = i[kpi]
+			k.adID = i.adname
+			return k
+		}
+
+		let weightedValues = _.map(this.state.selectedAds, i => insertName(i, 'kpis'))
+		const percentileValues = _.map(this.state.selectedAds, i => insertName(i, 'percentile'))
 
 		// Returns the name of the kpis
 		const headerCSV = () => {
@@ -77,8 +83,9 @@ class ExportCSV extends Component {
 		}
 		countryNorms = _.values(countryNorms)
 		weightedValues = _.concat(weightedValues, countryNorms)
+		console.log(weightedValues)
 
-		const columns = kpis.map(function(s, i) {
+		const columns = kpis.map(function (s, i) {
 			return (
 				<Workbook.Column
 					key={i + 1}
@@ -88,7 +95,7 @@ class ExportCSV extends Component {
 			)
 		})
 
-		const percentilColumns = kpis.map(function(s, i) {
+		const percentilColumns = kpis.map(function (s, i) {
 			return (
 				<Workbook.Column
 					key={i + 1}
