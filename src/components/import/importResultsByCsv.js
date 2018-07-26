@@ -31,22 +31,27 @@ class ImportResultsByCSV extends Component {
 		this.setState({
 			uploading: true
 		})
-		reader.onload = async function(e) {
+		reader.onload = async function (e) {
 			let results = await self.handleCSV.csvToObject(reader.result)
 
+			// First Save the results in the DB
 			self.api.createBulkResults(results)
 
-			// Import to DB the results
-			//await self.props.api.createBulkResults(results); -- Import the results
+			// Run the formula to get the tabulated KPIS
 			const KPIs = await self.tabulateAnswers.init(results)
+			// Coun the the Tone Of Voice and Emotions
 			const extraInfo = self.countAnswers.init(results)
-			self.api.updateExtraInfo(extraInfo)
+			// Save the Extra Info into each spot
+			await self.api.updateExtraInfo(extraInfo)
+
+			await self.api.createKPI(KPIs)
 
 			// Convert the CSV to object and send to API
-			self.setStateAsync({
-				imported: await self.api.createKPI(KPIs),
+			self.setState({
+				imported: true,
 				uploading: false
 			})
+			console.log('updated')
 		}
 		reader.readAsText(files[0])
 	}
