@@ -64,10 +64,6 @@ class ExportCSV extends Component {
 
 		}
 
-		const brandColumnCSV = () => {
-			return <Workbook.Column key={0} label="Brand" value="brand" />
-		}
-
 		const kpis = [
 			'total',
 			'brandRelevance',

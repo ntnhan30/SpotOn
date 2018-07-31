@@ -89,7 +89,6 @@ class NamingCodes {
 			FOC: 'FoodOnClick',
 			FA: 'Foodarena',
 			FO: 'Foodora',
-
 			DN: 'Donesi',
 			FP: 'Foodpanda',
 			HS: 'HungerStation',
@@ -97,6 +96,7 @@ class NamingCodes {
 			HF: 'Hellofood',
 			CG: 'Carriage',
 			BM: 'BaeMin',
+
 			DP: 'Domino pizza',
 			PC: 'Pelicana Chicken',
 			GM: 'GMarket',
