@@ -48,6 +48,7 @@ class ExportCSV extends Component {
 		const insertName = (i, kpi) => {
 			let k = i[kpi]
 			k.adID = i.adname
+			k.brand = i.brand
 			return k
 		}
 
@@ -56,7 +57,15 @@ class ExportCSV extends Component {
 
 		// Returns the name of the kpis
 		const headerCSV = () => {
-			return <Workbook.Column key={0} label="Ad name" value="adID" />
+			return [
+				< Workbook.Column key={0} label="Ad name" value="adID" />,
+				<Workbook.Column key={0} label="Brand" value="brand" />
+			]
+
+		}
+
+		const brandColumnCSV = () => {
+			return <Workbook.Column key={0} label="Brand" value="brand" />
 		}
 
 		const kpis = [

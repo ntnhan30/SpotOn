@@ -58,7 +58,7 @@ class NamingCodes {
 			RS: 'Serbia',
 			SG: 'Singapore',
 			SK: 'Slovakia',
-			KR: 'South Korea',
+			KR: 'Korea',
 			ES: 'Spain',
 			SE: 'Sweden',
 			CH: 'Switzerland',
