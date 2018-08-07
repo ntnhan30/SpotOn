@@ -19,8 +19,24 @@ class AppProvider extends Component {
 				this.init()
 			},
 
+			reset: async () => {
+				const mode = this.state.mode === 'TV' ? 'YT' : 'TV'
+
+				this.setState({
+					ads: [],
+					selectedAds: {},
+					standardDeviation: {},
+					countryNorms: {},
+					filterAtts: {},
+					mode
+				})
+				this.init()
+			},
+
 			// Object with all the profile details
 			profile: {},
+
+			mode: 'TV', // TV, YT
 
 			finishTour: async () => {
 				this.finishTour()
@@ -366,8 +382,10 @@ class AppProvider extends Component {
 		const profile = await auth.getUserInfo()
 		//console.log(profile)
 
+		const { mode } = this.state
+
 		// -- Get All ads from server
-		let ads = await this.api.fetchAds(profile)
+		let ads = await this.api.fetchAds(profile, mode)
 		// add 'show' & 'favourite' attr
 		ads = _.map(ads, o => _.extend({ show: true, favourite: false }, o))
 		// Reverse the Array - show the newest sposts first

@@ -68,13 +68,6 @@ class FilterSidebar extends Component {
 								/>
 
 								<CreateMultiselect
-									dataDropdown={channels}
-									filter={context.filterAds}
-									keyName={'channel'}
-									placeholder={'Channels'}
-								/>
-
-								<CreateMultiselect
 									dataDropdown={countries}
 									filter={context.filterAds}
 									keyName={'country'}

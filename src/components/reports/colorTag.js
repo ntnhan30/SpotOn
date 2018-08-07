@@ -5,7 +5,7 @@ import React, { Component } from 'react'
 class ColorTag extends Component {
 
 	render() {
-		let { country, difference, standardDeviation } = this.props
+		let { difference, standardDeviation } = this.props
 
 		let tagClassName = ''
 		let diff = Math.round(difference)

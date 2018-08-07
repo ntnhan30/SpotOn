@@ -1,15 +1,16 @@
 import React, { Component, Fragment } from 'react'
 import { Link } from 'react-router-dom'
-var _ = require( 'lodash' )
+import { AppContext, Breakout } from "../../components";
+var _ = require('lodash')
 
 class SelectedAds extends Component {
-	render () {
-		const ads = _.values( this.props.ads )
+	render() {
+		const ads = _.values(this.props.ads)
 
 		let selectedAdsID = []
 
 		const tableHeader = () => {
-			if ( this.props.isInsideReport ) {
+			if (this.props.isInsideReport) {
 				return (
 					<tr>
 						<th scope="col">
@@ -36,8 +37,8 @@ class SelectedAds extends Component {
 			}
 		}
 
-		const renderedAds = ads.map( ( ad, i ) => {
-			selectedAdsID.push( ad.adname )
+		const renderedAds = ads.map((ad, i) => {
+			selectedAdsID.push(ad.adname)
 			return (
 				<tr key={i}>
 					<td>
@@ -54,19 +55,19 @@ class SelectedAds extends Component {
 						<span
 							className="icon-close"
 							onClick={() =>
-								this.props.toggleSelection( ad.adname, false )
+								this.props.toggleSelection(ad.adname, false)
 							}
 						/>
 					</td>
 				</tr>
 			)
-		} )
+		})
 
 		const reportButtons = () => {
 			// get a string with all the selected Ads separated by '&'
-			const selectedAdsURL = selectedAdsID.join( '&' )
+			const selectedAdsURL = selectedAdsID.join('&')
 
-			if ( selectedAdsID.length > 0 ) {
+			if (selectedAdsID.length > 0) {
 				return (
 					<tr className="selectedButtons">
 						<td colSpan="2">
@@ -108,7 +109,7 @@ class SelectedAds extends Component {
 		}
 
 		const listSelectedAds = () => {
-			if ( selectedAdsID.length > 0 ) {
+			if (selectedAdsID.length > 0) {
 				return <Fragment>{renderedAds}</Fragment>
 			} else {
 				return (
@@ -129,20 +130,20 @@ class SelectedAds extends Component {
 					<tbody>{reportButtons()}</tbody>
 				</table>
 				<div className="list-selected">
-					{/*
-					<AppContext.Consumer>
-						{context => (
-							<Breakout
-								ads={context.ads}
-								selectedAds={context.selectedAds}
-								breakoutSelectedAds={
-									context.breakoutSelectedAds
-								}
-								isInsideReport={context.isInsideReport}
-							/>
-						)}
-					</AppContext.Consumer>
-					*/}
+					{
+						<AppContext.Consumer>
+							{context => (
+								<Breakout
+									ads={context.ads}
+									selectedAds={context.selectedAds}
+									breakoutSelectedAds={
+										context.breakoutSelectedAds
+									}
+									isInsideReport={context.isInsideReport}
+								/>
+							)}
+						</AppContext.Consumer>
+					}
 					<table className="table table-striped table-hover">
 						<tbody>{listSelectedAds()}</tbody>
 					</table>

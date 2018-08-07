@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react'
 import {
 	FunctionsResults,
 	LoadingSpinner,
-	ColorTag,
 	ExportCSV,
 	PercentileTour,
 	AppContext
@@ -66,8 +65,6 @@ class PercentileReport extends Component {
 
 			return <Row>{cells}</Row>
 		}
-
-		const showColorTag = _.size(this.state.selectedAds) >= 5 ? true : false
 
 		const displaySingleKPI = (kpi, nameOfClass, title) => {
 			const self = this

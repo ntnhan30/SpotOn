@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Logo from '../../Assets/imgs/logo.svg'
 import UsageGuidelinesPDF from '../../Assets/pdf/UsageGuidelinesPDF.pdf'
+import { AppContext, ToggleSpotON } from "../../components";
 
 class Header extends Component {
 	render() {
@@ -34,6 +35,15 @@ class Header extends Component {
 						<div className="logo">
 							<Link to="/">
 								<img src={Logo} alt="SpotOn" />
+								<AppContext>
+									{context => (
+										<ToggleSpotON
+											init={context.init}
+											reset={context.reset}
+											mode={context.mode}
+										/>
+									)}
+								</AppContext>
 							</Link>
 						</div>
 					</div>

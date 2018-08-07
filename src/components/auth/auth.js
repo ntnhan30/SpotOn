@@ -44,8 +44,8 @@ class Auth {
 				console.log(err)
 				alert(
 					`Error: ${
-						err.error
-					}. Check the console for further details.`
+					err.error
+					}. You dont have access to this site.`
 				)
 			}
 		})
