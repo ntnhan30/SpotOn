@@ -18,7 +18,7 @@ class FeaturedTable extends Component {
 	}
 
 	render() {
-		const { ads } = this.props
+		const { ads, mode } = this.props
 		console.log(ads)
 
 		const tableHeader = (
@@ -44,7 +44,7 @@ class FeaturedTable extends Component {
 					<td>{Math.round(ad.kpis.total)}</td>
 					<td>{<CellCPA cpa={ad.CPA_name} />}</td>
 					<td>
-						<Link to={{ pathname: '/ad/' + ad.adname }}>
+						<Link to={{ pathname: '/' + mode + '/ad/' + ad.adname }}>
 							<span className="icon-eye" />
 						</Link>
 					</td>

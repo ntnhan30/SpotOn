@@ -30,11 +30,11 @@ class AdList extends Component {
 		)
 	}
 
-	componentDidMount() {}
+	componentDidMount() { }
 
 	// Logic for displaying ads
 	render = () => {
-		let { ads } = this.props
+		let { ads, mode } = this.props
 
 		const brandRecall = new BrandRecall()
 		brandRecall.init('leifer', 'lieferheld')
@@ -134,7 +134,7 @@ class AdList extends Component {
 						<td>{ad.channel}</td>
 						<td>{ad.state}</td>
 						<td>
-							<Link to={{ pathname: '/ad/' + ad.adname }}>
+							<Link to={{ pathname: '/' + mode + '/ad/' + ad.adname }}>
 								<span className="icon-eye" />
 							</Link>
 						</td>

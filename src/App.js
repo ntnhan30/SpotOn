@@ -19,7 +19,8 @@ import {
 	UserGuideScreen,
 	FeaturedScreen,
 	NameGenerator,
-	UserDashboardScreen
+	UserDashboardScreen,
+	SelectReports
 } from './screens'
 
 import Auth from './components/auth/auth.js'
@@ -34,7 +35,11 @@ const AuthButton = withRouter(
 	({ history }) =>
 		auth.isAuthenticated() ? (
 			<AppContext.Consumer>
-				{context => <Header auth={auth} profile={context.profile} />}
+				{context => <Header
+					auth={auth}
+					profile={context.profile}
+					mode={context.mode}
+				/>}
 			</AppContext.Consumer>
 		) : null
 )
@@ -57,13 +62,13 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 					)}
 				</AppContext.Consumer>
 			) : (
-				<Redirect
-					to={{
-						pathname: '/',
-						state: { from: props.location }
-					}}
-				/>
-			)
+					<Redirect
+						to={{
+							pathname: '/',
+							state: { from: props.location }
+						}}
+					/>
+				)
 		}
 	/>
 )
@@ -77,14 +82,14 @@ class App extends Component {
 					<Switch>
 						<PrivateRoute path="/import" component={Import} />
 						<PrivateRoute
-							path="/featured"
+							path="/:mode/featured"
 							component={FeaturedScreen}
 						/>
 						<PrivateRoute
-							path="/notifications"
+							path="/:mode/notifications"
 							component={Notifications}
 						/>
-						<PrivateRoute path="/ad/:id" component={SingleAd} />
+						<PrivateRoute path="/:mode/ad/:id" component={SingleAd} />
 						<Route
 							exact
 							path="/FAQ"
@@ -130,6 +135,20 @@ class App extends Component {
 									</AppContext.Consumer>
 								)
 							}}
+						/>
+						<Route
+							path="/:mode"
+							render={props => (
+								<AppContext.Consumer>
+									{context => (
+										<SelectReports
+											auth={auth}
+											isInsideReport={context.isInsideReport}
+											{...props}
+										/>
+									)}
+								</AppContext.Consumer>
+							)}
 						/>
 						<Route
 							path="/"

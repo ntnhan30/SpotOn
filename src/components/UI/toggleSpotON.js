@@ -20,15 +20,25 @@ class ToggleSpotON extends Component {
 		this.setState({ lightboxOpen: false });
 	}
 
+	updateMode = () => {
+		let { mode } = this.props
+		let value = mode === 'TV' ? true : false
+
+		if (this.state.value !== value) {
+			console.log(value)
+			this.setState({ value })
+		}
+	}
+
 	getNextMode = () => {
 		let { mode } = this.props
 		mode = mode === 'TV' ? 'YT' : 'TV'
 
 		return (this.namingCodes.channels[mode])
-
 	}
 
 	render() {
+		this.updateMode()
 		const self = this
 		const { lightboxOpen } = this.state
 		const { reset } = this.props

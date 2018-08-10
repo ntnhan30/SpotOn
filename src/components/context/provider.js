@@ -30,6 +30,8 @@ class AppProvider extends Component {
 					filterAtts: {},
 					mode
 				})
+				// change url
+				history.push('/' + mode)
 				this.init()
 			},
 
@@ -370,6 +372,28 @@ class AppProvider extends Component {
 		}
 	}
 
+	checkTheMode() {
+		const location = history.location.pathname
+		const { mode } = this.state
+		// Only runs if inside a report
+		if (
+			(_.includes(location, 'TV')) &&
+			(mode !== 'TV')
+		) {
+			this.setState({
+				mode: 'TV'
+			})
+
+		} else if (
+			(_.includes(location, 'YT')) &&
+			(mode !== 'YT')
+		) {
+			this.setState({
+				mode: 'YT'
+			})
+		}
+	}
+
 	async componentDidMount() {
 		this.init()
 	}
@@ -382,7 +406,9 @@ class AppProvider extends Component {
 		const profile = await auth.getUserInfo()
 		//console.log(profile)
 
+		this.checkTheMode()
 		const { mode } = this.state
+		console.log(mode);
 
 		// -- Get All ads from server
 		let ads = await this.api.fetchAds(profile, mode)

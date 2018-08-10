@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { SelectReports, Login } from '../../screens'
+import { SelectReports, Login, RedirectToModeScreen } from '../../screens'
 import { ErrorBoundary, AppContext } from '../../components'
 
 class HomeScreen extends Component {
@@ -14,9 +14,10 @@ class HomeScreen extends Component {
 								<Login auth={this.props.auth} />
 							)}
 							{isAuthenticated && (
-								<SelectReports
+								<RedirectToModeScreen
 									auth={this.props.auth}
 									isInsideReport={context.isInsideReport}
+									reset={context.reset}
 								/>
 							)}
 						</Fragment>

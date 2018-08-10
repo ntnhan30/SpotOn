@@ -28,7 +28,7 @@ class SelectReports extends Component {
 								<Route
 									key={2}
 									exact={false}
-									path="/"
+									path="/:mode"
 									render={props => (
 										<SelectedAds
 											ads={context.selectedAds}
@@ -38,6 +38,7 @@ class SelectReports extends Component {
 											isInsideReport={
 												context.isInsideReport
 											}
+											mode={context.mode}
 											{...this.props}
 											{...props}
 										/>
@@ -50,7 +51,7 @@ class SelectReports extends Component {
 									<Route
 										key={1}
 										exact={true}
-										path="/weightedReport/:id"
+										path="/:mode/weightedReport/:id"
 										render={props => (
 											<SingleReport
 												selectedAds={
@@ -64,6 +65,7 @@ class SelectReports extends Component {
 												}
 												profile={context.profile}
 												typeOfReport="weighted"
+												mode={context.mode}
 												{...this.props}
 												{...props}
 											/>
@@ -73,7 +75,7 @@ class SelectReports extends Component {
 									<Route
 										key={2}
 										exact={true}
-										path="/percentileReport/:id"
+										path="/:mode/percentileReport/:id"
 										render={props => (
 											<SingleReport
 												selectedAds={
@@ -87,6 +89,7 @@ class SelectReports extends Component {
 												}
 												profile={context.profile}
 												typeOfReport="percentile"
+												mode={context.mode}
 												{...this.props}
 												{...props}
 											/>
@@ -96,7 +99,7 @@ class SelectReports extends Component {
 									<Route
 										key={3}
 										exact={true}
-										path="/chart/:id"
+										path="/:mode/chart/:id"
 										render={props => (
 											<Chart
 												selectedAds={
@@ -106,6 +109,7 @@ class SelectReports extends Component {
 													context.getAdsFromURL
 												}
 												profile={context.profile}
+												mode={context.mode}
 												{...this.props}
 												{...props}
 											/>
@@ -115,7 +119,7 @@ class SelectReports extends Component {
 									<Route
 										key={4}
 										exact={true}
-										path="/"
+										path="/:mode"
 										render={props => (
 											<AdList
 												ads={context.ads}
@@ -127,6 +131,7 @@ class SelectReports extends Component {
 													context.lastStepOfTour
 												}
 												finishTour={context.finishTour}
+												mode={context.mode}
 												{...this.props}
 												{...props}
 											/>
