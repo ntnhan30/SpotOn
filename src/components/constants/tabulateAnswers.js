@@ -112,17 +112,27 @@ class TabulateAnswers {
 	}
 
 	messagingCalculation = async (arr, nameOfAd) => {
-		let result = 0
+		console.log('===============================')
+		console.log('===============================')
+		console.log('nameOfAd')
+		console.log(nameOfAd)
 
+		let result = 0
 		// Sample Size
 
 		// CHECK THIS PLEASE **********
 		// this is only for now, because the user selected 3 options. Delete later
-
 		let sampleSize = 0
 		_.forEach(arr, function (v, k) {
-			const value = k === '98' ? v * 3 : v
+			console.log('===')
+			console.log('[' + k + '] => ' + v)
+
+			//const value = k === '98' ? v * 3 : v
+			//sampleSize += value
+			const value = v
 			sampleSize += value
+
+			console.log(value + ' -- ' + sampleSize)
 		})
 		/*
 		console.log(nameOfAd)
@@ -133,26 +143,38 @@ class TabulateAnswers {
 
 		const singleAd = this.ads[nameOfAd]
 
+		console.log('thisAd')
+		console.log(singleAd)
+
 		// Get the Main Messages from the Ad
 		const mainMessage = singleAd.mainMessage
 		const secondaryMessage = singleAd.secondaryMessage
 		const tertiaryMessage = singleAd.tertiaryMessage
 
 		// Weighted values of main messages
-		const valueMainMessage = arr[mainMessage] * 2
-		const valueSecondaryMessage = arr[secondaryMessage] * 1.2
-		const valueTertiaryMessage = arr[tertiaryMessage]
+		const valueMainMessage = arr[mainMessage]
+		const valueSecondaryMessage = arr[secondaryMessage] * 0.6
+		const valueTertiaryMessage = arr[tertiaryMessage] * 0.5
 
 		if (secondaryMessage === null || secondaryMessage === 0) {
+			// If there is only a Primary Message
 			const A = valueMainMessage / sampleSize * 100
 			const B = (sampleSize - arr[mainMessage]) / 9 / sampleSize * 100
 			result = A + B
 		} else if (tertiaryMessage === null || tertiaryMessage === 0) {
+			// If there is a Primary and Secondary message
+			console.log('valueMainMessage')
+			console.log(valueMainMessage)
+			console.log('valueSecondaryMessage')
+			console.log(valueSecondaryMessage)
+			console.log('sampleSize')
+			console.log(sampleSize)
 			result =
 				(valueMainMessage / sampleSize +
 					valueSecondaryMessage / sampleSize) *
 				100
 		} else {
+			// If there is a Primary, Secondary and Tertiary message
 			const A =
 				(valueMainMessage / sampleSize +
 					valueSecondaryMessage / sampleSize) *
@@ -163,6 +185,8 @@ class TabulateAnswers {
 			result = A + C
 		}
 
+		console.log('result')
+		console.log(result)
 		return result
 	}
 

@@ -2,8 +2,8 @@ import axios from 'axios'
 
 var _ = require('lodash')
 
-//axios.defaults.baseURL = 'http://localhost:4000/api' // LOCAL
-axios.defaults.baseURL = 'https://polar-beyond-85959.herokuapp.com/api' // Heroku
+axios.defaults.baseURL = 'http://localhost:4000/api' // LOCAL
+//axios.defaults.baseURL = 'https://polar-beyond-85959.herokuapp.com/api' // Heroku
 
 class Api {
 	constructor() {
@@ -93,6 +93,7 @@ class Api {
 	async updateExtraInfo(arr) {
 		for (let i in arr) {
 			let single = arr[i]
+			console.log(single);
 			const adName = single.adName
 			await axios.post(this.addExtraInfo + adName, {
 				witty: single.toneOfVoice[1],
