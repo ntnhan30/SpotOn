@@ -13,6 +13,7 @@ class NamingCodes {
 			AT: 'Austria',
 			BH: 'Bahrain',
 			BD: 'Bangladesh',
+			BO: 'Bolivia',
 			BA: 'Bosnia and Herzegovina',
 			BR: 'Brazil',
 			BN: 'Brunei',
