@@ -41,7 +41,7 @@ class SingleAd extends Component {
 		const { ads } = this.props
 		let thisAd = {}
 		if (ads.length > 0) {
-			thisAd = this.props.ads.filter(function(ad) {
+			thisAd = this.props.ads.filter(function (ad) {
 				return ad.adname === adname
 			})
 			thisAd = thisAd[0]
@@ -49,9 +49,10 @@ class SingleAd extends Component {
 			thisAd = await this.api.fetchSingleAd(adname)
 		}
 
-		const countryNorm = await this.functionsResults.getCountryNorm([
-			thisAd.country
-		])
+		const countryNorm = await this.functionsResults.getCountryNorm(
+			ads,
+			[thisAd.country]
+		)
 
 		// Save them into the state
 		this.setState({

@@ -185,7 +185,7 @@ class AppProvider extends Component {
 	 * @param {Boolean} isSelected            New state of selection
 	 */
 	async toggleSelection(adName, isSelected) {
-		let { ads, selectedAds } = this.state
+		let { ads, selectedAds, mode } = this.state
 
 		let thisAd = _.find(ads, o => o.adname === adName)
 		thisAd.selected = isSelected
@@ -209,7 +209,7 @@ class AppProvider extends Component {
 		// If there are selected ads, get the details
 		// Otherwise go back to the report page
 		if (!(_.size(selectedAds) > 0)) {
-			history.push('/')
+			history.push('/' + mode)
 		}
 	}
 
@@ -299,7 +299,7 @@ class AppProvider extends Component {
 
 	async addCountryNorm(countryName) {
 		const functionsResults = new FunctionsResults()
-		const { selectedAds, countryNorms } = this.state
+		const { ads, selectedAds, countryNorms } = this.state
 
 		// Get an Array of the countries selected
 		let countries = []
@@ -314,7 +314,7 @@ class AppProvider extends Component {
 				if (countryNorms[country] === undefined) {
 					countryNorms[
 						country
-					] = await functionsResults.getCountryNorm([country])
+					] = await functionsResults.getCountryNorm(ads, [country])
 				}
 			})
 		)

@@ -20,13 +20,15 @@ class ToggleSpotON extends Component {
 		this.setState({ lightboxOpen: false });
 	}
 
-	updateMode = () => {
-		let { mode } = this.props
+	static getDerivedStateFromProps(nextProps, prevState, prevProps) {
+		let { mode } = nextProps
+
 		let value = mode === 'TV' ? true : false
 
-		if (this.state.value !== value) {
-			console.log(value)
-			this.setState({ value })
+		if (prevState.value !== value) {
+			return { value }
+		} else {
+			return {}
 		}
 	}
 
@@ -38,7 +40,6 @@ class ToggleSpotON extends Component {
 	}
 
 	render() {
-		this.updateMode()
 		const self = this
 		const { lightboxOpen } = this.state
 		const { reset } = this.props
