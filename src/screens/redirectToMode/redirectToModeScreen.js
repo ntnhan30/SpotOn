@@ -19,13 +19,18 @@ class RedirectToModeScreen extends Component {
 				{context => (
 					<div className="container">
 						<div className="row boxed">
-							<Link to={{ pathname: '/TV' }}>
-								TV
-							</Link>
-							<br />
-							<Link to={{ pathname: '/YT' }}>
-								YT
-							</Link>
+							<div className="container">
+								<h1>Go to</h1>
+							</div>
+							<div className="container">
+								<Link to={{ pathname: '/TV' }}>
+									TV
+								</Link>
+								<br />
+								<Link to={{ pathname: '/YT' }}>
+									YoutTube
+								</Link>
+							</div>
 						</div>
 					</div>
 				)}
