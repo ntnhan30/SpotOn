@@ -19,7 +19,7 @@ class CheckBoxSelectAll extends Component {
 		const { ads, toggleSelection } = this.props
 
 		// Get an array of alll the shown Ads
-		let shownAds = _.map(ads, function(a) {
+		let shownAds = _.map(ads, function (a) {
 			if (a.show === true) return a
 		})
 		shownAds = _.compact(shownAds)
@@ -34,20 +34,14 @@ class CheckBoxSelectAll extends Component {
 		let { filterAtts } = this.props
 		filterAtts = _.omitBy(filterAtts, _.isEmpty)
 
-		if (_.isEmpty(filterAtts)) {
-			if (checked) {
-				this.setState({ checked: false })
-			}
-			return <span className="icon-sort-alpha-asc" />
-		} else {
-			return (
-				<Checkbox
-					className={'selectAll'}
-					checked={checked}
-					onChange={e => this.handleInputChange(e)}
-				/>
-			)
-		}
+		return (
+			<Checkbox
+				className={'selectAll'}
+				checked={checked}
+				onChange={e => this.handleInputChange(e)}
+			/>
+		)
+
 	}
 }
 
