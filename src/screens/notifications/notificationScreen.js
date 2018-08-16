@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { Api, NamingCodes, MultiselectFormElement } from '../../components'
 
 class Notifications extends Component {
-	constructor( ...args ) {
-		super( ...args )
+	constructor(...args) {
+		super(...args)
 
 		this.api = new Api()
 		this.namingCodes = new NamingCodes()
@@ -15,7 +15,7 @@ class Notifications extends Component {
 		}
 	}
 
-	static getDerivedStateFromProps ( nextProps, prevState, prevProps ) {
+	static getDerivedStateFromProps(nextProps, prevState, prevProps) {
 		let { subscriptions } = nextProps.profile
 		return subscriptions !== undefined
 			? {
@@ -24,19 +24,17 @@ class Notifications extends Component {
 			: null
 	}
 
-	render () {
+	render() {
 		const self = this
 		let { values } = this.state
 		const { industries, countries } = this.namingCodes
 
 		const getValuesFromInputs = newObj => {
-			for ( var key in newObj ) {
+			for (var key in newObj) {
 				values[key] = newObj[key]
 			}
 
-			self.setState( { values } )
-
-			this.api.updateUserSubscriptions( this.props.profile.email, values )
+			self.setState({ values })
 		}
 
 		return (
@@ -73,6 +71,21 @@ class Notifications extends Component {
 							passData={getValuesFromInputs}
 							values={values.industries}
 						/>
+					</div>
+
+					<div className="col-12">
+						<button
+							className="btn download"
+							onClick={async () => {
+								const update = await this.api.updateUserSubscriptions(this.props.profile.email, values)
+								console.log(update)
+							}}
+						>
+							Update your subscriptions
+						</button>
+						{
+
+						}
 					</div>
 				</div>
 			</div>

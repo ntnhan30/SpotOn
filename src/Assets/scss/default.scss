@@ -330,23 +330,6 @@ li {
 									a {
 										flex: 1;
 
-										button {
-											color: $white;
-											background: $blue;
-											width: 100%;
-											padding: 1em 0;
-											font-size: .7em;
-											text-transform: uppercase;
-											border: none;
-											cursor: pointer;
-											border-left: 1px solid
-												$midnightBlue200;
-
-											&:hover {
-												background-color: $midnightBlue100;
-											}
-										}
-
 										&:first-child button {
 											border-radius: 2px 0 0 2px;
 											border-left: none;
@@ -822,6 +805,23 @@ li {
 		td {
 			border: none;
 		}
+	}
+}
+
+button {
+	color: $white;
+	background: $blue;
+	width: 100%;
+	padding: 1em 0;
+	font-size: .7em;
+	text-transform: uppercase;
+	border: none;
+	cursor: pointer;
+	border-left: 1px solid
+		$midnightBlue200;
+
+	&:hover {
+		background-color: $midnightBlue100;
 	}
 }
 
