@@ -81,7 +81,7 @@ class Notifications extends Component {
 								console.log(update)
 							}}
 						>
-							Update your subscriptions
+							Save changes
 						</button>
 						{
 
