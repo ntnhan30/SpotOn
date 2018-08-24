@@ -31,8 +31,8 @@ class CheckBoxSelectAll extends Component {
 
 	render() {
 		const { checked } = this.state
-		let { filterAtts } = this.props
-		filterAtts = _.omitBy(filterAtts, _.isEmpty)
+		//let { filterAtts } = this.props
+		//filterAtts = _.omitBy(filterAtts, _.isEmpty)
 
 		return (
 			<Checkbox

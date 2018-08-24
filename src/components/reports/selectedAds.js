@@ -14,11 +14,16 @@ class SelectedAds extends Component {
 				return (
 					<AppContext.Consumer >
 						{context => (
-							<span onClick={() => {
-								ads.map((ad, i) => {
+							<span
+								style={{
+									textAlign: 'right',
+									display: 'block',
+									cursor: 'pointer'
+								}}
+								onClick={() => {
 									context.resetSelection()
-								})
-							}}>
+								}
+								}>
 								RESET
 							</span>
 						)

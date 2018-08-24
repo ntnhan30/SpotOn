@@ -648,6 +648,7 @@ li {
 
 			button {
 				&.download {
+					width: auto;
 					display: inline;
 					text-transform: uppercase;
 					color: $white;
@@ -762,8 +763,8 @@ li {
 			.rc-checkbox-inner {
 				width: 26px;
 				height: 26px;
-				border-color: rgba(255, 255, 255, 0.1);
-				background-color: rgba(255, 255, 255, 0.05);
+				border-color: rgba(255, 255, 255, 0.35);
+				background-color: rgba(255, 255, 255, 0.1);
 				@include transition(0.2s ease-in-out);
 
 				&::after {
@@ -771,7 +772,7 @@ li {
 					top: 4px;
 					width: 6px;
 					height: 12px;
-					border-color: rgba(255, 255, 255, 0.1);
+					border-color: rgba(255, 255, 255, 0.3);
 					border-width: 3px;
 					@include transition(0.2s ease-in-out);
 				}

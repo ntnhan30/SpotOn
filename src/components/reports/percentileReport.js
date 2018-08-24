@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react'
 import {
 	FunctionsResults,
 	LoadingSpinner,
-	ColorTag,
 	ExportCSV,
 	PercentileTour,
 	AppContext
@@ -67,8 +66,6 @@ class PercentileReport extends Component {
 			return <Row>{cells}</Row>
 		}
 
-		const showColorTag = _.size(this.state.selectedAds) >= 5 ? true : false
-
 		const displaySingleKPI = (kpi, nameOfClass, title) => {
 			const self = this
 
@@ -91,21 +88,9 @@ class PercentileReport extends Component {
 			cells.push(<Cell key={0}>{title}</Cell>)
 			// eslint-disable-next-line
 			valuesCell.map((single, i) => {
-				const kpiValue = self.state.average[kpi]
 				cells.push(
 					<Cell key={i + 1}>
 						{single.value}th
-						{
-							/*
-							showColorTag && (
-								<AppContext>
-									{context => (
-										<ColorTag country={single.country} difference={single.value - kpiValue} standardDeviation={context.standardDeviation[single.country][kpi]} />
-									)}
-								</AppContext>
-							)
-							*/
-						}
 					</Cell>
 				)
 			})
