@@ -9,6 +9,25 @@ class SelectedAds extends Component {
 
 		let selectedAdsID = []
 
+		const clearSelectedAds = () => {
+			if (!_.isEmpty(ads)) {
+				return (
+					<AppContext.Consumer >
+						{context => (
+							<span onClick={() => {
+								ads.map((ad, i) => {
+									context.resetSelection()
+								})
+							}}>
+								RESET
+							</span>
+						)
+						}
+					</AppContext.Consumer>
+				)
+			}
+		}
+
 		const tableHeader = () => {
 			if (this.props.isInsideReport) {
 				return (
@@ -21,7 +40,9 @@ class SelectedAds extends Component {
 								GO BACK
 							</Link>
 						</th>
-						<th scope="col" />
+						<th scope="col">
+							{clearSelectedAds()}
+						</th>
 					</tr>
 				)
 			} else {
@@ -31,7 +52,9 @@ class SelectedAds extends Component {
 							<span className="icon-list" />
 							SELECTED ADS
 						</th>
-						<th scope="col" />
+						<th scope="col">
+							{clearSelectedAds()}
+						</th>
 					</tr>
 				)
 			}

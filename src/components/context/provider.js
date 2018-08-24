@@ -40,6 +40,9 @@ class AppProvider extends Component {
 			toggleSelection: (ad, isSelected) => {
 				this.toggleSelection(ad, isSelected)
 			},
+			resetSelection: () => {
+				this.resetSelection()
+			},
 			//
 			updateFavourites: (adname, isFavorite) => {
 				this.updateFavourites(adname, isFavorite)
@@ -193,6 +196,21 @@ class AppProvider extends Component {
 		if (!(_.size(selectedAds) > 0)) {
 			history.push('/')
 		}
+	}
+
+	async resetSelection() {
+		let { ads } = this.state
+		_.map(ads, ad => {
+			ad.selected = false
+			return ad
+		})
+
+		let selectedAds = {}
+
+		this.setState({ ads, selectedAds })
+
+		// If inside the report, go back to main page
+		history.push('/')
 	}
 
 	/**
