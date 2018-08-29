@@ -175,11 +175,7 @@ class FilterResults {
 			}
 		})
 
-		//console.log(this.results)
-
 		let tabulated = await this.tabulateAnswers.init(this.results)
-
-		console.log(tabulated)
 		return tabulated
 	}
 }

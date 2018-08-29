@@ -37,7 +37,6 @@ class TabulateAnswers {
 				// push teh sample size in the object
 				let sampleSize = _.values(count.VidDum)[0]
 				mainKpis.sampleSize = sampleSize
-				console.log(mainKpis)
 
 				result.push(mainKpis)
 			})

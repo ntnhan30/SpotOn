@@ -19,7 +19,7 @@ class CreateMultiselect extends Component {
 
 		const options = []
 
-		dataDropdown.forEach(function(d) {
+		dataDropdown.forEach(function (d) {
 			options.push({
 				label: d,
 				value: d

@@ -45,8 +45,16 @@ class PercentileReport extends Component {
 
 			let cells = []
 			let valuesCell = []
+			let sampleSize = []
 			_.mapValues(self.state.selectedAds, single => {
 				valuesCell.push(single.shortname)
+
+				// Set the sample size depending if it has been filtered by the breakout!
+				if (single.kpis.sampleSize !== undefined) {
+					sampleSize.push(single.kpis.sampleSize)
+				} else {
+					sampleSize.push(single.sampleSize)
+				}
 			})
 
 			cells.push(
@@ -60,7 +68,12 @@ class PercentileReport extends Component {
 			)
 			// eslint-disable-next-line
 			valuesCell.map((single, i) => {
-				cells.push(<Cell key={i + 1}>{single}</Cell>)
+				cells.push(
+					<Cell key={i + 1}>
+						{single}
+						<span className="sampleSize">{sampleSize[i]}</span>
+					</Cell>
+				)
 			})
 
 			return <Row>{cells}</Row>
