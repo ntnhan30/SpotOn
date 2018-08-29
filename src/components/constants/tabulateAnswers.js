@@ -139,9 +139,9 @@ class TabulateAnswers {
 		const tertiaryMessage = singleAd.tertiaryMessage
 
 		// Weighted values of main messages
-		const valueMainMessage = arr[mainMessage] * 2
-		const valueSecondaryMessage = arr[secondaryMessage] * 1.2
-		const valueTertiaryMessage = arr[tertiaryMessage]
+		const valueMainMessage = arr[mainMessage]
+		const valueSecondaryMessage = arr[secondaryMessage] * 0.6
+		const valueTertiaryMessage = arr[tertiaryMessage] * 0.5
 
 		if (secondaryMessage === null || secondaryMessage === 0) {
 			const A = valueMainMessage / sampleSize * 100

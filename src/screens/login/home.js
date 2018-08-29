@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { SelectReports, Login, RedirectToModeScreen } from '../../screens'
+import { Login, RedirectToModeScreen } from '../../screens'
 import { ErrorBoundary, AppContext } from '../../components'
 
 class HomeScreen extends Component {

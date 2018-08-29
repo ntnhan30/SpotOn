@@ -17,7 +17,7 @@ class Breakout extends Component {
 		}
 	}
 
-	handleClick = () => {}
+	handleClick = () => { }
 
 	filterAds = async (v, key) => {
 		const { ads, selectedAds, breakoutSelectedAds } = this.props
@@ -32,17 +32,12 @@ class Breakout extends Component {
 	}
 
 	render() {
-		const { isInsideReport } = this.props
+		const { isInsideReport, mode } = this.props
 		const { isOpen } = this.state
 
-		const age = ['18 - 24', '25 - 34', '35 - 44', '45 - 54']
+		const age = ['18 - 24', '25 - 35']
 		const gender = ['All', 'Male', 'Female']
 		const heavyUsers = [true, false]
-		const maritalStatus = [
-			'Single',
-			'Married without children',
-			'Married with children'
-		]
 
 		const openBreakout = (
 			<h3
@@ -58,7 +53,7 @@ class Breakout extends Component {
 
 		const classNameOpen = isOpen ? 'open' : ''
 
-		if (isInsideReport) {
+		if (isInsideReport && mode === 'YT') {
 			return (
 				<Fragment>
 					{openBreakout}
@@ -75,13 +70,6 @@ class Breakout extends Component {
 							filter={this.filterAds}
 							keyName={'Gender'}
 							placeholder={'Gender'}
-						/>
-
-						<CreateMultiselect
-							dataDropdown={maritalStatus}
-							filter={this.filterAds}
-							keyName={'Marital Status'}
-							placeholder={'Marital Status'}
 						/>
 
 						<CreateToggle

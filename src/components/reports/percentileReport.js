@@ -88,21 +88,9 @@ class PercentileReport extends Component {
 			cells.push(<Cell key={0}>{title}</Cell>)
 			// eslint-disable-next-line
 			valuesCell.map((single, i) => {
-				const kpiValue = self.state.average[kpi]
 				cells.push(
 					<Cell key={i + 1}>
 						{single.value}th
-						{
-							/*
-							showColorTag && (
-								<AppContext>
-									{context => (
-										<ColorTag country={single.country} difference={single.value - kpiValue} standardDeviation={context.standardDeviation[single.country][kpi]} />
-									)}
-								</AppContext>
-							)
-							*/
-						}
 					</Cell>
 				)
 			})

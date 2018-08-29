@@ -404,11 +404,10 @@ class AppProvider extends Component {
 
 		// -- Get Profile from server
 		const profile = await auth.getUserInfo()
-		//console.log(profile)
 
+		// Check the current mode of SpotOn
 		this.checkTheMode()
 		const { mode } = this.state
-		console.log(mode);
 
 		// -- Get All ads from server
 		let ads = await this.api.fetchAds(profile, mode)

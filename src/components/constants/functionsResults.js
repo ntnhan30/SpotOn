@@ -21,9 +21,6 @@ class FunctionsResults {
 			allKPIs.push(single.kpis)
 		})
 
-		console.log('allKPIs');
-		console.log(allKPIs)
-
 		let averageKPIs = {}
 
 		// Get the average of every key and assign to averageKPIs
@@ -34,7 +31,6 @@ class FunctionsResults {
 			byKey = _.mean(_.values(byKey))
 			averageKPIs[key] = byKey
 		}
-		console.log(averageKPIs);
 		return averageKPIs
 	}
 

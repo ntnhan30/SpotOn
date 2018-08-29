@@ -136,6 +136,7 @@ class SelectedAds extends Component {
 						<AppContext.Consumer>
 							{context => (
 								<Breakout
+									mode={context.mode}
 									ads={context.ads}
 									selectedAds={context.selectedAds}
 									breakoutSelectedAds={
