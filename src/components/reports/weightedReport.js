@@ -22,6 +22,10 @@ class WeightedReport extends Component {
 	}
 
 	render() {
+
+
+
+
 		const headerRow = () => {
 			const self = this
 
@@ -30,7 +34,13 @@ class WeightedReport extends Component {
 			let sampleSize = []
 			_.mapValues(self.props.selectedAds, single => {
 				valuesCell.push(single.shortname)
-				sampleSize.push(single.sampleSize)
+
+				// Set the sample size depending if it has been filtered by the breakout!
+				if (single.kpis.sampleSize !== undefined) {
+					sampleSize.push(single.kpis.sampleSize)
+				} else {
+					sampleSize.push(single.sampleSize)
+				}
 			})
 
 			cells.push(
