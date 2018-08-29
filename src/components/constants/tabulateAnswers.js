@@ -170,15 +170,10 @@ class TabulateAnswers {
 			console.log('sampleSize')
 			console.log(sampleSize)
 			result =
-				(valueMainMessage / sampleSize +
-					valueSecondaryMessage / sampleSize) *
-				100
+				((valueMainMessage + valueSecondaryMessage) / sampleSize) * 100
 		} else {
 			// If there is a Primary, Secondary and Tertiary message
-			const A =
-				(valueMainMessage / sampleSize +
-					valueSecondaryMessage / sampleSize) *
-				100
+			const A = ((valueMainMessage + valueSecondaryMessage) / sampleSize) * 100
 			const randomness =
 				(sampleSize - (arr[mainMessage] + arr[secondaryMessage])) / 8
 			const C = (valueTertiaryMessage - randomness) / sampleSize * 100

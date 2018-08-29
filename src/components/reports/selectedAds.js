@@ -158,10 +158,11 @@ class SelectedAds extends Component {
 					<tbody>{reportButtons()}</tbody>
 				</table>
 				<div className="list-selected">
-
+					{/*
 					<AppContext.Consumer>
 						{context => (
 							<Breakout
+								mode={context.mode}
 								ads={context.ads}
 								selectedAds={context.selectedAds}
 								breakoutSelectedAds={
@@ -171,7 +172,7 @@ class SelectedAds extends Component {
 							/>
 						)}
 					</AppContext.Consumer>
-
+					*/}
 					<table className="table table-striped table-hover">
 						<tbody>{listSelectedAds()}</tbody>
 					</table>
