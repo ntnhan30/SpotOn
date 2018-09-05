@@ -411,6 +411,11 @@ class AppProvider extends Component {
 
 		// -- Get All ads from server
 		let ads = await this.api.fetchAds(profile, mode)
+
+		// Removes from the list the ads that don't have KPIS
+		ads = _.map(ads, o => { return o.kpis !== undefined ? o : null })
+		ads = _.compact(ads)
+
 		// add 'show' & 'favourite' attr
 		ads = _.map(ads, o => _.extend({ show: true, favourite: false }, o))
 		// Reverse the Array - show the newest sposts first
