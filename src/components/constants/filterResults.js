@@ -43,24 +43,34 @@ class FilterResults {
 		)
 
 		const isGender = gender => {
-			switch (gender[0]) {
-				case 'Male':
-					this.results = _.map(this.results, o => {
-						if (o.S2 === 1) return o
-					})
-					break
-				case 'Female':
-					this.results = _.map(this.results, o => {
-						if (o.S2 === 2) return o
-					})
-					break
-				case 'All':
-					this.results = this.results
-					break
-				default:
-					break
+			if (!_.isEmpty(gender)) {
+				console.log(gender)
+				let resultsEachLoop = []
+				let resultsAggregated = []
+
+				_.forEach(gender, v => {
+					switch (v) {
+						case 'Male':
+							resultsEachLoop = _.map(this.results, o => {
+								if (o.S2 === 1) return o
+							})
+							break
+						case 'Female':
+							resultsEachLoop = _.map(this.results, o => {
+								if (o.S2 === 2) return o
+							})
+							break
+						default:
+							break
+
+					}
+					resultsAggregated = _.concat(
+						resultsAggregated,
+						resultsEachLoop
+					)
+				})
+				this.results = _.without(resultsAggregated, undefined)
 			}
-			this.results = _.without(this.results, undefined)
 		}
 
 		const onlyHeavyUsers = v => {

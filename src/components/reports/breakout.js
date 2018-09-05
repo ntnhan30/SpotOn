@@ -36,7 +36,7 @@ class Breakout extends Component {
 		const { isOpen } = this.state
 
 		const age = ['18 - 24', '25 - 35']
-		const gender = ['All', 'Male', 'Female']
+		const gender = ['Male', 'Female']
 		const heavyUsers = [true, false]
 
 		const openBreakout = (
@@ -65,7 +65,15 @@ class Breakout extends Component {
 							placeholder={'Age bracket'}
 						/>
 
+						{/*
 						<CreateDropdownList
+							dataDropdown={gender}
+							filter={this.filterAds}
+							keyName={'Gender'}
+							placeholder={'Gender'}
+						/>
+						*/}
+						<CreateMultiselect
 							dataDropdown={gender}
 							filter={this.filterAds}
 							keyName={'Gender'}
