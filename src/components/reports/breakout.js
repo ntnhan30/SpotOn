@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from 'react'
 import {
 	CreateMultiselect,
-	CreateDropdownList,
 	CreateToggle,
 	FilterResults
 } from '../../components'
+var _ = require('lodash')
 
 class Breakout extends Component {
 	constructor(...args) {
@@ -13,7 +13,8 @@ class Breakout extends Component {
 		this.filterResults = new FilterResults()
 
 		this.state = {
-			isOpen: false
+			isOpen: false,
+			currentBreakout: {}
 		}
 	}
 
@@ -21,6 +22,7 @@ class Breakout extends Component {
 
 	filterAds = async (v, key) => {
 		const { ads, selectedAds, breakoutSelectedAds } = this.props
+		let { currentBreakout } = this.state
 
 		let newTabulated = await this.filterResults.init(
 			ads,
@@ -29,6 +31,14 @@ class Breakout extends Component {
 			key
 		)
 		breakoutSelectedAds(newTabulated)
+
+
+		if (_.isEmpty(v)) {
+			currentBreakout = _.omit(currentBreakout, [key]);
+		} else {
+			currentBreakout[key] = v
+		}
+		this.setState({ currentBreakout })
 	}
 
 	render() {
@@ -51,6 +61,21 @@ class Breakout extends Component {
 			</h3>
 		)
 
+		const checkIfShouldBeDisabled = (key) => {
+			const { currentBreakout } = this.state
+
+			if (_.isEmpty(currentBreakout)) {
+				return false
+			}
+
+			if (_.isEmpty(currentBreakout[key])) {
+				return true
+			}
+
+			return false
+
+		}
+
 		const classNameOpen = isOpen ? 'open' : ''
 
 		if (isInsideReport && mode === 'YT') {
@@ -63,6 +88,7 @@ class Breakout extends Component {
 							filter={this.filterAds}
 							keyName={'Age'}
 							placeholder={'Age bracket'}
+							disabled={checkIfShouldBeDisabled('Age')}
 						/>
 
 						{/*
@@ -78,6 +104,7 @@ class Breakout extends Component {
 							filter={this.filterAds}
 							keyName={'Gender'}
 							placeholder={'Gender'}
+							disabled={checkIfShouldBeDisabled('Gender')}
 						/>
 
 						<CreateToggle
@@ -85,6 +112,7 @@ class Breakout extends Component {
 							filter={this.filterAds}
 							keyName={'Heavy Users'}
 							placeholder={'Only Heavy Users?'}
+							disabled={checkIfShouldBeDisabled('Heavy Users')}
 						/>
 					</div>
 				</Fragment>

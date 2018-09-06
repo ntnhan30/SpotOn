@@ -12,16 +12,20 @@ class CreateToggle extends Component {
 
 	render() {
 		const self = this
-		const { placeholder, keyName, filter } = this.props
+		const { placeholder, keyName, filter, disabled } = this.props
 
 		const colorFont = { color: '#010000' }
 
+
+		const disabledClasss = disabled ? 'disabled' : null;
+
 		return (
-			<div className="toggleButton">
+			<div className={"toggleButton " + disabledClasss}>
 				{placeholder}
 				<ToggleButton
 					inactiveLabel={'OFF'}
 					activeLabel={'ON'}
+					disabled={disabled}
 					colors={{
 						activeThumb: {
 							base: '#414bff'

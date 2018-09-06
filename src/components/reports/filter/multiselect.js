@@ -15,7 +15,7 @@ class CreateMultiselect extends Component {
 	render() {
 		const self = this
 		const { value } = this.state
-		const { dataDropdown, placeholder, keyName, filter } = this.props
+		const { dataDropdown, placeholder, keyName, filter, disabled } = this.props
 
 		const options = []
 
@@ -39,7 +39,7 @@ class CreateMultiselect extends Component {
 		return (
 			<Select
 				closeOnSelect={true}
-				disabled={false}
+				disabled={disabled}
 				multi
 				onChange={handleSelectChange}
 				options={options}

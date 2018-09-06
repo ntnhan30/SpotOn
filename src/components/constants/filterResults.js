@@ -44,7 +44,6 @@ class FilterResults {
 
 		const isGender = gender => {
 			if (!_.isEmpty(gender)) {
-				console.log(gender)
 				let resultsEachLoop = []
 				let resultsAggregated = []
 

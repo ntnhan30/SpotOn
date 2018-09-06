@@ -221,6 +221,14 @@ li {
 
 }
 .toggleButton {
+	&.disabled {
+		pointer-events: none;
+
+		> div {
+			opacity: 0.3;
+		}
+	}
+
 	> div {
 		float: right;
 	}
@@ -1209,6 +1217,11 @@ li {
 .Select-control,
 .Select.is-focused > .Select-control {
 	background: transparent;
+}
+
+.Select.is-disabled > .Select-control{
+	background: inherit;
+	opacity: 0.5;
 }
 
 .Select--multi .Select-value {
