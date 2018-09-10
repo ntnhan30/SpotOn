@@ -23,6 +23,7 @@ class SingleReport extends Component {
 									selectedAds={context.selectedAds}
 									profile={context.profile}
 									countryNorms={context.countryNorms}
+									mode={context.mode}
 								/>
 							</ErrorBoundary>
 						)}
