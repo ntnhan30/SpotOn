@@ -10,6 +10,7 @@ import SortToggle from './sortToggle'
 import Breakout from './breakout'
 import AdCPA from './adCPA'
 import CellCPA from './cellCPA'
+import SampleSize from './sampleSize'
 
 export {
 	AdList,
@@ -23,7 +24,8 @@ export {
 	SortToggle,
 	Breakout,
 	AdCPA,
-	CellCPA
+	CellCPA,
+	SampleSize
 }
 export * from './charts/'
 export * from './filter/'

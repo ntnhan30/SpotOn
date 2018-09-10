@@ -6,7 +6,8 @@ import {
 	CountryNorm,
 	WeightedTour,
 	AppContext,
-	CellCPA
+	CellCPA,
+	SampleSize
 } from '../../components'
 import { StickyTable, Row, Cell } from 'react-sticky-table'
 import 'react-sticky-table/dist/react-sticky-table.css'
@@ -57,7 +58,7 @@ class WeightedReport extends Component {
 				cells.push(
 					<Cell key={i + 1}>
 						{single}
-						<span className="sampleSize">{sampleSize[i]}</span>
+						<SampleSize sampleSize={sampleSize[i]} />
 					</Cell>
 				)
 			})

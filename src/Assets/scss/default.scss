@@ -509,7 +509,15 @@ li {
 					min-width: 100%;
 				}
 
+				.sticky-table-header{
+					overflow: visible !important;
+				}
+
 				.sticky-table-header-wrapper {
+					z-index: 2;
+					overflow: visible !important;
+					position: relative;
+
 					.sticky-table-cell {
 						text-align: left;
 						text-transform: uppercase;
