@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import TvIcon from '../../Assets/imgs/tv-icon-upload.svg'
+import YtIcon from '../../Assets/imgs/yt-icon-upload.svg'
 import { Link } from 'react-router-dom'
 
 class RedirectToModeScreen extends Component {
@@ -6,18 +8,29 @@ class RedirectToModeScreen extends Component {
 	render() {
 		return (
 			<div className="container">
-				<div className="row boxed">
-					<div className="container">
-						<h1>Go to</h1>
+				<div className="row import-main boxed">
+					<div className="col-6">
+						<div>
+							<img src={TvIcon} alt="TV" />
+							<br />
+							<Link to={{ pathname: '/TV' }}>
+								<button className="btn">
+									TV TESTING
+								</button>
+							</Link>
+						</div>
 					</div>
-					<div className="container">
-						<Link to={{ pathname: '/TV' }}>
-							TV
-						</Link>
-						<br />
-						<Link to={{ pathname: '/YT' }}>
-							YoutTube
-						</Link>
+
+					<div className="col-6">
+						<div>
+							<img src={YtIcon} alt="YT" />
+							<br />
+							<Link to={{ pathname: '/YT' }}>
+								<button className="btn">
+									YOUTUBE TESTING
+								</button>
+							</Link>
+						</div>
 					</div>
 				</div>
 			</div>
