@@ -97,7 +97,7 @@ class BarCharts extends Component {
 						<CartesianGrid strokeDasharray="3 3" />
 						<XAxis dataKey="name" />
 						<YAxis domain={[0, 100]} />
-						<Tooltip cursor={false} />
+						<Tooltip cursor={{ fill: 'red', fillOpacity: 0.05 }} />
 						<Legend />
 						{bars}
 						{references}

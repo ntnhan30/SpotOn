@@ -1180,6 +1180,10 @@ li {
 	.recharts-text.recharts-label tspan {
 		fill: $white;
 	}
+
+	.recharts-tooltip-cursor{
+		fill: rgba(255,255,255,0.2);
+	}
 }
 
 // ScrollBar
