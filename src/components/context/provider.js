@@ -352,6 +352,8 @@ class AppProvider extends Component {
 	checkIfInsideReport() {
 		const location = history.location.pathname
 		const { isInsideReport } = this.state
+
+
 		// Only runs if inside a report
 		if (
 			_.includes(location, 'weightedReport') ||

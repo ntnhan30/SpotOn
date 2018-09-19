@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 class RedirectToModeScreen extends Component {
 
 	render() {
+		const { reset } = this.props
 		return (
 			<div className="container">
 				<div className="row import-main boxed">
@@ -13,7 +14,10 @@ class RedirectToModeScreen extends Component {
 						<div>
 							<img src={TvIcon} alt="TV" />
 							<br />
-							<Link to={{ pathname: '/TV' }}>
+							<Link
+								to={{ pathname: '/TV' }}
+								onClick={() => reset()}
+							>
 								<button className="btn">
 									TV TESTING
 								</button>
@@ -25,7 +29,10 @@ class RedirectToModeScreen extends Component {
 						<div>
 							<img src={YtIcon} alt="YT" />
 							<br />
-							<Link to={{ pathname: '/YT' }}>
+							<Link
+								to={{ pathname: '/YT' }}
+								onClick={() => reset()}
+							>
 								<button className="btn">
 									YOUTUBE TESTING
 								</button>
