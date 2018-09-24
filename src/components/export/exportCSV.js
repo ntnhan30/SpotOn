@@ -88,7 +88,6 @@ class ExportCSV extends Component {
 		}
 		countryNorms = _.values(countryNorms)
 		weightedValues = _.concat(weightedValues, countryNorms)
-		console.log(weightedValues)
 
 		const columns = kpis.map(function (s, i) {
 			return (

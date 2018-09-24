@@ -36,7 +36,7 @@ class Api {
 	}
 
 	// Fetch all Ads from the server
-	async fetchAds(profile) {
+	async fetchAds(profile, typeOfAds) {
 		if (profile.right === 'limited') {
 			let result = []
 			await Promise.all(
@@ -48,10 +48,26 @@ class Api {
 					result = result.concat(data.ads)
 				})
 			)
+			// Filter to only the type of Ad
+			result = _.map(result, i => {
+				if (i.channel === typeOfAds) {
+					return i
+				}
+			});
+			result = _.compact(result)
+			// -
 			return result
 		} else {
 			const { data } = await axios.get(this.getAllAds)
-			return data.ads
+			// Filter to only the type of Ad
+			let result = _.map(data.ads, i => {
+				if (i.channel === typeOfAds) {
+					return i
+				}
+			});
+			result = _.compact(result)
+			// - 
+			return result
 		}
 	}
 

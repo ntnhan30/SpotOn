@@ -19,8 +19,26 @@ class AppProvider extends Component {
 				this.init()
 			},
 
+			reset: async () => {
+				const mode = this.state.mode === 'TV' ? 'YT' : 'TV'
+
+				this.setState({
+					ads: [],
+					selectedAds: {},
+					standardDeviation: {},
+					countryNorms: {},
+					filterAtts: {},
+					mode
+				})
+				// change url
+				history.push('/' + mode)
+				this.init()
+			},
+
 			// Object with all the profile details
 			profile: {},
+
+			mode: 'TV', // TV, YT
 
 			finishTour: async () => {
 				this.finishTour()
@@ -170,7 +188,7 @@ class AppProvider extends Component {
 	 * @param {Boolean} isSelected            New state of selection
 	 */
 	async toggleSelection(adName, isSelected) {
-		let { ads, selectedAds } = this.state
+		let { ads, selectedAds, mode } = this.state
 
 		let thisAd = _.find(ads, o => o.adname === adName)
 		thisAd.selected = isSelected
@@ -194,7 +212,7 @@ class AppProvider extends Component {
 		// If there are selected ads, get the details
 		// Otherwise go back to the report page
 		if (!(_.size(selectedAds) > 0)) {
-			history.push('/')
+			history.push('/' + mode)
 		}
 	}
 
@@ -299,7 +317,7 @@ class AppProvider extends Component {
 
 	async addCountryNorm(countryName) {
 		const functionsResults = new FunctionsResults()
-		const { selectedAds, countryNorms } = this.state
+		const { ads, selectedAds, countryNorms } = this.state
 
 		// Get an Array of the countries selected
 		let countries = []
@@ -314,7 +332,7 @@ class AppProvider extends Component {
 				if (countryNorms[country] === undefined) {
 					countryNorms[
 						country
-					] = await functionsResults.getCountryNorm([country])
+					] = await functionsResults.getCountryNorm(ads, [country])
 				}
 			})
 		)
@@ -352,6 +370,8 @@ class AppProvider extends Component {
 	checkIfInsideReport() {
 		const location = history.location.pathname
 		const { isInsideReport } = this.state
+
+
 		// Only runs if inside a report
 		if (
 			_.includes(location, 'weightedReport') ||
@@ -372,6 +392,28 @@ class AppProvider extends Component {
 		}
 	}
 
+	checkTheMode() {
+		const location = history.location.pathname
+		const { mode } = this.state
+		// Only runs if inside a report
+		if (
+			(_.includes(location, 'TV')) &&
+			(mode !== 'TV')
+		) {
+			this.setState({
+				mode: 'TV'
+			})
+
+		} else if (
+			(_.includes(location, 'YT')) &&
+			(mode !== 'YT')
+		) {
+			this.setState({
+				mode: 'YT'
+			})
+		}
+	}
+
 	async componentDidMount() {
 		this.init()
 	}
@@ -382,10 +424,18 @@ class AppProvider extends Component {
 
 		// -- Get Profile from server
 		const profile = await auth.getUserInfo()
-		//console.log(profile)
+
+		// Check the current mode of SpotOn
+		this.checkTheMode()
+		const { mode } = this.state
 
 		// -- Get All ads from server
-		let ads = await this.api.fetchAds(profile)
+		let ads = await this.api.fetchAds(profile, mode)
+
+		// Removes from the list the ads that don't have KPIS
+		ads = _.map(ads, o => { return o.kpis !== undefined ? o : null })
+		ads = _.compact(ads)
+
 		// add 'show' & 'favourite' attr
 		ads = _.map(ads, o => _.extend({ show: true, favourite: false }, o))
 		// Reverse the Array - show the newest sposts first

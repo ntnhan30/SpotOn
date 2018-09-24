@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Logo from '../../Assets/imgs/logo.svg'
 import UsageGuidelinesPDF from '../../Assets/pdf/UsageGuidelinesPDF.pdf'
+import { AppContext, ToggleSpotON } from "../../components";
 
 class Header extends Component {
 	render() {
-		const { profile } = this.props
+		const { profile, mode } = this.props
 
 		const menuItem = (link, text, isPublic) => {
 			if (isPublic) {
@@ -32,17 +33,26 @@ class Header extends Component {
 				<div className="container-fluid">
 					<div className="col-2">
 						<div className="logo">
-							<Link to="/">
+							<Link to={'/' + mode}>
 								<img src={Logo} alt="SpotOn" />
 							</Link>
+							<AppContext>
+								{context => (
+									<ToggleSpotON
+										init={context.init}
+										reset={context.reset}
+										mode={context.mode}
+									/>
+								)}
+							</AppContext>
 						</div>
 					</div>
 
 					<div className="col-10">
 						<nav>
 							<ul>
-								{menuItem('/', 'Reports', true)}
-								{menuItem('/featured', 'Featured Ads', true)}
+								{menuItem('/' + mode, 'Reports', true)}
+								{menuItem('/' + mode + '/featured', 'Featured Ads', true)}
 								{menuItem('/import', 'Import', false)}
 								{menuItem(
 									'/notifications',

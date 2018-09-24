@@ -6,6 +6,7 @@ import SingleValueCell from './singleValueCell'
 import ErrorBoundary from './errorBoundary'
 import CheckBoxSelectAll from './checkboxSelectAll'
 import VideoLightbox from './videoLightbox'
+import ToggleSpotON from './toggleSpotON'
 
 export {
 	Header,
@@ -15,7 +16,8 @@ export {
 	SingleValueCell,
 	ErrorBoundary,
 	CheckBoxSelectAll,
-	VideoLightbox
+	VideoLightbox,
+	ToggleSpotON
 }
 
 export * from './form/'

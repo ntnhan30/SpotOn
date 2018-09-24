@@ -13,20 +13,24 @@ class FunctionsResults {
 		this.api = new Api()
 	}
 
-	getCountryNorm = async country => {
+	getCountryNorm = async (ads, country) => {
 		// create empty object
-		const allKPIs = await this.api.fetchCountryKPIs(country)
+		//const allKPIs = await this.api.fetchCountryKPIs(country)
+		const allKPIs = []
+		_.mapValues(ads, single => {
+			allKPIs.push(single.kpis)
+		})
+
 		let averageKPIs = {}
 
-		// Get the average of every key and assign to avergaeKPIs
+		// Get the average of every key and assign to averageKPIs
 		for (let key in allKPIs['0']) {
-			let byKey = _.mapValues(allKPIs, function(o) {
+			let byKey = _.mapValues(allKPIs, function (o) {
 				return o[key]
 			})
 			byKey = _.mean(_.values(byKey))
 			averageKPIs[key] = byKey
 		}
-
 		return averageKPIs
 	}
 
@@ -78,7 +82,7 @@ class FunctionsResults {
 
 		selectedCountries.map(async c => {
 			countryKPIs[c] = []
-			_.forEach(ads, function(ad) {
+			_.forEach(ads, function (ad) {
 				if (ad.country === c) {
 					countryKPIs[c].push(ad.kpis)
 					return ad.kpis
@@ -95,7 +99,7 @@ class FunctionsResults {
 			for (let s in sorted[c]) {
 				var count = {}
 				// eslint-disable-next-line
-				sorted[c][s].forEach(function(i) {
+				sorted[c][s].forEach(function (i) {
 					count[i] = (count[i] || 0) + 1
 				})
 				counted[c][s] = count
@@ -142,7 +146,7 @@ class FunctionsResults {
 
 		// Get the average of every key and assign to avergaeKPIs
 		for (let key in allPercentileValues['0']) {
-			let byKey = _.mapValues(allPercentileValues, function(o) {
+			let byKey = _.mapValues(allPercentileValues, function (o) {
 				return o[key]
 			})
 			byKey = _.mean(_.values(byKey))

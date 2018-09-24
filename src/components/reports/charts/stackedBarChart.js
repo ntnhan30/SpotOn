@@ -8,6 +8,7 @@ import {
 	Tooltip,
 	Legend,
 	Bar,
+	ReferenceLine,
 	ResponsiveContainer
 } from 'recharts'
 var _ = require('lodash')
@@ -20,7 +21,9 @@ class StackedBarCharts extends Component {
 	}
 
 	render() {
-		let thisResults = _.values(this.props.selectedAds)
+		let { countryNorms, selectedAds } = this.props
+
+		let thisResults = _.values(selectedAds)
 
 		let dataForChart = []
 		// eslint-disable-next-line
@@ -32,9 +35,9 @@ class StackedBarCharts extends Component {
 			this.props.kpis.map(kpi => {
 				const kpiValue = singleResult.kpis
 					? parseInt(
-							singleResult['kpis'][kpi.nameInDB] * kpi.weight,
-							10
-					  )
+						singleResult['kpis'][kpi.nameInDB] * kpi.weight,
+						10
+					)
 					: 0
 				set[kpi.name] = kpiValue
 			})
@@ -42,14 +45,46 @@ class StackedBarCharts extends Component {
 		})
 
 		const bars = this.props.kpis.map((kpi, i) => {
+			let color = this.props.kpis.length > 1 ? i : 1
 			return (
 				<Bar
 					key={i}
 					dataKey={kpi.name}
 					stackId="a"
-					fill={this.colorChart.getColor(i)}
+					fill={this.colorChart.getColor(color)}
 				/>
 			)
+		})
+		// Check if there are more than once country selected
+		const moreThanOneCountry =
+			_.size(this.props.countryNorms) > 1 ? true : false
+
+		/* This is the reference line for the country norm
+		It will only show up if there's only 1 country */
+		const references = this.props.kpis.map(single => {
+			if (!moreThanOneCountry) {
+				const self = this
+				// Get value pf the norm
+				let countryNorm = {}
+				for (let country in countryNorms) {
+					countryNorm = countryNorms[country][single.nameInDB]
+				}
+
+				return (
+					<ReferenceLine
+						key={1}
+						y={countryNorm}
+						label={{
+							value: single.name + ' country norm',
+							position: 'insideBottomLeft'
+						}}
+						stroke={self.colorChart.getNormColor(0)}
+						strokeDasharray="10 10"
+					/>
+				)
+			} else {
+				return null
+			}
 		})
 
 		return (
@@ -65,6 +100,7 @@ class StackedBarCharts extends Component {
 						<Tooltip />
 						<Legend />
 						{bars}
+						{references}
 					</BarChart>
 				</ResponsiveContainer>
 			</div>

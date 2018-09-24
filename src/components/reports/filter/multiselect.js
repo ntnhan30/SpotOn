@@ -15,11 +15,11 @@ class CreateMultiselect extends Component {
 	render() {
 		const self = this
 		const { value } = this.state
-		const { dataDropdown, placeholder, keyName, filter } = this.props
+		const { dataDropdown, placeholder, keyName, filter, disabled } = this.props
 
 		const options = []
 
-		dataDropdown.forEach(function(d) {
+		dataDropdown.forEach(function (d) {
 			options.push({
 				label: d,
 				value: d
@@ -39,7 +39,7 @@ class CreateMultiselect extends Component {
 		return (
 			<Select
 				closeOnSelect={true}
-				disabled={false}
+				disabled={disabled}
 				multi
 				onChange={handleSelectChange}
 				options={options}

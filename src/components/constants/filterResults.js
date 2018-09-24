@@ -43,53 +43,51 @@ class FilterResults {
 		)
 
 		const isGender = gender => {
-			switch (gender[0]) {
-				case 'Male':
-					this.results = _.map(this.results, o => {
-						if (o.S2 === 1) return o
-					})
-					break
-				case 'Female':
-					this.results = _.map(this.results, o => {
-						if (o.S2 === 2) return o
-					})
-					break
-				case 'All':
-					this.results = this.results
-					break
-				default:
-					break
+			if (!_.isEmpty(gender)) {
+				let resultsEachLoop = []
+				let resultsAggregated = []
+
+				_.forEach(gender, v => {
+					switch (v) {
+						case 'Male':
+							resultsEachLoop = _.map(this.results, o => {
+								if (o.S2 === 1) return o
+							})
+							break
+						case 'Female':
+							resultsEachLoop = _.map(this.results, o => {
+								if (o.S2 === 2) return o
+							})
+							break
+						default:
+							break
+
+					}
+					resultsAggregated = _.concat(
+						resultsAggregated,
+						resultsEachLoop
+					)
+				})
+				this.results = _.without(resultsAggregated, undefined)
 			}
-			this.results = _.without(this.results, undefined)
 		}
 
 		const onlyHeavyUsers = v => {
 			const checkHeavyUser = o => {
 				if (o.S4a && o.S4a <= 4) {
-					console.log(o.S4a)
 					return o
 				} else if (o.S4b <= 2) {
-					console.log(o.S4b)
 					return o
 				}
-				/*
-				let S4toInt = parseInt(o.S4a, 10)
-				if (o.S4a && S4toInt <= 4) {
-					return o
-				} else if (S4toInt <= 2) {
-					return o
-				}
-				*/
 			}
 
 			if (v) {
 				this.results = _.map(this.results, checkHeavyUser)
 			}
 			this.results = _.without(this.results, undefined)
-			console.log(v)
-			console.log(this.results)
 		}
 
+		/*
 		const isMaritalStatus = values => {
 			if (!_.isEmpty(values)) {
 				let resultsEachLoop = []
@@ -135,6 +133,7 @@ class FilterResults {
 				this.results = resultsAggregated
 			}
 		}
+		*/
 
 		const isInAgeBracket = values => {
 			if (!_.isEmpty(values)) {
@@ -148,25 +147,12 @@ class FilterResults {
 								if (o.S1_Dummy <= 24) return o
 							})
 							break
-						case '25 - 34':
+						case '25 - 35':
 							resultsEachLoop = _.map(this.results, o => {
-								if (o.S1_Dummy >= 25 && o.S1_Dummy <= 34)
+								if (o.S1_Dummy >= 25 && o.S1_Dummy <= 35)
 									return o
 							})
 							break
-						case '35 - 44':
-							resultsEachLoop = _.map(this.results, o => {
-								if (o.S1_Dummy >= 35 && o.S1_Dummy <= 44)
-									return o
-							})
-							break
-						case '45 - 54':
-							resultsEachLoop = _.map(this.results, o => {
-								if (o.S1_Dummy >= 45 && o.S1_Dummy <= 54)
-									return o
-							})
-							break
-
 						default:
 							break
 					}
@@ -188,7 +174,7 @@ class FilterResults {
 					onlyHeavyUsers(value)
 					break
 				case 'Marital Status':
-					isMaritalStatus(value)
+					//isMaritalStatus(value)
 					break
 				case 'Age':
 					isInAgeBracket(value)
@@ -199,7 +185,6 @@ class FilterResults {
 		})
 
 		let tabulated = await this.tabulateAnswers.init(this.results)
-
 		return tabulated
 	}
 }

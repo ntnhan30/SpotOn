@@ -28,9 +28,16 @@ class TabulateAnswers {
 		await Promise.all(
 			partitionedByAd.map(async single => {
 				let count = this.countAnswers.countAnswers(single)
-				console.log(count)
+
+				// Sample size of the Selected Ad
+
 				let kpis = await this.kpiCalculation(count)
 				let mainKpis = this.mainKPI(kpis)
+
+				// push teh sample size in the object
+				let sampleSize = _.values(count.VidDum)[0]
+				mainKpis.sampleSize = sampleSize
+
 				result.push(mainKpis)
 			})
 		)

@@ -88,7 +88,7 @@ class Chart extends Component {
 								</TabList>
 
 								<TabPanel>
-									<BarCharts
+									<StackedBarCharts
 										selectedAds={context.selectedAds}
 										kpis={this.props.getKPIs.init(total)}
 										countryNorms={context.countryNorms}

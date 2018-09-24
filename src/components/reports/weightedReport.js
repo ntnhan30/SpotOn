@@ -6,7 +6,8 @@ import {
 	CountryNorm,
 	WeightedTour,
 	AppContext,
-	CellCPA
+	CellCPA,
+	SampleSize
 } from '../../components'
 import { StickyTable, Row, Cell } from 'react-sticky-table'
 import 'react-sticky-table/dist/react-sticky-table.css'
@@ -30,7 +31,13 @@ class WeightedReport extends Component {
 			let sampleSize = []
 			_.mapValues(self.props.selectedAds, single => {
 				valuesCell.push(single.shortname)
-				sampleSize.push(single.sampleSize)
+
+				// Set the sample size depending if it has been filtered by the breakout!
+				if (single.kpis.sampleSize !== undefined) {
+					sampleSize.push(single.kpis.sampleSize)
+				} else {
+					sampleSize.push(single.sampleSize)
+				}
 			})
 
 			cells.push(
@@ -47,7 +54,7 @@ class WeightedReport extends Component {
 				cells.push(
 					<Cell key={i + 1}>
 						{single}
-						<span className="sampleSize">{sampleSize[i]}</span>
+						<SampleSize sampleSize={sampleSize[i]} />
 					</Cell>
 				)
 			})
@@ -90,22 +97,28 @@ class WeightedReport extends Component {
 		}
 
 		const CPArow = () => {
-			const self = this
+			const { mode } = this.props
+			if (mode == 'TV') {
+				const self = this
 
-			let cells = []
-			let valuesCell = []
-			// eslint-disable-next-line
-			_.mapValues(self.props.selectedAds, single => {
-				valuesCell.push(<CellCPA cpa={single.CPA_name} />)
-			})
+				let cells = []
+				let valuesCell = []
+				// eslint-disable-next-line
+				_.mapValues(self.props.selectedAds, single => {
+					valuesCell.push(<CellCPA cpa={single.CPA_name} />)
+				})
 
-			cells.push(<Cell key={0}>{'CPA / GRP'}</Cell>)
-			// eslint-disable-next-line
-			valuesCell.map((single, i) => {
-				cells.push(<Cell key={i + 1}>{single}</Cell>)
-			})
+				cells.push(<Cell key={0}>{'CPA / GRP'}</Cell>)
+				// eslint-disable-next-line
+				valuesCell.map((single, i) => {
+					cells.push(<Cell key={i + 1}>{single}</Cell>)
+				})
 
-			return <Row className={'level2'}>{cells}</Row>
+				return <Row className={'level2'}>{cells}</Row>
+			}
+			else {
+				return null
+			}
 		}
 
 		const displayColorTag = (single, countryName, kpi) => {

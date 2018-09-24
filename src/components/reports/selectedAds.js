@@ -9,29 +9,7 @@ class SelectedAds extends Component {
 
 		let selectedAdsID = []
 
-		const clearSelectedAds = () => {
-			if (!_.isEmpty(ads)) {
-				return (
-					<AppContext.Consumer >
-						{context => (
-							<span
-								style={{
-									textAlign: 'right',
-									display: 'block',
-									cursor: 'pointer'
-								}}
-								onClick={() => {
-									context.resetSelection()
-								}
-								}>
-								RESET
-							</span>
-						)
-						}
-					</AppContext.Consumer>
-				)
-			}
-		}
+		const { mode } = this.props
 
 		const tableHeader = () => {
 			if (this.props.isInsideReport) {
@@ -40,7 +18,7 @@ class SelectedAds extends Component {
 						<th scope="col">
 							<Link
 								to={{
-									pathname: '/'
+									pathname: '/' + mode
 								}}>
 								GO BACK
 							</Link>
@@ -77,7 +55,7 @@ class SelectedAds extends Component {
 						</span>
 					</td>
 					<td className="selected-icons">
-						<Link to={{ pathname: '/ad/' + ad.adname }}>
+						<Link to={{ pathname: '/' + mode + '/ad/' + ad.adname }}>
 							<span className="icon-eye" />
 						</Link>
 						<span
@@ -103,7 +81,7 @@ class SelectedAds extends Component {
 								<Link
 									to={{
 										pathname:
-											'/weightedReport/' + selectedAdsURL
+											'/' + mode + '/weightedReport/' + selectedAdsURL
 									}}>
 									<button className="weightedButton">
 										Weighted
@@ -112,7 +90,7 @@ class SelectedAds extends Component {
 								<Link
 									to={{
 										pathname:
-											'/percentileReport/' +
+											'/' + mode + '/percentileReport/' +
 											selectedAdsURL
 									}}>
 									<button className="percentileButton">
@@ -121,7 +99,7 @@ class SelectedAds extends Component {
 								</Link>
 								<Link
 									to={{
-										pathname: '/chart/' + selectedAdsURL
+										pathname: '/' + mode + '/chart/' + selectedAdsURL
 									}}>
 									<button className="chartButton">
 										Chart
@@ -158,21 +136,21 @@ class SelectedAds extends Component {
 					<tbody>{reportButtons()}</tbody>
 				</table>
 				<div className="list-selected">
-					{/*
-					<AppContext.Consumer>
-						{context => (
-							<Breakout
-								mode={context.mode}
-								ads={context.ads}
-								selectedAds={context.selectedAds}
-								breakoutSelectedAds={
-									context.breakoutSelectedAds
-								}
-								isInsideReport={context.isInsideReport}
-							/>
-						)}
-					</AppContext.Consumer>
-					*/}
+					{
+						<AppContext.Consumer>
+							{context => (
+								<Breakout
+									mode={context.mode}
+									ads={context.ads}
+									selectedAds={context.selectedAds}
+									breakoutSelectedAds={
+										context.breakoutSelectedAds
+									}
+									isInsideReport={context.isInsideReport}
+								/>
+							)}
+						</AppContext.Consumer>
+					}
 					<table className="table table-striped table-hover">
 						<tbody>{listSelectedAds()}</tbody>
 					</table>

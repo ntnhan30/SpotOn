@@ -17,7 +17,6 @@ class FilterSidebar extends Component {
 		const brands = [...new Set(ads.map(i => i.brand))].sort()
 		const countries = [...new Set(ads.map(i => i.country))].sort()
 		const industries = [...new Set(ads.map(i => i.industry))].sort()
-		const channels = [...new Set(ads.map(i => i.channel))].sort()
 		const productionStates = [
 			...new Set(ads.map(i => i.productionState))
 		].sort()
@@ -65,13 +64,6 @@ class FilterSidebar extends Component {
 									filter={context.filterAds}
 									keyName={'industry'}
 									placeholder={'Industries'}
-								/>
-
-								<CreateMultiselect
-									dataDropdown={channels}
-									filter={context.filterAds}
-									keyName={'channel'}
-									placeholder={'Channels'}
 								/>
 
 								<CreateMultiselect
