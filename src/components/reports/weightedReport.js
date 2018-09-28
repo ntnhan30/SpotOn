@@ -98,7 +98,7 @@ class WeightedReport extends Component {
 
 		const CPArow = () => {
 			const { mode } = this.props
-			if (mode == 'TV') {
+			if (mode === 'TV') {
 				const self = this
 
 				let cells = []

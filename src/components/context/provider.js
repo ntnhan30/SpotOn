@@ -217,7 +217,7 @@ class AppProvider extends Component {
 	}
 
 	async resetSelection() {
-		let { ads } = this.state
+		let { ads, mode } = this.state
 		_.map(ads, ad => {
 			ad.selected = false
 			return ad
@@ -228,7 +228,7 @@ class AppProvider extends Component {
 		this.setState({ ads, selectedAds })
 
 		// If inside the report, go back to main page
-		history.push('/')
+		history.push('/' + mode)
 	}
 
 	/**

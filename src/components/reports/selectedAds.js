@@ -43,6 +43,25 @@ class SelectedAds extends Component {
 			}
 		}
 
+		const clearSelectedAds = () => {
+			return (
+				<AppContext.Consumer>
+					{context => (
+						<span
+							onClick={context.resetSelection}
+							style={{
+								cursor: 'pointer',
+								textAlign: 'right',
+								display: 'block'
+							}}
+						>
+							RESET
+						</span>
+					)}
+				</AppContext.Consumer>
+			)
+		}
+
 		const renderedAds = ads.map((ad, i) => {
 			selectedAdsID.push(ad.adname)
 			return (

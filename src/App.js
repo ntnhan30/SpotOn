@@ -86,7 +86,7 @@ class App extends Component {
 							component={FeaturedScreen}
 						/>
 						<PrivateRoute
-							path="/:mode/notifications"
+							path="/notifications"
 							component={Notifications}
 						/>
 						<PrivateRoute path="/:mode/ad/:id" component={SingleAd} />
