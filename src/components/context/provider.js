@@ -316,6 +316,8 @@ class AppProvider extends Component {
 	}
 
 	async addCountryNorm(countryName) {
+		console.log('addCountryNorm')
+		console.log(countryName)
 		const functionsResults = new FunctionsResults()
 		const { ads, selectedAds, countryNorms } = this.state
 
@@ -325,6 +327,7 @@ class AppProvider extends Component {
 			countries.push(s.country)
 		})
 		countries = _.uniq(countries)
+		console.log(countries)
 
 		// Get the country norm of the new countries
 		await Promise.all(

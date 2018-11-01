@@ -119,11 +119,6 @@ class TabulateAnswers {
 	}
 
 	messagingCalculation = async (arr, nameOfAd) => {
-		console.log('===============================')
-		console.log('===============================')
-		console.log('nameOfAd')
-		console.log(nameOfAd)
-
 		let result = 0
 		// Sample Size
 
@@ -131,27 +126,10 @@ class TabulateAnswers {
 		// this is only for now, because the user selected 3 options. Delete later
 		let sampleSize = 0
 		_.forEach(arr, function (v, k) {
-			console.log('===')
-			console.log('[' + k + '] => ' + v)
-
-			//const value = k === '98' ? v * 3 : v
-			//sampleSize += value
 			const value = v
 			sampleSize += value
-
-			console.log(value + ' -- ' + sampleSize)
 		})
-		/*
-		console.log(nameOfAd)
-		console.log(arr)
-		console.log(sampleSize)
-		console.log('+++++++++++++++++++')
-		*/
-
 		const singleAd = this.ads[nameOfAd]
-
-		console.log('thisAd')
-		console.log(singleAd)
 
 		// Get the Main Messages from the Ad
 		const mainMessage = singleAd.mainMessage
@@ -170,12 +148,6 @@ class TabulateAnswers {
 			result = A + B
 		} else if (tertiaryMessage === null || tertiaryMessage === 0) {
 			// If there is a Primary and Secondary message
-			console.log('valueMainMessage')
-			console.log(valueMainMessage)
-			console.log('valueSecondaryMessage')
-			console.log(valueSecondaryMessage)
-			console.log('sampleSize')
-			console.log(sampleSize)
 			result =
 				((valueMainMessage + valueSecondaryMessage) / sampleSize) * 100
 		} else {
@@ -187,8 +159,6 @@ class TabulateAnswers {
 			result = A + C
 		}
 
-		console.log('result')
-		console.log(result)
 		return result
 	}
 

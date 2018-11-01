@@ -14,6 +14,14 @@ class FunctionsResults {
 	}
 
 	getCountryNorm = async (ads, country) => {
+
+		//filter the ads by country
+		ads = _.pickBy(ads, (v, k) => {
+			// eslint-disable-next-line
+			return v['country'] == country
+		});
+
+
 		// create empty object
 		//const allKPIs = await this.api.fetchCountryKPIs(country)
 		const allKPIs = []
@@ -31,6 +39,7 @@ class FunctionsResults {
 			byKey = _.mean(_.values(byKey))
 			averageKPIs[key] = byKey
 		}
+		console.log(averageKPIs)
 		return averageKPIs
 	}
 

@@ -33,6 +33,7 @@ class FilterResults {
 	 * @returns {String}             The color in HEX to use
 	 */ async init(ads, selectedAds, value, key) {
 		this.filters[key] = value
+		this.filters = _.omitBy(this.filters, _.isEmpty)
 
 		this.ads = ads
 		this.selectedAds = selectedAds
@@ -76,14 +77,12 @@ class FilterResults {
 			const checkHeavyUser = o => {
 				if (o.S4a && o.S4a <= 4) {
 					return o
-				} else if (o.S4b <= 2) {
+				} else if (o.S4b && o.S4b <= 2) {
 					return o
 				}
 			}
 
-			if (v) {
-				this.results = _.map(this.results, checkHeavyUser)
-			}
+			this.results = _.map(this.results, checkHeavyUser)
 			this.results = _.without(this.results, undefined)
 		}
 
@@ -183,6 +182,9 @@ class FilterResults {
 					break
 			}
 		})
+		console.log(this.filters)
+		console.log(this.results)
+
 
 		let tabulated = await this.tabulateAnswers.init(this.results)
 		return tabulated
