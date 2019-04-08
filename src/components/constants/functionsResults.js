@@ -121,7 +121,10 @@ class FunctionsResults {
 			selectedAds[single].percentile = {}
 			// For KPI of the selected Ad
 			for (let kpi in selectedAds[single].kpis) {
-				if (kpi !== 'adID' && kpi !== 'adname') {
+				// Nhan bug fixxing 
+				if (kpi !== 'adID' && kpi !== 'adname' && sorted[selectedAds[single].country][
+					kpi
+				]) {
 					let value = selectedAds[single].kpis[kpi] // Get value
 					let index = sorted[selectedAds[single].country][
 						kpi
